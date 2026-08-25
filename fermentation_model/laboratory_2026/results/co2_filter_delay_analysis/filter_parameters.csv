@@ -1,0 +1,8 @@
+parameter,value,unit,evidence
+hampel_window_seconds,120.0,s,Código histórico
+hampel_k,3.5,-,Código histórico
+hampel_min_abs_spike,0.5,sccm,Código histórico
+butterworth_order,3.0,-,Código histórico
+butterworth_tau,1200.0,s,Código histórico
+butterworth_cutoff,0.00013262911924324613,Hz,fc = 1/(2*pi*tau)
+butterworth_cutoff_period,125.66370614359171,min,1/fc
