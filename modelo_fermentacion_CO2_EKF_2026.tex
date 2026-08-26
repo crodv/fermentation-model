@@ -1,0 +1,1090 @@
+
+\documentclass[11pt,a4paper]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[spanish,es-nodecimaldot]{babel}
+\usepackage{amsmath,amssymb,mathtools}
+\usepackage{booktabs,longtable,array,tabularx}
+\usepackage{geometry}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{enumitem}
+\usepackage{siunitx}
+\usepackage{microtype}
+
+\geometry{margin=2.1cm}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue!55!black,
+    urlcolor=blue!55!black
+}
+\sisetup{output-decimal-marker={,}}
+
+\newcommand{\COtwo}{\mathrm{CO_2}}
+\newcommand{\Otwo}{\mathrm{O_2}}
+\newcommand{\dd}{\mathrm{d}}
+\newcommand{\clip}{\operatorname{clip}}
+\newcommand{\e}{\mathrm{e}}
+\newcommand{\gLh}{\mathrm{g\,L^{-1}\,h^{-1}}}
+\newcommand{\gL}{\mathrm{g\,L^{-1}}}
+\newcommand{\mgL}{\mathrm{mg\,L^{-1}}}
+
+\title{\textbf{Modelo dinámico de fermentación y CO\textsubscript{2}\\
+para estimación de estados}\\
+\large Estructura de trabajo 2026: $S/N/X/E$ + CO\textsubscript{2} disuelto}
+\author{}
+\date{26 de agosto de 2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+Este documento reúne, en una notación única, las ecuaciones actualmente implementadas para el
+modelo primario de fermentación y para la capa de producción, acumulación y liberación de
+CO\textsubscript{2}. El objetivo es servir como base matemática para integrar la medición online
+de CO\textsubscript{2} a un futuro estimador de estados.
+
+La conclusión de modelado adoptada aquí es la siguiente:
+\begin{enumerate}[label=(\roman*)]
+    \item el CO\textsubscript{2} disuelto, $C_d$, debe conservarse como estado dinámico porque
+    introduce la memoria entre producción metabólica y caudal gaseoso;
+    \item el O\textsubscript{2} se mantiene en este documento como \emph{estado auxiliar del modelo
+    completo actual}, porque la producción efectiva de CO\textsubscript{2} depende de su historia,
+    pero no se recomienda todavía comprometerlo como estado obligatorio del EKF;
+    \item el vector objetivo $[S,N,X,E,C_d]^\mathsf{T}$ es una reducción deseada, pero el modelo
+    implementado distingue glucosa $G$ y fructosa $F$. Por tanto, la reducción
+    $S=G+F$ requiere una regla adicional para reconstruir el reparto $G/F$.
+\end{enumerate}
+\end{abstract}
+
+\tableofcontents
+\newpage
+
+\section{Alcance, nomenclatura y niveles del modelo}
+
+La cadena conceptual actual es
+\[
+(X,N,G,F,E,T,u_N)
+\longrightarrow r_E
+\longrightarrow q_{\mathrm{bio}}
+\longrightarrow q_{\mathrm{prod}}
+\longrightarrow C_d
+\longrightarrow q_{\mathrm{gas}}
+\longrightarrow \widehat y_{\COtwo}.
+\]
+
+Las cantidades de CO\textsubscript{2} no deben confundirse:
+\begin{align*}
+q_{\mathrm{bio}} &:\quad \text{producción biológica base de CO\textsubscript{2}},\\
+q_{\mathrm{prod}} &:\quad \text{fuente efectiva que entra al reservorio líquido},\\
+C_d &:\quad \text{concentración efectiva de CO\textsubscript{2} disuelto},\\
+q_{\mathrm{gas}} &:\quad \text{tasa de liberación desde el líquido hacia el gas},\\
+\widehat y_{\COtwo} &:\quad \text{salida del modelo comparable con el caudalímetro}.
+\end{align*}
+
+En general,
+\[
+q_{\mathrm{prod}}\neq q_{\mathrm{gas}}.
+\]
+Sólo cuando el reservorio disuelto está aproximadamente estacionario,
+\[
+\frac{\dd C_d}{\dd t}\approx 0,
+\]
+se obtiene
+\[
+q_{\mathrm{prod}}\approx q_{\mathrm{gas}}.
+\]
+
+\section{Vectores de estado: modelo implementado y modelo objetivo}
+
+\subsection{Modelo primario implementado}
+
+El código primario actualmente integra
+\[
+\mathbf{x}_{\mathrm{up}}=
+\begin{bmatrix}
+X & X_d & N & G & F & E & Gly
+\end{bmatrix}^{\mathsf T},
+\]
+donde $X$ es biomasa viable, $X_d$ biomasa muerta, $N$ nitrógeno asimilable,
+$G$ glucosa, $F$ fructosa, $E$ etanol y $Gly$ glicerol.
+
+Para el bloque de CO\textsubscript{2}, los estados adicionales de la formulación completa actual son
+\[
+O_2(t),\qquad C_d(t).
+\]
+Por tanto, una representación completa de referencia es
+\[
+\mathbf{x}_{\mathrm{ref}}=
+\begin{bmatrix}
+X & X_d & N & G & F & E & Gly & O_2 & C_d
+\end{bmatrix}^{\mathsf T}.
+\]
+
+\subsection{Vector objetivo para el estimador}
+
+El objetivo propuesto es
+\[
+\boxed{
+\mathbf{x}_{\mathrm{EKF},5}=
+\begin{bmatrix}
+S & N & X & E & C_d
+\end{bmatrix}^{\mathsf T}}
+\]
+con
+\[
+S=G+F.
+\]
+
+Sin embargo, esta reducción no es exactamente cerrada con las ecuaciones actuales porque las
+cinéticas de glucosa y fructosa son diferentes y la utilización de fructosa contiene inhibición por
+glucosa. La ecuación exacta de $S$ puede escribirse, pero aún requiere conocer $G$ y $F$ por separado.
+Esta limitación se discute en la Sección~\ref{sec:s_reduction}.
+
+\subsection{Criterio adoptado para O\textsubscript{2}}
+
+Para reproducir exactamente la capa de CO\textsubscript{2} calibrada desde el inicio de la fermentación,
+$O_2$ debe mantenerse como variable dinámica:
+\[
+\boxed{
+\mathbf{x}_{\mathrm{EKF},6}=
+\begin{bmatrix}
+S & N & X & E & C_d & O_2
+\end{bmatrix}^{\mathsf T}}
+\]
+si se decide estimarlo conjuntamente.
+
+No obstante, el $O_2$ actual es un estado macroscópico latente, no una trayectoria validada por
+medición continua. Por ello se propone evaluar dos variantes:
+\begin{enumerate}
+    \item \textbf{modelo aumentado:} conservar $O_2$ como estado auxiliar;
+    \item \textbf{modelo reducido post-anaerobiosis:} iniciar el estimador después del agotamiento
+    efectivo de $O_2$, usando aproximadamente $f_{\mathrm{ferm}}\simeq 1$ y
+    $q_{\mathrm{resp}}\simeq 0$.
+\end{enumerate}
+
+\section{Modelo primario de fermentación}
+
+\subsection{Factores de temperatura}
+
+Sea
+\[
+T_K=T+273.15,
+\]
+con $T$ en \si{\degreeCelsius}. Se definen los factores tipo Arrhenius
+\begin{align}
+a_\mu(T) &=
+\exp\left[
+E_{ac}\frac{T_K-300}{300RT_K}
+\right],\\
+a_\beta(T) &=
+\exp\left[
+E_{afe}\frac{T_K-296.15}{296.15RT_K}
+\right],\\
+a_{K_N}(T) &=
+\exp\left[
+E_{aK_N}\frac{T_K-293.15}{293.15RT_K}
+\right],\\
+a_{K_G}(T) &=
+\exp\left[
+E_{aK_G}\frac{T_K-293.15}{293.15RT_K}
+\right],\\
+a_{K_F}(T) &=
+\exp\left[
+E_{aK_F}\frac{T_K-293.15}{293.15RT_K}
+\right],\\
+a_{K_{iG}}(T) &=
+\exp\left[
+E_{aK_{iG}}\frac{T_K-293.15}{293.15RT_K}
+\right],\\
+a_{K_{iE}}(T) &=
+\exp\left[
+E_{aK_{iE}}\frac{T_K-293.15}{293.15RT_K}
+\right].
+\end{align}
+
+Las constantes de semisaturación efectivas son
+\begin{align}
+K_N(T) &= \frac{\mu_0}{s_N}\,a_{K_N}(T),\\
+K_G(T) &= \frac{\beta_{G0}}{s_G}\,a_{K_G}(T),\\
+K_F(T) &= \frac{\beta_{F0}}{s_F}\,a_{K_F}(T).
+\end{align}
+
+Los coeficientes efectivos de inhibición son
+\begin{align}
+i_G(T)&=\frac{i_G}{a_{K_{iG}}(T)},\\
+i_E(T)&=\frac{i_E}{a_{K_{iE}}(T)}.
+\end{align}
+En el código se añade un $\varepsilon$ numérico pequeño a los denominadores para evitar divisiones
+por cero; no representa un proceso físico adicional.
+
+\subsection{Limitaciones e inhibiciones}
+
+Se definen
+\begin{align}
+f_N &= \frac{N}{N+K_N(T)},\\
+f_G &= \frac{G}{G+K_G(T)},\\
+f_F &= \frac{F}{F+K_F(T)},\\
+I_E &= \frac{1}{1+i_E(T)E},\\
+I_{G\rightarrow F} &= \frac{1}{1+i_G(T)G}.
+\end{align}
+
+Los factores efectivos usados por el modelo son
+\begin{align}
+F_X &= a_\mu(T) f_N,\\
+F_G &= a_\beta(T) f_G I_E,\\
+F_F &= a_\beta(T) f_F I_{G\rightarrow F} I_E.
+\end{align}
+
+Así,
+\begin{align}
+\mu &= \mu_0 F_X,\\
+\beta_G &= \beta_{G0}F_G,\\
+\beta_F &= \beta_{F0}F_F.
+\end{align}
+
+\subsection{Mantenimiento y muerte celular}
+
+La tasa de mantenimiento es
+\begin{equation}
+m(T)=
+m_0
+\exp\left[
+E_{am}\frac{T_K-293.3}{293.3RT_K}
+\right].
+\end{equation}
+
+Sea
+\[
+S_{\mathrm{tot}}=G+F.
+\]
+La disponibilidad para mantenimiento es
+\begin{equation}
+f_m=
+\frac{S_{\mathrm{tot}}}
+{S_{\mathrm{tot}}+S_{m,1/2}},
+\qquad
+S_{m,1/2}=1.0.
+\end{equation}
+
+El umbral térmico de muerte dependiente de etanol es
+\begin{equation}
+T_d(E)=
+-10^{-4}E^3+0.0049E^2-0.1279E+315.89
+\quad [\mathrm{K}].
+\end{equation}
+
+La tasa de muerte celular se implementa como
+\begin{equation}
+k_d=
+\begin{cases}
+K_{d0}
+\exp\left[
+C_{de}E+
+E_{td}\dfrac{T_K-305.65}{305.65RT_K}
+\right],
+& T_K\geq T_d(E),\\[8pt]
+0,
+& T_K<T_d(E).
+\end{cases}
+\end{equation}
+
+\subsection{Ecuaciones diferenciales primarias}
+
+Las ecuaciones implementadas son
+\begin{align}
+\frac{\dd X}{\dd t}
+&=(\mu-k_d)X,
+\label{eq:x}\\
+\frac{\dd X_d}{\dd t}
+&=k_dX,
+\label{eq:xd}\\
+\frac{\dd N}{\dd t}
+&=-q_NF_XX,
+\label{eq:n}\\
+\frac{\dd G}{\dd t}
+&=
+-\left[
+q_{XG}F_X
++q_{EG}F_G
++m(T)f_m\frac{G}{G+F}
+\right]X,
+\label{eq:g}\\
+\frac{\dd F}{\dd t}
+&=
+-\left[
+q_{XF}F_X
++q_{EF}F_F
++m(T)f_m\frac{F}{G+F}
+\right]X,
+\label{eq:f}\\
+\frac{\dd E}{\dd t}
+&=
+(\beta_G+\beta_F)X,
+\label{eq:e}\\
+\frac{\dd Gly}{\dd t}
+&=
+\left[
+\gamma_{G0}F_G+\gamma_{F0}F_F
+\right]X.
+\label{eq:gly}
+\end{align}
+
+La tasa de producción de etanol utilizada por la capa de CO\textsubscript{2} es
+\begin{equation}
+\boxed{
+r_E(t)=\frac{\dd E}{\dd t}
+=
+\left[\beta_G(t)+\beta_F(t)\right]X(t)}
+\qquad [\gLh].
+\label{eq:rE}
+\end{equation}
+
+\section{Reducción exacta a azúcar total $S=G+F$}
+\label{sec:s_reduction}
+
+Definiendo
+\[
+S=G+F,
+\]
+se obtiene exactamente
+\begin{align}
+\frac{\dd S}{\dd t}
+&=
+\frac{\dd G}{\dd t}
++
+\frac{\dd F}{\dd t}\\
+&=
+-\Big[
+(q_{XG}+q_{XF})F_X
++q_{EG}F_G
++q_{EF}F_F
++m(T)f_m
+\Big]X.
+\label{eq:S_total}
+\end{align}
+
+La ecuación~\eqref{eq:S_total} \textbf{no queda cerrada únicamente con $S$}, porque
+$F_G$ depende de $G$ y $F_F$ depende simultáneamente de $F$ y de la inhibición por $G$.
+
+Una forma de escribir explícitamente la reducción es introducir
+\[
+\rho_G(t)=\frac{G(t)}{S(t)},
+\qquad
+G=\rho_GS,
+\qquad
+F=(1-\rho_G)S.
+\]
+Entonces la ecuación de $S$ puede evaluarse si $\rho_G(t)$ se proporciona como una trayectoria
+conocida/nominal. \textbf{Esta reconstrucción de $\rho_G$ todavía no forma parte del modelo
+reducido validado}; es una decisión pendiente para construir el EKF de cinco estados.
+
+Por esta razón, la implementación más fiel antes de cerrar esa reducción sería trabajar con
+\[
+[G,F,N,X,E,C_d]
+\]
+(o añadiendo $O_2$), y sólo después verificar si la agregación $S=G+F$ conserva suficiente
+información para el observador.
+
+\section{Pulsos de nitrógeno}
+
+\subsection{Pulso en el modelo primario}
+
+El simulador primario integra las ODE entre eventos y aplica el pulso de N como un salto exacto:
+\begin{equation}
+\boxed{
+N(t_N^+)=N(t_N^-)+\Delta N.
+}
+\label{eq:N_jump}
+\end{equation}
+
+No se ``difumina'' el salto dentro de la ODE primaria.
+
+\subsection{Disponibilidad gradual usada por la capa de CO\textsubscript{2}}
+
+Para evitar que el pulso se traduzca instantáneamente en una respuesta de CO\textsubscript{2}, la
+calibración 2026 utiliza una rampa causal
+\begin{equation}
+f_N(t)=
+\clip\left(
+\frac{t-t_N}{t_{\mathrm{rise}}},
+0,1
+\right).
+\label{eq:pulse_fraction}
+\end{equation}
+
+Sean $(X_0,q_{\mathrm{bio},0})$ las trayectorias contrafactuales sin pulso y
+$(X_{+N},q_{\mathrm{bio},+N})$ las trayectorias con pulso. Entonces
+\begin{equation}
+X_{\mathrm{eff}}
+=
+X_0+
+f_N
+\left(
+X_{+N}-X_0
+\right),
+\label{eq:Xeff}
+\end{equation}
+y
+\begin{equation}
+q_{\mathrm{bio},N}
+=
+\left[
+1+(g_N-1)f_N
+\right]q_{\mathrm{bio},0}
++
+f_N
+\left(
+q_{\mathrm{bio},+N}-q_{\mathrm{bio},0}
+\right).
+\label{eq:qbioN}
+\end{equation}
+
+Esta formulación es la implementación actualmente calibrada. Para un futuro EKF completamente
+integrado deberá decidirse si se conserva esta construcción contrafactual o si se reemplaza por una
+dinámica explícita de disponibilidad del pulso.
+
+\section{Producción biológica base de CO\textsubscript{2}}
+
+La producción biológica base se obtiene estequiométricamente desde la tasa de etanol:
+\begin{equation}
+\boxed{
+q_{\mathrm{bio}}(t)
+=
+\alpha_{\COtwo/E}
+\max\left[r_E(t),0\right]
+}
+\label{eq:qbio}
+\end{equation}
+con
+\begin{equation}
+\boxed{
+\alpha_{\COtwo/E}
+=
+\frac{44.01}{2(46.07)}
+\simeq 0.4776
+}
+\qquad
+\left[
+\frac{\mathrm{g\ CO_2}}{\mathrm{g\ etanol}}
+\right].
+\label{eq:alphaCO2}
+\end{equation}
+
+\section{Submodelo de O\textsubscript{2}: estado auxiliar de la formulación actual}
+
+\subsection{Saturación de referencia e condición inicial}
+
+La correlación de trabajo para O\textsubscript{2} a saturación es
+\begin{equation}
+O_2^\ast(T,E,G,F)
+=
+8.6
+\exp[-0.024(T-20)]
+\exp(-0.0020E)
+\exp[-0.0010(G+F)]
+\qquad [\mgL].
+\label{eq:o2sat}
+\end{equation}
+
+La condición inicial utilizada en Laboratorio 2026 es
+\begin{equation}
+\boxed{
+O_2(0)=
+s_{O2,0}
+O_2^\ast(T_0,E_0,G_0,F_0).
+}
+\label{eq:o2initial}
+\end{equation}
+
+\subsection{Consumo de O\textsubscript{2}}
+
+La tasa de consumo es
+\begin{equation}
+u_{O2}
+=
+q_{O2,\max}
+X_{\mathrm{eff}}
+\frac{O_2}{K_{O2}+O_2},
+\label{eq:o2uptake}
+\end{equation}
+con unidades de \si{mg.L^{-1}.h^{-1}}.
+
+En la formulación 2026 no hay reaireación durante el proceso:
+\begin{equation}
+\boxed{
+\frac{\dd O_2}{\dd t}
+=
+-u_{O2}.
+}
+\label{eq:o2ode}
+\end{equation}
+
+\subsection{Fracción anaerobia y fracción fermentativa}
+
+La fracción anaerobia efectiva es
+\begin{equation}
+\phi_{\mathrm{ana}}(O_2)
+=
+\frac{K_{\mathrm{ana}}^h}
+{K_{\mathrm{ana}}^h+O_2^h}.
+\label{eq:ana}
+\end{equation}
+
+La fracción fermentativa es
+\begin{equation}
+\boxed{
+f_{\mathrm{ferm}}
+=
+f_C+(1-f_C)\phi_{\mathrm{ana}}.
+}
+\label{eq:ferm_fraction}
+\end{equation}
+
+El término respiratorio de CO\textsubscript{2} se calcula como
+\begin{equation}
+q_{\mathrm{resp}}
+=
+\frac{44.01}{32.00}
+\frac{u_{O2}}{1000}
+\qquad [\gLh].
+\label{eq:qresp}
+\end{equation}
+
+\section{Activación química gradual}
+
+La evidencia química define un intervalo $[t_L,t_U]$:
+\begin{itemize}
+    \item $t_U$: primera muestra con caída de $G+F$ de al menos \SI{5}{g.L^{-1}}
+    o aumento de $E$ de al menos \SI{2}{g.L^{-1}} respecto de la primera muestra;
+    \item $t_L$: muestra química inmediatamente anterior.
+\end{itemize}
+
+La posición del inicio dentro del bracket es
+\begin{equation}
+t_s=
+t_L+
+f_s(t_U-t_L).
+\label{eq:ts}
+\end{equation}
+
+La duración es
+\begin{equation}
+\Delta t_{\mathrm{act}}
+=
+\max\left[
+f_d(t_U-t_L),\,
+0.25\ \mathrm{h}
+\right].
+\label{eq:dtact}
+\end{equation}
+
+Se define
+\begin{equation}
+z(t)=
+\clip\left(
+\frac{t-t_s}{\Delta t_{\mathrm{act}}},
+0,1
+\right),
+\end{equation}
+y la activación \emph{smoothstep}
+\begin{equation}
+\boxed{
+a_{\mathrm{chem}}(t)
+=
+3z^2-2z^3.
+}
+\label{eq:achem}
+\end{equation}
+
+Si el bracket colapsa ($t_U\le t_L$), la implementación usa un escalón en $t_U$.
+
+\section{Fuente total de CO\textsubscript{2}}
+
+La fuente que alimenta el reservorio disuelto es
+\begin{equation}
+\boxed{
+q_{\mathrm{prod}}
+=
+a_{\mathrm{chem}}(t)
+\left[
+q_{\mathrm{bio},N}
+f_{\mathrm{ferm}}
++
+q_{\mathrm{resp}}
+\right].
+}
+\label{eq:qprod}
+\end{equation}
+
+Esta ecuación deja explícito que el O\textsubscript{2} modifica la \emph{fuente metabólica}; no
+modifica directamente la ley de solubilidad de CO\textsubscript{2}.
+
+\section{Solubilidad efectiva de CO\textsubscript{2}}
+
+La correlación de trabajo es
+\begin{equation}
+\boxed{
+C_{\COtwo}^{\ast}
+=
+s_{\mathrm{sat}}\,
+1.69
+\exp[-0.032(T-20)]
+\exp(0.0016E)
+\exp[-0.0012(G+F)]
+}
+\qquad [\gL].
+\label{eq:csat}
+\end{equation}
+
+El parámetro $s_{\mathrm{sat}}$ es una escala calibrada; la correlación no corresponde a una
+medición directa de equilibrio en cada fermentación.
+
+\section{CO\textsubscript{2} disuelto como estado dinámico}
+
+La condición inicial usada actualmente es
+\begin{equation}
+\boxed{
+C_d(0)=0.
+}
+\label{eq:cd0}
+\end{equation}
+
+El balance de masa es
+\begin{equation}
+\boxed{
+\frac{\dd C_d}{\dd t}
+=
+q_{\mathrm{prod}}-q_{\mathrm{gas}}.
+}
+\label{eq:cdode}
+\end{equation}
+
+Esta es la razón principal para tratar $C_d$ como estado: la salida gaseosa depende de la historia
+de acumulación y no sólo del estado biológico instantáneo.
+
+\section{Liberación continua líquido--gas}
+
+La fracción de liberación es
+\begin{equation}
+\psi(C_d,C_{\COtwo}^{\ast})
+=
+f_0
++
+(1-f_0)
+\frac{C_d}{C_d+C_{\COtwo}^{\ast}},
+\qquad
+f_0=0.05.
+\label{eq:psi}
+\end{equation}
+
+La liberación potencial es
+\begin{equation}
+\boxed{
+q_{\mathrm{gas,pot}}
+=
+k_{\mathrm{release}}
+C_d
+\psi(C_d,C_{\COtwo}^{\ast}).
+}
+\label{eq:qgaspot}
+\end{equation}
+
+En tiempo continuo, la representación física de trabajo es
+\[
+q_{\mathrm{gas}}\approx q_{\mathrm{gas,pot}},
+\]
+pero la implementación numérica impone una guarda de conservación de masa. Para un paso
+$\Delta t$:
+\begin{equation}
+q_{\mathrm{gas},k}
+=
+\min\left(
+q_{\mathrm{gas,pot},k},
+\frac{C_{d,k}}{\Delta t}
++
+q_{\mathrm{prod},k-1}
+\right),
+\label{eq:qgasguard}
+\end{equation}
+\begin{equation}
+C_{d,k+1}
+=
+\max\left[
+C_{d,k}
++
+\Delta t
+(q_{\mathrm{prod},k-1}-q_{\mathrm{gas},k}),
+0
+\right].
+\label{eq:cd_discrete}
+\end{equation}
+
+La función $\min$ no constituye una cinética adicional: sólo evita liberar más masa que la
+disponible.
+
+\section{Ecuación de observación: conexión con el caudalímetro}
+
+La salida predicha se expresa como
+\begin{equation}
+\boxed{
+\widehat y_{\COtwo}(t)
+=
+g_m\,q_{\mathrm{gas}}(t).
+}
+\label{eq:measurement}
+\end{equation}
+
+Por tanto, el caudalímetro no observa directamente $q_{\mathrm{bio}}$ ni
+$q_{\mathrm{prod}}$, sino una señal asociada a la liberación gaseosa.
+
+La señal adquirida en SCCM se convierte a tasa específica mediante
+\begin{equation}
+\boxed{
+y_{\gLh}
+=
+y_{\mathrm{sccm}}
+\frac{60}{1000}
+\frac{44.01}{22.414}
+\frac{1}{V_L}.
+}
+\label{eq:sccm}
+\end{equation}
+
+Aquí $V_L$ es el volumen de líquido en litros. En el preprocesamiento 2026 se corrige además un
+offset operacional por corrida antes de la comparación con el modelo.
+
+\section{Sistema dinámico compacto propuesto}
+
+\subsection{Variante completa con O\textsubscript{2}}
+
+Si se conserva la estructura actual desde el inicio de la fermentación, una representación
+compacta para el bloque relevante del observador es
+\begin{equation}
+\boxed{
+\begin{aligned}
+\dot X &= f_X(X,N,G,F,E,T),\\
+\dot N &= f_N(X,N,G,F,E,T,u_N),\\
+\dot G &= f_G(X,N,G,F,E,T),\\
+\dot F &= f_F(X,N,G,F,E,T),\\
+\dot E &= f_E(X,N,G,F,E,T),\\
+\dot O_2 &= -u_{O2}(X,O_2),\\
+\dot C_d &= q_{\mathrm{prod}}(X,N,G,F,E,O_2,T,u_N)-q_{\mathrm{gas}},\\
+y &= g_m q_{\mathrm{gas}}(C_d,G,F,E,T).
+\end{aligned}
+}
+\label{eq:full_compact}
+\end{equation}
+
+\subsection{Variante reducida objetivo $[S,N,X,E,C_d]$}
+
+El objetivo final deseado es
+\begin{equation}
+\boxed{
+\mathbf{x}=
+[S,N,X,E,C_d]^\mathsf{T}
+}
+\end{equation}
+con
+\begin{equation}
+\boxed{
+\begin{aligned}
+\dot S &= f_S(S,N,X,E,T;\rho_G),\\
+\dot N &= f_N(S,N,X,E,T,u_N;\rho_G),\\
+\dot X &= f_X(S,N,X,E,T;\rho_G),\\
+\dot E &= f_E(S,N,X,E,T;\rho_G),\\
+\dot C_d &= q_{\mathrm{prod}}-q_{\mathrm{gas}},\\
+y &= g_m q_{\mathrm{gas}}.
+\end{aligned}
+}
+\label{eq:reduced_compact}
+\end{equation}
+
+El símbolo $\rho_G$ recuerda que aún debe definirse cómo recuperar la partición glucosa/fructosa
+a partir de $S$. No debe ocultarse esta dependencia al formalizar el EKF.
+
+Si además se elimina $O_2$, la simplificación sólo es consistente después de justificar
+\[
+f_{\mathrm{ferm}}\simeq 1,
+\qquad
+q_{\mathrm{resp}}\simeq 0,
+\]
+o de reemplazar el submodelo de O\textsubscript{2} por una función conocida.
+
+\section{Parámetros del modelo primario}
+
+\subsection{Parámetros cinéticos}
+
+\begin{longtable}{p{2.6cm}p{8.4cm}p{3.0cm}}
+\toprule
+\textbf{Parámetro} & \textbf{Interpretación en la implementación} & \textbf{Estatus}\\
+\midrule
+\endfirsthead
+\toprule
+\textbf{Parámetro} & \textbf{Interpretación en la implementación} & \textbf{Estatus}\\
+\midrule
+\endhead
+$\mu_0$ & Coeficiente base de crecimiento específico & calibrado upstream\\
+$s_N$ & Parametrización de $K_N=\mu_0/s_N$ & fijado en los drivers actuales\\
+$q_N$ & Coeficiente de consumo de nitrógeno asociado al crecimiento & calibrado upstream\\
+$q_{XG}$ & Consumo de glucosa asociado al crecimiento & fijado en los drivers actuales\\
+$q_{XF}$ & Consumo de fructosa asociado al crecimiento & fijado en los drivers actuales\\
+$\beta_{G0}$ & Coeficiente base de producción de etanol desde glucosa & calibrado upstream\\
+$s_G$ & Parametrización de $K_G=\beta_{G0}/s_G$ & fijado en los drivers actuales\\
+$\beta_{F0}$ & Coeficiente base de producción de etanol desde fructosa & calibrado upstream\\
+$s_F$ & Parametrización de $K_F=\beta_{F0}/s_F$ & fijado en los drivers actuales\\
+$q_{EG}$ & Consumo de glucosa asociado a la vía de producción de etanol & calibrado upstream\\
+$q_{EF}$ & Consumo de fructosa asociado a la vía de producción de etanol & calibrado upstream\\
+$i_G$ & Coeficiente base de inhibición de utilización de fructosa por glucosa & calibrado upstream\\
+$i_E$ & Coeficiente base de inhibición por etanol & calibrado upstream\\
+$K_{d0}$ & Prefactor de muerte celular & calibrado upstream\\
+$m_0$ & Coeficiente base de mantenimiento & fijado en los drivers actuales\\
+$\gamma_{G0}$ & Coeficiente de formación de glicerol asociado a glucosa & calibrado upstream\\
+$\gamma_{F0}$ & Coeficiente de formación de glicerol asociado a fructosa & calibrado upstream\\
+\bottomrule
+\end{longtable}
+
+\subsection{Valores upstream utilizados por los drivers de Laboratorio 2026}
+
+Los valores siguientes son los que alimentan la capa de CO\textsubscript{2} actual. El cargador
+parte de los valores por defecto y los sobrescribe con el ajuste específico de cada matriz.
+
+\begin{longtable}{lrrl}
+\toprule
+\textbf{Parámetro} & \textbf{MN} & \textbf{MS} & \textbf{Origen}\\
+\midrule
+\endfirsthead
+\toprule
+\textbf{Parámetro} & \textbf{MN} & \textbf{MS} & \textbf{Origen}\\
+\midrule
+\endhead
+$\mu_0$ & 0.0787279 & 0.133609 & ajuste upstream\\
+$s_N$ & 18.0 & 18.0 & valor base mantenido\\
+$q_N$ & 0.0210804 & 0.0384848 & ajuste upstream\\
+$q_{XG}$ & 0.1125 & 0.1125 & valor base mantenido\\
+$q_{XF}$ & 0.1125 & 0.1125 & valor base mantenido\\
+$\beta_{G0}$ & 0.428878 & 1.329860 & ajuste upstream\\
+$s_G$ & 0.0300 & 0.0300 & valor base mantenido\\
+$\beta_{F0}$ & 3.440399 & 1.820638 & ajuste upstream\\
+$s_F$ & 0.0300 & 0.0300 & valor base mantenido\\
+$q_{EG}$ & 1.712807 & 2.577082 & ajuste upstream\\
+$q_{EF}$ & 5.023017 & 4.147139 & ajuste upstream\\
+$i_G$ & 0.0560374 & 0.0263463 & ajuste upstream\\
+$i_E$ & 0.0401679 & 0.0554701 & ajuste upstream\\
+$K_{d0}$ & 0.00015025 & 0.000561724 & ajuste upstream\\
+$m_0$ & 0.0100 & 0.0100 & valor base mantenido\\
+$\gamma_{G0}$ & 0.115559 & 0.149529 & ajuste upstream\\
+$\gamma_{F0}$ & 0.000100002 & 0.0335320 & ajuste upstream\\
+\bottomrule
+\end{longtable}
+
+Para MS se utiliza el caso \texttt{historical\_synthetic\_plus\_lot2}. Para MN se utiliza
+\texttt{estimability\_historical\_natural/theta.csv}.
+
+\subsection{Constantes fijas de temperatura y muerte}
+
+\begin{longtable}{lrl}
+\toprule
+\textbf{Constante} & \textbf{Valor} & \textbf{Uso}\\
+\midrule
+\endfirsthead
+\toprule
+\textbf{Constante} & \textbf{Valor} & \textbf{Uso}\\
+\midrule
+\endhead
+$R$ & 8.314 & constante de gases en factores Arrhenius\\
+$E_{ac}$ & 59453 & factor térmico de crecimiento\\
+$E_{afe}$ & 11000 & factor térmico de fermentación\\
+$E_{aK_N}$ & 46055 & temperatura de $K_N$\\
+$E_{aK_G}$ & 46055 & temperatura de $K_G$\\
+$E_{aK_F}$ & 46055 & temperatura de $K_F$\\
+$E_{aK_{iG}}$ & 46055 & temperatura de inhibición por glucosa\\
+$E_{aK_{iE}}$ & 46055 & temperatura de inhibición por etanol\\
+$E_{am}$ & 37681 & temperatura del mantenimiento\\
+$C_{de}$ & 0.0415 & dependencia de muerte con etanol\\
+$E_{td}$ & 130000 & dependencia térmica de muerte\\
+$S_{m,1/2}$ & 1.0 & escala de disponibilidad de azúcar para mantenimiento\\
+\bottomrule
+\end{longtable}
+
+\section{Parámetros de la capa CO\textsubscript{2}/O\textsubscript{2}}
+
+\subsection{Definiciones y cotas}
+
+\begin{longtable}{p{3.7cm}p{6.5cm}p{2.2cm}p{2.5cm}}
+\toprule
+\textbf{Parámetro} & \textbf{Significado} & \textbf{Unidad} & \textbf{Cota}\\
+\midrule
+\endfirsthead
+\toprule
+\textbf{Parámetro} & \textbf{Significado} & \textbf{Unidad} & \textbf{Cota}\\
+\midrule
+\endhead
+$k_{\mathrm{release}}$ & velocidad efectiva de vaciado de $C_d$ & \si{h^{-1}} & 0.03--25\\
+$s_{\mathrm{sat}}$ & escala de la correlación $C_{\COtwo}^{\ast}$ & -- & 0.35--2.50\\
+$q_{O2,\max}$ & consumo máximo efectivo de O\textsubscript{2} por biomasa & \si{mg.g^{-1}.h^{-1}} & 0.15--6\\
+$s_{O2,0}$ & escala del O\textsubscript{2} inicial respecto a $O_2^\ast$ & -- & 0.05--1.50\\
+$t_{\mathrm{rise}}$ & tiempo de disponibilidad gradual del pulso N & \si{h} & 1--72\\
+$g_N$ & ganancia de actividad asociada al pulso N & -- & 0.25--4\\
+$f_s$ & posición del inicio dentro del bracket químico & -- & 0.01--0.95\\
+$f_d$ & duración relativa al ancho del bracket químico & -- & 0.35--2\\
+$g_m$ & ganancia entre $q_{\mathrm{gas}}$ y sensor convertido & -- & 0.10--20\\
+\bottomrule
+\end{longtable}
+
+\subsection{Valores calibrados en Laboratorio 2026}
+
+Un asterisco indica que el valor quedó en una cota activa.
+
+\begin{longtable}{lrr}
+\toprule
+\textbf{Parámetro} & \textbf{MS} & \textbf{MN}\\
+\midrule
+\endfirsthead
+\toprule
+\textbf{Parámetro} & \textbf{MS} & \textbf{MN}\\
+\midrule
+\endhead
+$k_{\mathrm{release}}$ & 15.9857 & 0.424588\\
+$s_{\mathrm{sat}}$ & 0.350987$^\ast$ & 0.351389$^\ast$\\
+$q_{O2,\max}$ & 0.150000$^\ast$ & 0.150000$^\ast$\\
+$s_{O2,0}$ & 0.390441 & 0.195400\\
+$t_{\mathrm{rise}}$ & 36.9954 & 64.6587\\
+$g_N$ & 1.24358 & 0.250000$^\ast$\\
+$f_s$ & 0.010000$^\ast$ & 0.735057\\
+$f_d$ & 0.350000$^\ast$ & 1.06391\\
+$g_m$ & 2.13427 & 3.11576\\
+\bottomrule
+\end{longtable}
+
+\subsection{Constantes fijas de la capa O\textsubscript{2}/CO\textsubscript{2}}
+
+\begin{longtable}{lrl}
+\toprule
+\textbf{Constante} & \textbf{Valor} & \textbf{Significado}\\
+\midrule
+\endfirsthead
+\toprule
+\textbf{Constante} & \textbf{Valor} & \textbf{Significado}\\
+\midrule
+\endhead
+$K_{O2}$ & \SI{0.25}{mg.L^{-1}} & semisaturación del consumo de O\textsubscript{2}\\
+$K_{\mathrm{ana}}$ & \SI{0.75}{mg.L^{-1}} & O\textsubscript{2} donde $\phi_{\mathrm{ana}}=0.5$\\
+$h$ & 2 & exponente Hill de la transición anaerobia\\
+$f_C$ & 0.08 & piso fermentativo tipo Crabtree\\
+$f_0$ & 0.05 & piso de liberación subsaturada de CO\textsubscript{2}\\
+$M_{\COtwo}$ & \SI{44.01}{g.mol^{-1}} & masa molar de CO\textsubscript{2}\\
+$M_E$ & \SI{46.07}{g.mol^{-1}} & masa molar de etanol\\
+$M_{O2}$ & \SI{32.00}{g.mol^{-1}} & masa molar de O\textsubscript{2}\\
+$V_m^\circ$ & \SI{22.414}{L.mol^{-1}} & volumen molar estándar usado en conversión SCCM\\
+\bottomrule
+\end{longtable}
+
+\section{Criterio de calibración de la capa CO\textsubscript{2}}
+
+Esta sección no forma parte de las ODE, pero documenta cómo se obtuvieron los parámetros anteriores.
+
+Para el experimento $i$ y punto $j$:
+\begin{equation}
+r_{ij}
+=
+\frac{
+g_mq_{\mathrm{gas}}(t_{ij})-y_{ij}
+}{
+\sigma_i\sqrt{n_i}
+},
+\qquad
+\sigma_i=
+\max(0.04,\,0.10y_{i,\max}).
+\label{eq:residual}
+\end{equation}
+
+Los puntos bajo el límite operacional se tratan como censurados a izquierda:
+\begin{equation}
+r_{ij}^{\mathrm{cens}}
+=
+\frac{
+\max(\widehat y_{ij}-LOD_{ij},0)
+}{
+\sigma_i\sqrt{n_i}
+}.
+\label{eq:censored}
+\end{equation}
+
+Además se incorporan penalizaciones por error de onset y por tiempo del máximo posterior al pulso.
+El ajuste utiliza mínimos cuadrados robustos con pérdida \texttt{soft\_l1}.
+
+\section{Qué se recomienda llevar al EKF}
+
+\subsection{CO\textsubscript{2} disuelto}
+
+Se recomienda \textbf{sí incluir $C_d$ como estado}. El argumento es estructural:
+\[
+\dot C_d=q_{\mathrm{prod}}-q_{\mathrm{gas}}
+\]
+y la medición es
+\[
+y=g_mq_{\mathrm{gas}}.
+\]
+Eliminar $C_d$ equivale a aproximar la medición gaseosa por la producción metabólica instantánea,
+supuesto que fue precisamente el que produjo problemas de onset y memoria en las comparaciones
+anteriores.
+
+\subsection{O\textsubscript{2}}
+
+Se recomienda \textbf{mantener $O_2$ en el modelo matemático de referencia, pero no decidir aún
+que deba ser un estado estimado por el EKF}. Las razones son:
+\begin{enumerate}
+    \item la formulación actual de $q_{\mathrm{prod}}$ sí depende de $O_2$;
+    \item no existe una trayectoria continua de O\textsubscript{2} usada para validar directamente ese estado;
+    \item varios parámetros de la capa O\textsubscript{2}/CO\textsubscript{2} presentan compensaciones y cotas activas;
+    \item si el observador comienza después del agotamiento efectivo del O\textsubscript{2}, puede ser razonable
+    estudiar la aproximación $f_{\mathrm{ferm}}\approx1$.
+\end{enumerate}
+
+\subsection{Decisión pendiente sobre $S$}
+
+Antes de implementar el EKF de cinco estados hay que definir una de estas opciones:
+\begin{enumerate}
+    \item mantener $G$ y $F$ como estados separados en una primera versión del observador;
+    \item usar una trayectoria nominal $\rho_G(t)$ para reconstruir $G$ y $F$ desde $S$;
+    \item desarrollar y validar una cinética agregada de azúcar que cierre directamente $\dot S$.
+\end{enumerate}
+
+La opción 1 es la más fiel a la implementación actual; la opción 3 es la más limpia para el
+vector final $[S,N,X,E,C_d]^\mathsf{T}$, pero requiere una reducción adicional que todavía no ha
+sido validada.
+
+\section{Limitaciones que deben acompañar el modelo}
+
+\begin{itemize}
+    \item $C_d(0)=0$ es un supuesto de la capa CO\textsubscript{2}, no una medición de CO\textsubscript{2} disuelto.
+    \item El $O_2$ actual es un estado latente efectivo y no debe interpretarse todavía como una trayectoria fisiológica validada.
+    \item No existe un estado explícito de \emph{headspace}; parte de la cola temporal puede corresponder a fenómenos no incluidos.
+    \item $k_{\mathrm{release}}$, $s_{\mathrm{sat}}$, $g_m$ y los parámetros de activación pueden compensarse.
+    \item Los parámetros CO\textsubscript{2} actuales son específicos de matriz; no están demostrados como universales MS/MN.
+    \item La agregación $S=G+F$ no es una reducción cerrada sin una hipótesis adicional sobre la partición de azúcares.
+    \item La respuesta gradual al pulso de N en la capa CO\textsubscript{2} utiliza una simulación contrafactual sin pulso; una formulación
+    de EKF completamente autocontenida deberá representar esta memoria de manera explícita o justificar su simplificación.
+\end{itemize}
+
+\section{Fuentes de implementación}
+
+Las ecuaciones y valores de este documento se reconstruyeron de las siguientes rutas del branch
+\texttt{ctorrealba\_fermentation}:
+\begin{itemize}
+    \item \texttt{fermentation\_model/shared/run\_new\_must\_glycerol\_estimability\_doe.py}
+    \item \texttt{fermentation\_model/shared/run\_secondary\_joint\_campaign\_doe.py}
+    \item \texttt{fermentation\_model/laboratory\_2026/run\_co2\_matrix\_cross\_validation\_2026.py}
+    \item \texttt{fermentation\_model/pilot\_2025/run\_pilot\_2025\_co2\_solubility\_integrated\_doe.py}
+    \item \texttt{fermentation\_model/laboratory\_2026/results/estimability\_historical\_natural/theta.csv}
+    \item \texttt{fermentation\_model/laboratory\_2026/results/estimability\_historical\_synthetic\_plus\_lot2/theta\_by\_case.csv}
+    \item \texttt{fermentation\_model/laboratory\_2026/results/co2\_matrix\_cross\_validation\_2026/fit\_parameters.csv}
+\end{itemize}
+
+\paragraph{Nota.}
+Este documento debe entenderse como una \textbf{formalización del estado actual del trabajo}, no como
+una afirmación de que todos los parámetros sean propiedades físicas identificadas de manera única.
+
+\end{document}
