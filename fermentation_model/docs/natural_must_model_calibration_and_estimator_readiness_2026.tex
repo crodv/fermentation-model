@@ -1,0 +1,593 @@
+\documentclass[11pt,a4paper]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[spanish,es-noshorthands]{babel}
+\usepackage[margin=2.2cm]{geometry}
+\usepackage{amsmath,amssymb}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{ragged2e}
+\usepackage{xcolor}
+\usepackage[colorlinks=true,linkcolor=blue!60!black,urlcolor=blue!60!black]{hyperref}
+\usepackage{xurl}
+\usepackage{enumitem}
+
+% --- Layout helpers (presentation only; no scientific content) ---
+% \code: technical identifiers/paths with safe line breaking (keeps the exact name)
+\newcommand{\code}[1]{\nolinkurl{#1}}
+\newcolumntype{L}{>{\RaggedRight\arraybackslash}X}
+\newcolumntype{P}[1]{>{\RaggedRight\arraybackslash}p{#1}}
+\renewcommand{\arraystretch}{1.15}
+
+\definecolor{hecho}{rgb}{0.00,0.45,0.10}
+\definecolor{diagc}{rgb}{0.00,0.30,0.60}
+\definecolor{interp}{rgb}{0.55,0.35,0.00}
+\definecolor{hipo}{rgb}{0.60,0.00,0.20}
+
+\newcommand{\hecho}{\textcolor{hecho}{\textbf{[HECHO VERIFICADO]}}}
+\newcommand{\diag}{\textcolor{diagc}{\textbf{[RESULTADO DIAGN\'OSTICO]}}}
+\newcommand{\interp}{\textcolor{interp}{\textbf{[INTERPRETACI\'ON]}}}
+\newcommand{\hipo}{\textcolor{hipo}{\textbf{[HIP\'OTESIS PENDIENTE]}}}
+\newcommand{\ruta}[1]{\texttt{\small #1}}
+
+\title{Modelo de mosto natural: calibraci\'on hist\'orica, auditor\'ia 2026\\y preparaci\'on del estimador de estado}
+\author{Documento t\'ecnico de referencia --- versi\'on 2 (consolidada), 2026-09-08}
+\date{}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+Consolida lo verificado sobre (a) la calibraci\'on hist\'orica del modelo cin\'etico de mosto natural (LAB004--LAB012), (b) la capa de observaci\'on CO$_2$, (c) los experimentos LAB013--LAB018 y (d) los diagn\'osticos estructurales recientes (dosis de nutrici\'on, barrido de \code{pulse_activity_gain}, prueba transitoria rise-decay), como base para terminar la calibraci\'on, dise\~nar 1--2 fermentaciones adicionales e iniciar el estimador de estado. Cada afirmaci\'on se etiqueta como \hecho{}, \diag{} (prueba forward con par\'ametros congelados, sin fitting), \interp{} o \hipo{}. Documento generado por auditor\'ia de s\'olo lectura: no se modificaron modelos, notebooks, datos ni resultados.
+\end{abstract}
+
+\tableofcontents
+
+\section{Objetivo, arquitectura general y los cuatro fen\'omenos}
+
+\subsection{Esquema}
+\begin{verbatim}
+offline chemistry + biomass + T     (sensores + Y15 + Oculyze + densidad)
+        |
+ODE upstream (base.simulate, LSODA, saltos exactos de pulsos)
+X, Xd, N, G, F, E, Gly
+        |
+CO2 production  qprod_base = 0.4777 * dE/dt = 0.4777*(bG+bF)*X
+        |
+chemical activation A(t)            (gate de encendido, bracket quimico)
+        |
+pulse / nitrogen response           r(t), activity_multiplier, dqprod_pulso
+        |
+dissolved CO2 pool                  (solubilidad Csat(T,E,G,F))
+        |
+continuous release                  qgas = min(k*C*release_fraction, disponible)
+        |
+gaseous CO2 measurement             (SCCM -> g/L/h, matrix_gain)
+\end{verbatim}
+
+\subsection{Bloques}
+\textbf{A) Cin\'etica upstream natural} \hecho{} Estados $X, X_d, N, G, F, E, \mathrm{Gly}$ (\ruta{base.STATE\_NAMES}); entradas discretas \ruta{INPUT\_CHANNELS = (N,G,F,E,X)}. Temperatura ex\'ogena (\ruta{base.temperature\_at}). Ecuaciones en \ruta{base.rhs} (445--468) y \ruta{base.kinetic\_terms} (387--442) de \code{shared/run_new_must_glycerol_estimability_doe.py}.
+
+\textbf{B) Capa de observaci\'on/transferencia CO$_2$} \hecho{} \code{co2_cross.effective_qprod_grid} (1668) y \code{co2_cross.raw_qgas_grid_prediction} (1748) en \code{laboratory_2026/run_co2_matrix_cross_validation_2026.py}. El O$_2$ vive solo en la capa ($f_{\mathrm{ferm}} = 0.08 + 0.92\,\phi_{\mathrm{ana}}$).
+
+\textbf{C) Datos offline} \hecho{} Workbook homologado; para LAB013--018, \ruta{data/mem2026/LAB013-015/} y \ruta{data/mem2026/LAB016-018/}.
+
+\textbf{D) Se\~nales online} \hecho{} CO$_2$ crudo/filtrado (SCCM), temperatura y canal binario \ruta{nutricion\_activa}.
+
+\subsection{Pertenencia de par\'ametros}
+\begin{table}[h]\centering\small
+\begin{tabularx}{\textwidth}{P{2.9cm}L P{3.2cm}}
+\toprule
+Grupo & Par\'ametros & Fuente \\
+\midrule
+$\theta_{\mathrm{natural}}$ (upstream) & mu0, qN, betaG0, betaF0, qEG, qEF, iG, iE, Kd0, gammaG0, gammaF0 (re-estimados) + sN, sG, sF, qXG, qXF, m0, Kn0/Kg0/Kf0/Kig0/Kie0 y bloque secundario/aroma fijos & \ruta{theta.csv} \\
+Capa CO$_2$ (natural) & \code{kCO2_release_h}, \code{CO2sat_scale}, \code{O2_qmax_mg_gdw_h}, \code{O2_initial_scale}, \code{pulse_t_rise_h}, \code{pulse_activity_gain}, \code{chem_activation_start_fraction}, \code{chem_activation_duration_fraction}, \code{matrix_gain} & \ruta{fit\_parameters.csv} \\
+Inputs/eventos & tiempos y $\Delta N$ de pulsos; series de temperatura; ICs por batch & datos/metadatos \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\subsection{Los cuatro fen\'omenos --- visi\'on consolidada}
+\begin{table}[h]\centering\footnotesize
+\begin{tabularx}{\textwidth}{P{1.7cm}P{3.1cm}P{2.3cm}P{2.6cm}P{3.3cm}P{3.0cm}}
+\toprule
+Fen\'omeno & Mecanismo hist\'orico & Par\'ametros & Datos que lo determinaron & En LAB016--018 & Limitaci\'on \\
+\midrule
+1. lag/onset & gate qu\'imico $A(t)$ sobre bracket G/F/E & start 0.735, dur 1.064 & qu\'imica offline ($\Delta(G{+}F)\!\ge\!5$ o $\Delta E\!\ge\!2$) & mal posicionado sin qu\'imica; corregirlo reduce RMSE 77--86\% & bracket usa qu\'imica posterior: no causal \\
+2. peak & $q_{\mathrm{prod}} \propto (\beta_G{+}\beta_F)X$ + gain & betaG0/betaF0/iE, gain 3.12 & perfiles CO2 + estados & 43--49 h pred vs 41--47 h obs; 0.75--0.77 vs 0.79--0.81 & sin defecto mayor \\
+3. terminaci\'on & Monod G/F + E + atenuaci\'on post-pulso $\times 0.25$ & kd inerte, kG/kF/iE, gain 0.25, rise 64.7 h & estados + pseudo-obs & sin pulso: $q_{\mathrm{prod}}$ 33--66\% del peak a 100--150 h & terminaci\'on d\'ebil dependiente del pulso \\
+4. reactivaci\'on & salto N + rampa + gain permanente & $t_p$, $\Delta N$, rise 64.7, gain 0.25 & pseudo-obs solo de timing & F2 bump ${\sim}{+}33\%$; F1/F3 menor & rampa de 65 h $\ne$ bump de horas \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\interp{} Hallazgo central: lag, reactivaci\'on r\'apida y terminaci\'on ocurren en escalas temporales distintas y la arquitectura hist\'orica las representa con un solo mecanismo post-pulso lento; la evidencia apunta a que deben separarse.
+
+\section{Calibraci\'on hist\'orica upstream ($\theta_{\mathrm{natural}}$, LAB004--LAB012)}
+
+\hecho{} \textbf{Batches:} LAB004--LAB012 (9, incluida LAB009, excluida despu\'es solo de la capa CO$_2$). \textbf{Estados observados:} los 7 estados core entraron al ajuste (X y X$_d$ de Oculyze, N de YAN, G/F de Y15, E y Gly de qu\'imica; \ruta{measurement\_support}). \textbf{Funci\'on objetivo:} \ruta{base.residual\_vector} (595): WSSE de $(\mathrm{pred}-\mathrm{obs})/\sigma$ por estado y batch. \textbf{Optimizador:} \ruta{scipy.least\_squares} (\ruta{trf}, log-espacio, multistart determinista; pulido por profile-likelihood de 3 puntos para Kd0 y qN).
+
+\textbf{Sigmas/pisos} (\ruta{MEASUREMENT\_ERROR\_FLOOR/REL}, 174--191), $\sigma = \max(\text{piso},\,\text{rel}\cdot\max(|obs|,\text{piso}))$:
+
+\begin{table}[h]\centering\small
+\begin{tabular}{lcc}
+\toprule
+Estado & piso & rel \\
+\midrule
+X & 0.06 kg/m$^3$ & 8\% \\
+X$_d$ & 0.06 kg/m$^3$ & 12\% \\
+N & 0.012 kg/m$^3$ & 8\% \\
+G & 2.5 g/L & 2.5\% \\
+F & 2.5 g/L & 2.5\% \\
+E & 2.0 g/L & 2.5\% \\
+Gly & 0.35 g/L & 5\% \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\textbf{X/X$_d$ s\'i participaron fuertemente de la WSSE} \hecho{} ${\sim}$13 puntos Oculyze por LAB y pisos de 0.06 kg/m$^3$ hacen los residuos de biomasa comparables a los de G/F. \textbf{Par\'ametros estimados (11):} mu0, qN, betaG0, betaF0, qEG, qEF, iG, iE, Kd0, gammaG0, gammaF0. \textbf{ICs por batch} (primera observaci\'on finita): X0 0.099--1.066; X$_{d0}$ 0.001--0.121; N0 0.220--0.239 kg/m$^3$; G0 75.0--81.6; F0 70.8--88.0; E0 9.21--11.76; Gly0 0.75--1.27 g/L. \textbf{NaN:} enmascarados por \ruta{np.isfinite}. \textbf{t=0 hist\'orico:} fila $t=0$ del workbook homologado (\ruta{load\_natural\_batch\_metadata}:140); t=0 de muestreo/qu\'imica, no flanco de inoculaci\'on.
+
+\textbf{Pulsos upstream} \hecho{} $N{:}t@0.08$ kg/m$^3$ del workbook. \emph{Discrepancia:} la capa CO$_2$ sobrescribe a $\Delta N = 0.14$ kg/m$^3$ con timing por densidad (\ruta{override\_natural\_nutrient\_pulses}:452).
+
+\interp{} Biomasa: informa $\mu$ y escala; cola de X mal restringida ($k_d\approx 0$). Etanol: informa $\beta$ e iE; E0 de 9--12 g/L deja la inhibici\'on activa desde el inicio.
+
+\subsection{Oculyze: sem\'antica y conversi\'on \hecho}
+\ruta{Concentration} = concentraci\'on \emph{total} ($10^6$ c\'el/mL); \ruta{Viability} = \% viable. Conversi\'on hist\'orica (verificada: $C_{\mathrm{viable}}/C_{\mathrm{total}} = \mathrm{Viability}/100$ exacta en 72/76 filas):
+\begin{align}
+X_{\mathrm{viable}} &= \mathrm{Concentration}\times \mathrm{Viability}/100 \quad [\mathrm{Mc\'el/mL}],\\
+X_d &= \mathrm{Concentration}\times (1-\mathrm{Viability}/100),\\
+X\,[\mathrm{kg/m^3}] &= X_{\mathrm{viable}}\times 0.03,\qquad X_d\,[\mathrm{kg/m^3}] = X_d\times 0.03.
+\end{align}
+\code{MILLION_CELLS_ML_TO_KG_M3 = 0.03} con \code{CELL_MASS_PG_PER_CELL = 30.0} (\ruta{new\_must\_data\_loader.py}:55--57).
+
+\hipo{} Procedencia f\'isica de 30 pg/c\'elula no documentada: confirmar. \textbf{Trampa sem\'antica} \hecho{} en hojas homologadas la columna \ruta{Viability} es concentraci\'on viable (Mc\'el/mL), no \%; en exports crudos s\'i es \%.
+
+\section{Calibraci\'on hist\'orica de la capa CO$_2$}
+
+\hecho{} \textbf{Calibraci\'on natural:} LAB004, 005, 006, 007, 008, 010, 011. Holdout: \textbf{LAB012}. Excluidos: LAB001--003, LAB009. Modelo nominal: \code{solubility_o2_nitrogen_boost_continuous_release}.
+
+\textbf{Par\'ametros ajustados (natural):} kCO2\_release\_h $=0.4246$ h$^{-1}$; CO2sat\_scale $=0.3514$ (cota inferior); O2\_qmax $=0.15$ (cota inferior); O2\_initial\_scale $=0.1954$; pulse\_t\_rise\_h $=64.66$ h (cerca de cota sup. 72); \textbf{pulse\_activity\_gain $=0.25$ (cota inferior)}; chem start $=0.7351$; chem dur $=1.0639$; matrix\_gain $=3.1158$ (perfilado anal\'iticamente, \ruta{\_profile\_matrix\_gain}:1909).
+
+\textbf{Observables:} perfil completo ($\sigma=\max(0.04, 0.10\cdot\text{peak})$, peso $1/\sqrt{n}$); pseudo-observable de onset (12 h); pseudo-observable del \emph{tiempo} del peak post-pulso (ventana 72 h, 12 h); censura LOD unilateral $\max(\mathrm{pred}-\mathrm{LOD},0)/\sigma$, LOD $=0.05$ (0.10 fr\'io). \textbf{No exist\'ia residual de amplitud del bump.}
+
+\textbf{Matiz} \hecho{} LAB012 fue holdout de la capa CO$_2$ pero no end-to-end: su qu\'imica particip\'o en $\theta_{\mathrm{natural}}$.
+
+\section{Fen\'omeno 1 --- lag / onset}
+
+\hecho{} \textbf{Preprocessing:} cero por sensor (12 h, cuantil 10\%), m\'ascara de muestreo (3 h, ratio 0.65), Hampel + mediana + Savitzky--Golay, protecci\'on de pulso (4 h), LOD 0.05/0.10 (\ruta{filter\_co2\_sensor\_artifacts}).
+
+\textbf{Umbral din\'amico} (\ruta{\_onset\_threshold}:1837):
+\begin{align}
+\text{thr} &= \max\!\big(\mathrm{LOD}_{\mathrm{early}},\; \mathrm{baseline} + 0.10\,(\text{peak}-\mathrm{baseline})\big),\\
+\mathrm{baseline} &= \text{mediana de los primeros 12 h}.
+\end{align}
+\textbf{Onset sostenido} (\ruta{\_sustained\_onset\_h}:1849): \textbf{3 puntos consecutivos} sobre el umbral. \textbf{Bracket qu\'imico} (\ruta{\_chemical\_activity\_bracket}:1302): $U$ = primera muestra con $\Delta(G{+}F)\le -5$ g/L o $\Delta E \ge +2$ g/L; $L$ = muestra anterior. \textbf{Gate} (\ruta{\_bounded\_smoothstep\_activation}:1360):
+\begin{align}
+t_s &= L + s\,(U-L),\qquad D = \max(d\,(U-L),\,0.25\,\mathrm{h}),\\
+z &= \mathrm{clip}\!\left(\tfrac{t-t_s}{D},0,1\right),\qquad A(t)=z^2(3-2z),
+\end{align}
+con $s = 0.735$, $d = 1.064$.
+
+\hecho{} \textbf{Chemical activation = ENCENDIDO, no APAGADO:} para $t \ge t_s + D$, $A \equiv 1$ siempre. El release continuous no genera lag.
+
+\interp{} No confundir: (1) spike instrumental; (2) onset observado (umbral din\'amico); (3) activaci\'on interna $A(t)$.
+
+\hecho{} \textbf{LAB016--018:} sin G/F/E post-inoculaci\'on el bracket degrada a $[0,0]$ (escal\'on en $t=0$): onset predicho 5.7--6.2 h vs observado 22.2--24.2 h. Re-posicionar diagn\'osticamente el gate (bracket $[0, t_{\mathrm{onset,obs}}]$, $s$ y $d$ congelados) reduce el RMSE \textbf{77--86\%} (0.376$\to$0.053; 0.312$\to$0.072; 0.326$\to$0.071) y deja el peak aproximadamente alineado (43--49 h vs 41--47 h).
+
+\textbf{Advertencia para el estimador} \hecho{} el bracket usa la muestra qu\'imica que \emph{evidencia} actividad (qu\'imica posterior al lag): anclaje a posteriori, \textbf{no ley causal utilizable online}. \textbf{TAREA antes del EKF/MHE:} desarrollar una representaci\'on causal de la activaci\'on/lag.
+
+\section{Fen\'omeno 2 --- peak principal}
+
+\hecho{} En LAB016--018 con gate condicionado: peak 43--49 h pred vs 41--47 h obs; amplitud 0.748--0.773 vs 0.792--0.814 g/L/h. Sin defecto mayor. \interp{} Su calidad es contingente al gate y al pulso, no un logro independiente.
+
+\section{Fen\'omeno 3 --- ca\'ida / terminaci\'on}
+
+\subsection{Estructura de $q_{\mathrm{prod}}$ \hecho}
+\begin{align}
+q_{\mathrm{prod,base}} &= 0.4777\,(\beta_G + \beta_F)\,X,\\
+\beta_G &= \beta_{G0}\,a_\beta(T)\,\frac{G}{G+k_G}\,\frac{1}{1+i_E E},\\
+\beta_F &= \beta_{F0}\,a_\beta(T)\,\frac{F}{F+k_F}\,\frac{1}{1+i_G G}\,\frac{1}{1+i_E E}.
+\end{align}
+
+\begin{table}[h]\centering\small
+\begin{tabularx}{\textwidth}{P{1.1cm}L P{4.6cm}}
+\toprule
+Variable & Mecanismo & Efecto en $q_{\mathrm{prod}}$ \\
+\midrule
+G & Monod $G/(G+k_G)$ & directo, principal (se agota primero) \\
+F & Monod $F/(F+k_F)$ & directo, el m\'as lento (fructosa residual) \\
+E & $1/(1+i_E E)$, $i_E=0.040$ & directo, parcial \\
+N & $n/(n+k_n)$ solo en $\mu$ & \textbf{no limita} $\beta_G/\beta_F$ \\
+X & $\mathrm{d}X=(\mu-k_d)X$ & indirecto; sin muerte X queda plana \\
+X$_d$ & $k_d>0$ solo si $T\ge t_d(E)$, $t_d(E)\approx 315.9-0.128\,E$ K & muerte inerte a 16--22$^\circ$C \\
+T & Arrhenius $a_\beta$ & escala, no apaga \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\subsection{Diagn\'ostico LAB016--018 \diag}
+Sin pulso N declarado (forward congelado): a 100--150 h $q_{\mathrm{prod,efectiva}}$ = 0.083--0.166 g/L/h $\approx$ \textbf{33--66\% del peak}; X plana en 1.36 kg/m$^3$; N $=0$ desde temprano; F = 17--27 g/L a 150 h. Observado: 0.28$\to$0.02 g/L/h entre 100 y 150 h (pred 0.53$\to$0.28).
+
+\subsection{La cola NO viene del pool \hecho}
+Con $k=0.4246$ h$^{-1}$: $\tau \approx 4.5$ h ($C=0.6$ g/L), 12.6 h (0.1), 19 h (0.05), 36 h (0.01). Si $q_{\mathrm{prod}}\to 0$, qgas cae 70--90\% en 10--25 h y a $\approx$0 en $<40$ h. La cola es upstream, no release.
+
+\subsection{La cola ya exist\'ia en el hist\'orico \hecho}
+En LAB004--012: a peak+40 h mediana pred/obs $\approx 0.8$; al final \textbf{2.2$\times$}. En $t>100$ h: 570 puntos, \textbf{39\% censurados}, mediana obs 0.12 vs pred 0.205. Censura unilateral con $\sigma\approx 0.08$: sobrepasar el LOD en la cola costaba ${\sim}1\sigma$ por punto. \interp{} Defecto hist\'orico tolerado, d\'ebilmente penalizado.
+
+\subsection{Mecanismo hist\'orico real del apagado}
+La ca\'ida depend\'ia de (i) agotamiento G/F, (ii) inhibici\'on por E y (iii) \textbf{de forma muy importante, la atenuaci\'on post-pulso gain$=0.25$} (\S8). \interp{} Sin (iii), la terminaci\'on biol\'ogica es d\'ebil: eso expone el holdout sin pulso.
+
+\section{Release: threshold vs continuous}
+
+\hecho{} \textbf{Threshold:} $q_{\mathrm{gas}} = \min(k\cdot\mathrm{smoothplus}(C - C^*), \text{disponible})$ --- meseta cero artificial. \textbf{Continuous (nominal):}
+\begin{align}
+\text{release\_fraction}(t) &= 0.05 + 0.95\,\frac{C}{C+C^*},\\
+q_{\mathrm{gas}}(t) &= \min\!\big(k\, C\, \text{release\_fraction},\ \text{disponible}\big).
+\end{align}
+Termin\'o nominal porque elimin\'o la meseta y mejor\'o onset/correlaci\'on (LAB012: RMSE 0.361$\to$0.318; correlaci\'on 0.36$\to$0.78). \hecho{} \textbf{No genera lag por s\'i mismo.} Mantener por ahora (\S22).
+
+\section{Fen\'omeno 4 --- nutrici\'on: arquitectura hist\'orica}
+
+\hecho{} \textbf{Salto de N:} $N(t_p^+) = N(t_p^-) + \Delta N$ (\ruta{\_pulse\_events}:475). \textbf{Respuesta en la capa} (\ruta{effective\_qprod\_grid}:1691):
+\begin{align}
+r(t) &= \mathrm{clip}\!\left(\tfrac{t - t_{\mathrm{pulse}}}{\text{pulse\_t\_rise\_h}},\,0,\,1\right) \quad\text{(rampa causal)},\\
+\text{biomasa} &= X_{\mathrm{sin\,pulso}} + r\,\Delta X_{\mathrm{pulso}},\\
+\text{activity\_multiplier}(t) &= 1 + (\text{pulse\_activity\_gain} - 1)\, r(t),\\
+q_{\mathrm{prod,bio}} &= \text{activity\_multiplier}\cdot q_{\mathrm{prod,sin\,pulso}} + r\,\Delta q_{\mathrm{prod,pulso}}.
+\end{align}
+$r(t)$ queda en 1 (sin ca\'ida); el gain no toca \ruta{ferment\_fraction} ni el pool.
+
+\hecho{} \textbf{Valores (natural):} gain $=0.25$ (cota inferior), rise $=64.66$ h (cerca de cota sup.).
+
+\interp{} El ``nitrogen boost'' funcion\'o en natural como una \textbf{ATENUACI\'ON lenta post-pulso} ($\times 0.25$ en ${\sim}65$ h): el apagado de facto. La reactivaci\'on emerg\'ia solo de $r\,\Delta q_{\mathrm{prod}}$.
+
+\hecho{} \textbf{Calibraci\'on de la respuesta:} perfil + \emph{timing} del peak post-pulso. \textbf{Sin residual de amplitud} --- reactivaci\'on hist\'orica imperfecta.
+
+\subsection{Ejemplos hist\'oricos \hecho}
+\begin{table}[h]\centering\small
+\begin{tabularx}{\textwidth}{P{1.2cm}P{1.5cm}P{2.2cm}L L}
+\toprule
+LAB & pulso (h) & CO$_2$ antes & respuesta observada & respuesta predicha \\
+\midrule
+LAB012 & 91.0 & 0.86 (84 h) & sube a 1.115 @102 h (peak global) & 0.62$\to$0.58 (sin subida) \\
+LAB011 & 86.8 & 0.88 (78 h) & 1.28 @87 h & 0.25$\to$0.50 @96 h (amplitud 2.6$\times$ corta) \\
+LAB010 & 102.5 & 0.28 (96 h) & 0.37 @108 h (+30\%) & 0.30$\to$0.41 (reproduce) \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\subsection{Efecto de declarar el pulso en LAB016--018 \diag}
+Con dosis diferenciada (F1/F3 $=0.14$; F2 $=0.28$ kg/m$^3$, protocolo supuesto 1.0+0.4 g), sin reajustar par\'ametros:
+
+\begin{center}
+\begin{tabular}{lc}
+\toprule
+qCO2 @150 h (g/L/h) & valor \\
+\midrule
+sin pulso & $\approx 0.27$--$0.28$ \\
+con pulso & $\approx 0.005$--$0.023$ \\
+observado & $\approx 0.01$--$0.03$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+La cola se corrige esencialmente solo con declarar el evento (tambi\'en a 120 h: 0.41$\to$0.14 vs obs 0.08--0.16).
+
+\section{Dosis de nutrici\'on: hist\'orico y LAB016--018}
+
+\subsection{Protocolo hist\'orico codificado \hecho}
+\ruta{co2\_cross} :104--108: 1.00 g SpringFerm Xtrem + 0.40 g FDA, \code{YAN_MG_PER_MG_PRODUCT = 0.20} $\Rightarrow$ 280 mg YAN en 2 L $\Rightarrow$ $\Delta N = 0.14$ kg/m$^3$ (los 9 naturales). Timing por densidad 1040 g/L. \textbf{Dosis de PROTOCOLO, no medici\'on.} El upstream us\'o 0.08 kg/m$^3$ del workbook.
+
+\subsection{Nueva informaci\'on del operador \hipo}
+La nutrici\'on de LAB016--018 habr\'ia sido aproximadamente: \textbf{F1/F3: $\approx$ 0.8 g SFX + 0.4 g FDA}; \textbf{F2: el DOBLE}. Consistente con la duraci\'on del segundo pulso de F2 (7.8 vs ${\sim}$4 min), pero eso no lo prueba. No presentar como dato definitivo.
+
+\subsection{Traducci\'on a $\Delta N$ \hecho{} (aritm\'etica; condicionada a la hip\'otesis)}
+Si el factor 20\% aplica a esta formulaci\'on:
+\begin{align}
+\text{F1/F3: } 0.8+0.4 &= 1.2\ \mathrm{g} \to 240\ \mathrm{mg\ YAN} \to 120\ \mathrm{mg/L} \to \Delta N = 0.12\ \mathrm{kg/m^3},\\
+\text{F2 (doble): } 2.4\ \mathrm{g} &\to 480\ \mathrm{mg\ YAN} \to 240\ \mathrm{mg/L} \to \Delta N = 0.24\ \mathrm{kg/m^3}.
+\end{align}
+\hipo{} V\'alido solo si el 20\% corresponde a esta formulaci\'on. Confirmar por separado: aporte YAN de SFX; aporte YAN de FDA; masas pesadas; volumen real. \interp{} La prueba previa us\'o 0.14/0.28; con la dosis corregida (0.12/0.24, $-14\%$) el efecto deber\'ia ser menor, pero debe re-evaluarse.
+
+\section{Sensibilidad de pulse\_activity\_gain}
+
+\diag{} Prueba manual (sin fitting), rise congelado $\approx 64.7$ h, pulso declarado: gain $\in \{0.25, 0.50, 1.00, 1.50, 2.00\}$.
+
+\textbf{Resultado:} aumentar gain genera reactivaci\'on, pero aumenta \textbf{toda} la actividad posterior y destruye la ca\'ida/cola:
+\begin{verbatim}
+gain bajo  -> buena terminacion, mala reactivacion
+gain alto  -> mejor reactivacion, mala terminacion
+\end{verbatim}
+
+\interp{} Un multiplicador \textbf{permanente} no puede producir un transitorio (bump de horas que se disuelve) y preservar la terminaci\'on: limitaci\'on de la forma funcional hist\'orica. Ambos efectos requieren din\'amicas separadas.
+
+\section{Prueba transitoria rise-decay}
+
+\diag{} Prueba estructural diagn\'ostica (forward, sin fitting):
+\begin{equation}
+q_{\mathrm{prod,transient}} = q_{\mathrm{prod,historical}}\cdot\big[1 + A\,B(t)\big],
+\end{equation}
+con $B(t)$ = rise r\'apido $\times$ decay exponencial, $B(t)\to 0$ despu\'es del pulso. Barrido: $A \in \{0.10, 0.20, 0.30\}$; $\tau_{\mathrm{rise}} \in \{1,2,4\}$ h; $\tau_{\mathrm{decay}} \in \{4,8,12\}$ h.
+
+\textbf{Resultado principal:} $A \approx 0.30$, $\tau_{\mathrm{rise}} \approx 2$ h, $\tau_{\mathrm{decay}} \approx 4$ h reprodujo en \textbf{LAB017}: reactivaci\'on predicha \textbf{35.74\%} vs observada \textbf{35.59\%}; retorno correcto a la cola (qCO2 @150 h $\approx 0.0054$ g/L/h).
+
+\textbf{\textcolor{diagc}{[RESULTADO DIAGN\'OSTICO --- NO PAR\'AMETROS CALIBRADOS]}} Valores de un barrido manual sobre un solo experimento, sin funci\'on objetivo ni incertidumbre. La forma rise-decay es por ahora \textbf{la principal hip\'otesis estructural}, no un modelo definitivo.
+
+\section{Limitaci\'on de la respuesta transitoria universal}
+
+\diag{} El mismo escenario ($A{\approx}0.30$, $\tau_r{\approx}2$ h, $\tau_d{\approx}4$ h) en los tres fermentadores:
+
+\begin{center}
+\begin{tabular}{lc}
+\toprule
+LAB & reactivaci\'on predicha \\
+\midrule
+LAB016 & $\approx 15.4\%$ \\
+LAB017 & $\approx 35.7\%$ \\
+LAB018 & $\approx 13.9\%$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+Reproduce muy bien amplitud, timing y cola de F2, pero \textbf{NO explica} la respuesta menor de F1/F3: un transitorio universal y lineal con dosis es insuficiente. Posibles explicaciones \textbf{a investigar, no afirmar} \hipo{}: dosis real diferente; composici\'on diferente; respuesta no lineal a dosis; estado fisiol\'ogico al pulso; N residual; X; az\'ucar disponible; heterogeneidad experimental; mezcla/aplicaci\'on. \interp{} Con la dosis hipotetizada (F2 doble $\to {\sim}2.3\times$ respuesta) existe un primer contraste de dose-response; confirmar la dosis lo convierte en dato.
+
+\section{Diferencias respecto a la calibraci\'on hist\'orica}
+
+\begin{table}[h]\centering\footnotesize
+\begin{tabularx}{\textwidth}{P{1.9cm}P{4.0cm}P{4.4cm}P{4.0cm}}
+\toprule
+Aspecto & Calibraci\'on hist\'orica & Hallazgo actual & Cambio potencial \\
+\midrule
+Onset & chemical bracket offline (qu\'imica futura) & bracket no causal; re-posicionarlo corrige 77--86\% & mecanismo causal/predictivo (obligatorio pre-estimador) \\
+Release & continuous release & sin lag propio; $\tau\le 20$ h; no causa cola & mantener por ahora \\
+Nutrici\'on & salto N + rampa lenta + gain permanente & respuesta real en horas, con retorno & separar transitorio r\'apido de terminaci\'on lenta \\
+Termination & az\'ucar/E + gain$=0.25$ & sin pulso: terminaci\'on d\'ebil (33--66\% del peak) & fundamento biol\'ogico independiente del pulso \\
+N & afecta solo $\mu$ & N$=0$ no frena la fermentaci\'on & evaluar $\beta$(N)/estado metab\'olico \\
+Muerte & pr\'acticamente inerte & Xd sin se\~nal; Oculyze nuevo disponible & revisar con X/Xd nuevos \\
+Pulse response & rise $\approx 64.7$ h & bump en pocas horas & transitorio rise-decay ($\tau_r{\approx}2$, $\tau_d{\approx}4$ h, diagn\'ostico) \\
+Amplitud bump & sin residual propio & hist\'oricamente corta; transitorio la reproduce en F2 & residual de amplitud post-pulso \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\section{Propuesta de arquitectura a evaluar (NO implementar todav\'ia)}
+
+\begin{verbatim}
+UPSTREAM
+  |
+chemical/metabolic activation        (causal, no bracket a posteriori)
+  |
+qprod_base
+  |
+evento nutricional conocido (input trazable: t_pulso, dN, composicion)
+  |- salto real de N en el estado
+  |- respuesta metabolica rapida transitoria   (escala ~2-8 h; rise-decay)
+  |- dinamica lenta de terminacion             (escala decenas de horas)
+  |
+CO2 dissolved
+  |
+continuous release
+  |
+qgas
+\end{verbatim}
+
+\interp{} Separar: \textbf{A)} respuesta r\'apida post-nutrici\'on (${\sim}$2--8 h) de \textbf{B)} terminaci\'on (decenas de horas); evitar que un solo \code{pulse_activity_gain} represente ambas. La forma rise-decay es la principal hip\'otesis estructural, pendiente de: dosis confirmada, evaluaci\'on en F1/F3 y calibraci\'on formal con residual de amplitud.
+
+\section{Defectos estructurales identificados}
+
+\begin{table}[h]\centering\small
+\begin{tabularx}{\textwidth}{P{0.55cm}L P{3.5cm}}
+\toprule
+\# & Defecto & Clasificaci\'on \\
+\midrule
+1 & onset depende de qu\'imica offline (futura); no causal & estructural + datos \\
+2 & terminaci\'on upstream d\'ebil (33--66\% del peak a 100--150 h) & estructural \\
+3 & N no limita $\beta_G/\beta_F$ (solo $\mu$) & estructural \\
+4 & muerte celular inerte ($k_d = 0$ a 16--22$^\circ$C) & estructural \\
+5 & fructosa residual mantiene $q_{\mathrm{prod}}$ & estructural \\
+6 & apagado hist\'orico depend\'ia del t\'ermino post-pulso & parametrizaci\'on \\
+7 & gain $=0.25$ en cota inferior & parametrizaci\'on \\
+8 & rise $\approx 64.7$ h cerca de cota superior & parametrizaci\'on \\
+9 & reactivaci\'on r\'apida ($\sim$6 h) no representable con rampa de 65 h & estructural \\
+10 & un gain permanente no da bump + buena cola a la vez (\S10) & estructural \\
+11 & transitorio universal no explica el contraste F1/F3 vs F2 (\S12) & datos + estructural \\
+12 & cola hist\'orica sobrepredicha (mediana 2.2$\times$) & datos + parametrizaci\'on \\
+13 & censura LOD reduc\'ia el peso de la cola (39\% en $t>100$ h) & metodolog\'ia \\
+14 & \code{matrix_gain} absorbe sesgos de amplitud & parametrizaci\'on \\
+15 & microleaks posibles en CO$_2$ hist\'orico LAB013--015 & incertidumbre experimental \hipo{} \\
+16 & LAB016--018 sin qu\'imica temporal completa (ICs heredadas) & datos \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\section{Inventario actual LAB013--LAB018}
+
+\textbf{LAB013--015 (SP 16$^\circ$C):} \hecho{} Y15 (G, F, YAN, Gly; 7 din\'amicas + 1 PI por LAB); Oculyze \textbf{9 muestras/LAB} (1, 2, 4--10; 10 im\'agenes/muestra) en $t \approx 0/2.5/7/23/29/47.5/53/71.5/143.5$ h (t0 proxy = muestra-1); X 0.17--2.11, X$_d$ 0.002--0.184 kg/m$^3$; Brix/densidad/DO/CO$_2$ disuelto en 10 muestras; CO$_2$ gaseoso \textbf{no confiable} (hip\'otesis microleak \S23 del notebook); t0 definitivo pendiente.
+
+\textbf{LAB016--018 (SP 20$^\circ$C):} \hecho{} CO$_2$ confiable (m\'ascara 2.5--3.6\%); T medida; Brix/densidad en 8 muestras; Oculyze en \textbf{8.9, 10.9 y 56.2 h} (X@8.9 h $= 0.27$--$0.43$ vs fallback 0.45); ICs heredadas (G0 74.05, F0 77.73, YAN0 244.33 mg/L, Gly0 1.14); t0 inequ\'ivoco (log, 00:03:55/00:04:00/00:04:07); nutrici\'on ${\sim}$56.9 h (F2 con dos pulsos); dosis probable \hipo{} F1/F3 $\approx$ 0.8+0.4 g, F2 doble.
+
+\textbf{Sem\'antica} \hecho{} el n\'umero 3 de LAB013--015 fue saltado en Oculyze; el segundo \ruta{LAB015-1} es \textbf{LAB015-2}; cronolog\'ia por \ruta{hora\_muestreo} offline (\ruta{Description} de Oculyze no confiable).
+
+\section{Qu\'e hace falta para recalibrar (priorizado)}
+
+\textbf{IMPRESCINDIBLE:} (1) tiempo exacto de inoculaci\'on; (2) tiempo exacto de nutrici\'on; (3) masa exacta SFX/FDA por fermentador; (4) composici\'on/YAN real de ambos productos ($?$\,20\% aplica a ambos); (5) G/F temporal; (6) YAN temporal; (7) biomasa viable/total (Oculyze); (8) CO$_2$ confiable; (9) temperatura.
+
+\textbf{MUY DESEABLE:} (10) etanol (puntos estr\'ategicos, \S23 --- no en todos los puntos si el Alcolyzer no est\'a disponible); (11) glicerol (viene con Y15); (12) X$_d$/viabilidad.
+
+Qu\'e informa cada medici\'on: G/F $\to$ $\beta$, kG/kF, iG, iE, terminaci\'on; YAN $\to$ qN, sN, $\mu$, $\Delta N$; X $\to$ $\mu$, escala, X0; X$_d$ $\to$ Kd0 (hoy sin se\~nal); E $\to$ iE, $\beta$, balance C; Gly $\to$ $\gamma$; CO$_2$ $\to$ capa completa; T $\to$ Arrhenius.
+
+\section{Dise\~no de 1--2 fermentaciones nuevas}
+
+Objetivos de identificaci\'on: \textbf{onset} (0--36 h denso), \textbf{respuesta a nutrici\'on} ($-1$ a $+24$ h alrededor del pulso), \textbf{terminaci\'on} ($>96$ h). Ya existe un contraste preliminar de dosis (F1/F3 normales, F2 doble, por confirmar).
+
+\subsection{Decisi\'on estructural}
+\textbf{Recomendaci\'on \interp{}: control SIN nutrici\'on + fermentaci\'on con dosis conocida.} (i) el contraste de dosis ya existe (parcialmente) en LAB016--018 tras confirmar la hip\'otesis del operador; (ii) no existe en todo el dataset una terminaci\'on \emph{sin} el artefacto del pulso: el control es el \'unico dise\~no que a\'isla la terminaci\'on biol\'ogica (mecanismo m\'as d\'ebil); (iii) la fermentaci\'on con dosis conocida y muestreo denso post-pulso ancla amplitud/timing/$\tau$ con input trazable y contrasta contra F2. ``Dosis normal + dosis doble'': solo si la confirmaci\'on del operador fracasara.
+
+\subsection{Alternativas}
+\textbf{A (una sola):} con nutrici\'on de dosis confirmada, denso en onset y ventana post-pulso; terminaci\'on con menos densidad. \textbf{B (dos, recomendado):} F-A control sin nutrici\'on; F-B nutrici\'on con dosis exacta pesada y registrada; mismo mosto/cepa, SP 20$^\circ$C; nutrici\'on al mismo estado de densidad (${\sim}$1040 g/L).
+
+\subsection{Calendario de muestreo}
+{\small
+\begin{longtable}{P{0.5cm}P{3.2cm}P{0.9cm}P{0.8cm}P{1.1cm}P{0.8cm}P{1.2cm}P{1.2cm}P{0.8cm}}
+\toprule
+\# & Instante & G/F & YAN & Oculyze & Brix & Densidad & E & Gly \\
+\midrule
+0 & PI (pre-inoc.) & s\'i & s\'i & --- & s\'i & s\'i & externo & s\'i \\
+1 & 0 h post-inoc. & --- & --- & s\'i & s\'i & s\'i & --- & --- \\
+2 & 6--8 h & s\'i & s\'i & s\'i & s\'i & s\'i & --- & s\'i \\
+3 & 12 h & s\'i & s\'i & --- & s\'i & s\'i & --- & s\'i \\
+4 & 24 h & s\'i & s\'i & s\'i & s\'i & s\'i & --- & s\'i \\
+5 & 36 h & s\'i & s\'i & s\'i & s\'i & s\'i & --- & s\'i \\
+6 & 48 h & s\'i & s\'i & --- & s\'i & s\'i & --- & s\'i \\
+7 & $-1$ h pre-nutrici\'on & s\'i & s\'i & s\'i & s\'i & s\'i & externo & s\'i \\
+8 & $+2$ h post-nut. & s\'i & s\'i & --- & s\'i & s\'i & --- & s\'i \\
+9 & $+4$--$6$ h post-nut. & s\'i & s\'i & s\'i & s\'i & s\'i & --- & s\'i \\
+10 & $+12$ h post-nut. & s\'i & s\'i & --- & s\'i & s\'i & --- & s\'i \\
+11 & $+24$ h post-nut. & s\'i & s\'i & s\'i & s\'i & s\'i & externo & s\'i \\
+12 & 96 h / $+48$ h post-pulso & s\'i & --- & s\'i & s\'i & s\'i & --- & s\'i \\
+13 & final (declinaci\'on clara) & s\'i & s\'i & s\'i & s\'i & s\'i & externo & s\'i \\
+\bottomrule
+\end{longtable}
+}
+
+\textbf{Plan m\'inimo:} 0, 1, 2, 4, 5, 7, 8, 9, 11, 13 (10 por fermentador). \textbf{Recomendado:} los 14 (solo F-B; en F-A el bloque 7--11 se sustituye por un punto a la hora nominal del pulso +24 h). Con nutrici\'on ${\sim}$56 h, los puntos 8--12 caen en 58--104 h absolutas. Metadata obligatoria: producto/gramos/volumen/hora de la nutrici\'on, log \ruta{nutricion\_activa}, r\'eplicas Oculyze ($\ge 2$) en 1, 4, 7, 11.
+
+\section{Estrategia etanol / Alcolyzer}
+
+Servicio externo, pocas muestras: (1) PI (E0 real: hist\'orico 9.2--11.8 g/L, no cero); (2) pre-nutrici\'on (E al pulso); (3) $+8$--$12$ h post-nutrici\'on (E en el m\'aximo del bump); (4) fase tard\'ia/final (ancla de iE). \interp{} Reducir a 3 (sin la \#3) pierde la E en el m\'aximo de reactivaci\'on; a 2 (PI + final) la terminaci\'on queda mal condicionada para iE. \textbf{Recomendaci\'on: 4; aceptar 3 como m\'inimo.} El resto del perfil de E se infiere del balance CO$_2$.
+
+\section{Preguntas prioritarias para el colega}
+
+\textbf{Prioridad m\'axima:}
+\begin{enumerate}[leftmargin=*,itemsep=1pt]
+\item ¿Cu\'al fue exactamente la formulaci\'on y masa de SFX/FDA en LAB004--LAB012?
+\item ¿De d\'onde sale el supuesto 20\% de YAN?
+\item ¿Ese 20\% aplica a ambos productos?
+\item ¿Cu\'al fue exactamente la dosis de LAB016--LAB018?
+\item ¿F2 recibi\'o efectivamente el doble?
+\item ¿Cu\'al era la interpretaci\'on f\'isica esperada de \code{pulse_activity_gain}?
+\item ¿Por qu\'e termin\'o en 0.25, cota inferior?
+\item ¿Qu\'e representaba f\'isicamente \code{pulse_t_rise_h}?
+\item ¿Por qu\'e qued\'o en ${\sim}$64.7 h si las respuestas observadas ocurren en pocas horas?
+\item ¿El mecanismo post-pulso pretend\'ia representar reactivaci\'on, terminaci\'on o ambas?
+\item ¿Era conocida la sobrepredicci\'on hist\'orica de la cola?
+\item ¿Por qu\'e N no aparece directamente en beta\_G/beta\_F?
+\item ¿Se contempl\'o alguna variable de actividad metab\'olica?
+\item ¿De d\'onde sale 30 pg/c\'elula?
+\item ¿C\'omo definir\'ia un t0 f\'isicamente correcto para el modelo?
+\end{enumerate}
+
+\textbf{Secundarias:} (16) umbrales $\Delta(G{+}F)=5$ / $\Delta E=2$ g/L y su sensibilidad; (17) conciencia de que el gate necesita qu\'imica futura; (18) \code{matrix_gain} f\'isico o emp\'irico; (19) microleaks hist\'oricos; (20) upstream 0.08 vs capa CO$_2$ 0.14 kg/m$^3$; (21) LAB012 holdout parcial; (22) O$_2$ qmax en cota; (23) problemas abiertos conocidos.
+
+\section{Readiness para el estimador de estado (EKF/UKF/MHE)}
+
+\begin{longtable}{P{3.8cm}P{1.6cm}P{8.4cm}}
+\toprule
+\'Item & Estado & Notas \\
+\midrule
+Modelo din\'amico final & parcial & decidir arquitectura post-nutrici\'on y terminaci\'on \\
+Estados (7) & s\'i & X, X$_d$, N, G, F, E, Gly \\
+Inputs conocidos & s\'i & T medida; pulsos N \\
+Nutriciones como inputs & parcial & dosis LAB016--018 pendiente de confirmar \\
+Observation functions & parcial & CO$_2$; X/X$_d$ ($\times$0.03); YAN$\to$N; Y15$\to$G/F/Gly; Brix/$\rho$ sin validar \\
+Unidades & s\'i, con cuidado & kg/m$^3$ vs g/L; Mc\'el/mL$\times$0.03; SCCM oficial (24.16 L/mol, 44.0095, 2 L, 0.74) \\
+t0 inequ\'ivoco & s\'i (016--018) & LAB013--015 pendiente \\
+Inicializaci\'on & parcial & PI + 0 h en el plan nuevo \\
+Q (proceso) & falta & de residuos de recalibraci\'on \\
+R (medici\'on) & parcial & pisos/rel hist\'oricos \\
+Ruido real Oculyze & falta & sin r\'eplicas por muestra \\
+Ruido qu\'imica Y15 & parcial & de triplicados LAB013--015 \\
+M\'ascara CO$_2$ event-aware & s\'i & Hampel + ventanas auditadas \\
+Latencia causal & parcial & pipeline actual batch \\
+Periodos inv\'alidos & s\'i (dise\~no) & mask/NaN-aware \\
+Observabilidad & falta & X$_d$ probablemente no observable ($k_d\approx 0$) \\
+Par\'ametros fijos & s\'i & tras recalibraci\'on \\
+Par\'ametros aumentados & dise\~no & E0/bias-E, X0, eficiencia-N, par\'ametros del transitorio (A, $\tau_r$, $\tau_d$), drift de gain \\
+Validaci\'on externa & falta & holdout end-to-end \\
+\bottomrule
+\end{longtable}
+
+\subsection{BLOQUEANTES antes de un EKF/MHE serio}
+\begin{enumerate}[leftmargin=*,itemsep=1pt]
+\item \textbf{mecanismo causal de onset} --- el bracket hist\'orico usa qu\'imica futura y \textbf{NO puede utilizarse en tiempo real};
+\item inputs de nutrici\'on conocidos y trazables;
+\item decidir arquitectura post-nutrici\'on (transitorio separado de terminaci\'on);
+\item terminaci\'on razonablemente representada (control sin pulso);
+\item observation functions validadas;
+\item condiciones iniciales robustas;
+\item ruido Q/R con base en datos;
+\item manejo event-aware causal de artefactos CO$_2$;
+\item validaci\'on con al menos un experimento no usado en la recalibraci\'on.
+\end{enumerate}
+
+\subsection{Estado adicional de actividad (consideraci\'on, NO implementar)}
+\interp{} Un estado de \textbf{actividad fermentativa/metab\'olica} (lag $\to$ 1 $\to$ bump $\to$ decay) permitir\'ia representar causalmente lag + reactivaci\'on + decay dentro del filtro, en lugar del gate no causal y el gain permanente. Evaluar identificabilidad y costo antes de decidir.
+
+\section{Decisiones antes de recalibrar}
+
+{\small
+\setlength{\tabcolsep}{3pt}
+\begin{longtable}{P{2.3cm}P{3.8cm}P{3.0cm}P{1.7cm}P{3.5cm}}
+\toprule
+Decisi\'on & Evidencia actual & Dato que falta & Riesgo de cambiar & Recomendaci\'on \\
+\midrule
+Chemical activation & corrige onset ($-77$--$86\%$ RMSE) pero necesita bracket & G/F 6--36 h & bajo & mantener la forma; bracket medible/causal \\
+\code{pulse_activity_gain} & 0.25 en cota; barrido: gain alto destruye la cola & amplitud bump + cola con dosis confirmada & alto (reaparece cola) & re-emplazar por transitorio + terminaci\'on \\
+\code{pulse_t_rise_h} & 64.7 h; bump real en ${\sim}$6 h & ventana densa 2--12 h post-nutrici\'on & medio & rise corto + decay ($\tau_r{\approx}2$, $\tau_d{\approx}4$ h diagn\'ostico) \\
+Transitorio rise-decay & reproduce F2 (35.7 vs 35.6\%) y cola; no explica F1/F3 & dosis confirmada; r\'eplicas del pulso & medio (universalidad) & candidata principal; calibrar con residual de amplitud \\
+$\beta$(N) & N solo afecta $\mu$ & YAN pre/post pulso + G/F en bump & medio & evaluar $\beta$(N) \\
+Muerte celular & $k_d$ inerte; X$_d\approx 0$ & X$_d$ con se\~nal (Oculyze LAB013--018) & medio & mantener; revisar con X$_d$ nuevo \\
+\code{matrix_gain} & escala emp\'irica & calibraci\'on SCCM$\to$g/L/h & medio & mantener; monitorear \\
+E0 & hist\'orico 9.2--11.8; sin medir en 016--018 & E en PI & bajo & medir E en PI \\
+X0/X$_d$0 & fallback 0.45/0; Oculyze 8.9 h $\approx$ 0.27--0.43 & muestra 0 h & bajo & medir reales \\
+CI qu\'imicas 016--018 & heredadas & Y15 PI + 0 h & bajo & medir directas \\
+Nutriciones & contrafactual 0.14/0.28 corrige la cola (150 h: 0.005--0.023 vs 0.01--0.03) & dosis real (0.12/0.24 bajo hip\'otesis) & alto sin declarar & declarar pulso con dosis confirmada + sensibilidad $\pm 2\times$ \\
+Continuous release & nominal; $\tau\le 20$ h; no causa cola & --- & bajo & mantener \\
+\bottomrule
+\end{longtable}
+}
+
+\section{Roadmap actualizado}
+
+\begin{table}[h]\centering\footnotesize
+\begin{tabularx}{\textwidth}{P{0.55cm}P{6.2cm}L}
+\toprule
+\# & Etapa & Criterio de salida \\
+\midrule
+1 & Confirmar metadata/dosis con el colega (preguntas 1--5, 14, 15) & dosis SFX/FDA + factor YAN + t0 documentados por escrito \\
+2 & Corregir inputs LAB016--018 ($\Delta N$ por fermentador; contrafactual con 0.12/0.24) & cola corregida con dosis confirmada; desviaci\'on documentada \\
+3 & Cerrar dataset Oculyze/qu\'imica LAB013--018 & dataset \'unico versionado, sin ambig\"uedades de identidad/tiempo \\
+4 & Realizar 1--2 fermentaciones informativas (control + dosis conocida) & perfiles G/F/YAN/X/X$_d$/E con metadata de pulso completa \\
+5 & Seleccionar arquitectura m\'inima & lista cerrada de cambios estructurales con criterios de rechazo \\
+6 & Recalibrar upstream si corresponde & sin cotas activas injustificadas; residuos aceptables \\
+7 & Recalibrar capa CO$_2$/pulso (transitorio + terminaci\'on; residual de amplitud) & cola y bump reproducidos; par\'ametros con margen de cotas \\
+8 & Holdout externo (1 fermentaci\'on no usada) & m\'etricas end-to-end dentro de tolerancias pre-declaradas \\
+9 & Congelar modelo & versi\'on etiquetada con hashes y changelog \\
+10 & Comenzar estimador de estado (bloqueantes resueltos) & filtro causal validado contra el holdout de la etapa 8 \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\section{Resumen ejecutivo}
+
+\textbf{C\'omo funciona hoy} \hecho{} ODE de 7 estados con T ex\'ogena y pulsos exactos; CO$_2$ biol\'ogico $=0.4777(\beta_G+\beta_F)X$ filtrado por gate qu\'imico, respuesta post-pulso (rampa + gain permanente), pool con solubilidad $C_{\mathrm{sat}}(T,E,G,F)$ y liberaci\'on continua, escalado por matrix\_gain $=3.12$.
+
+\textbf{Qu\'e aprendimos} \hecho{} / \diag{} (i) el gate es solo onset y explica la mayor parte del error LAB016--018 sin qu\'imica (RMSE $-77$--$86\%$); (ii) en natural el ``boost'' ajust\'o gain $=0.25$ y rise $=64.7$ h: una atenuaci\'on lenta, apagado de facto; (iii) terminaci\'on biol\'ogica d\'ebil ($k_d$ inerte, N no limita $\beta$, fructosa sostiene $q_{\mathrm{prod}}$ al 33--66\% del peak a 100--150 h); la cola no es del pool ($\tau\le 20$ h); (iv) declarar el pulso con dosis de protocolo corrige la cola sin reajustar nada (150 h: $0.27$--$0.28 \to 0.005$--$0.023$ vs obs $0.01$--$0.03$ g/L/h); (v) un gain permanente no puede dar bump y buena cola a la vez; el transitorio rise-decay ($A{\approx}0.30$, $\tau_r{\approx}2$ h, $\tau_d{\approx}4$ h) reproduce el bump de LAB017 (35.7\% vs 35.6\%) y retorna a la cola correcta --- pero no explica el contraste F1/F3 (${\sim}$14--15\%); (vi) la dosis de LAB016--018 probablemente fue 0.8+0.4 g (F1/F3) y doble (F2) $\to \Delta N = 0.12/0.24$ kg/m$^3$ bajo el factor 20\% \hipo{}.
+
+\textbf{Conclusi\'on central:} \emph{La calibraci\'on hist\'orica utilizaba mecanismos data-assisted y una \'unica din\'amica post-pulso lenta que serv\'ia simult\'aneamente para respuesta a nutrici\'on y terminaci\'on. Los nuevos experimentos muestran que lag, reactivaci\'on r\'apida y terminaci\'on ocurren en escalas temporales distintas y probablemente deben representarse mediante mecanismos separados.}
+
+\textbf{Qu\'e funciona} \hecho{} peak principal y ascenso tras el gate condicionado; unidades verificadas; t0 de LAB016--018 inequ\'ivoco; m\'ascara de artefactos auditada; contrafactual de pulso corrigiendo la cola.
+
+\textbf{Qu\'e falla} onset no predictivo (y no causal por dise\~no); terminaci\'on dependiente del artefacto del pulso; bump no representable con rampa de 65 h ni gain permanente; transitorio universal insuficiente para F1/F3; gain y rise en cotas; microleaks \hipo{} en CO$_2$ de LAB013--015.
+
+\textbf{Qu\'e falta / qu\'e medir} confirmaci\'on de dosis/composici\'on YAN; G/F/YAN/X/X$_d$/E/Gly temporales (\S17); control + dosis conocida (\S18); etanol externo solo en PI, pre-nutrici\'on, $+8$--$12$ h post y final (\S19).
+
+\textbf{Qu\'e preguntar} las 15 preguntas de prioridad m\'axima (\S20). \textbf{Antes del estimador:} los 9 bloqueantes de la secci\'on de readiness (\S21) (mecanismo causal de onset, inputs trazables, arquitectura post-nutrici\'on, terminaci\'on, observation functions, ICs, Q/R, artefactos causales, validaci\'on externa); considerar un estado de actividad metab\'olica; con $k_d\approx 0$, proyectar el filtro sobre $\{X, N, G, F, E, \mathrm{Gly}\} + \mathrm{CO}_2$.
+
+\vspace{0.5em}
+\footnotesize Documento v2 generado por auditor\'ia y diagn\'osticos de s\'olo lectura (2026-09-08). No se modificaron modelos, notebooks, datos ni resultados. \'Unicos archivos mantenidos: el \ruta{.md} y este \ruta{.tex}.
+
+\end{document}
