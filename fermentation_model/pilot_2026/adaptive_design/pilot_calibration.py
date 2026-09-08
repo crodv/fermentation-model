@@ -54,8 +54,8 @@ class CO2FitResult:
 
 def _model_module():
     # The shared campaign model is the single source of kinetic equations.  Its
-    # module also contains Pyomo-DOE utilities, so the repository conda
-    # environment (environment-maintainer.yml) must be active even though this
+    # module also contains Pyomo-DOE utilities, so the official repository conda
+    # environment ("fermentation"; see AGENTS.md) must be active even though this
     # calibration uses SciPy's bounded trust-region least-squares solver.
     try:
         from shared import run_new_must_glycerol_estimability_doe as model

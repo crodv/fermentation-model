@@ -1,4 +1,0 @@
-# Optimal Experiment Design
-
-```{tableofcontents}
-```

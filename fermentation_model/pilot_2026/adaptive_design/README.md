@@ -6,7 +6,8 @@ profiles.
 
 ## Reproducible entry points
 
-Run from the repository root in `environment-maintainer.yml`:
+Run from the repository root with the official `fermentation` Conda
+environment activated as described in `../../../AGENTS.md`:
 
 ```bash
 python fermentation_model/pilot_2026/adaptive_design/resolve_historical_audit.py
