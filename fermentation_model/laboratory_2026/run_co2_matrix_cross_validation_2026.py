@@ -63,7 +63,7 @@ SYNTHETIC_THETA_PATH = (
     SCRIPT_DIR / "results" / "estimability_historical_synthetic_plus_lot2" / "theta_by_case.csv"
 )
 RAW_NATURAL_DIR = FERMENTATION_MODEL_DIR / "data" / "Laboratorio 2026" / "raw_data"
-NUTRIENT_CALENDAR_PATH = Path(r"C:\Users\ctorrealba\Downloads\Fernanda Folch.ics")
+NUTRIENT_CALENDAR_PATH = RAW_NATURAL_DIR / "Fernanda Folch.ics"
 
 MODEL_NAME = "solubility_o2_nitrogen_boost_continuous_release"
 THRESHOLD_RELEASE_MODEL_NAME = "solubility_o2_nitrogen_boost_threshold_release"
