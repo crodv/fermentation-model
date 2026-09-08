@@ -51,7 +51,7 @@
     "temperature_policy": "temperature is interpolated on the dynamic grid through the last chemical sample"
   },
   "natural_nutrient_protocol": {
-    "calendar_source": "C:\\Users\\ctorrealba\\Downloads\\Fernanda Folch.ics",
+    "calendar_source": "D:\\claud\\Desktop\\Universidad\\Memoria\\Model\\pyomo-doe\\fermentation_model\\data\\Laboratorio 2026\\raw_data\\Fernanda Folch.ics",
     "initial_pulse": "ignored because initial YAN is already represented at t=0",
     "in_process_springferm_xtrem_g": 1.0,
     "in_process_fda_g": 0.4,
@@ -145,7 +145,7 @@
     "natural_process_dir": "fermentation_model\\data\\Laboratorio 2026\\raw_data",
     "natural_theta": "fermentation_model\\laboratory_2026\\results\\estimability_historical_natural\\theta.csv",
     "synthetic_theta": "fermentation_model\\laboratory_2026\\results\\estimability_historical_synthetic_plus_lot2\\theta_by_case.csv",
-    "natural_nutrient_calendar": "C:\\Users\\ctorrealba\\Downloads\\Fernanda Folch.ics"
+    "natural_nutrient_calendar": "D:\\claud\\Desktop\\Universidad\\Memoria\\Model\\pyomo-doe\\fermentation_model\\data\\Laboratorio 2026\\raw_data\\Fernanda Folch.ics"
   },
   "oxygen_transition": {
     "estimated_by_matrix": [
