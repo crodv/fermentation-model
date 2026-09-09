@@ -1,0 +1,716 @@
+\documentclass[11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[spanish,es-nodecimaldot]{babel}
+\usepackage[a4paper,top=2.45cm,bottom=2.55cm,left=2.45cm,right=2.45cm,
+            headheight=15pt,headsep=0.65cm,footskip=1.1cm]{geometry}
+
+% Tipografía académica. Libertinus es la opción principal; el fallback conserva
+% compatibilidad con instalaciones TeX Live reducidas.
+\IfFileExists{libertinus.sty}{%
+  \usepackage{libertinus}%
+}{%
+  \usepackage{newtxtext,newtxmath}%
+}
+\usepackage{microtype}
+\usepackage{mathtools,amssymb,bm}
+\usepackage{booktabs,longtable,tabularx,array,multirow}
+\usepackage{siunitx}
+\usepackage[table]{xcolor}
+\usepackage{graphicx}
+\usepackage{enumitem}
+\usepackage{fancyhdr}
+\usepackage{titlesec}
+\usepackage{caption}
+\usepackage{float}
+\usepackage{fancyvrb}
+\usepackage{xurl}
+\usepackage{hyperref}
+
+\definecolor{auditblue}{HTML}{254E70}
+\definecolor{auditslate}{HTML}{4D5966}
+\definecolor{auditpale}{HTML}{EEF3F7}
+\definecolor{auditrule}{HTML}{CAD5DF}
+\definecolor{auditred}{HTML}{8B3A3A}
+\hypersetup{
+  colorlinks=true,
+  linkcolor=auditblue,
+  urlcolor=auditblue,
+  citecolor=auditblue,
+  pdfauthor={Auditoría técnica de solo lectura},
+  pdftitle={Auditoría de las ecuaciones realmente ejecutadas del modelo de fermentación},
+  bookmarksopen=true,
+  bookmarksnumbered=true
+}
+\urlstyle{same}
+\sisetup{
+  detect-all,
+  output-decimal-marker={.},
+  group-digits=false,
+  table-number-alignment=center
+}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.62em plus 0.12em minus 0.08em}
+\linespread{1.045}
+\setlength{\abovedisplayskip}{0.85em plus 0.2em minus 0.15em}
+\setlength{\belowdisplayskip}{0.85em plus 0.2em minus 0.15em}
+\setlength{\jot}{0.45em}
+\setlength{\LTpre}{0.65em}
+\setlength{\LTpost}{0.75em}
+\renewcommand{\arraystretch}{1.18}
+\allowdisplaybreaks[2]
+\emergencystretch=2em
+\widowpenalty=10000
+\clubpenalty=10000
+
+\setcounter{tocdepth}{2}
+\setcounter{secnumdepth}{3}
+
+\titleformat{\section}
+  {\Large\bfseries\color{auditblue}}
+  {\thesection}{0.75em}{}
+  [\vspace{0.25em}\color{auditrule}\titlerule]
+\titleformat{\subsection}
+  {\large\bfseries\color{auditslate}}
+  {\thesubsection}{0.65em}{}
+\titlespacing*{\section}{0pt}{2.2em}{0.9em}
+\titlespacing*{\subsection}{0pt}{1.55em}{0.55em}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small\sffamily\color{auditslate}Auditoría del modelo implementado}
+\fancyhead[R]{\small\sffamily\color{auditslate}\nouppercase{\leftmark}}
+\fancyfoot[C]{\small\sffamily\color{auditslate}\thepage}
+\renewcommand{\headrulewidth}{0.35pt}
+\renewcommand{\footrulewidth}{0pt}
+\renewcommand{\sectionmark}[1]{\markboth{\thesection\enspace #1}{}}
+\fancypagestyle{plain}{%
+  \fancyhf{}
+  \fancyfoot[C]{\small\sffamily\color{auditslate}\thepage}
+  \renewcommand{\headrulewidth}{0pt}
+}
+
+\captionsetup{
+  font=small,
+  labelfont={bf,color=auditblue},
+  textfont={color=auditslate},
+  justification=raggedright,
+  singlelinecheck=false,
+  skip=0.45em
+}
+
+\newcommand{\E}[1]{%
+  \nobreak\hspace{0.16em}%
+  \begingroup
+  \setlength{\fboxsep}{1.5pt}%
+  \colorbox{auditpale}{\textcolor{auditblue}{\sffamily\bfseries\scriptsize #1}}%
+  \endgroup\hspace{0.16em}%
+}
+\newcommand{\code}[1]{{\small\ttfamily #1}}
+\newcommand{\sourceinfo}[1]{%
+  \par\vspace{-0.15em}%
+  {\small\color{auditslate}\sffamily\textbf{Fuente técnica.}\enspace #1\par}%
+  \vspace{0.25em}%
+}
+\newcommand{\tablehead}[1]{\textcolor{auditblue}{\sffamily\bfseries #1}}
+\newcolumntype{Y}{>{\raggedright\arraybackslash}X}
+\newcolumntype{C}{>{\centering\arraybackslash}X}
+\DeclareMathOperator{\clip}{clip}
+\DeclareMathOperator{\softplus}{softplus}
+\newtagform{audit}[\color{auditslate}\sffamily]{(}{)}
+\usetagform{audit}
+
+\begin{document}
+\begin{titlepage}
+  \thispagestyle{empty}
+  \centering
+  \vspace*{2.0cm}
+  {\color{auditblue}\rule{0.82\textwidth}{0.9pt}}\par
+  \vspace{1.25cm}
+  {\sffamily\bfseries\LARGE Auditoría de las ecuaciones\\[0.28em]
+   realmente ejecutadas}\par
+  \vspace{0.55cm}
+  {\Large del modelo de fermentación}\par
+  \vspace{1.0cm}
+  {\color{auditslate}\large Auditoría técnica del modelo implementado}\par
+  \vspace{1.25cm}
+  {\color{auditblue}\rule{0.82\textwidth}{0.9pt}}\par
+
+  \vfill
+  \begin{minipage}{0.82\textwidth}
+    \small
+    \textbf{Alcance.} Este documento reconstruye la cadena matemática que
+    produjo los resultados versionados del modelo upstream y de la capa de
+    CO$_2$. Se auditaron cuatro notebooks principales ---incluidas las
+    versiones ejecutadas de la calibración upstream y de la matriz CO$_2$---,
+    ocho módulos nucleares y sus artefactos de parámetros. Se documentan 75
+    relaciones matemáticas únicas. No se ejecutaron optimizadores ni se
+    alteraron código, notebooks, parámetros o resultados.
+  \end{minipage}
+
+  \vfill
+  {\sffamily\color{auditslate}9 de septiembre de 2026}\par
+  \vspace{0.4cm}
+\end{titlepage}
+
+\pagenumbering{roman}
+\pagestyle{plain}
+\tableofcontents
+\clearpage
+\pagenumbering{arabic}
+\pagestyle{fancy}
+
+\section{Dictamen}
+
+La forma central es el sistema de siete estados
+\begin{equation}
+ y=(X,X_d,N,G,F,E,Gly).
+\end{equation}
+Se integra con LSODA entre saltos exactos. CO$_2$ y O$_2$ no son estados de
+ese sistema: son pools discretos internos de una capa posterior.
+
+No hay un único modelo numéricamente consistente en todas las ramas activas:
+\begin{enumerate}[label=\textbf{C\arabic*.}]
+\item \E{CONFLICT} Seis parámetros fijos usados al calibrar upstream no se
+guardaron en \path{theta.csv}; la capa CO$_2$ los repone desde
+\code{DEFAULT\_THETA}, con valores distintos.
+\item \E{CONFLICT} Upstream usó $\Delta N=0.08$ kg m$^{-3}$; la capa CO$_2$
+sobrescribe $\Delta N=0.14$ kg m$^{-3}$ y cambia los tiempos.
+\item \E{CONFLICT} La calibración convierte SCCM con 22.414 L mol$^{-1}$;
+LAB016--018 usa 24.16 L mol$^{-1}$ y factor 0.74, conservando el gain anterior.
+\end{enumerate}
+
+Las fuentes de las 30 celdas del notebook CO$_2$ son idénticas a las de su
+versión ejecutada. Sus ecuaciones Markdown están mayormente actualizadas, pero
+no son exactas: la duración documentada omite el mínimo de 0.25 h y las ODE de
+O$_2$/CO$_2$ se ejecutan como recurrencias Euler con recortes.
+
+\section{Arquitectura y trazabilidad}
+
+\begin{Verbatim}[
+  fontsize=\small,
+  frame=single,
+  framesep=4mm,
+  rulecolor=\color{auditrule},
+  formatcom=\color{auditslate},
+  baselinestretch=1.05
+]
+fermentation_estimability_historical_natural.executed.ipynb, celda 3
+ -> run_estimability_historical_by_medium.run_medium_analysis
+ -> make_medium_batches -> make_secondary_batches -> base.make_batches
+ -> final.load_theta_final [semilla completa]
+ -> reference.fit_core_case -> base.fit_parameters
+ -> residual_vector -> simulate -> rhs -> kinetic_terms
+ -> estimability_historical_natural/theta.csv [subset]
+
+co2_solubility_o2_cross_matrix_2026.executed.ipynb, celda 4
+ -> co2_cross.run_analysis
+ -> load_batches -> override_natural_nutrient_pulses
+ -> _load_theta(theta.csv) [DEFAULT_THETA + filas]
+ -> build_driver_cache -> base.simulate(con/sin pulso)
+ -> pilot.co2_production_g_l_h -> joint._core_rates
+ -> effective_qprod_grid -> raw_qgas_grid_prediction
+ -> _profile_matrix_gain -> fit_parameters.csv
+
+lab013_015..., celdas 8,16,18,20,23
+ -> theta_A; theta_B literal congelado; base.simulate; replay CO2
+
+lab016_018..., celdas 3,9,11,17
+ -> theta y capa CO2 congelados; IC escenarios; simulación; métricas
+\end{Verbatim}
+
+El notebook específico que generó $\theta_{natural}$ sí existe:
+\path{laboratory_2026/notebooks/fermentation_estimability_historical_natural.ipynb},
+con espejo ejecutado. Fue generado/ejecutado por
+\path{run_estimability_historical_by_medium.py}, líneas 1011--1171.
+
+\subsection{Nomenclatura de estados y cantidades internas}
+
+\begin{table}[H]
+\centering
+\caption{Nomenclatura y clasificación de las cantidades del modelo.}
+\label{tab:nomenclatura}
+\rowcolors{2}{white}{auditpale!55}
+\begin{tabularx}{\textwidth}{>{\raggedright\arraybackslash}p{0.12\textwidth}Y>{\raggedright\arraybackslash}p{0.25\textwidth}}
+\toprule
+\tablehead{Símbolo} & \tablehead{Rol exacto} & \tablehead{Unidad} \\
+\midrule
+$X$ & biomasa viable, estado central & kg m$^{-3}$ (numéricamente g L$^{-1}$) \\
+$X_d$ & biomasa muerta, estado central & kg m$^{-3}$ \\
+$N$ & nitrógeno asimilable, estado central & kg m$^{-3}$ \\
+$G,F,E,Gly$ & glucosa, fructosa, etanol, glicerol; estados centrales & g L$^{-1}$ \\
+$T$ & input exógeno interpolado & $^\circ$C \\
+$O_2$ & pool Euler interno de la capa CO$_2$ & mg L$^{-1}$ \\
+$C$ & pool Euler de CO$_2$ disuelto & g L$^{-1}$ \\
+$A,\phi_{ana},f_{ferm},r$ & variables algebraicas & adimensional \\
+$q_{prod},q_{gas},q_{obs}$ & tasas & g L$^{-1}$ h$^{-1}$ \\
+\bottomrule
+\end{tabularx}
+\rowcolors{2}{}{}
+\end{table}
+
+\section{Modelo upstream ejecutado}
+
+Antes de evaluar la cinética, el código aplica $\max(v,0)$ a $X,N,G,F,E$;
+\code{rhs} hace lo mismo a los siete valores recibidos. Después de integrar,
+\code{simulate} recorta cada estado a sus límites declarados.
+
+\subsection{Temperatura y auxiliares}
+
+\begin{align}
+T_K &= T_C+273.15, \tag{R01}\\
+a_\mu&=\exp\!\left[\frac{E_{ac}(T_K-300)}{300RT_K}\right], \tag{R02}\\
+a_\beta&=\exp\!\left[\frac{E_{afe}(T_K-296.15)}{296.15RT_K}\right]. \tag{R03}
+\end{align}
+\sourceinfo{\E{EXECUTED}\E{IMPORTED}
+\code{shared/run\_new\_must\_glycerol\_estimability\_doe.py},
+\code{kinetic\_terms}, líneas 387--398.}
+
+Para $j\in\{Kn,Kg,Kf,Kig,Kie\}$,
+\begin{equation}
+a_j=\exp\!\left[\frac{E_{aj}(T_K-293.15)}{293.15RT_K}\right]. \tag{R04--R08}
+\end{equation}
+\sourceinfo{\E{EXECUTED}\E{IMPORTED} \code{kinetic\_terms}, líneas 399--403;
+el código evalúa cinco expresiones separadas.}
+
+\begin{align}
+K_N&=(\mu_0/s_N)a_{Kn}, &K_G&=(\beta_{G0}/s_G)a_{Kg},
+&K_F&=(\beta_{F0}/s_F)a_{Kf}, \tag{R09--R11}\\
+i_G(T)&=i_G/(a_{Kig}+10^{-8}), &i_E(T)&=i_E/(a_{Kie}+10^{-8}), \tag{R12--R13}\\
+L_N&=\frac{N}{N+K_N+10^{-8}}, &L_G&=\frac{G}{G+K_G+10^{-8}},
+&L_F&=\frac{F}{F+K_F+10^{-8}}, \tag{R14--R16}\\
+I_E&=\frac{1}{1+i_E(T)E}, &I_{G\to F}&=\frac{1}{1+i_G(T)G}. \tag{R17--R18}
+\end{align}
+\sourceinfo{\E{EXECUTED}\E{IMPORTED} \code{kinetic\_terms}, líneas 404--413.}
+
+\begin{align}
+\mu&=\mu_0a_\mu L_N, \tag{R19}\\
+\beta_G&=\beta_{G0}a_\beta L_GI_E, \tag{R20}\\
+\beta_F&=\beta_{F0}a_\beta L_FI_{G\to F}I_E. \tag{R21}
+\end{align}
+\sourceinfo{\E{EXECUTED}\E{IMPORTED} \code{kinetic\_terms}, líneas 414--419.}
+$N$ no aparece directamente en $\beta_G$ ni $\beta_F$.
+
+\begin{equation}
+m(T)=m_0\exp\!\left[\frac{E_{am}(T_K-293.3)}{293.3RT_K}\right]. \tag{R22}
+\end{equation}
+\sourceinfo{\E{EXECUTED} \code{kinetic\_terms}, línea 420.}
+
+\begin{align}
+T_d(E)&=-10^{-4}E^3+0.0049E^2-0.1279E+315.89, \tag{R23}\\
+k_d&=\begin{cases}
+K_{d0}\exp\!\left[C_{de}E+\dfrac{E_{td}(T_K-305.65)}{305.65RT_K}\right],&T_K\ge T_d(E),\\
+0,&T_K<T_d(E).
+\end{cases} \tag{R24}
+\end{align}
+\sourceinfo{\E{EXECUTED} \code{kinetic\_terms}, líneas 421--427.}
+
+\begin{equation}
+S=G+F+10^{-8},\qquad M_S=\frac{S}{S+1.0},\qquad J_m=m(T)M_S. \tag{R25}
+\end{equation}
+\sourceinfo{\E{EXECUTED}\E{FIXED} \code{kinetic\_terms}/\code{rhs}, líneas 428--452.}
+
+\subsection{Siete ODE centrales}
+
+\begin{align}
+\dot X&=(\mu-k_d)X, \tag{R26}\\
+\dot X_d&=k_dX, \tag{R27}\\
+\dot N&=-q_N(a_\mu L_N)X, \tag{R28}\\
+\dot G&=-\left[q_{XG}(a_\mu L_N)+q_{EG}(a_\beta L_GI_E)+J_mG/S\right]X, \tag{R29}\\
+\dot F&=-\left[q_{XF}(a_\mu L_N)+q_{EF}(a_\beta L_FI_{G\to F}I_E)+J_mF/S\right]X, \tag{R30}\\
+\dot E&=(\beta_G+\beta_F)X, \tag{R31}\\
+\dot{Gly}&=\left[\gamma_{G0}(a_\beta L_GI_E)+
+\gamma_{F0}(a_\beta L_FI_{G\to F}I_E)\right]X. \tag{R32}
+\end{align}
+\sourceinfo{\E{EXECUTED}\E{IMPORTED}
+\code{shared/run\_new\_must\_glycerol\_estimability\_doe.py},
+\code{rhs}, líneas 445--468.}
+
+\subsection{Saltos discretos}
+
+\begin{equation}
+y_j(t_p^+)=y_j(t_p^-)+\Delta y_j,\qquad
+j\in\{N,G,F,E,X\}. \tag{R33}
+\end{equation}
+\sourceinfo{\E{EXECUTED} \code{\_pulse\_events}, líneas 475--492, y
+\code{simulate}, líneas 495--585. El orden predeterminado es
+\code{sample\_before\_action}. LSODA usa tolerancias $10^{-6}$/$10^{-8}$ y
+paso máximo 2 h.}
+
+\E{CONFLICT} La calibración upstream registra 0.08 kg m$^{-3}$; la capa CO$_2$
+reemplaza por 0.14 kg m$^{-3}$, calculado como
+$(1.0+0.4)\,1000(0.20)/(2\,1000)$. Fuente:
+\path{run_co2_matrix_cross_validation_2026.py}, líneas 382--466.
+
+\section{Producción biológica de CO$_2$}
+
+\begin{align}
+q_E&=(\beta_G+\beta_F)X, \tag{R34}\\
+\chi_{CO2/E}&=\frac{44.01}{2(46.07)}=0.4776427176, \tag{R35}\\
+q_{bio,+N}&=q_{prod,base}=\chi_{CO2/E}\max(q_E,0). \tag{R36}
+\end{align}
+\sourceinfo{\E{EXECUTED}\E{IMPORTED}
+\code{shared/run\_secondary\_joint\_campaign\_doe.py}, \code{\_core\_rates},
+líneas 268--300 y constante línea 166; módulo pilot,
+\code{co2\_production\_g\_l\_h}, líneas 335--349.}
+
+\section{Pool de O$_2$}
+
+\begin{equation}
+O_2^*=\max\left[8.6e^{-0.024(T-20)}e^{-0.0020\max(E,0)}
+e^{-0.0010\max(G+F,0)},10^{-6}\right]. \tag{R37}
+\end{equation}
+\sourceinfo{\E{EXECUTED}\E{IMPORTED} Módulo pilot,
+\code{o2\_saturation\_mg\_l}, líneas 271--276; cache CO$_2$,
+líneas 1439--1452.}
+
+\begin{align}
+O_{2,0}&=\max(s_{O2,0},0)O_2^*(T_0,E_0,G_0,F_0), \tag{R38}\\
+u_i&=q_{O2,max}\max(X_i^{eff},0)\frac{O_{2,i}}{K_{O2}+O_{2,i}}, \tag{R39}\\
+O_{2,i+1}&=\max(O_{2,i}-\Delta t_i u_i,0), \tag{R40}\\
+\phi_{ana,i}&=\frac{K_{ana}^{h}}{K_{ana}^{h}+\max(O_{2,i},0)^h}, \tag{R41}\\
+f_{ferm,i}&=0.08+0.92\phi_{ana,i}, \tag{R42}\\
+q_{resp,i}&=\frac{44.01/32}{1000}\max(u_i,0). \tag{R43}
+\end{align}
+\sourceinfo{\E{EXECUTED}\E{FIXED}
+\code{laboratory\_2026/run\_co2\_matrix\_cross\_validation\_2026.py},
+\code{effective\_qprod\_grid}, líneas 1709--1727. Es Euler explícito y no
+incluye $k_La$.}
+
+\section{Respuesta a nutrición}
+
+Se generan trayectorias upstream con pulso y sin pulso. Para el único pulso
+admitido por el cache:
+\begin{align}
+r_i&=\clip\!\left(\frac{t_i-t_N}{t_{rise}},0,1\right), \tag{R44}\\
+\Delta X_i&=X_{+N,i}-X_{0,i}, \tag{R45}\\
+\Delta q_i&=q_{bio,+N,i}-q_{bio,0,i}, \tag{R46}\\
+X_i^{eff}&=\max(X_{0,i}+r_i\Delta X_i,0), \tag{R47}\\
+M_{act,i}&=1+(g_N-1)r_i, \tag{R48}\\
+q_{bio,i}&=\max(M_{act,i}q_{bio,0,i}+r_i\Delta q_i,0). \tag{R49}
+\end{align}
+Sin pulso, $r_i=0$. \E{EXECUTED} Fuentes: \code{build\_driver\_cache},
+líneas 1407--1476; \code{\_pulse\_utilization\_fraction}, líneas 1653--1665;
+\code{effective\_qprod\_grid}, líneas 1690--1708. El fit natural tiene
+$g_N=0.25$, una atenuación final.
+
+\section{Activación química}
+
+\begin{equation}
+(G_k+F_k)\le(G+F)_{first}-5\quad\lor\quad E_k\ge E_{first}+2. \tag{R50}
+\end{equation}
+El primer $k$ que cumple R50 define $U$ y la muestra química anterior define
+$L$:
+\begin{equation}
+U=t_{k,first\ active},\qquad L=\max\{t_j:j<k,\ j\text{ químico}\}. \tag{R51}
+\end{equation}
+\sourceinfo{\E{EXECUTED} \code{\_chemical\_activity\_bracket}, líneas 1302--1352.}
+Sin química, $L=U=0$.
+
+Para $U>L$:
+\begin{align}
+t_s&=L+s(U-L),&D&=\max[d(U-L),0.25\text{ h}], \tag{R52}\\
+z_i&=\clip((t_i-t_s)/D,0,1), \tag{R53}\\
+A_i&=z_i^2(3-2z_i). \tag{R54}
+\end{align}
+Si $U\le L$, $A_i=\mathbf 1(t_i\ge U)$.
+\sourceinfo{\E{EXECUTED} \code{\_bounded\_smoothstep\_activation}, líneas 1360--1380.}
+
+\begin{equation}
+q_{prod,i}=\max\{A_i[q_{bio,i}f_{ferm,i}+q_{resp,i}],0\}. \tag{R55}
+\end{equation}
+\sourceinfo{\E{EXECUTED} \code{effective\_qprod\_grid}, líneas 1728--1745.}
+El bracket mira una muestra química futura: el mecanismo es no causal.
+
+\section{CO$_2$ disuelto y liberación gaseosa}
+
+\begin{equation}
+C_i^*=s_{sat}\,1.69e^{-0.032(T_i-20)}e^{0.0016\max(E_i,0)}
+e^{-0.0012\max(G_i+F_i,0)}. \tag{R56}
+\end{equation}
+\sourceinfo{\E{EXECUTED} \code{build\_driver\_cache}, líneas 1429--1438, y
+\code{raw\_qgas\_grid\_prediction}, línea 1776.}
+
+Con $C_0=0$ y $i\ge1$:
+\begin{align}
+\rho_i&=\frac{C_{i-1}}{\max(C_{i-1}+C_i^*,10^{-12})},&
+f_i&=0.05+0.95\rho_i, \tag{R57}\\
+q_{pot,i}&=\max(k_{release},10^{-9})C_{i-1}f_i, \tag{R58}\\
+q_{avail,i}&=C_{i-1}/\Delta t_i+\max(q_{prod,i-1},0), \tag{R59}\\
+q_{gas,0}&=0,&q_{gas,i}&=\min(q_{pot,i},q_{avail,i}), \tag{R60}\\
+C_i&=\max\{C_{i-1}+\Delta t_i[\max(q_{prod,i-1},0)-q_{gas,i}],0\}. \tag{R61}
+\end{align}
+\sourceinfo{\E{EXECUTED} \code{raw\_qgas\_grid\_prediction}, líneas 1748--1801.}
+$C$ es un pool Euler posterior, no un estado del ODE central.
+
+\section{Observación CO$_2$ y conversiones}
+
+\begin{equation}
+q_{obs}=g_{matrix}q_{gas}. \tag{R62}
+\end{equation}
+\sourceinfo{\E{EXECUTED}\E{PROFILED} \code{predict\_and\_score}, líneas 2450--2482.}
+
+Calibración/artefacto:
+\begin{equation}
+y_{g/L/h}=y_{sccm}\frac{60}{1000}\frac{44.01}{22.414}\frac1{V_L};
+\quad V_L=2:\ 1\mathrm{\ SCCM}=0.05890515\mathrm{\ g\,L^{-1}h^{-1}}. \tag{R63}
+\end{equation}
+\sourceinfo{\E{EXECUTED} \code{\_sccm\_to\_g\_l\_h}, líneas 555--557.}
+
+Holdout LAB016--018:
+\begin{equation}
+y_{g/L/h}=y_{sccm}\frac{44.0095(60)(0.74)}{1000(24.16)(2.0)}
+=0.04043919y_{sccm}. \tag{R64}
+\end{equation}
+\sourceinfo{\E{EXECUTED}\E{CONFLICT} Notebook LAB016--018, celda 17.}
+
+\begin{equation}
+b_r=\max[0,Q_{0.10}\{y_{sccm}(t):t\le t_0+12h\}],\qquad
+y_{corr}=\max(y_{sccm}-b_r,0). \tag{R65}
+\end{equation}
+\sourceinfo{\E{EXECUTED}\E{MATCH} Notebook CO$_2$, celda 1;
+\code{apply\_sensor\_zero\_correction}, líneas 583--663.}
+
+\section{Funciones de observación offline}
+
+\begin{align}
+X_{obs}&=C_{total}\frac{Viability}{100}(0.03), \tag{R66}\\
+X_{d,obs}&=\max(C_{total}-C_{viable},0)(0.03), \tag{R67}\\
+N[\mathrm{kg\,m^{-3}}]&=YAN[\mathrm{mg\,L^{-1}}]10^{-3}, \tag{R68}\\
+E[\mathrm{g\,L^{-1}}]&=7.8924E[\%v/v]\quad\text{cuando el input no es ya g L$^{-1}$}, \tag{R69}\\
+G_{obs}&=Y15_G,&F_{obs}&=Y15_F,&Gly_{obs}&=Y15_{Gly}, \tag{R70--R72}\\
+H_S(y)&=G+F. \tag{R73}
+\end{align}
+\sourceinfo{\E{EXECUTED} \code{shared/new\_must\_data\_loader.py}, líneas 53--58,
+133--161 y 222--266; LAB013--015, celdas 5/20; LAB016--018, celdas 30/31.}
+Para R69, \code{ETANOL} se toma directamente si la serie primaria contiene
+algún valor mayor que 25; de otro modo se interpreta como \%v/v y Alcolyzer es
+el fallback.
+
+\begin{equation}
+\sigma_s(y)=\max(\sigma_{floor,s},r_s\max(|y|,\sigma_{floor,s})). \tag{R74}
+\end{equation}
+\sourceinfo{\E{EXECUTED} \code{base.sigma\_for\_state}, líneas 588--592.}
+
+Para el gain, con $w_b=[\sigma_b\sqrt{n_b}]^{-1}$:
+\begin{equation}
+\hat g=\clip_{[0.1,20]}
+\frac{\sum_b\langle w_bq_b,w_by_b\rangle}
+{\sum_b\langle w_bq_b,w_bq_b\rangle}. \tag{R75}
+\end{equation}
+\sourceinfo{\E{EXECUTED}\E{PROFILED} \code{\_profile\_matrix\_gain},
+líneas 1909--1948.}
+
+\section{Condiciones iniciales}
+
+\begin{table}[H]
+\centering
+\caption{Procedencia y clasificación de las condiciones iniciales.}
+\label{tab:condiciones-iniciales}
+\rowcolors{2}{white}{auditpale!55}
+\begin{tabularx}{\textwidth}{>{\raggedright\arraybackslash}p{0.19\textwidth}YY}
+\toprule
+\tablehead{Pipeline} & \tablehead{Condiciones iniciales} & \tablehead{Clasificación} \\
+\midrule
+Upstream LAB004--012 & primera observación finita; fallbacks X=.45, Xd=0,
+N=.18, G=F=80, E=Gly=0 & medida si existe; fallback en
+\code{\_initials\_from\_group}, líneas 266--277 \\
+CO$_2$ histórico & IC de batches históricos & medida/heredada; pulso reemplazado \\
+LAB013--015 & N/G/F/Gly de PI; X=.45, Xd=E=0 & medida PI más fallback \\
+LAB016--018 & N/G/F/Gly proxy; X=.45, Xd=0; E=0 o mediana histórica & heredada,
+fallback y escenario \\
+\bottomrule
+\end{tabularx}
+\rowcolors{2}{}{}
+\end{table}
+
+\section{Parámetros}
+
+\subsection{Parámetros upstream que entran en las siete ODE}
+
+\begingroup
+\footnotesize
+\rowcolors{2}{white}{auditpale!45}
+\begin{longtable}{p{0.09\textwidth}p{0.15\textwidth}p{0.16\textwidth}p{0.23\textwidth}p{0.19\textwidth}}
+\caption{Parámetros upstream que intervienen en las siete ODE.}\label{tab:parametros-upstream}\\
+\toprule
+\tablehead{Símbolo} & \tablehead{Unidad} & \tablehead{Valor natural} & \tablehead{Estado} & \tablehead{Fuente/ecuación} \\
+\midrule
+\endhead
+\midrule
+\multicolumn{5}{r}{\scriptsize\color{auditslate}Continúa en la página siguiente}\\
+\endfoot
+\bottomrule
+\endlastfoot
+$\mu_0$ & h$^{-1}$ & 0.0787279168 & REESTIMATED\_UPSTREAM & \path{theta.csv}; R09,R19 \\
+$s_N$ & (kg m$^{-3}$)$^{-1}$h$^{-1}$ & 8.75144587 / 18.0 & FIXED\_UPSTREAM, conflicto & heredado / default; R09 \\
+$q_N$ & h$^{-1}$ & 0.0210803824 & REESTIMATED\_UPSTREAM & \path{theta.csv}; R28 \\
+$q_{XG}$ & h$^{-1}$ & 0.0814909864 / 0.1125 & FIXED\_UPSTREAM, conflicto & heredado / default; R29 \\
+$q_{XF}$ & h$^{-1}$ & 0.0709327065 / 0.1125 & FIXED\_UPSTREAM, conflicto & heredado / default; R30 \\
+$\beta_{G0}$ & h$^{-1}$ & 0.4288780030 & REESTIMATED\_UPSTREAM & \path{theta.csv}; R10,R20 \\
+$s_G$ & (g L$^{-1}$)$^{-1}$h$^{-1}$ & 0.0974550987 / 0.03 & FIXED\_UPSTREAM, conflicto & heredado / default; R10 \\
+$\beta_{F0}$ & h$^{-1}$ & 3.4403991748 & REESTIMATED\_UPSTREAM & \path{theta.csv}; R11,R21 \\
+$s_F$ & (g L$^{-1}$)$^{-1}$h$^{-1}$ & 0.1782952055 / 0.03 & FIXED\_UPSTREAM, conflicto & heredado / default; R11 \\
+$q_{EG}$ & h$^{-1}$ & 1.7128067938 & REESTIMATED\_UPSTREAM & \path{theta.csv}; R29 \\
+$q_{EF}$ & h$^{-1}$ & 5.0230167502 & REESTIMATED\_UPSTREAM & \path{theta.csv}; R30 \\
+$i_G$ & L g$^{-1}$ & 0.0560374373 & REESTIMATED\_UPSTREAM & \path{theta.csv}; R12,R18 \\
+$i_E$ & L g$^{-1}$ & 0.0401679410 & REESTIMATED\_UPSTREAM & \path{theta.csv}; R13,R17 \\
+$K_{d0}$ & h$^{-1}$ & 0.000150249548 & REESTIMATED\_UPSTREAM & \path{theta.csv}; R24 \\
+$m_0$ & h$^{-1}$ & 0.0183385794 / 0.01 & FIXED\_UPSTREAM, conflicto & heredado / default; R22 \\
+$\gamma_{G0}$ & h$^{-1}$ & 0.1155587914 & REESTIMATED\_UPSTREAM & \path{theta.csv}; R32 \\
+$\gamma_{F0}$ & h$^{-1}$ & 0.000100001622 & REESTIMATED\_UPSTREAM & \path{theta.csv}; R32 \\
+\end{longtable}
+\rowcolors{2}{}{}
+\endgroup
+
+La primera cifra de cada par conflictivo fue usada al generar el ajuste upstream;
+la segunda es la que reconstruyen CO$_2$, LAB013--015 y LAB016--018.
+
+Constantes upstream: $C_{de}=0.0415$, $E_{td}=130000$ J mol$^{-1}$,
+$R=8.314$ J mol$^{-1}$K$^{-1}$, $E_{ac}=59453$, $E_{afe}=11000$,
+$E_{aKn}=E_{aKg}=E_{aKf}=E_{aKig}=E_{aKie}=46055$ y $E_{am}=37681$
+J mol$^{-1}$. Son \E{FIXED} en \code{base.FIXED\_CONSTANTS}, líneas 160--172.
+
+\subsection{Parámetros de la capa CO$_2$ natural}
+
+\begin{table}[H]
+\centering
+\caption{Parámetros adoptados de la capa CO$_2$ para mosto natural.}
+\label{tab:parametros-co2-natural}
+\small
+\rowcolors{2}{white}{auditpale!55}
+\begin{tabularx}{\textwidth}{>{\ttfamily\raggedright\arraybackslash}X
+  S[table-format=1.10]
+  >{\raggedright\arraybackslash}p{0.25\textwidth}
+  >{\centering\arraybackslash}p{0.10\textwidth}}
+\toprule
+\multicolumn{1}{l}{\tablehead{Nombre en código}} &
+{\tablehead{Valor}} & \tablehead{Estado} & \tablehead{Uso} \\
+\midrule
+kCO2\_release\_h & 0.4245882714 & FITTED\_CO2 & R58 \\
+CO2sat\_scale & 0.3513895411 & FITTED\_CO2; cota & R56 \\
+O2\_qmax\_mg\_gdw\_h & 0.15 & FITTED\_CO2; cota & R39 \\
+O2\_initial\_scale & 0.1953996657 & FITTED\_CO2 & R38 \\
+pulse\_t\_rise\_h & 64.65870375 & FITTED\_CO2 & R44 \\
+pulse\_activity\_gain & 0.25 & FITTED\_CO2; cota & R48--R49 \\
+chem\_activation\_start\_fraction & 0.7350566959 & FITTED\_CO2 & R52 \\
+chem\_activation\_duration\_fraction & 1.0639098681 & FITTED\_CO2 & R52 \\
+matrix\_gain & 3.1157569444 & PROFILED & R62,R75 \\
+\bottomrule
+\end{tabularx}
+\rowcolors{2}{}{}
+\end{table}
+
+Fuente: \path{laboratory_2026/results/co2_matrix_cross_validation_2026/fit_parameters.csv}.
+Constantes: $K_{O2}=0.25$ mg L$^{-1}$, $K_{ana}=0.75$ mg L$^{-1}$,
+$h=2$, $f_C=0.08$, piso release 0.05 y malla 0.25 h.
+
+El mismo CSV contiene una rama sintética específica de matriz. No se mezclan
+sus parámetros con los naturales. Las filas secundarias/aroma adicionales de
+\path{theta.csv} no son consumidas por la cadena central+CO$_2$ auditada.
+
+\section{Contraste notebook--código}
+
+\begingroup
+\footnotesize
+\rowcolors{2}{white}{auditpale!45}
+\begin{longtable}{p{0.09\textwidth}p{0.18\textwidth}p{0.35\textwidth}p{0.20\textwidth}}
+\caption{Correspondencia entre ecuaciones documentadas y código ejecutado.}\label{tab:notebook-codigo}\\
+\toprule
+\tablehead{ID} & \tablehead{Estado} & \tablehead{Declaración Markdown} & \tablehead{Implementación/nota} \\
+\midrule
+\endhead
+\midrule
+\multicolumn{4}{r}{\scriptsize\color{auditslate}Continúa en la página siguiente}\\
+\endfoot
+\bottomrule
+\endlastfoot
+U01 & MATCH & $F=J^TJ$ & runner upstream, líneas 899--907 \\
+C01--02 & MATCH & cero y señal corregida & \code{apply\_sensor\_zero\_correction} \\
+C03 & MATCH & $t_s=L+f_s(U-L)$ & smoothstep, línea 1373 \\
+C04 & MISMATCH & $\Delta t=f_d(U-L)$ & código: $\max[f_d(U-L),0.25h]$ \\
+C05 & MATCH & $3z^2-2z^3$ & exacta \\
+C06 & PARTIAL\_MATCH & ODE de O$_2$ & Euler, recorte y $X^{eff}$ \\
+C07--12 & MATCH & Hill, $q_{prod}$, pulso, biomasa, $C^*$ & ecuaciones ejecutadas \\
+C13 & PARTIAL\_MATCH & $\dot C=q_{prod}-q_{gas}$ & recurrencia R61 \\
+C14 & PARTIAL\_MATCH & $q_{gas}$ continuo & Markdown omite índices/max/epsilon \\
+C15 & MATCH & comparador softplus & rama comparadora, no nominal \\
+L13-01--03 & MATCH & $G+F$, pool y senda logarítmica & celdas 20,18,24 \\
+L13-04 & DOCUMENTATION\_ONLY & $0.489(S_i-S_f)$ & diagnóstico, no modelo \\
+H01--08 & MATCH & shift, Oculyze, gate, release y dosis diagnóstica & celdas 25--48 \\
+K01--08 & CODE\_ONLY & ODE, auxiliares, O$_2^*$, $q_{resp}$, $q_{obs}$, conversiones, clips & ausentes como ecuación Markdown \\
+\end{longtable}
+\rowcolors{2}{}{}
+\endgroup
+
+Conteo exacto de las 36 entradas expandidas: 23 MATCH, 1 MISMATCH,
+3 PARTIAL\_MATCH, 1 DOCUMENTATION\_ONLY y 8 CODE\_ONLY. El informe Markdown
+acompañante contiene una fila por entrada con notebook, celda, función y líneas.
+
+\section{Modelo actual realmente implementado}
+
+\begin{enumerate}[label=\Alph*.]
+\item Estados upstream: siete estados, IC por batch y no negatividad.
+\item Tasas cinéticas: R01--R25.
+\item ODE upstream: R26--R32.
+\item Dependencia de temperatura: R01--R13 y R22--R24.
+\item Eventos discretos: R33; dosis de rama.
+\item Producción biológica CO$_2$: R34--R36.
+\item Activación: R50--R54, no causal.
+\item O$_2$: R37--R43, pool Euler sin reaeración.
+\item Respuesta nutricional: R44--R49.
+\item Solubilidad CO$_2$: R56.
+\item Pool disuelto: R61, $C_0=0$.
+\item Liberación gaseosa: R57--R60.
+\item Observación final: R62, con R63 o R64 según pipeline.
+\item Observaciones offline: R66--R74.
+\end{enumerate}
+
+\section{No implementado actualmente}
+
+\begin{table}[H]
+\centering
+\caption{Elementos discutidos que no forman parte del modelo actual.}
+\label{tab:no-implementado}
+\rowcolors{2}{white}{auditpale!55}
+\begin{tabularx}{\textwidth}{Y>{\centering\arraybackslash}p{0.18\textwidth}}
+\toprule
+\tablehead{Elemento discutido} & \tablehead{IMPLEMENTED} \\
+\midrule
+estado metabólico causal $a(t)$ en el ODE central & NO \\
+estados $N_x$, $N_{tr}$, $T_r$ & NO \\
+O$_2$ como estado del ODE central & NO \\
+CO$_2$ disuelto como estado de \code{base.rhs} & NO \\
+gate causal de onset & NO \\
+transitorio nutricional rise--decay & NO \\
+terminación lenta independiente del pulso & NO \\
+separación PAN/amoniacal dentro de $N$ & NO \\
+función validada Brix/densidad a G/F en el holdout & NO \\
+múltiples pulsos en \code{build\_driver\_cache} & NO \\
+\bottomrule
+\end{tabularx}
+\rowcolors{2}{}{}
+\end{table}
+
+\section{Archivos y artefactos auditados}
+
+Módulos nucleares:
+\begin{itemize}
+\item \path{shared/run_new_must_glycerol_estimability_doe.py}
+\item \path{shared/new_must_data_loader.py}
+\item \path{laboratory_2026/run_estimability_historical_by_medium.py}
+\item \path{laboratory_2026/run_estimability_old_vs_lot1.py}
+\item \path{laboratory_2026/run_final_operational_doe_v2.py}
+\item \path{laboratory_2026/run_co2_matrix_cross_validation_2026.py}
+\item \path{pilot_2025/run_pilot_2025_co2_solubility_integrated_doe.py}
+\item \path{shared/run_secondary_joint_campaign_doe.py}
+\end{itemize}
+
+Artefactos decisivos: \path{theta.csv}, \path{fit_parameters.csv},
+\path{batch_summary.csv}, \path{measurement_support.csv},
+\path{driver_diagnostics.csv}, \path{natural_nutrient_pulse_details.csv},
+\path{effective_nutrient_pulses.csv}, \path{analysis_manifest.json} y
+\path{shared/results/new_must_glycerol_overnight_validation/theta_multistart_07.csv}.
+
+\end{document}

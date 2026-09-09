@@ -9,7 +9,6 @@
 \usepackage{tabularx}
 \usepackage{longtable}
 \usepackage{array}
-\usepackage{xcolor}
 \usepackage{enumitem}
 \usepackage[hidelinks]{hyperref}
 
@@ -22,258 +21,251 @@
 \newcommand{\media}{Media}
 \newcommand{\opcional}{Opcional}
 
-\title{Planificación de próximos lotes experimentales\\de mosto natural, 2026}
-\author{Plan experimental para discriminación estructural}
+\title{Planificación corregida de próximos lotes\\de mosto natural, 2026}
+\author{Campaña de discriminación estructural}
 \date{9 de septiembre de 2026}
 
 \begin{document}
 \maketitle
 
 \begin{abstract}
-Se propone una campaña pareada mínima de dos fermentadores de mosto natural a
-\(20\,^{\circ}\mathrm{C}\): un control sin nutrición y un tratamiento con nutrición
-conocida y trazable. La única diferencia deliberada será la intervención
-nutricional. El diseño prioriza datos capaces de separar terminación basal,
-respuesta nutricional rápida, efecto sostenido, dinámica de \(X/X_d\), consumo de
-\(N\), glucosa y fructosa, producción de etanol y transformación de producción
-metabólica en CO$_2$ gaseoso. La inoculación se programa después del feriado,
-el lunes 21 de septiembre de 2026, y el pulso/pseudo-pulso a \(t=67.25\) h,
-el jueves 24 por la mañana. Excel y este documento representan el mismo plan.
+Se propone una campaña bloqueada de dos lotes, cada uno formado por tres
+fermentadores simultáneos. En ambos lotes aparecen el control sin nutrición y el
+tratamiento con nutrición conocida y trazable. La campaña reúne seis unidades
+experimentales: \(n=3\) controles y \(n=3\) nutridos. El lote es el bloque
+experimental, el tratamiento es el factor científico y cada fermentador es una
+unidad experimental. La asignación física se contrabalancea para que F1, F2 y F3
+cambien de tratamiento entre lotes.
 \end{abstract}
 
 \section{Objetivo}
 
-El objetivo no es aumentar indiscriminadamente el número de datos, sino producir
-un contraste causal que permita decidir qué parte de las discrepancias actuales
-pertenece a la fermentación basal y qué parte es inducida por nutrición. Los datos
-deben servir además para decidir si el CO$_2$ online contiene información
-suficiente para inferir posteriormente estados como \(X\) y \(N\), usando
+El objetivo es generar un contraste causal que separe terminación basal,
+respuesta nutricional rápida, efecto nutricional sostenido y dinámica lenta de
+terminación. Los datos también deben mostrar si el CO$_2$ online contiene
+información suficiente para inferir posteriormente \(X\) y \(N\), usando
 Oculyze, biomasa y química offline como verdad de referencia.
 
 \section{Estado actual del modelo}
 
-El modelo central tiene los estados \(X,X_d,N,G,F,E,\mathrm{Gly}\). La temperatura
-es un driver exógeno. \(N\) limita estructuralmente el crecimiento, pero no todas
-las rutas de consumo de azúcares. La muerte celular queda prácticamente inactiva
-en el rango térmico relevante, aun cuando LAB013--015 muestran señal de \(X_d\).
-La capa de CO$_2$ agrega activación, un pool disuelto, liberación continua y una
-ganancia empírica de matriz.
+El modelo central contiene \(X,X_d,N,G,F,E,\mathrm{Gly}\); la temperatura es un
+driver exógeno. \(N\) limita el crecimiento, pero no todas las rutas de consumo
+de azúcares. La muerte celular queda prácticamente inactiva en el rango térmico
+relevante, pese a la señal de \(X_d\) observada. La capa de CO$_2$ combina
+activación, pool disuelto, liberación continua y una ganancia empírica de matriz.
 
-La estructura nutricional vigente mezcla en una misma rampa lenta un cambio
-post-pulso y la terminación. Los diagnósticos recientes muestran que un transitorio
-rápido rise--decay puede explicar mejor el aumento de CO$_2$ observado, pero aún
-no separa una respuesta rápida, un efecto sostenido y la terminación basal.
-Además, el onset actual depende de un bracket químico offline que no es causal
-para operación online, y \texttt{matrix\_gain} puede absorber errores upstream,
-de observación o de unidades.
+La respuesta nutricional vigente mezcla un cambio post-pulso lento con la
+terminación. Los diagnósticos recientes sugieren un transitorio rápido separado,
+pero todavía no distinguen con datos independientes respuesta rápida, efecto
+sostenido y terminación basal. El onset depende además de química offline futura
+y no es completamente causal para un estimador online.
 
 \section{Por qué se necesitan nuevos experimentos}
 
-LAB013--015, a aproximadamente \(16\,^{\circ}\mathrm{C}\), contienen química y
-nueve puntos Oculyze por lote, pero su CO$_2$ gaseoso no es suficientemente
-confiable. LAB016--018, a aproximadamente \(20\,^{\circ}\mathrm{C}\), tienen
-CO$_2$ y temperatura confiables, pero sólo tres puntos Oculyze por fermentador y
-carecen de química temporal de \(G,F,N,E,\mathrm{Gly}\). Sus eventos nutricionales
-ocurrieron cerca de \(56.93\) h, pero la formulación y dosis exactas no están
-documentadas de forma inequívoca.
+LAB013--015, cerca de \(16\,^{\circ}\mathrm{C}\), aportan química y buena
+cobertura Oculyze, pero CO$_2$ gaseoso menos confiable. LAB016--018, cerca de
+\(20\,^{\circ}\mathrm{C}\), aportan CO$_2$ confiable, aunque casi sin ground
+truth temporal de \(X,X_d,N,G,F,E,\mathrm{Gly}\). Sus pulsos ocurrieron cerca de
+56.93 h, pero la formulación y dosis exactas no están confirmadas.
 
-Por tanto, ninguno de esos grupos separa simultáneamente metabolismo, biomasa,
-nutrición y CO$_2$ con un input trazable. LAB016--018 se mantienen como holdout
-histórico y no se convierten retroactivamente en training en esta tarea.
+Se requieren por ello fermentaciones donde tratamiento, tiempo, dosis, química,
+biomasa y CO$_2$ estén sincronizados. LAB016--018 se mantienen como holdout
+histórico y no se convierten en training durante esta tarea.
 
 \section{Hipótesis a discriminar}
 
 \begin{enumerate}[leftmargin=*]
-  \item El control permite estimar onset y terminación basal sin el artefacto de
-  un evento nutricional.
-  \item Una divergencia rápida tratamiento--control tras el pulso evidencia un
-  componente nutricional rápido; su retardo, subida y decaimiento se estiman con
-  CO$_2$ continuo y anclas offline.
-  \item Una diferencia persistente más allá de 24 h evidencia un componente
-  nutricional sostenido; la reconvergencia apoya un efecto principalmente
-  transitorio.
-  \item Fructosa residual junto con CO$_2$ de cola discrimina consumo upstream
-  incompleto de una memoria exclusivamente gaseosa.
-  \item Un aumento medido de \(X_d\) cuando el modelo predice \(X_d\simeq0\)
-  exige revisar la dinámica de muerte.
+  \item El control identifica onset y terminación basal sin el artefacto de un
+  evento nutricional.
+  \item Una divergencia rápida tratamiento--control post-pulso evidencia
+  respuesta nutricional rápida; su persistencia evidencia efecto sostenido.
+  \item La reconvergencia apoya un efecto principalmente transitorio.
+  \item Fructosa residual y CO$_2$ de cola permiten distinguir metabolismo
+  upstream de memoria exclusivamente gaseosa.
+  \item Un aumento medido de \(X_d\) con predicción \(X_d\simeq0\) exige revisar
+  la dinámica de muerte.
   \item Cambios de CO$_2$ incompatibles con \(X,N,G,F,E\) y CO$_2$ disuelto
-  señalan un problema de la capa de observación, de transferencia o de ganancia.
+  señalan la capa de observación, transferencia o \texttt{matrix\_gain}.
 \end{enumerate}
 
 \section{Diseño experimental elegido}
+
+La campaña tiene la siguiente jerarquía:
+\[
+\begin{array}{l}
+\text{Campaña de discriminación estructural}\\
+\quad\text{Lote 1: F1, F2, F3}\\
+\quad\text{Lote 2: F1, F2, F3.}
+\end{array}
+\]
 
 \begin{table}[ht]
 \centering
 \small
 \begin{tabularx}{\textwidth}{@{}l l Y c l l@{}}
 \toprule
-Lote & Fermentador & Tratamiento & \(T\) & Inoculación & Pulso/pseudo-pulso\\
+Lote & Fermentador & Tratamiento & Réplica & Inoculación & Pulso/pseudo-pulso\\
 \midrule
-NM26-A & F1 & Control sin nutrición & \(20.0\,^{\circ}\mathrm{C}\) &
-21-09-2026 13:30 & 24-09-2026 08:45\\
-NM26-B & F2 & Nutrición conocida y trazable & \(20.0\,^{\circ}\mathrm{C}\) &
-21-09-2026 13:55 & 24-09-2026 09:10\\
+Lote 1 & F1 & Control sin nutrición & C1 & 21-09-2026 11:55 & 24-09-2026 09:40\\
+Lote 1 & F2 & Control sin nutrición & C2 & 21-09-2026 12:20 & 24-09-2026 10:05\\
+Lote 1 & F3 & Nutrición conocida & N1 & 21-09-2026 12:45 & 24-09-2026 10:30\\
+\midrule
+Lote 2 & F1 & Nutrición conocida & N2 & 05-10-2026 11:55 & 08-10-2026 09:40\\
+Lote 2 & F2 & Nutrición conocida & N3 & 05-10-2026 12:20 & 08-10-2026 10:05\\
+Lote 2 & F3 & Control sin nutrición & C3 & 05-10-2026 12:45 & 08-10-2026 10:30\\
 \bottomrule
 \end{tabularx}
-\caption{Campaña pareada. En NM26-A el pseudo-pulso es sólo una referencia
-temporal: no se añade producto ni líquido.}
+\caption{Diseño bloqueado y contrabalanceado. Cada lote contiene ambos
+tratamientos y cada fermentador físico cambia de condición entre lotes.}
 \end{table}
 
-Se mantendrán iguales mosto, cepa, preparación, volumen inicial, geometría,
-headspace, control térmico, aireación no planificada, instrumentación y
-procedimiento de muestreo. El volumen exacto y la asignación F1/F2 deben
-confirmarse antes de iniciar.
+El resultado global es exactamente \(n=3\) controles y \(n=3\) nutridos. Todos
+operan a \(20.0\,^{\circ}\mathrm{C}\). En los controles, el pseudo-pulso es sólo
+una marca temporal: no se añade producto ni líquido.
 
-\section{Justificación del número de lotes}
+\section{Justificación del diseño bloqueado}
 
-Dos fermentadores simultáneos constituyen el mínimo capaz de generar el
-contrafactual tratamiento--control bajo el mismo mosto y entorno. No se propone
-un triplicado porque la densidad temporal requerida alrededor del pulso, sumada a
-Oculyze, biomasa y química, haría probable incumplir ventanas o degradar la
-calidad de las muestras. La contrapartida es que esta campaña no estima con
-solidez la variabilidad biológica entre fermentadores: sus conclusiones serán
-evidencia de discriminación estructural, no una estimación poblacional definitiva.
-Si el contraste fuera pequeño o discordante, la siguiente acción sería repetir
-el par completo, no agregar un tercer fermentador mal muestreado a esta campaña.
+El tratamiento es el factor cuya consecuencia se desea estimar. El lote agrupa
+condiciones comunes de mosto, preparación, fecha y operación, por lo que se trata
+como bloque. El fermentador es la unidad experimental independiente que recibe
+el tratamiento.
+
+No se asignan tres controles al Lote 1 y tres nutridos al Lote 2 porque entonces
+tratamiento y lote serían perfectamente confundidos: cualquier diferencia de
+mosto, preparación, instrumento o fecha podría interpretarse erróneamente como
+efecto nutricional. La distribución \(2C+1N\) en Lote 1 y \(1C+2N\) en Lote 2
+permite buscar el contraste dentro de cada bloque y comprobar su consistencia
+entre bloques. Los triplicados son globales por condición, no tres réplicas
+dentro de cada lote.
+
+\section{Asignación física y contrabalanceo}
+
+Se fija Lote 1: F1=C, F2=C, F3=N; Lote 2: F1=N, F2=N, F3=C. Así F1, F2 y F3
+reciben cada tratamiento exactamente una vez durante la campaña. Este
+contrabalanceo garantiza que ningún fermentador quede siempre asociado a una
+condición y es preferible, con sólo dos lotes, a una randomización irrestricta
+que podría repetir accidentalmente la misma asociación. La asignación debe
+cerrarse antes de iniciar y cualquier cambio debe registrarse.
 
 \section{Justificación de temperatura}
 
-Se seleccionan \(20\,^{\circ}\mathrm{C}\) para ambos fermentadores. Así se elimina
-temperatura como factor concurrente, se obtiene comparabilidad térmica directa
-con LAB016--018 y se atribuye la diferencia interna principalmente a nutrición.
-Usar \(16\,^{\circ}\mathrm{C}\) confundiría el contraste con LAB013--015; usar
-\(18\,^{\circ}\mathrm{C}\) consumiría ahora la condición más valiosa para una
-validación externa posterior. No se introduce ninguna perturbación térmica en
-esta primera campaña.
+Se seleccionan \(20\,^{\circ}\mathrm{C}\) para las seis fermentaciones. Esto
+elimina temperatura como factor concurrente, permite comparación térmica con
+LAB016--018 y concentra el contraste en nutrición y terminación. La condición
+aproximada de \(18\,^{\circ}\mathrm{C}\) se reserva para un holdout posterior.
 
 \section{Tratamientos y nutrición}
 
-NM26-A no recibe nutrición. NM26-B recibe una única formulación confirmada antes
-de ejecutar. Deben registrarse producto exacto, fabricante/tipo, lote de producto,
-masa pesada de SFX, masa pesada de FDA, volumen inicial y actual del fermentador,
-dosis calculada, fecha y hora real de inicio/fin, duración, operador y
-observaciones. No se asigna en este plan un \(\Delta N\), un porcentaje de YAN ni
-una dosis final, porque esos valores no están confirmados.
+Los controles no reciben nutrición. Los nutridos reciben una única formulación
+confirmada antes de ejecutar. Deben registrarse producto, fabricante/tipo, lote
+de producto, masas de SFX y FDA, volumen inicial y actual, dosis calculada,
+fecha/hora real de inicio y fin, duración, operador y observaciones. No se fija
+un \(\Delta N\), porcentaje YAN ni masa final sin respaldo documental.
 
-El criterio primario es un tiempo fijo, observable y causal:
+El criterio es fijo, observable y causal:
 \[
-t_{\mathrm{pulse}}=67.25\ \mathrm{h}
+t_{\mathrm{pulse}}=69.75\ \mathrm{h}
 \]
-desde el fin de la inoculación de cada fermentador. Se eligió deliberadamente en
-lugar de \(56.93\) h: un pulso histórico el miércoles al final de la jornada
-perdería toda la ventana manual rápida. El horario elegido permite pre-pulso,
-\(+1,+2,+4,+6\) y \(+24\) h con presencia. Brix/densidad y CO$_2$ previos
-documentarán el estado fisiológico, pero la química futura no decidirá el pulso.
-El desplazamiento de 10.32 h respecto de LAB016--018 debe conservarse como factor
-de diseño al comparar campañas.
+desde el fin de inoculación de cada fermentador. Se aparta 12.82 h del evento
+de LAB016--018 porque mantener aproximadamente 56--57 h desplazaría el pulso al
+final de la jornada y perdería la ventana manual rápida. Brix, densidad y CO$_2$
+previos documentan el estado fisiológico, pero la química futura no decide la
+intervención.
 
-\section{Variables a medir}
+\section{Variables y prioridades}
 
 \begin{longtable}{@{}p{0.25\textwidth}p{0.13\textwidth}p{0.54\textwidth}@{}}
 \toprule
 Medición & Prioridad & Función científica\\
 \midrule
 \endhead
-CO$_2$ gaseoso continuo & \alta & Señal online principal: onset, amplitud,
-respuesta rápida, área y cola. Requiere blanco, reloj común, calibración y
-documentación de interrupciones.\\
-Temperatura continua & \alta & Input exógeno real; comprueba igualdad entre
-tratamientos y separa cinética de solubilidad.\\
-Oculyze (\(X/X_d\)) & \alta & Ground truth de células viables/no viables,
-crecimiento, máximo y muerte. Réplicas técnicas en puntos clave si son viables.\\
-Biomasa independiente & \alta & Ancla de \(X\) y control de la conversión
-Oculyze--masa; el método exacto debe confirmarse.\\
-\(G,F\) & \alta & Consumo de sustrato y fructosa residual en la cola.\\
-YAN y componentes disponibles & \alta & Trayectoria de \(N\), efecto efectivo
-del producto y posible separación PAN/amoniacal; no inferir YAN desde etiqueta
-sin validar.\\
-Etanol \(E\) & \alta & Fuente metabólica usada por la capa CO$_2$ y cierre de
-balance con azúcares.\\
-Brix y densidad & \alta & Proxy causal de avance y apoyo operativo; no convertir
-automáticamente en \(G/F\) sin función de observación validada.\\
-Nutrición y volumen retirado & \alta & Inputs y balance de volumen. Cada retiro
-se registra; el Excel acumula el volumen cuando se completa la columna.\\
-Glicerol & \media & Estado modelado y balance secundario, menos directo para el
-contraste rápido.\\
+CO$_2$ gaseoso continuo & \alta & Señal online: onset, respuesta rápida, área y
+cola; requiere blanco, calibración, reloj común e interrupciones documentadas.\\
+Temperatura continua & \alta & Input real y comprobación de igualdad térmica.\\
+Oculyze (\(X/X_d\)) & \alta & Crecimiento, máximo, viabilidad y muerte; réplicas
+técnicas en puntos clave si son viables.\\
+Biomasa independiente & \alta & Ground truth de \(X\) y control de conversión
+Oculyze--masa.\\
+\(G,F\) & \alta & Consumo y fructosa residual de cola.\\
+YAN/componentes & \alta & Trayectoria de \(N\) y efecto efectivo del producto.\\
+Etanol \(E\) & \alta & Producción metabólica y fuente de la capa CO$_2$.\\
+Brix/densidad & \alta & Avance causal; no convertir automáticamente en \(G/F\)
+sin función de observación validada.\\
+Nutrición/volumen retirado & \alta & Inputs y balance de volumen por unidad.\\
+Glicerol & \media & Estado modelado y balance secundario.\\
 CO$_2$ disuelto & \media & Pocos puntos dirigidos para separar producción,
-almacenamiento y liberación. Su indisponibilidad limita esta discriminación,
-pero no invalida el contraste A/B central.\\
-O$_2$ disuelto & \opcional & Variable auxiliar de la capa CO$_2$, no estado del
-modelo central. Sólo usar una sonda operacional validada, idealmente continua
-desde antes de inocular, sin comprometer las mediciones prioritarias.\\
-Otras analíticas & \opcional & Incluir únicamente si responden una hipótesis
-predefinida y no aumentan materialmente carga o volumen retirado.\\
+almacenamiento y liberación.\\
+O$_2$ disuelto & \opcional & Variable auxiliar de la capa CO$_2$; usar sólo una
+sonda validada sin comprometer el núcleo del plan.\\
 \bottomrule
 \end{longtable}
 
 \section{Diseño de muestreo}
 
-Cada hora de la tabla es relativa al fin de inoculación del fermentador
-correspondiente. La hora real, y no sólo la nominal, será la usada en análisis.
+Todos los fermentadores comparten los mismos tiempos nominales. Las horas
+programadas están separadas 25 min y se conserva siempre la hora real. Las
+fechas de la tabla se expresan como Lote 1 / Lote 2.
 
-\begin{longtable}{@{}r l l l l@{}}
+\begin{longtable}{@{}r l l l l l@{}}
 \toprule
-\(t\) [h] & Relación con pulso & NM26-A & NM26-B & Conjunto principal\\
+\(t\) [h] & Relación & Fecha L1/L2 & F1 & F2 & F3\\
 \midrule
 \endhead
--1.00 & Inicio automático & 21-09 12:30 & 21-09 12:55 & CO$_2$, T; O$_2$ opcional\\
-0.25 & Condición inicial & 21-09 13:45 & 21-09 14:10 & Complejo: \(X/X_d\), química, físico\\
-18.75 & Crecimiento temprano & 22-09 08:15 & 22-09 08:40 & \(X/X_d\), biomasa, físico\\
-24.25 & Onset histórico & 22-09 13:45 & 22-09 14:10 & \(X/X_d\), química, CO$_2$ disuelto\\
-42.75 & Crecimiento/pico & 23-09 08:15 & 23-09 08:40 & \(X/X_d\), biomasa, físico\\
-49.75 & Cercanía al máximo & 23-09 15:15 & 23-09 15:40 & \(X/X_d\), química, físico\\
-66.75 & \(-0.5\) h & 24-09 08:15 & 24-09 08:40 & Complejo pre-pulso\\
-67.25 & Evento & 24-09 08:45 & 24-09 09:10 & Pseudo-pulso / nutrición\\
-68.25 & \(+1\) h & 24-09 09:45 & 24-09 10:10 & Físico + CO$_2$ disuelto\\
-69.25 & \(+2\) h & 24-09 10:45 & 24-09 11:10 & \(X/X_d\), \(G,F,N\), físico\\
-71.25 & \(+4\) h & 24-09 12:45 & 24-09 13:10 & Físico + CO$_2$ disuelto\\
-73.25 & \(+6\) h & 24-09 14:45 & 24-09 15:10 & Complejo post-pulso\\
-91.25 & \(+24\) h & 25-09 08:45 & 25-09 09:10 & Complejo post-pulso\\
-162.75 & \(+95.5\) h & 28-09 08:15 & 28-09 08:40 & Complejo de cola\\
-210.75 & \(+143.5\) h & 30-09 08:15 & 30-09 08:40 & \(X/X_d\), química de cola\\
-258.75 & \(+191.5\) h & 02-10 08:15 & 02-10 08:40 & Complejo final planificado\\
+-1.00 & Inicio automático & 21-09 / 05-10 & 10:55 & 11:20 & 11:45\\
+0.25 & Condición inicial & 21-09 / 05-10 & 12:10 & 12:35 & 13:00\\
+20.25 & Crecimiento/onset & 22-09 / 06-10 & 08:10 & 08:35 & 09:00\\
+44.25 & Crecimiento/pico & 23-09 / 07-10 & 08:10 & 08:35 & 09:00\\
+68.25 & Pre-pulso \(-1.5\) h & 24-09 / 08-10 & 08:10 & 08:35 & 09:00\\
+69.75 & Pulso/pseudo-pulso & 24-09 / 08-10 & 09:40 & 10:05 & 10:30\\
+71.75 & Post \(+2\) h & 24-09 / 08-10 & 11:40 & 12:05 & 12:30\\
+73.75 & Post \(+4\) h & 24-09 / 08-10 & 13:40 & 14:05 & 14:30\\
+75.25 & Post \(+5.5\) h & 24-09 / 08-10 & 15:10 & 15:35 & 16:00\\
+93.75 & Post \(+24\) h & 25-09 / 09-10 & 09:40 & 10:05 & 10:30\\
+164.25 & Terminación/cola & 28-09 / 12-10 & 08:10 & 08:35 & 09:00\\
+212.25 & Cola tardía & 30-09 / 14-10 & 08:10 & 08:35 & 09:00\\
+260.25 & Final planificado & 02-10 / 16-10 & 08:10 & 08:35 & 09:00\\
 \bottomrule
 \end{longtable}
 
-Hay 14 inicios de muestreo manual por fermentador, más el evento nutricional
-únicamente en NM26-B. No todos los puntos ejecutan todas las técnicas. El punto
-final puede adelantarse si se cumple un criterio de cierre predefinido; en tal
-caso se traslada el conjunto final y se registra el tiempo real. Los volúmenes
-por método quedan vacíos en Excel hasta confirmarlos, evitando inventar una carga
-de muestreo.
+Hay 11 inicios manuales por fermentación, 33 por lote y 66 en toda la campaña.
+Cada lote añade los eventos de nutrición correspondientes, mientras los
+pseudo-pulsos no requieren intervención. El libro Excel detalla las técnicas de
+cada punto y deja vacíos tiempo real y volumen.
 
-\section{Ventana alrededor de nutrición}
+\section{Ventana post-pulso y carga operativa}
 
-La ventana emparejada contiene un baseline a \(-0.5\) h, CO$_2$/T continuos y
-anclas manuales a \(+1,+2,+4,+6,+24\) h. \(+1\) y \(+4\) h son puntos físicos
-simples; \(+2\) y \(+6\) h incluyen estados biológicos/químicos. Así se reserva
-la mayor carga para los tiempos que discriminan retardo, subida y máximo
-diagnóstico, manteniendo toda la secuencia dentro de horario. No se programa
-\(+12\) h manual porque caería de noche; la dinámica nocturna queda cubierta por
-CO$_2$ y temperatura automáticos.
+Con tres fermentadores, se conservan pre-pulso, \(+2,+4,+5.5,+24\) h. El punto
+\(+4\) h es simple; los demás son complejos. Se retira \(+1\) h manual porque
+generaría solapamiento con el conjunto \(+2\) h y se mantiene CO$_2$/temperatura
+continuos para capturar esa respuesta. No se programa \(+12\) h porque cae de
+noche. Esta reducción afecta primero puntos manuales redundantes y no el número
+de réplicas ni las anclas de \(X/X_d\), \(N\), sustratos y terminación.
+
+Los conjuntos complejos se inician cada 25 min. El último punto complejo del
+jueves comienza a las 16:00 y termina estimativamente a las 16:25, dejando cerca
+de una hora para almacenamiento, limpieza y registro. El viernes, el último
+comienza a las 10:30 y termina cerca de las 10:55.
 
 \section{Biomasa y Oculyze}
 
-La cobertura propuesta abarca condición inicial, crecimiento temprano, onset,
-cercanía al máximo, pre-pulso, \(+2,+6,+24\) h y tres anclas de cola/final. Esto
-supera la cobertura de tres puntos de LAB016--018 sin reproducir un muestreo
-intensivo diario. Se debe conservar concentración total, viabilidad y metadatos
-crudos del instrumento; \(X\) y \(X_d\) derivados no deben ocultar la medición
-original. Las réplicas técnicas sirven para estimar error de medición, pero no
-reemplazan réplicas biológicas.
+Oculyze cubre condición inicial, crecimiento/onset, cercanía al máximo,
+pre-pulso, \(+2,+5.5,+24\) h, terminación, cola y final. Se obtienen diez anclas
+por fermentación, comparables con la cobertura de LAB013--015 y muy superiores a
+las tres observaciones de LAB016--018. Se conservan concentración, viabilidad y
+metadatos crudos; las réplicas técnicas no reemplazan las seis unidades
+experimentales.
 
 \section{Planificación calendario}
 
-Se compararon dos alternativas. Iniciar el 14 de septiembre colocaría el pulso y
-la respuesta rápida el jueves 17, cuya ventana termina a las 11:00; iniciar el 15
-los desplazaría hacia el feriado del 18. Ambas opciones pierden \(+2,+4,+6\) o
-\(+24\) h y obligan a deformar el diseño. Por ello se recomienda iniciar
-\textbf{después del feriado}, el lunes 21.
+Lote 1 se inocula el lunes 21 de septiembre y termina de forma planificada el
+viernes 2 de octubre. Lote 2 replica el patrón de días y horas desde el lunes 5
+hasta el viernes 16 de octubre. La separación permite reutilizar F1--F3 y bloquear
+fecha/preparación. Debe confirmarse que el intervalo 2--5 de octubre basta para
+limpieza y preparación; si no, todo el Lote 2 se desplaza una semana sin deformar
+su grilla.
 
-Los fermentadores se inoculan y muestrean con 25 minutos de desfase. Ese mismo
-desfase se conserva en todos los tiempos relativos. Es pequeño respecto de la
-dinámica estudiada, pero evita asumir que un operador inicia dos conjuntos
-complejos al mismo minuto.
+Iniciar antes del 18 de septiembre se descarta: el pulso o su ventana rápida
+caerían en la jornada reducida del 17 o en el feriado del 18.
 
 \section{Restricciones operativas}
 
@@ -282,112 +274,93 @@ complejos al mismo minuto.
 \small
 \begin{tabularx}{\textwidth}{@{}l l l Y@{}}
 \toprule
-Día/fecha & Presencia & Inicio manual conservador & Aplicación al plan\\
+Día/fecha & Presencia & Inicio manual conservador & Aplicación\\
 \midrule
-Lunes--jueves & 08:00--17:30 & 08:10--16:30 & Se cumple; el último inicio es 15:40.\\
-Viernes & 08:00--12:00 & 08:10--11:00 & Se cumple; inicios entre 08:15 y 09:10.\\
-16-09-2026 & 08:00--15:30 & 08:10--14:30 & Sin campaña activa.\\
-17-09-2026 & 08:00--12:00 & 08:10--11:00 & Sin campaña activa.\\
-18-09-2026 & Feriado & Sin trabajo manual & Sin campaña activa; ninguna operación.\\
+Lunes--jueves & 08:00--17:30 & 08:10--16:30 & Se cumple; último inicio 16:00.\\
+Viernes & 08:00--12:00 & 08:10--11:00 & Se cumple; último inicio 10:30.\\
+16-09-2026 & 08:00--15:30 & 08:10--14:30 & Ningún lote activo.\\
+17-09-2026 & 08:00--12:00 & 08:10--11:00 & Ningún lote activo.\\
+18-09-2026 & Feriado & Sin trabajo manual & Ningún lote activo.\\
 \bottomrule
 \end{tabularx}
 \end{table}
 
-Las duraciones estimadas son 10 min para conjuntos simples y 20--30 min para
-complejos. Deben sustituirse por tiempos validados del laboratorio antes de
-ejecutar. Si la capacidad real es menor, se conservan primero \(t\simeq0\), 24.25 h,
-42.75/49.75 h, pre, \(+2,+6,+24\) h, 162.75 h y final; se revisan antes los
-puntos de prioridad media.
-
 \section{Relación con recalibración}
 
-No se recalibra nada durante esta tarea. Después de obtener y cerrar los datos,
-NM26-A/B podrán apoyar selección estructural y una recalibración justificada.
-Primero se debe decidir una activación causal, separar transitorio nutricional y
-terminación, unificar la convención de CO$_2$ y confirmar la semántica/dosis de
-\(N\). Sólo entonces corresponde revisar parámetros upstream y de observación.
-LAB016--018 permanecen como holdout histórico.
+No se recalibra nada en esta tarea. Tras cerrar los datos, la campaña podrá
+apoyar selección estructural y una recalibración justificada. Antes se debe
+adoptar una activación causal, separar transitorio y terminación, unificar la
+convención de CO$_2$ y confirmar la semántica/dosis de \(N\).
 
 \section{Relación con el estimador}
 
-El futuro estimador recibirá CO$_2$ y temperatura online, además del evento
-nutricional conocido; no puede conocer química futura. Los puntos offline
-emparejados permiten preguntar si cambios observables en CO$_2$ coinciden con
-cambios reales de \(X\), \(X_d\), \(N\), sustratos y etanol. Si no existe esa
-coherencia, el problema debe resolverse en la estructura o en la función de
-observación antes de confiar en estimaciones de \(X/N\).
+El estimador futuro recibirá CO$_2$, temperatura y eventos conocidos online; no
+puede usar química futura. El diseño bloqueado permite evaluar si el contraste
+visible en CO$_2$ se repite dentro de ambos lotes y coincide con cambios reales
+de \(X,X_d,N,G,F,E\). La falta de coherencia debe resolverse antes de confiar en
+estimaciones de \(X/N\).
 
-\section{Criterios de éxito científico}
+\section{Criterios de éxito}
 
 \begin{itemize}[leftmargin=*]
-  \item Control con cola distinta de la predicha: evidencia de terminación basal
-  o error upstream, aunque el tratamiento ajuste mejor.
-  \item Divergencia rápida tras el pulso: respuesta nutricional rápida; máxima
-  evidencia si aparece también en \(N\), \(X\), sustratos o etanol.
-  \item Diferencia persistente a \(+24\) h y en cola: componente sostenido.
-  Reconvergencia: respuesta predominantemente transitoria.
-  \item \(X_d\) creciente con predicción casi nula: rechazo de la muerte vigente.
-  \item CO$_2$ modificado sin correspondencia metabólica y con CO$_2$ disuelto
-  incompatible: revisar transferencia, sensor o \texttt{matrix\_gain}.
-  \item Una caída de RMSE sin capacidad de separar estas alternativas no se
-  considera éxito suficiente.
+  \item Una diferencia nutrición--control consistente dentro de ambos lotes
+  apoya un efecto de tratamiento y no sólo de lote.
+  \item Una divergencia rápida seguida de reconvergencia apoya un transitorio;
+  persistencia a \(+24\) h/cola apoya efecto sostenido.
+  \item Una cola anómala también en controles apunta a terminación basal/upstream.
+  \item \(X_d\) creciente con predicción casi nula rechaza la muerte vigente.
+  \item CO$_2$ sin correspondencia metabólica obliga a revisar observación,
+  transferencia o ganancia.
+  \item Disminuir RMSE sin separar estas alternativas no basta.
 \end{itemize}
 
 \section{Riesgos y contingencias}
 
 \begin{itemize}[leftmargin=*]
-  \item \textbf{Dosis no confirmada:} no iniciar NM26-B ni asignar \(\Delta N\).
-  \item \textbf{Fuga, reloj o sensor CO$_2$:} ejecutar blanco y chequeo de
-  hermeticidad antes de inocular; documentar cada interrupción, sin rellenarla
-  silenciosamente.
-  \item \textbf{Carga o volumen excesivos:} validar volumen mínimo por técnica y
-  máximo acumulado; retirar primero puntos medios, no las anclas causales.
-  \item \textbf{Desviación horaria:} mantener la muestra si sigue siendo
-  informativa y registrar hora real/tiempo real; no falsificar la grilla nominal.
-  \item \textbf{CO$_2$ disuelto u O$_2$ no disponibles:} preservar el contraste
-  A/B y declarar qué hipótesis de la capa de observación queda sin resolver.
-  \item \textbf{Final temprano o tardío:} aplicar el criterio predefinido y mover
-  el conjunto final, manteniendo CO$_2$/T continuos mientras sea técnicamente
-  posible.
+  \item \textbf{Dosis no confirmada:} no iniciar condiciones nutridas ni asignar
+  \(\Delta N\).
+  \item \textbf{Carryover entre lotes:} validar limpieza de F1--F3 antes del
+  Lote 2.
+  \item \textbf{Ciclo complejo mayor de 25 min:} reprogramar el lote completo o
+  retirar primero el punto de prioridad media, sin perder réplicas.
+  \item \textbf{Fuga/reloj/sensor:} ejecutar blancos y hermeticidad; documentar
+  interrupciones sin interpolarlas silenciosamente.
+  \item \textbf{Volumen excesivo:} validar volumen por técnica y máximo acumulado.
+  \item \textbf{Desviación horaria:} registrar hora y tiempo reales.
+  \item \textbf{Final temprano/tardío:} aplicar un criterio predefinido y trasladar
+  el conjunto final, manteniendo CO$_2$/T continuos.
 \end{itemize}
 
-\section{Futuro holdout a aproximadamente \(18\,^{\circ}\mathrm{C}\)}
+\section{Futuro holdout a \(18\,^{\circ}\mathrm{C}\)}
 
-Tras seleccionar y, si corresponde, recalibrar la arquitectura con NM26-A/B, se
-recomienda un lote independiente cerca de \(18\,^{\circ}\mathrm{C}\). Su función
-sería validar interpolación térmica entre los datos de aproximadamente 16 y
-20 \(^{\circ}\mathrm{C}\). Debe reservarse como validación externa y no añadirse
-a esta primera campaña, porque aumentaría la carga y mezclaría temperatura con el
-contraste nutricional.
+Después de seleccionar y, si corresponde, recalibrar la estructura con esta
+campaña, se recomienda un lote independiente cerca de \(18\,^{\circ}\mathrm{C}\)
+para validar interpolación entre 16 y 20 \(^{\circ}\mathrm{C}\). Debe reservarse
+como validación externa y no añadirse a los dos lotes actuales.
 
 \section{Decisiones pendientes antes de ejecutar}
 
 \begin{enumerate}[leftmargin=*]
-  \item Confirmar producto, fabricante/tipo, lote, composición, masas exactas de
-  SFX/FDA, aporte real de YAN y método/duración de aplicación.
-  \item Confirmar volumen inicial/actual, headspace, volumen mínimo por técnica y
-  máximo acumulado admisible en cada fermentador.
-  \item Confirmar dos fermentadores equivalentes disponibles y la asignación
-  F1/F2.
-  \item Confirmar reactivos, Oculyze, método independiente de biomasa y capacidad
-  para \(G,F,\) YAN/componentes, \(E\) y Gly.
-  \item Confirmar disponibilidad y duración real de CO$_2$ disuelto; O$_2$ sólo
-  si existe medición validada.
-  \item Cerrar calibración/blancos del caudalímetro, hermeticidad, frecuencia de
-  logging, reloj común y convención de unidades.
-  \item Predefinir criterio causal de cierre mediante CO$_2$ sostenido y
-  estabilidad de Brix/densidad, sin inventar umbrales en esta planificación.
-  \item Confirmar disponibilidad de almacenamiento, etiquetado y procesamiento
-  dentro de los 20--30 min presupuestados para puntos complejos.
+  \item Confirmar producto, fabricante/tipo/lote, composición, masas SFX/FDA,
+  aporte YAN y duración de aplicación.
+  \item Confirmar volumen inicial, headspace, volumen por técnica y máximo
+  acumulado admisible.
+  \item Confirmar equivalencia, disponibilidad y limpieza de F1/F2/F3 para ambos
+  lotes.
+  \item Confirmar reactivos, Oculyze, biomasa y capacidad analítica para tres
+  fermentadores dentro de ciclos de 25 min.
+  \item Confirmar CO$_2$ disuelto y O$_2$ opcional.
+  \item Cerrar blancos/calibración de caudalímetros, relojes, hermeticidad,
+  frecuencia de logging y convención de unidades.
+  \item Definir criterio causal de cierre mediante CO$_2$ sostenido y estabilidad
+  de Brix/densidad.
 \end{enumerate}
 
 \section*{Control de consistencia}
 
-El libro \texttt{proximos\_lotes\_mosto\_natural\_2026.xlsx} contiene los mismos
-lotes, tratamientos, temperatura, inoculaciones, \(t_{\mathrm{pulse}}=67.25\) h
-y tiempos de muestreo. Sus campos de tiempo real y volumen quedan listos para
-llenarse durante la ejecución. No hay muestras manuales el 18 de septiembre ni
-fuera de las ventanas conservadoras; las fechas se obtuvieron programáticamente
-sumando cada tiempo nominal a la inoculación correspondiente.
+El Excel contiene exactamente dos lotes, tres fermentadores por lote, seis
+fermentaciones, \(n=3\) por tratamiento, ambas condiciones en ambos lotes y los
+mismos tiempos nominales. No hay operaciones manuales el 18 de septiembre. Las
+fechas se calcularon sumando cada tiempo nominal a la inoculación correspondiente.
 
 \end{document}
