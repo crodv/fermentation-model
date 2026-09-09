@@ -1,15 +1,15 @@
 # Modelo de mosto natural: calibración histórica, auditoría 2026 y preparación del estimador de estado
 
-**Documento técnico de referencia — versión 2 (consolidada), 2026-09-08**
+**Documento técnico de referencia — versión 3 (reestructurada), 2026-09-08.**
 
-Alcance: consolidar todo lo verificado sobre (a) la calibración histórica del modelo cinético de mosto natural (LAB004–LAB012), (b) la capa de observación CO2, (c) los experimentos LAB013–LAB018, y (d) los diagnósticos estructurales recientes (dosis de nutrición, barrido de `pulse_activity_gain`, prueba transitoria rise-decay), como base para: terminar/revisar la calibración, diseñar 1–2 fermentaciones adicionales, e iniciar el desarrollo del estimador de estado.
+Alcance: referencia técnica del estado actual del proyecto de modelado de mosto natural: (a) arquitectura real del modelo tal como la consumen los notebooks/runners actuales, (b) qué está calibrado y qué está congelado, (c) trazabilidad del input CO2 y del calendario nutricional, (d) inventario y rol de LAB013–LAB018, (e) resultados/validaciones vigentes, (f) problemas estructurales confirmados, (g) qué (no) recalibrar y en qué orden, (h) prerequisitos del estimador de estados. Base de la auditoría: el repositorio real (código, datos, resultados versionados), no memoria ni nombres de archivo.
 
-Convención de etiquetas usada en todo el documento:
+Convención de etiquetas:
 
-- **[HECHO VERIFICADO]** — verificado directamente en código o datos del repositorio (se cita archivo y función/línea).
-- **[RESULTADO DIAGNÓSTICO]** — resultado de una simulación/prueba forward con parámetros congelados (sin fitting, sin optimizadores). No son parámetros calibrados.
-- **[INTERPRETACIÓN]** — lectura razonada de hechos y diagnósticos; no es un hecho en sí.
-- **[HIPÓTESIS PENDIENTE]** — pendiente de confirmación (con el colega que calibró, con el operador/laboratorio o con nuevos datos).
+- **[HECHO VERIFICADO]** — respaldado directamente por código, datos o resultados del repositorio (se cita ruta y función/línea).
+- **[RESULTADO DIAGNÓSTICO]** — simulación/prueba forward con parámetros congelados (sin fitting). No son parámetros calibrados.
+- **[INTERPRETACIÓN]** — lectura razonada de hechos/diagnósticos.
+- **[PENDIENTE]** — dato, decisión o hipótesis sin respaldo suficiente.
 
 Archivos nucleares:
 
@@ -20,705 +20,457 @@ Archivos nucleares:
 | Calibración upstream natural 2026 | `fermentation_model/laboratory_2026/run_estimability_historical_by_medium.py` |
 | Capa CO2 2026 (matrix cross-validation) | `fermentation_model/laboratory_2026/run_co2_matrix_cross_validation_2026.py` (`co2_cross`) |
 | Módulo CO2 (qprod base, solubilidad) | `fermentation_model/pilot_2025/run_pilot_2025_co2_solubility_integrated_doe.py` (`co2_model`) |
-| Tasas core / constante CO2–etanol | `fermentation_model/shared/run_secondary_joint_campaign_doe.py` (`joint`, `CO2_G_PER_G_ETHANOL`) |
+| Tasas core / constante CO2–etanol | `fermentation_model/shared/run_secondary_joint_campaign_doe.py` (`joint`, `CO2_G_PER_G_ETHANOL` :166) |
 | θ natural | `fermentation_model/laboratory_2026/results/estimability_historical_natural/theta.csv` |
 | Parámetros capa CO2 | `fermentation_model/laboratory_2026/results/co2_matrix_cross_validation_2026/fit_parameters.csv` |
 | Notebook holdout LAB016–018 | `fermentation_model/laboratory_2026/notebooks/lab016_018_natural_must_holdout.ipynb` |
 | Notebook LAB013–015 | `fermentation_model/laboratory_2026/notebooks/lab013_015_natural_must_co2_model_analysis.ipynb` |
+| Calendario nutricional versionado | `fermentation_model/data/Laboratorio 2026/raw_data/Fernanda Folch.ics` |
 | Workbook maestro natural | `fermentation_model/data/Laboratorio 2026/Vendimia_2026/mosto_natural_xthiol.xlsx` |
 
 ---
 
-## 1. Objetivo, arquitectura general y los cuatro fenómenos
+## 1. Alcance y objetivo
 
-### 1.1 Esquema
+El objetivo final del proyecto es un **estimador de estados** (previsiblemente EKF/UKF/MHE) del fermentador de mosto natural con **CO2 gaseoso como sensor online principal**, estimando principalmente `X` y `N` (y potencialmente el resto de los estados), con la química offline como validación y no como información futura operativa. Este documento no diseña el estimador: documenta qué partes de la arquitectura actual son compatibles con ese objetivo, cuáles no, y qué falta.
+
+Regla de lectura: la calibración de la **capa CO2** (observación/transferencia) **no** recalibra el **modelo cinético central**. Son dos etapas distintas con artefactos distintos; el holdout de LAB016–018 congela ambos y no llama a ningún optimizador [HECHO VERIFICADO: notebook holdout, celdas de validación "optimizer/fitting calls executed: 0"].
+
+---
+
+## 2. Arquitectura actual del modelo
+
+### 2.1 Esquema real consumido por el notebook LAB016–018
 
 ```
-offline chemistry + biomass + T          (sensores + Y15 + Oculyze + densidad)
+datos (T medida, ICs, eventos de bomba)
         ↓
-ODE upstream  (base.simulate, LSODA, saltos exactos de pulsos)
-X, Xd, N, G, F, E, Gly
+ODE upstream (base.simulate, LSODA, saltos exactos de pulsos)
+estados: X, Xd, N, G, F, E, Gly
         ↓
-CO2 production   qprod_base = 0.4777 · dE/dt = 0.4777·(βG+βF)·X
+CO2 biológico: qprod_base = 0.4777 · (βG+βF) · X      (co2_model.co2_production_g_l_h)
         ↓
-chemical activation A(t)                 (gate de encendido, bracket químico)
+gate de activación química A(t)                         (_chemical_activity_bracket + _bounded_smoothstep_activation)
         ↓
-pulse / nitrogen response                r(t), activity_multiplier, Δqprod_pulso
+respuesta post-pulso: r(t), activity_multiplier, Δqprod_pulso   (effective_qprod_grid)
+   + O2 (pool inicial Monod, fracción anaeróbica) — SOLO dentro de la capa CO2
         ↓
-dissolved CO2 pool                       (solubilidad Csat(T,E,G,F))
+pool CO2 disuelto (solubilidad Csat(T,E,G,F) = s·1.69·e^(−0.032(T−20))·e^(0.0016E)·e^(−0.0012(G+F)))
         ↓
-continuous release                       qgas = min(k·C·release_fraction, disponible)
+release continuo: qgas = min(k·C·(0.05+0.95·C/(C+C*)), disponible)
         ↓
-gaseous CO2 measurement                  qobs = matrix_gain · qgas (SCCM→g/L/h)
+señal gaseosa: qobs = matrix_gain · qgas
 ```
 
-### 1.2 Bloques
+**[HECHO VERIFICADO]** Estados del modelo central: `STATE_NAMES = ("X","Xd","N","G","F","E","Gly")` (`base` :75); canales de entrada discretos `INPUT_CHANNELS = ("N","G","F","E","X")` (:76). La **temperatura no es estado**: input exógeno interpolado (`base.temperature_at` :358). Ecuaciones: `base.rhs` (:445), `base.kinetic_terms` (:387).
 
-**A) Modelo cinético upstream natural [HECHO VERIFICADO]**
-Estados: `X, Xd, N, G, F, E, Gly` (`base.STATE_NAMES`); canales de entrada discretos `INPUT_CHANNELS = ("N","G","F","E","X")`. La temperatura no es estado: es input exógeno interpolado de la serie medida (`base.temperature_at`). Ecuaciones en `base.rhs` (:445–468) y `base.kinetic_terms` (:387–442).
+**Distinguir estados vs. no-estados [HECHO VERIFICADO]:**
 
-**B) Capa de observación/transferencia CO2 [HECHO VERIFICADO]**
-`co2_cross.effective_qprod_grid` (:1668) + `co2_cross.raw_qgas_grid_prediction` (:1748). El O2 no es estado del upstream: existe solo dentro de la capa CO2 (pool inicial `O2_initial_scale·O2sat`, consumo Monod, gate anaeróbico `ferment_fraction = 0.08 + 0.92·φ_ana`).
+| Cantidad | Categoría |
+|---|---|
+| X, Xd, N, G, F, E, Gly | estados ODE del modelo central |
+| O2 disuelto, φ_anaeróbica, pool de CO2 disuelto, A(t), r(t) | variables internas de la **capa CO2** (no estados del central) |
+| temperatura | driver exógeno medido |
+| SCCM→g/L/h, matrix_gain | observación/escala |
+| "estado de actividad metabólica a(t)" | **hipótesis propuesta, no implementada** (§16) |
+| CO2 disuelto como estado del central | **no implementado** (existe solo como pool interno de la capa; el Carbodoseur histórico es dato offline) |
 
-**C) Datos offline [HECHO VERIFICADO]**
-Workbook homologado (química G/F/YAN/Gly/E + biomasa Oculyze + Brix/densidad + DO + CO2 disuelto Carbodoseur). Para LAB013–018: `data/mem2026/LAB013-015/` y `data/mem2026/LAB016-018/`.
-
-**D) Señales online [HECHO VERIFICADO]**
-CO2 crudo y filtrado (SCCM) y temperatura por fermentador; canal binario `nutricion_activa` (ledger de pulsos de bomba).
-
-### 1.3 Pertenencia de parámetros
+### 2.2 Pertenencia de parámetros
 
 | Grupo | Parámetros | Fuente |
 |---|---|---|
-| θ_natural (upstream) | mu0, qN, betaG0, betaF0, qEG, qEF, iG, iE, Kd0, gammaG0, gammaF0 (re-estimados) + sN, sG, sF, qXG, qXF, m0, Kn0/Kg0/Kf0/Kig0/Kie0 y bloque secundario/aroma fijos | `theta.csv` |
-| Capa CO2 (natural) | kCO2_release_h, CO2sat_scale, O2_qmax_mg_gdw_h, O2_initial_scale, pulse_t_rise_h, pulse_activity_gain, chem_activation_start_fraction, chem_activation_duration_fraction, matrix_gain | `fit_parameters.csv` (calibration_matrix = natural) |
-| Inputs/eventos experimentales | tiempos de pulso N y ΔN; series de temperatura; ICs por batch (X0, Xd0, N0, G0, F0, E0, Gly0) | datos/metadatos, no parámetros |
+| θ_natural (upstream) | mu0, qN, betaG0, betaF0, qEG, qEF, iG, iE, Kd0, gammaG0, gammaF0 (re-estimados) + sN, sG, sF, qXG, qXF, m0, Arrhenius, bloque secundario/aroma fijos | `theta.csv` |
+| Capa CO2 (natural) | kCO2_release_h, CO2sat_scale, O2_qmax_mg_gdw_h, O2_initial_scale, pulse_t_rise_h, pulse_activity_gain, chem_activation_start_fraction, chem_activation_duration_fraction, matrix_gain | `fit_parameters.csv` (`calibration_matrix=natural`) |
+| Inputs/eventos | tiempos de pulso N, ΔN, series de T, ICs por batch | datos/metadatos |
 
-### 1.4 Los cuatro fenómenos — visión consolidada
-
-| Fenómeno | Mecanismo histórico | Parámetros | Datos que lo determinaron | Comportamiento en LAB016–018 | Limitación detectada |
-|---|---|---|---|---|---|
-| 1. lag / onset | gate químico A(t) (smoothstep sobre bracket G/F/E) | chem_start=0.735, chem_dur=1.064 | química offline (Δ(G+F)≥5 o ΔE≥2 g/L) | gate mal posicionado sin química; re-posicionado diagnósticamente reduce RMSE 77–86 % | el bracket usa química **posterior** → no causal; se necesita mecanismo causal/predictivo |
-| 2. peak principal | qprod_base ∝ (βG+βF)·X, f_ferm, matrix_gain | betaG0/betaF0/iE/…, gain=3.12 | perfiles completos CO2 + estados upstream | peak 43–49 h pred vs 41–47 h obs; amplitud 0.75–0.77 vs 0.79–0.81 g/L/h | funciona razonablemente; sin defecto mayor |
-| 3. caída / terminación | Monod G/F + inhibición E + **atenuación post-pulso ×0.25** | kd (inerte), kG/kF/iE, pulse_gain=0.25, rise=64.7 h | estados offline + pseudo-obs de onset/peak | sin pulso declarado: qprod 33–66 % del peak a 100–150 h → cola larga; con pulso declarado la cola colapsa | terminación biológica débil dependiente del artefacto del pulso; N no limita β; kd inerte |
-| 4. reactivación post-nutrición | salto N + rampa r(t) + gain permanente | t_pulse, ΔN, pulse_t_rise_h=64.7, pulse_activity_gain=0.25 | pseudo-obs **solo del timing** del peak post-pulso | LAB017: bump ~+33 % observado tras 2 pulsos (~56.9/57.1 h); LAB016 casi ninguno; LAB018 pequeño | una rampa de 65 h no representa un bump de horas; gain permanente no puede dar bump + buena cola simultáneamente |
-
-**[INTERPRETACIÓN]** El hallazgo central de los diagnósticos recientes: lag, reactivación rápida y terminación ocurren en escalas temporales distintas (días-horas vs horas vs decenas de horas) y la arquitectura histórica las representa con un solo mecanismo post-pulso lento; la evidencia apunta a que deben separarse.
-
----
-
-## 2. Calibración histórica upstream (θ_natural, LAB004–LAB012)
-
-**[HECHO VERIFICADO] Batches utilizados:** LAB004–LAB012 (9 fermentaciones, incluida LAB009; LAB009 fue excluida después solo de la capa CO2). `batch_summary.csv` (`results/estimability_historical_natural/`).
-
-**[HECHO VERIFICADO] Estados observados:** los 7 estados core entraron al ajuste con observaciones del workbook homologado: X y Xd derivados de Oculyze, N de YAN, G/F de Y15, E y Gly de química. `measurement_support()` en `run_estimability_historical_by_medium.py` marca `used_in_core_fit=True` para los 7.
-
-**[HECHO VERIFICADO] Función objetivo:** `base.residual_vector` (:595) — WSSE de residuos por estado `(pred−obs)/σ`, concatenados por batch y estado. Fallo de integración penalizado con 1e6×1000.
-
-**[HECHO VERIFICADO] Sigmas/pisos** (`base.MEASUREMENT_ERROR_FLOOR/REL`, :174–191), σ = max(piso, rel·max(|obs|, piso)):
-
-| Estado | piso | rel |
-|---|---|---|
-| X | 0.06 kg/m³ | 8 % |
-| Xd | 0.06 kg/m³ | 12 % |
-| N | 0.012 kg/m³ | 8 % |
-| G | 2.5 g/L | 2.5 % |
-| F | 2.5 g/L | 2.5 % |
-| E | 2.0 g/L | 2.5 % |
-| Gly | 0.35 g/L | 5 % |
-
-**X/Xd sí participaron fuertemente de la WSSE [HECHO VERIFICADO]:** con ~13 puntos Oculyze por LAB y pisos de 0.06 kg/m³, los residuos de biomasa son comparables en escala a los de G/F. La trayectoria de biomasa (plana, con Xd pequeño) es uno de los anclajes del ajuste.
-
-**[HECHO VERIFICADO] Optimizador:** `base.fit_parameters` (:629) — `scipy.least_squares` (`trf`, log-espacio, `x_scale='jac'`, tolerancias 2e-5), con multistart determinista y pulido por profile-likelihood de 3 puntos para `Kd0` y `qN`.
-
-**[HECHO VERIFICADO] Parámetros estimados (11):** mu0, qN, betaG0, betaF0, qEG, qEF, iG, iE, Kd0, gammaG0, gammaF0 (`theta.csv`, `reestimated_in_this_notebook=True`). El resto (sN, sG, sF, qXG, qXF, m0, constantes Arrhenius, bloque secundario/aroma) quedó fijo.
-
-**[HECHO VERIFICADO] Condiciones iniciales:** por batch, primera observación finita de cada estado. Rango histórico: X0 0.099–1.066 kg/m³; Xd0 0.001–0.121; N0 0.220–0.239 kg/m³; G0 75.0–81.6 g/L; F0 70.8–88.0; E0 9.21–11.76 g/L; Gly0 0.75–1.27.
-
-**[HECHO VERIFICADO] NaN:** enmascarados por `np.isfinite(obs)` — los faltantes no aportan residuo.
-
-**[HECHO VERIFICADO] t=0 histórico:** la fila `t = 0` del workbook homologado (`load_natural_batch_metadata`, `run_estimability_historical_by_medium.py:140`). Es un t=0 *de muestreo/química homologada*, no un flanco de inoculación medido.
-
-**[HECHO VERIFICADO] Pulsos usados en la calibración upstream:** `pulses = N:t@0.08 kg/m³` derivados de `pulso_nut` del workbook. **Discrepancia documentada:** la capa CO2 después *sobrescribe* por `ΔN = 0.14 kg/m³` con timing por densidad (`co2_cross.override_natural_nutrient_pulses` :452). θ_natural y la capa CO2 no usan la misma dosis de N.
-
-**Papel real de la biomasa [INTERPRETACIÓN]:** X/Xd informan μ y la escala; la forma de la cola de X no está bien restringida porque kd≈0. **Papel del etanol [INTERPRETACIÓN]:** E informa β e iE; E0≈9–12 g/L deja la inhibición activa desde el inicio.
-
-### 2.1 Oculyze: semántica y conversión [HECHO VERIFICADO]
-
-Export Oculyze (método `Viability & Concentration`, azul de metileno, `Dilution Sample 1:0`). `Concentration` = concentración **total** en 10⁶ cél/mL; `Viability` = % viable. Conversión histórica (verificada en `Datos_originales` de `mosto_sintetico_vl3.xlsx`: `C_viable/C_total = Viability/100` exacta en 72/76 filas):
+### 2.3 Estructura de qprod y terminación [HECHO VERIFICADO]
 
 ```
-X_viable = Concentration × Viability/100          [Mcél/mL]
-Xd       = Concentration × (1 − Viability/100)    [Mcél/mL]
-X_kg_m3  = X_viable × 0.03 ;  Xd_kg_m3 = Xd × 0.03
+βG = betaG0·aβ(T)·G/(G+kG)·1/(1+iE·E)
+βF = betaF0·aβ(T)·F/(F+kF)·1/(1+iG·G)·1/(1+iE·E)
+qprod_base = 0.4777·(βG+βF)·X          (CO2_G_PER_G_ETHANOL = 44.01/(2·46.07), joint :166)
 ```
 
-`MILLION_CELLS_ML_TO_KG_M3 = 0.03` con `CELL_MASS_PG_PER_CELL = 30.0` (`new_must_data_loader.py:55–57`), es decir 30 pg/célula.
+- **N entra solo en μ** (`n/(n+kn)`): no limita βG/βF [HECHO VERIFICADO].
+- **Muerte celular**: `dXd = kd·X` con `kd>0` solo si `T ≥ td(E)`, `td(E) = −0e−4·E³+0.0049·E²−0.1279·E+315.89 K` (`base` :421). A 16–22 °C y E≤60 g/L, td ≈ 305–310 K > T ⇒ **kd = 0**: muerte inerte, Xd≈0, X plana tras el crecimiento [HECHO VERIFICADO].
+- **Pulsos**: `base.simulate` aplica saltos exactos (`_pulse_events` :475): `N(t⁺)=N(t⁻)+ΔN`.
 
-**[HIPÓTESIS PENDIENTE]** La procedencia física de la constante 30 pg/célula no está documentada en el repo. Confirmar con el colega.
-
-**Trampa semántica [HECHO VERIFICADO]:** en las hojas homologadas históricas la columna `Viability` contiene la *concentración viable* (Mcél/mL), no el %. En los exports crudos Oculyze `Viability` sí es %. No mezclar.
-
----
-
-## 3. Calibración histórica de la capa CO2
-
-**[HECHO VERIFICADO] Batches de calibración natural:** LAB004, 005, 006, 007, 008, 010, 011 (7). Holdout dentro de matriz: **LAB012**. Excluidos de CO2: LAB001–003 y LAB009. Modelo nominal: `solubility_o2_nitrogen_boost_continuous_release`.
-
-**[HECHO VERIFICADO] Parámetros ajustados (natural):**
-
-| Parámetro | Valor | Cota activa |
-|---|---|---|
-| kCO2_release_h | 0.4246 h⁻¹ | no |
-| CO2sat_scale | 0.3514 | **sí (inferior)** |
-| O2_qmax_mg_gdw_h | 0.15 | **sí (inferior)** |
-| O2_initial_scale | 0.1954 | no |
-| pulse_t_rise_h | 64.66 h | casi (superior 72) |
-| pulse_activity_gain | 0.25 | **sí (inferior)** |
-| chem_activation_start_fraction | 0.7351 | no |
-| chem_activation_duration_fraction | 1.0639 | no |
-| matrix_gain | 3.1158 | perfilado analíticamente |
-
-**[HECHO VERIFICADO] matrix_gain:** perfilado analíticamente por mínimos cuadrados de escala (`_profile_matrix_gain` :1909). Escala empírica de la cadena SCCM→g/L/h + sesgos de amplitud.
-
-**[HECHO VERIFICADO] Observables de la capa:** perfil completo con `σ = max(0.04, 0.10·peak_batch)` y peso `1/√n`; pseudo-observable de onset sostenido (σ=12 h); pseudo-observable del **tiempo** del peak post-pulso (ventana 72 h, σ=12 h); censura LOD unilateral `max(pred−LOD, 0)/σ` con LOD=0.05 (0.10 frío <15.5 °C). No existía residual de amplitud del bump.
-
-**[HECHO VERIFICADO — matiz importante]** LAB012 fue holdout de la capa CO2, pero **no un holdout end-to-end independiente**: su química participó antes en θ_natural.
-
----
-
-## 4. Fenómeno 1 — lag / onset
-
-**[HECHO VERIFICADO] Preprocessing de artefactos CO2:** corrección de cero por sensor (ventana 12 h, cuantil 10 %), máscara de artefactos de muestreo (ventana 3 h, ratio 0.65), Hampel + mediana 3 pts + Savitzky–Golay 5/2, protección de respuesta a pulso (4 h), LOD 0.05/0.10 (`filter_co2_sensor_artifacts`, constantes :88–128).
-
-**[HECHO VERIFICADO] `_onset_threshold` (:1837):** `max(LOD_early, baseline + 0.10·(peak−baseline))`, baseline = mediana de los primeros 12 h. Umbral dinámico.
-
-**[HECHO VERIFICADO] `_sustained_onset_h` (:1849):** primer instante con **3 puntos consecutivos** sobre el umbral (interpolado).
-
-**[HECHO VERIFICADO] `_chemical_activity_bracket` (:1302):** usando solo química: `U` = primera muestra con `Δ(G+F) ≤ −5 g/L` **o** `ΔE ≥ +2 g/L` respecto a la primera muestra química; `L` = muestra química anterior.
-
-**[HECHO VERIFICADO] `_bounded_smoothstep_activation` (:1360):**
+### 2.4 Respuesta nutricional en la capa CO2 [HECHO VERIFICADO, `effective_qprod_grid` :1668]
 
 ```
-t_s = L + s·(U−L);  D = max(d·(U−L), 0.25 h)
-z(t) = clip((t−t_s)/D, 0, 1);  A(t) = z²(3−2z)
-```
-
-con s = 0.735, d = 1.064 (natural). Si `U ≤ L`: escalón en `U`. El release es continuous (§7) y **no genera lag por sí mismo**.
-
-**[HECHO VERIFICADO] Chemical activation = ENCENDIDO, no APAGADO:** una vez `t ≥ t_s + D`, `A ≡ 1` para siempre. El descenso lo controlan la rama biológica (§7) y el pool.
-
-**Tres conceptos a no confundir [INTERPRETACIÓN]:** (1) spike instrumental (artefacto del sensor, manejado por máscara); (2) onset observado (cruce sostenido del umbral dinámico del CO2 medido); (3) activación interna del modelo `A(t)` (anclada al bracket químico).
-
-**[HECHO VERIFICADO] Resultado LAB016–018:** sin G/F/E post-inoculación no existe bracket real; `_chemical_activity_bracket` degrada a `[0,0]` → gate escalón en t=0 → onset predicho 5.7–6.2 h vs observado 22.2–24.2 h. El diagnóstico "onset-conditioned chemical activation" (notebook holdout §12, bracket `[0, t_onset_obs]` congelando s y d) reduce el RMSE **77–86 %** (0.376→0.053 LAB016; 0.312→0.072 LAB017; 0.326→0.071 LAB018) y deja el peak aproximadamente bien alineado (43–49 h vs 41–47 h).
-
-**[INTERPRETACIÓN]** El posicionamiento del gate explica la fracción dominante del error de la capa CO2 en LAB016–018.
-
-**⚠ Advertencia para el estimador [HECHO VERIFICADO en el diseño del bracket]:** el bracket histórico usa la muestra química que *evidencia* actividad (química **posterior** al lag). Constituye un anclaje a posteriori, no una ley causal utilizable online: en tiempo real, en t≈10 h no se conoce la muestra de t≈24 h.
-
-**TAREA (antes del EKF/MHE):** desarrollar una representación **causal** de la activación/lag (p. ej. función de observación sobre variables disponibles online — densidad/Brix/CO2 temprano — o un estado de actividad dinámico, §14).
-
----
-
-## 5. Fenómeno 2 — peak principal
-
-**[HECHO VERIFICADO]** En LAB016–018 con el gate condicionado: peak predicho 43–49 h vs observado 41–47 h; amplitud 0.748–0.773 vs 0.792–0.814 g/L/h. Sin defecto mayor identificado en este fenómeno. **[INTERPRETACIÓN]** El peak queda bien cuando el gate está bien posicionado y la dosis de N no interfiere; su calidad es contingente al resto, no un logro independiente.
-
----
-
-## 6. Fenómeno 3 — caída / terminación
-
-### 6.1 Estructura de qprod [HECHO VERIFICADO]
-
-```
-qprod_base = CO2_G_PER_G_ETHANOL · dE/dt = 0.4777 · (βG + βF) · X
-βG = betaG0 · aβ(T) · G/(G+kG) · 1/(1+iE·E)
-βF = betaF0 · aβ(T) · F/(F+kF) · 1/(1+iG·G) · 1/(1+iE·E)
-```
-
-(`joint._core_rates`, `base.kinetic_terms`; `CO2_G_PER_G_ETHANOL = 44.01/(2·46.07)`.)
-
-**[HECHO VERIFICADO] Efecto de cada variable:**
-
-| Variable | Mecanismo | Efecto en qprod |
-|---|---|---|
-| G | Monod `G/(G+kG)` | directo, principal (se agota primero) |
-| F | Monod `F/(F+kF)` | directo, **el más lento** (fructosa residual) |
-| E | `1/(1+iE·E)`, iE=0.040 | directo, parcial |
-| N | `n/(n+kn)` **solo en μ** | **no limita βG/βF** |
-| X | `dX=(μ−kd)X` | indirecto; sin muerte X queda plana |
-| Xd | `dXd=kd·X` | kd>0 solo si `T ≥ td(E)`; td(E)≈315.9−0.128·E K |
-| T | Arrhenius aβ | escala, no apaga |
-
-**[HECHO VERIFICADO] Muerte prácticamente inerte:** a 16–22 °C y E≤60 g/L, td(E) ≈ 305–310 K > T ⇒ kd = 0. Xd≈0 y X plana tras el crecimiento (en el forward de LAB016–018: X plana en 1.36 kg/m³, Xd=0).
-
-### 6.2 Diagnóstico en LAB016–018 [RESULTADO DIAGNÓSTICO]
-
-Con parámetros congelados, sin pulso N declarado (escenario gate-conditioned): a 100–150 h `effective_qprod` = 0.083–0.166 g/L/h ≈ **33–66 % del peak**; N=0 desde temprano no frena la fermentación; F = 17–27 g/L a 150 h. Observado: caída mucho más rápida (0.28→0.02 g/L/h entre 100 y 150 h; pred 0.53→0.28).
-
-### 6.3 La cola NO viene del pool [HECHO VERIFICADO]
-
-Continuous release con k=0.4246 h⁻¹: la tasa efectiva de vaciado es `k·(0.05 + 0.95·C/(C+C*))`, decreciente al vaciarse: τ ≈ 4.5 h (C=0.6 g/L), 12.6 h (0.1), 19 h (0.05), 36 h (0.01). Si `qprod→0`, qgas cae 70–90 % en 10–25 h y a ≈0 en <40 h. **El pool no puede sostener una cola de 90 h con amplitud 0.3–0.5 g/L/h; la cola es upstream (actividad/terminación), no release.**
-
-### 6.4 La cola ya existía en el histórico [HECHO VERIFICADO]
-
-En LAB004–012 calibrados: a peak+40 h la mediana pred/obs ≈ 0.8 (razonable), pero al final del registro la sobre-predicción mediana era **2.2×** (p. ej. LAB006 0.087 vs 0.026). En t>100 h: 570 puntos, **39 % censurados**, mediana obs 0.12 vs pred 0.205 g/L/h. La censura LOD es unilateral (`max(pred−LOD,0)`, `_fit_residual` :1971–1973) con σ≈0.08: sobrepasar el LOD en la cola costaba ~1σ por punto, barato frente al peak. **[INTERPRETACIÓN]** La cola larga era un defecto histórico tolerado, débilmente penalizado; hoy se amplifica al eliminar el pulso.
-
-### 6.5 Mecanismo histórico real del apagado
-
-Históricamente la caída dependía de: (i) agotamiento de G/F; (ii) inhibición por E; y (iii) **de forma muy importante, la atenuación post-pulso `pulse_activity_gain=0.25`** (§8). **[INTERPRETACIÓN]** Sin el término (iii), el upstream tiene una terminación biológica débil: eso es exactamente lo que expone el holdout sin pulso.
-
----
-
-## 7. Release: threshold vs continuous (consolidado)
-
-**[HECHO VERIFICADO] Threshold release:** `qgas = min(k·smoothplus(C−C*), disponible)` — sin emisión apreciable bajo C* (meseta cero artificial).
-
-**[HECHO VERIFICADO] Continuous release (nominal):** `release_fraction = 0.05 + 0.95·C/(C+C*)`; `qgas = min(k·C·release_fraction, disponible)` (`CO2_CONTINUOUS_RELEASE_FLOOR = 0.05`, `raw_qgas_grid_prediction` :1782–1799). Terminó nominal porque eliminó la meseta cero y mejoró onset/correlación en holdout (LAB012: RMSE 0.361→0.318; correlación 0.36→0.78; onset −32→−11 h).
-
-**[HECHO VERIFICADO] Continuous release NO genera la fase lag por sí mismo** (el lag proviene del gate y del O2 temprano). Mantener por ahora (§13, tabla de decisiones).
-
----
-
-## 8. Fenómeno 4 — nutrición: arquitectura histórica
-
-**[HECHO VERIFICADO] Salto de N:** `base.simulate` aplica pulsos como saltos exactos (`_pulse_events` :475): `N(t_pulse⁺) = N(t_pulse⁻) + ΔN`.
-
-**[HECHO VERIFICADO] Respuesta en la capa CO2 (`effective_qprod_grid` :1691):**
-
-```
-r(t) = clip((t − t_pulse)/pulse_t_rise_h, 0, 1)          # rampa causal (estilo David et al.)
+r(t) = clip((t−t_pulse)/pulse_t_rise_h, 0, 1)            # rampa causal, sin caída propia
 biomasa = X_sinpulso + r·ΔX_pulso
-activity_multiplier(t) = 1 + (pulse_activity_gain − 1)·r(t)
-qprod_bio = activity_multiplier · qprod_sinpulso + r · Δqprod_pulso
+activity_multiplier = 1 + (pulse_activity_gain − 1)·r(t)
+qprod_bio = multiplier·qprod_sinpulso + r·Δqprod_pulso
 ```
 
-- `r(t)` sube linealmente durante `pulse_t_rise_h` y queda en 1 (sin caída propia).
-- El gain multiplica la actividad del contrafactual sin pulso; no toca `ferment_fraction` ni el pool.
-- Interacción con el gate: multiplicativa. Especificidad por batch: solo vía `t_pulse` y ΔN.
+Valores naturales ajustados: `pulse_activity_gain = 0.25` (cota inferior activa) y `pulse_t_rise_h = 64.66 h` (cerca de la cota superior 72). **[INTERPRETACIÓN]** En natural, el "nitrogen boost" funcionó de facto como **atenuación lenta post-pulso** (×0.25 en ~65 h): era el apagado histórico de la curva, no una reactivación.
 
-**[HECHO VERIFICADO] Valores ajustados (natural):** `pulse_activity_gain = 0.25` (cota inferior, `active_bound=True`) y `pulse_t_rise_h = 64.66 h` (cerca de la cota superior 72).
+### 2.5 O2 en la capa [HECHO VERIFICADO]
 
-**[INTERPRETACIÓN]** El llamado "nitrogen boost" terminó funcionando en natural principalmente como una **ATENUACIÓN lenta post-pulso** (×0.25 a lo largo de ~65 h): era el apagado de facto de la curva histórica, no una reactivación. La reactivación emergía solo del término `r·Δqprod_pulso`.
+Pool inicial `O2_initial_scale·O2sat(T,E,G,F)`, consumo Monod `O2_qmax_mg_gdw_h`, fracción fermentativa `f_ferm = 0.08+0.92·φ_ana`. El O2 **no** es estado del central y no se compara contra mediciones en LAB016–018 (no existen).
 
-**[HECHO VERIFICADO] Cómo se calibró la respuesta:** perfil completo + **timing** del peak post-pulso (σ=12 h). **No existía residual de amplitud del bump** — por eso la reactivación histórica ya se reproducía imperfectamente (LAB010/011/012: dirección y timing razonables, amplitud frecuentemente corta; ver §8.1).
+---
 
-### 8.1 Ejemplos históricos [HECHO VERIFICADO, `prediction_rows.csv`]
+## 3. Datasets y experimentos disponibles
 
-| LAB | pulso (h) | CO2 antes | respuesta observada | respuesta predicha |
+| Dataset | Rol actual | Estado |
+|---|---|---|
+| LAB004–LAB012 (naturales históricos, workbook homologado) | calibración θ_natural + capa CO2 (con holdout LAB012) | versionados, inmutables |
+| LAB001–LAB003 | CO2 excluido por QC (`EXCLUDED_BATCHES` :81) | contexto solo |
+| LAB013–LAB015 (`data/mem2026/LAB013-015/`) | química + biomasa nueva; CO2 no confiable | §7 |
+| LAB016–LAB018 (`data/mem2026/LAB016-018/`) | holdout externo CO2 + diagnósticos | §8 |
+| LAB290226 (`data/mem2026/LAB290226/`) | contexto térmico secundario (medio no documentado) | §8.7 |
+| Calendario `Fernanda Folch.ics` | input versionado del análisis histórico | §3.1 |
+
+Los datos históricos **no** son "legacy desechable": `legacy/` congela código superseded, nunca datos experimentales.
+
+### 3.1 Calendario nutricional [HECHO VERIFICADO]
+
+`NUTRIENT_CALENDAR_PATH = RAW_NATURAL_DIR / "Fernanda Folch.ics"` (`co2_cross` :65–66): ruta **relativa al repositorio**, versionada en `data/Laboratorio 2026/raw_data/`. Proporciona los eventos "Pulso nutricional 2" de **LAB004–LAB012 (9 eventos, sin faltantes ni duplicados** — validado por `_calendar_nutrient_pulse_events` :260). Ya no existe dependencia operativa de carpetas personales (Downloads/OneDrive); aquellas rutas solo subsisten como antecedente histórico en `docs/history/`.
+
+### 3.2 Política Oculyze [HECHO VERIFICADO]
+
+Las imágenes crudas JPEG de Oculyze (subdirectorios hash) fueron retiradas del árbol el 2026-09-08; se conservan los `report.csv` (uno por LAB013–LAB018). El pipeline consume exclusivamente `report.csv`; ninguna documentación exige las imágenes crudas.
+
+---
+
+## 4. Calibración del modelo cinético upstream (θ_natural, LAB004–LAB012)
+
+**[HECHO VERIFICADO]** Batches: LAB004–LAB012 (9), incluida LAB009 (excluida después solo de la capa CO2). Runner: `run_estimability_historical_by_medium.py`; artefacto `results/estimability_historical_natural/`.
+
+- **Estados observados:** los 7 estados core entraron al ajuste (X/Xd de Oculyze, N de YAN, G/F de Y15, E/Gly de química; `measurement_support()` marca `used_in_core_fit=True` para los 7).
+- **Objetivo:** `base.residual_vector` (:595): WSSE de `(pred−obs)/σ` por estado/batch; fallo de integración penalizado 1e6×1000.
+- **Sigmas** (`MEASUREMENT_ERROR_FLOOR/REL` :174–191): X 0.06/8 %; Xd 0.06/12 %; N 0.012/8 %; G 2.5/2.5 %; F 2.5/2.5 %; E 2.0/2.5 %; Gly 0.35/5 %.
+- **Optimizador:** `base.fit_parameters` (:629) — `least_squares` TRF log-espacio, multistart determinista, pulido profile-likelihood (Kd0, qN).
+- **Re-estimados (11):** mu0, qN, betaG0, betaF0, qEG, qEF, iG, iE, Kd0, gammaG0, gammaF0 (`theta.csv`, `reestimated_in_this_notebook=True`). El resto fijo.
+- **ICs por batch** (primera observación finita; `batch_summary.csv`): X0 0.099–1.066; Xd0 0.001–0.121; N0 0.220–0.239 kg/m³; G0 75.0–81.6; F0 70.8–88.0; E0 9.21–11.76; Gly0 0.75–1.27 g/L.
+- **t=0 histórico:** fila `t = 0` del workbook homologado (`load_natural_batch_metadata` :142): t0 de muestreo/química, **no** flanco de inoculación medido (a diferencia de LAB016–018).
+- **Pulsos en el ajuste upstream:** ΔN = `pulso_nut` del workbook (`new_must_data_loader` :246 → `N_pulse_kg_m3`, ≈0.08 kg/m³). **Discrepancia documentada:** la capa CO2 después *sobrescribe* con ΔN = 0.14 kg/m³ de protocolo (`override_natural_nutrient_pulses` :452). θ_natural y la capa CO2 **no usan la misma dosis de N** [HECHO VERIFICADO].
+
+**Semántica Oculyze [HECHO VERIFICADO]:** `X = Concentration·Viability/100·0.03 kg/m³` (30 pg/célula, `MILLION_CELLS_ML_TO_KG_M3=0.03`, loader :55–57). En hojas homologadas históricas `Viability` es concentración viable (Mcél/mL); en exports crudos es % — no mezclar. [PENDIENTE] procedencia física de 30 pg/célula.
+
+**Al ejecutar el notebook LAB016–018, θ completo queda congelado** (cargado con `_load_theta` :186 y verificado por hash SHA256 antes/después) [HECHO VERIFICADO].
+
+---
+
+## 5. Calibración de la capa CO2
+
+**Runner:** `run_co2_matrix_cross_validation_2026.py`. Notebook: `co2_solubility_o2_cross_matrix_2026.ipynb` (ejecutado con seed 20260812, n_starts=5, max_nfev=300; el `.executed.ipynb` conserva la evidencia). Resultados: `results/co2_matrix_cross_validation_2026/` (adoptados en commit `0b86664`).
+
+**Batches (matriz natural) [HECHO VERIFICADO]:** calibración LAB004, 005, 006, 007, 008, 010, 011 (7); **holdout de matriz: LAB012** (`HOLDOUTS` :72); excluidos de CO2: LAB001–003 y LAB009 (`EXCLUDED_BATCHES` :81). Matriz sintética: lot1_F1/F3 + lot2_F1/F2 (lot1_F2 excluido), holdout lot2_F3. Modelo nominal: `solubility_o2_nitrogen_boost_continuous_release`.
+
+**Matiz importante [HECHO VERIFICADO]:** LAB012 fue holdout de la capa CO2 pero **no holdout end-to-end independiente**: su química participó antes en θ_natural.
+
+**Parámetros ajustados por matriz (valores actuales versionados, `fit_parameters.csv`) [HECHO VERIFICADO]:**
+
+| Parámetro | natural | cota activa | sintético (adoptado) | cota activa |
 |---|---|---|---|---|
-| LAB012 | 91.0 | 0.86 (84 h) | sube a 1.115 @102 h (peak global) | 0.62→0.58 (sin subida) |
-| LAB011 | 86.8 | 0.88 (78 h) | 1.28 @87 h | 0.25→0.50 @96 h (amplitud 2.6× corta) |
-| LAB010 | 102.5 | 0.28 (96 h) | 0.37 @108 h (+30 %) | 0.30→0.41 (reproduce) |
+| kCO2_release_h | 0.4246 h⁻¹ | no | **3.8837 h⁻¹** | no |
+| CO2sat_scale | 0.3514 | **sí (inferior 0.35)** | 0.4254 | no |
+| O2_qmax_mg_gdw_h | 0.1500 | **sí (inferior 0.15)** | 0.15016 | casi |
+| O2_initial_scale | 0.1954 | no | 0.3804 | no |
+| pulse_t_rise_h | 64.66 | casi (sup. 72) | 36.50 | no |
+| pulse_activity_gain | 0.2500 | **sí (inferior 0.25)** | 1.2333 | no |
+| chem_activation_start_fraction | 0.7351 | no | 0.010004 | **sí (inferior)** |
+| chem_activation_duration_fraction | 1.0639 | no | 0.35000 | **sí (inferior)** |
+| matrix_gain | 3.1158 | perfilado | 2.1266 | perfilado |
 
-Figuras: `results/co2_matrix_cross_validation_2026/figures/nutrient_pulse_response_comparison.png`, `calibration_overlays_natural.png`, `heldout_model_comparison.png`.
+`matrix_gain` se perfila analíticamente por escala LS (`_profile_matrix_gain` :1909): es la escala empírica de la cadena SCCM→g/L/h y absorbe sesgos de amplitud.
 
-### 8.2 Efecto de declarar el pulso en LAB016–018 [RESULTADO DIAGNÓSTICO]
+**Observables/residuos de la capa [HECHO VERIFICADO]:** perfil completo con σ = max(0.04, 0.10·peak_batch) y peso 1/√n; pseudo-observable de onset sostenido (σ=12 h); pseudo-observable del **tiempo** del peak post-pulso (σ=12 h); censura LOD unilateral `max(pred−LOD,0)/σ` con LOD 0.05 (0.10 frío <15.5 °C) (`_fit_residual` :1951). **No existía residual de amplitud del bump** — la reactivación histórica se reproducía imperfectamente (§10).
 
-Declarando `pulses["N"]` con dosis diferenciada (F1/F3 = 0.14 kg/m³; F2 = 0.28 kg/m³, replicando el protocolo histórico supuesto 1.0 g SFX + 0.4 g FDA), con todo lo demás congelado y **sin reajustar parámetros**:
+**Preprocesamiento CO2 [HECHO VERIFICADO]:** corrección de cero por sensor (12 h, cuantil 10 %), máscara de artefactos de muestreo (3 h, ratio 0.65), Hampel+mediana+SavGol, protección de respuesta a pulso (4 h), LOD (`filter_co2_sensor_artifacts`, constantes :88–128). Onset: umbral dinámico `max(LOD, baseline+0.10·(peak−baseline))` (`_onset_threshold` :1837) con 3 puntos consecutivos (`_sustained_onset_h` :1849).
 
-| qCO2 @150 h (g/L/h) | valor |
+**Gate químico [HECHO VERIFICADO]:** `_chemical_activity_bracket` (:1302): `U` = primera muestra con Δ(G+F) ≤ −5 g/L (`CHEMISTRY_SUGAR_DROP_G_L` :112) o ΔE ≥ +2 g/L; `L` = muestra química anterior. `_bounded_smoothstep_activation` (:1360): rampa `t_s = L+s·(U−L)`, `D = max(d·(U−L), 0.25 h)`, smoothstep; con s=0.7351, d=1.0639 (natural). Si `U≤L`: escalón en U. Es **encendido** (A≡1 después), no apagado.
+
+---
+
+## 6. Estado y trazabilidad del input CO2 (asunto cerrado)
+
+**Cadena de carga LOT2 [HECHO VERIFICADO]:** el constructor busca primero `CO2_FILT_*`; usa los filtrados cuando son legibles; usa raw **solo** como fallback para intervalos no cubiertos, aplicándole una mediana móvil centrada de 61 puntos, etiquetado `raw_rolling_median_fallback` en las tablas QC.
+
+**Prueba causal A/B controlada (ya ejecutada, no repetir) [HECHO VERIFICADO]:**
+
+- **A** (histórico, raw fallback para lot2_F1 porque `CO2_FILT_F1_pt2.csv` era ilegible por una ruta absoluta externa rota): `kCO2_release_h = 15.985681`.
+- **B** (canónico actual, `CO2_FILT_F1_pt2.csv` cargado): `kCO2_release_h = 3.883700205` — reproduce exactamente los resultados versionados actuales; A reproduce el histórico con tolerancias <1e-5.
+
+Conclusiones demostradas: el salto se explica **exclusivamente** por la recuperación del input filtrado canónico; Python/SciPy no lo explica materialmente; **los parámetros naturales fueron idénticos A/B**; las métricas de validación cambian poco pese al gran cambio de dos parámetros sintéticos. Los resultados actuales versionados son coherentes con el input canónico. **Este tema está cerrado**; la identificabilidad sintética queda solo como observación histórica menor. El foco actual es mosto natural.
+
+**Limitación de convención de unidades documentada [HECHO VERIFICADO]:** la señal LAB016–018 se convierte con la convención oficial del logger (24.16 L/mol, factor 0.74, 2 L), mientras la cadena del artefacto CO2 congelado (`co2_cross` :133, `run_lot2_data_preview` :82) usa 22.414 L/mol sin ese factor. El notebook holdout respetó ambas implementaciones sin renormalizar `matrix_gain`; esta incompatibilidad puede contribuir al sesgo y debe resolverse **antes** de cualquier recalibración futura.
+
+---
+
+## 7. LAB013–LAB015 (triplicado, mosto natural, SP 16 °C)
+
+**[HECHO VERIFICADO contra archivos]** SP = 16 °C (T mediana 16.0–16.2 °C en los tres). Contenido:
+
+- **Química Y15:** G, F, YAN (+amonio/PAN), Gly — 7 muestras dinámicas + 1 pre-inóculo por LAB (`Y15_LAB013-015.csv`).
+- **Biomasa Oculyze:** **9 muestras por LAB** (`report.csv`), t0 proxy = muestra-1: 0 / 2.5 / 7 / 23 / 29 / 47.5 / 53 / 71.5 / 143.5 h; X 0.17–2.11 kg/m³, Xd 0.002–0.184.
+- **Brix/densidad/DO/CO2 disuelto** (Carbodoseur) en 10 muestras (`LAB013-LAB015-offline-combined.csv`, `-offline-measurements.csv`).
+- **CO2 gaseoso no confiable** (documentado; nunca usado para estimación; hipótesis microleak [PENDIENTE]).
+- **t0 definitivo pendiente** (`time_h` vacío en el CSV offline).
+- Con `nutricion_activa` = 0 en toda la serie (verificado en el notebook §11.3): sin eventos de bomba → sin nutrición declarada en estos LABs.
+
+**Uso actual [HECHO VERIFICADO]:** el notebook holdout usa LAB013–015 solo para (i) brackets químicos diagnósticos (`G+F drop ≥5 g/L`; E no disponible) — LAB013 solapa el rango de onsets observados de LAB016–018 (22.3–24.3 h), LAB014 es más temprano y LAB015 más tardío; (ii) comparación de X congelado contra Oculyze (con ICs del pre-inóculo y T medida). **Todavía no usa** su química temporal para calibración ni su CO2 disuelto/DO.
+
+**Valor relativo [INTERPRETACIÓN]:** por el problema del CO2 gaseoso, su valor inmediato está en estados/química/biomasa (16 °C) más que en calibrar la capa gaseosa.
+
+---
+
+## 8. LAB016–LAB018 y holdout (mosto natural, SP 20 °C)
+
+**[HECHO VERIFICADO contra archivos]** SP = 20 °C (T mediana 19.9–20.1 °C). Sauvignon Blanc. Contenido real:
+
+- **CO2 gaseoso confiable** (crudo + `CO2_FILT_*`), máscara de artefactos auditada (~2.5–3.6 % excluido).
+- **Temperatura medida** (input del modelo) + canal binario `nutricion_activa`.
+- **Offline:** Brix/densidad/temp de muestra/volumen residual en 8 muestras por LAB (`LAB016-018-offline-measurements.xlsx/.csv`). **Sin mediciones de X, Xd, N/YAN, G, F, E, Gly u O2** durante la fermentación.
+- **Biomasa Oculyze:** **3 muestras por LAB** (≈8.9, 10.9, 56.2 h; X 0.17–1.74 kg/m³) — menos puntos que LAB013–015.
+- **ICs químicas heredadas** del mismo mosto (LAB013-2/014-2/015-2, sin PI): G0 74.05, F0 77.73, YAN0 244.33 mg/L → N0 0.24433 kg/m³, Gly0 1.14 (`CondicionesIniciales`).
+- **t0 inequívoco:** fin del pulso de inoculación según el log (2026-09-01 00:03:55 / 00:04:00 / 00:04:07) — verificado contra el flanco de caída de `nutricion_activa`.
+- **Nutrición:** eventos tardíos a **+56.93 h** (LAB016, 3.8 min; LAB018, 4.1 min) y **+56.93/+57.13 h** (LAB017, dos pulsos: 4.0 y **7.8 min**). Dosis/composición **no documentadas** [PENDIENTE] (§11). Además existen pulsos cortos de muestreo ~8.8–9.3 h (LAB016: tres de 1.3–2.5 min) clasificados como eventos de proceso/muestreo no modelados.
+- **Fallbacks declarados en el notebook:** `X0 = 0.45 kg/m³`, `Xd0 = 0` (fallback del pipeline natural, sin ensayo de biomasa t≈0 homologado); E0 por escenarios pre-declarados (A: 0 g/L físico; B: mediana histórica). **No presentar estos valores como condiciones medidas.**
+
+### 8.1 Qué hace el notebook holdout (protocolo congelado)
+
+Carga θ_natural + capa CO2 natural (hashes verificados), simula forward sin optimizadores y compara solo CO2 (la Tabla 2 de estados core reporta honestamente `n=0`: Brix/densidad no se convierten en azúcar sin función de observación validada). Dos dominios: `pre_nutrition_clean` (holdout causal primario, hasta el primer evento tardío) y `full_record_context` (descriptivo). Conversión oficial 24.16/0.74/2 L; `matrix_gain` sin renormalizar (§6).
+
+### 8.2 Resultado del holdout estricto [RESULTADO DIAGNÓSTICO]
+
+Onset observado 22.30–24.25 h vs predicción (gate degenerado a escalón t=0 por falta de química) 5.7–6.2 h: **16.10–18.53 h demasiado temprano**. RMSE pre-nutrición alto; el veredicto descriptivo del notebook: la cadena CO2 **no** generaliza razonablemente con este protocolo congelado sin ancla de activación. Reparto del error entre upstream y capa: **no identificable** con estos datos.
+
+### 8.3 Diagnóstico time-shift [RESULTADO DIAGNÓSTICO]
+
+Traslación pura por Δonset observado−predicho: reduce el RMSE sustancialmente; queda retraso residual ~1.1–5.0 h. Atribución: el error es **principalmente lag/activación**, con residuo de amplitud/forma.
+
+### 8.4 Diagnóstico onset-conditioned activation [RESULTADO DIAGNÓSTICO]
+
+Reposicionar el gate histórico (pseudo-bracket `[0, t_onset_obs]`, s/d congelados) sin tocar upstream: error de onset 16.10–18.53 h temprano → **2.86–3.13 h tarde**; RMSE −77 a −86 % (0.376→0.053; 0.312→0.072; 0.326→0.071); peak 43–49 h vs 41–47 h; amplitud 0.75–0.77 vs 0.79–0.81 g/L/h. No es evidencia química ni solución final (usa CO2 observado para ubicar el gate).
+
+### 8.5 Diagnóstico con pulso N presumido [RESULTADO DIAGNÓSTICO]
+
+Dosis de protocolo 1.0 g SFX + 0.4 g FDA → ΔN = 0.14 kg/m³ (LAB016/018: 1 evento; LAB017: 0.14+0.14). La implementación respeta la dosis (saltos exactos verificados; máximo transitorio de N 0.27/0.31/0.27 kg/m³). Resultados: la cola se corrige casi por completo (qCO2@150 h sin pulso 0.27–0.28 → con pulso 0.005–0.023 vs observado 0.01–0.03 g/L/h); F1/F3 razonables; **F2 no reproduce la reactivación rápida** (bump ~+35 % observado en LAB017; el mecanismo congelado solo atenúa). Limitación de API documentada: `build_driver_cache` soporta **un solo** pulso N in-process; dos saltos vs uno equivalente 0.28 resultan indistinguibles (<1e-8 en qgas).
+
+### 8.6 Barridos estructurales [RESULTADO DIAGNÓSTICO]
+
+- **`pulse_activity_gain`** (0.25→2.0, rise congelado 64.7 h): gain alto genera reactivación visible pero destruye la cola y no corrige el retraso impuesto por `pulse_t_rise_h` (peaks predichos 88–90 h vs observados ~63 h). Un gain permanente no puede dar bump + buena cola.
+- **Transitorio rise-decay** (multiplicador causal `1+A·B(t)` sobre qprod efectivo; A∈{0.1,0.2,0.3}, τ_rise∈{1,2,4} h, τ_decay∈{4,8,12} h): `A≈0.30, τ_rise≈2 h, τ_decay≈4 h` reproduce LAB017 (35.74 % vs 35.59 %; peak +4.82 h vs +5.71 h) y retorna a la cola histórica (0.0054 g/L/h @150 h) — pero genera respuestas ~14–16 % en LAB016/018 (observadas ~9.6/20.2 %): **no explica la selectividad por fermentador**. Valores diagnósticos, no calibrados.
+
+### 8.7 Comparación histórica ~20 °C [RESULTADO DIAGNÓSTICO, exploratorio]
+
+LAB016–018 son la referencia isotérmica de mosto natural a 20 °C. Contexto: **LAB002** (SP 21 °C, mejor candidata térmica, pero CO2 excluido por QC); **LAB001** (SP 18→21 °C, no isotérmica, CO2 QC-excluido); **LAB290226** (23→20 °C desde ~media campaña, medio no documentado). Solo lectura exploratoria; las anclas temporales de LAB001/002/290226 no están homologadas.
+
+---
+
+## 9. Resultados y validaciones actuales (resumen)
+
+| Resultado | Estado |
 |---|---|
-| sin pulso | ≈ 0.27–0.28 |
-| con pulso | ≈ 0.005–0.023 |
-| observado | ≈ 0.01–0.03 |
+| θ_natural (11 parámetros, LAB004–012, 7 estados) | versionado, congelado |
+| Capa CO2 natural (9 parámetros; LAB012 holdout de matriz) | versionada, adoptada (commit 0b86664) |
+| Capa CO2 sintética (input canónico CO2_FILT) | versionada, adoptada; asunto 15.99→3.88 cerrado (§6) |
+| Holdout externo LAB016–018 (CO2, todo congelado) | ejecutado; onset muy temprano sin química; error dominado por posicionamiento del gate |
+| Diagnósticos onset/pulso/gain/transitorio | ejecutados, sin fitting; conclusiones §8 |
+| Holdout end-to-end independiente | **no existe todavía** (LAB012 participó de θ_natural) |
 
-La cola del holdout se corrige esencialmente por completo solo con declarar el evento. También a 120 h: pred 0.41→0.14 vs obs 0.08–0.16.
-
----
-
-## 9. Dosis de nutrición: histórico y LAB016–018 (corrección pendiente)
-
-### 9.1 Protocolo histórico codificado [HECHO VERIFICADO]
-
-`co2_cross` :104–108: `SPRINGFERM_XTREM_G = 1.00`, `FDA_G = 0.40`, `YAN_MG_PER_MG_PRODUCT = 0.20` → 280 mg YAN en 2 L → **ΔN = 0.14 kg/m³** para los 9 naturales. Timing: cruce de densidad 1040 g/L (fallback calendario ICS "Pulso nutricional 2"). **Esta dosis era de PROTOCOLO, no una medición de N real** (`composition_source = "user-specified common LAB protocol"`). El upstream usó otra distinta: 0.08 kg/m³ del workbook (§2).
-
-### 9.2 Nueva información del operador [HIPÓTESIS PENDIENTE DE CONFIRMACIÓN]
-
-La nutrición de LAB016–018 habría sido aproximadamente:
-
-- **F1 (LAB016) y F3 (LAB018):** ≈ 0.8 g SFX + 0.4 g FDA;
-- **F2 (LAB017):** ≈ el DOBLE (≈ 1.6 g SFX + 0.8 g FDA).
-
-**No presentar como dato definitivo.** Es consistente con la duración del segundo pulso de bomba de F2 (7.8 min vs ~4 min en F1/F3), pero eso no lo prueba.
-
-### 9.3 Traducción a ΔN bajo la simplificación histórica [HECHO VERIFICADO como aritmética; condicionado a la hipótesis]
-
-**Si** se aplica el mismo factor histórico `YAN_MG_PER_MG_PRODUCT = 0.20` a esta formulación:
-
-```
-F1/F3: 0.8 + 0.4 = 1.2 g producto → 240 mg YAN → 120 mg/L en 2 L → ΔN = 0.12 kg/m³
-F2:    doble → 2.4 g producto    → 480 mg YAN → 240 mg/L en 2 L → ΔN = 0.24 kg/m³
-```
-
-**[HIPÓTESIS PENDIENTE]** Esto solo es válido si el factor 20 % corresponde realmente a esta formulación. Confirmar por separado: (i) aporte YAN de SFX; (ii) aporte YAN de FDA; (iii) masas realmente pesadas; (iv) volumen real del fermentador.
-
-**[INTERPRETACIÓN]** La prueba diagnóstica previa usó 0.14/0.28 (protocolo supuesto 1.0+0.4); con la dosis corregida del operador los valores pasarían a 0.12/0.24 (−14 %). Dado que el contrafactual ya corrige la cola con margen, el efecto de esta corrección debería ser menor, pero debe re-evaluarse una vez confirmada la dosis.
+**Funciona razonablemente [HECHO VERIFICADO/RESULTADO DIAGNÓSTICO]:** peak principal (tiempo/amplitud) con gate bien posicionado; cadena de unidades (auditoría Oculyze 72/76); t0 LAB016–018 inequívoco; máscara CO2 event-aware auditada (90 min reproducidos); contrafactual de pulso corrigiendo la cola; hashes/integridad de artefactos.
 
 ---
 
-## 10. Sensibilidad de `pulse_activity_gain` [RESULTADO DIAGNÓSTICO]
+## 10. Problemas estructurales identificados (verificados)
 
-Prueba manual (sin fitting), con `pulse_t_rise_h` congelado ≈ 64.7 h y el pulso declarado:
+| # | Defecto | Clasificación |
+|---|---|---|
+| A1 | **onset depende de química offline futura** (bracket usa la muestra que evidencia actividad) → no causal para un estimador online | estructural + datos |
+| A2 | sin química post-inoculación el bracket degenera a `[0,0]` → gate escalón en t=0 (LAB016–018) | datos + estructural |
+| B | **terminación upstream débil**: sin pulso, qprod 33–66 % del peak a 100–150 h; cola histórica sobrepredicha (mediana 2.2× al final del registro) | estructural |
+| C | **N no limita βG/βF** (solo μ); sin separación PAN/amoniacal en el estado N | estructural (decisión) |
+| C2 | pulso N entra como salto de estado + términos post-pulso **en la capa CO2** (r(t), gain) — no como dinámica del central | estructural |
+| D | **muerte celular inerte** a 16–22 °C (kd=0; td(E)≈305–310 K) vs Oculyze LAB013–015 con Xd 0.002–0.184 kg/m³ (señal real) | discrepancia estructural |
+| E | **fructosa residual** (F 17–27 g/L a 150 h) mantiene qprod alta en la cola | estructural |
+| F | **respuesta al pulso**: un solo término (rampa 64.7 h + gain permanente 0.25) intenta representar a la vez respuesta rápida, efecto sostenido y terminación lenta | estructural (forma funcional) |
+| G | **cola de CO2 histórica sobrepredicha** (39 % de puntos censurados en t>100 h) | datos + metodología |
+| H | **censura LOD unilateral** barata (~1σ/punto) reducía el peso de la cola en el ajuste | metodología de ajuste |
+| I | **matrix_gain** (3.12) escala empírica que absorbe sesgos de amplitud y de convención de unidades | parametrización |
+| J | convención SCCM→g/L/h inconsistente entre cadenas (24.16+0.74 vs 22.414) | datos/metodología |
+| K | gain y rise en/near cotas (no identificados); LAB016–018 sin química temporal (ICs heredadas) | parametrización + datos |
 
-- gain = 0.25, 0.50, 1.00, 1.50, 2.00.
-
-**Resultado:** aumentar gain genera una reactivación, pero aumenta **toda** la actividad posterior y destruye la caída/cola.
-
-**Conclusión [HECHO VERIFICADO como resultado del barrido; INTERPRETACIÓN la generalización]:** NO es adecuado solucionar el bump aumentando un gain permanente:
-
-```
-gain bajo  → buena terminación, mala reactivación
-gain alto  → mejor reactivación, mala terminación
-```
-
-**[INTERPRETACIÓN]** Esto demuestra una limitación de la forma funcional histórica: un multiplicador **permanente** no puede producir un transitorio (bump de horas que se disuelve) y a la vez preservar la terminación. Ambos efectos requieren dinámicas separadas (§11, §14).
-
----
-
-## 11. Prueba transitoria rise-decay [RESULTADO DIAGNÓSTICO — NO PARÁMETROS CALIBRADOS]
-
-Prueba estructural diagnóstica añadida (forward, sin fitting):
-
-```
-qprod_transient = qprod_historical · [1 + A·B(t)]
-
-B(t) = rise rápido × decay exponencial      (B(t) → 0 después del pulso)
-```
-
-Barrido manual: `A ∈ {0.10, 0.20, 0.30}`; `tau_rise ∈ {1, 2, 4} h`; `tau_decay ∈ {4, 8, 12} h`.
-
-**Resultado principal:**
-
-- `A ≈ 0.30`, `tau_rise ≈ 2 h`, `tau_decay ≈ 4 h` reprodujo en **LAB017**:
-  - reactivación predicha = **35.74 %** vs observada = **35.59 %**;
-  - retorno correcto a la cola histórica después del transitorio: qCO2 @150 h ≈ **0.0054 g/L/h**.
-
-**[RESULTADO DIAGNÓSTICO — NO PARÁMETROS CALIBRADOS]** Estos valores son exclusivamente diagnósticos: provienen de un barrido manual sobre un solo experimento, sin función objetivo ni incertidumbre. La forma rise-decay es, por ahora, **la principal hipótesis estructural** apoyada por el diagnóstico (§14), no un modelo definitivo.
+**La cola no es del pool [HECHO VERIFICADO]:** con k=0.4246 h⁻¹ y release continuo, τ de vaciado ≤ ~20 h en el rango operativo; el pool no puede sostener una cola de 90 h con amplitud 0.3–0.5 g/L/h — la cola es upstream.
 
 ---
 
-## 12. Limitación de la respuesta transitoria universal [RESULTADO DIAGNÓSTICO]
+## 11. Nutrición y N: hechos vs incertidumbres
 
-Aplicando el **mismo** escenario transitorio (A≈0.30, τ_rise≈2 h, τ_decay≈4 h) a los tres fermentadores:
+### 11.1 Lo que usa el código hoy [HECHO VERIFICADO]
 
-| LAB | reactivación predicha |
-|---|---|
-| LAB016 | ≈ 15.4 % |
-| LAB017 | ≈ 35.7 % |
-| LAB018 | ≈ 13.9 % |
+- **Capa CO2 (histórico):** ΔN = 0.14 kg/m³ para los 9 naturales, derivado de `SPRINGFERM_XTREM_G=1.00`, `FDA_G=0.40`, `YAN_MG_PER_MG_PRODUCT=0.20` (:106–108) en 2 L (timing: cruce de densidad 1040 g/L, fallback calendario ICS). **Dosis de PROTOCOLO, no medición** (`composition_source="user-specified common LAB protocol"`).
+- **Upstream (histórico):** ΔN ≈ 0.08 kg/m³ del workbook (`pulso_nut`, loader :246). Inconsistencia 0.08 vs 0.14 documentada.
+- **LAB016–018 (diagnóstico):** tiempos de los eventos del log; dosis presumida de protocolo 0.14/0.28 solo como forward diagnóstico.
+- **Mecanismo:** salto exacto de N en el estado + respuesta en la capa (§2.4). N limita μ vía `n/(n+kn)`; no hay término adicional post-pulso en el central más allá del salto.
 
-**Conclusión:** reproduce muy bien amplitud, timing y cola de F2, pero **NO explica** por qué F1/F3 muestran una respuesta mucho menor. Un multiplicador transitorio universal y lineal con dosis es todavía insuficiente.
+### 11.2 Formulación real [PENDIENTE]
 
-Posibles explicaciones **a INVESTIGAR, no afirmar** [HIPÓTESIS PENDIENTE]:
+Información del operador (~90 % de confianza, sin confirmar): F1/F3 ≈ **0.8 g SFX + 0.4 g FDA**; F2 ≈ **doble** (≈1.6 + 0.8). Consistente con la duración del segundo pulso de F2 (7.8 vs ~4 min), pero **no probado**. Bajo el factor histórico 20 %, equivaldría a ΔN = 0.12/0.24 kg/m³ (vs 0.14/0.28 de protocolo). **Separar implementación actual de formulación experimental real; no cambiar unidades ni parámetros hasta confirmar** (masas, aporte YAN de cada producto, volumen real).
 
-- dosis real diferente (hipótesis del operador: F1/F3 normales, F2 doble);
-- composición real diferente (proporciones SFX/FDA distintas);
-- respuesta no lineal a dosis;
-- estado fisiológico diferente al momento del pulso (X, N residual, E, azúcar disponible);
-- dependencia de N residual al pulso;
-- dependencia de X;
-- disponibilidad de azúcar;
-- heterogeneidad experimental;
-- diferencias en mezcla/aplicación.
+### 11.3 Semántica YAN/PAN/ammonia — deuda de datos [HECHO VERIFICADO de la implementación]
 
-**[INTERPRETACIÓN]** Con la dosis hipotetizada del operador, el contraste F2 vs F1/F3 (2× dosis → ~2.3× respuesta) es la primera evidencia de dose-response del pipeline; confirmar la dosis es el paso que convierte esta observación en dato.
+En datasets naturales/piloto la relación esperada es `YAN = PAN + 0.82·AMMONIA` cuando AMMONIA está en mg NH3/L. El repo reconstruye componentes como `YAN_components_mg_l = PAN_mg_l + NH4_mg_l` **sin** el factor 0.82 (`new_must_data_loader.py:252`; `run_secondary_metabolite_data_review.py:134`). El estado N usa el YAN medido (no la reconstrucción), por lo que el impacto directo en θ_natural es nulo o indirecto, pero **cualquier uso futuro de componentes PAN/NH4 para inference de nutrición hereda esta ambigüedad**. Deuda científica documentada; no corregir en esta fase ni mezclar con el cierre de CO2.
 
 ---
 
-## 13. Diferencias respecto a la calibración histórica
+## 12. Implicaciones para el estimador de estados
 
-| Aspecto | Calibración histórica | Hallazgo actual | Cambio potencial |
-|---|---|---|---|
-| Onset | chemical bracket offline (química futura) | el bracket no es causal; re-posicionarlo corrige 77–86 % del RMSE | mecanismo causal/predictivo de activación (obligatorio antes del estimador) |
-| Release | continuous release | mantiene onset/correlación; no genera lag; τ≤20 h; no causa la cola | mantener por ahora |
-| Nutrición | salto N + rampa lenta (64.7 h) + gain permanente (0.25) | la respuesta real ocurre en horas y retorna; la rampa lenta+gain mezcla reactivación con terminación | separar respuesta rápida transitoria de terminación lenta |
-| Termination | azúcar/E + atenuación post-pulso gain=0.25 | sin pulso, terminación biológica débil (qprod 33–66 % del peak a 100–150 h) | dar fundamento biológico independiente del pulso (revisar β(N), muerte/E) |
-| N | afecta solo μ | N no frena la fermentación en el modelo aunque N=0 desde temprano | evaluar dependencia de β con N/estado metabólico |
-| Muerte | prácticamente inerte (kd=0 a 16–22 °C) | Xd sin señal en LAB016–018; nuevos Oculyze X/Xd disponibles | revisar con los nuevos X/Xd Oculyze (LAB013–018) |
-| Pulse response | rise ≈ 64.7 h (casi cota superior) | bump observado en pocas horas (~6 h hasta el máximo en LAB017) | transitorio rise-decay (τ_rise ≈ 2 h, τ_decay ≈ 4 h como referencia diagnóstica) |
-| Amplitud del bump | sin residual propio (solo timing) | amplitud históricamente corta; transitorio la reproduce en F2 | añadir observable/residual de amplitud post-pulso en la próxima calibración |
+**Compatibilidad de la arquitectura actual:**
+
+| Componente | Causal online | Madurez |
+|---|---|---|
+| ODE central + pulsos como inputs conocidos | ✅ compatible | maduro (congelado) |
+| temperatura como input | ✅ | maduro |
+| máscara CO2 event-aware (existe; portar a causal) | ✅ con porting | madura |
+| pool disuelto + release continuo (τ corta) | ✅ | maduro |
+| **gate químico por bracket offline** | ❌ usa información futura | **bloqueante** |
+| respuesta post-pulso (rampa 65 h + gain permanente) | ✅ causal pero estructuralmente inadecuada (§8.6) | a rediseñar |
+| matrix_gain / convención de unidades | ⚠️ inconsistencia 24.16 vs 22.414 | a unificar |
+| θ_natural | ✅ | maduro; recalibrable con datos nuevos |
+| capas Xd (kd=0) | Xd probablemente **no observable** | proyectar el filtro sobre {X,N,G,F,E,Gly}+CO2 |
+
+**Prerequisitos antes de implementar el EKF/MHE seriamente [bloqueantes]:**
+
+1. **mecanismo causal de onset** (proxy online: densidad/Brix/CO2 temprano, o estado dinámico de activación);
+2. inputs de nutrición trazables (dosis/tiempo confirmados por escrito);
+3. arquitectura post-nutrición decidida (transitorio separado de terminación, §16);
+4. terminación representada sin depender del artefacto del pulso (control sin nutrición, §15);
+5. observation functions validadas (CO2 completa; Oculyze X ×0.03; YAN→N; Y15→G/F/Gly; Brix/densidad sin función validada);
+6. ICs robustas (PI + 0 h reales);
+7. Q/R con base en datos (réplicas Oculyze; triplicados Y15);
+8. manejo causal de artefactos (portar la máscara);
+9. validación con un experimento no usado en la recalibración.
+
+**[INTERPRETACIÓN]** Un estado de actividad fermentativa `a(t)` (lag→1→bump→decay) representaría causalmente lo que hoy fuerzan el gate a posteriori y el gain permanente; evaluar identificabilidad antes de decidir.
 
 ---
 
-## 14. Propuesta de arquitectura a evaluar (NO implementar todavía)
+## 13. Qué tendría sentido recalibrar y en qué orden
+
+**PRIORIDAD ALTA** (datos ya existen o se obtienen con el experimento de §15):
+
+1. **Parámetros de la respuesta nutricional separada** (transitorio rise-decay: A, τ_rise, τ_decay + terminación lenta propia) — soportado por: LAB016–018 (bump/cola con CO2 confiable) **una vez confirmada la dosis**, más las fermentaciones nuevas con dosis trazable. Requiere añadir residual de amplitud post-pulso (hoy inexistente).
+2. **Ganancia/gate de activación natural** (chem_start/dur o su reemplazo causal) — soportado por LAB016–018 onset + LAB013–015 brackets químicos + LAB002 (si se rehabilita su CO2, improbable).
+3. **θ_natural (total o parcial)** — solo tras incorporar LAB013–015 (química 16 °C + Oculyze 9 puntos/LAB) y las fermentaciones nuevas; los datos existen en el repo pero aún no participan del ajuste.
+
+**PRIORIDAD MEDIA:**
+
+4. **kCO2_release_h / CO2sat_scale naturales** — con la convención de unidades unificada (§6) y CO2 de nuevas campañas; hoy kCO2 natural está razonablemente interior (0.42).
+5. **Bloque de consumo G/F (kG/kF/iG/iE)** — requiere G/F temporal denso (LAB013–015 + fermentaciones nuevas con calendario §15).
+6. **Parámetros de N (qN, sN)** — requiere YAN temporal pre/post pulso.
+7. **Kd0 / muerte** — solo si Xd muestra señal sistemática en Oculyze (LAB013–015 la tiene: Xd hasta 0.184 kg/m³); hoy kd sin señal a 20 °C.
+8. **Condiciones iniciales** (X0, E0) — con mediciones PI/0 h reales del plan nuevo; hoy son fallback/escenario.
+
+**NO HACER TODAVÍA** — ver §14.
+
+---
+
+## 14. Qué NO conviene recalibrar todavía
+
+1. **Nada contra LAB016–018 como training** sin decidir antes, por escrito, su rol: hoy son el **holdout externo**; absorberlos al fit sin dejar otro holdout destruye la separación calibración/validación.
+2. **`pulse_activity_gain` / `pulse_t_rise_h`** en su forma actual: el barrido demostró el trade-off (gain alto destruye la cola; rise de 65 h impone el retraso); recalibrarlos compensaría un defecto de forma funcional.
+3. **Cualquier parámetro que compense el gate no causal**: primero el mecanismo causal de onset; si no, la recalibración absorbería el error de posicionamiento.
+4. **Dosis de nutrición**: sin confirmación documentada (masas/composición), cualquier ΔN ajustado sería tuning contra una hipótesis.
+5. **matrix_gain** antes de unificar la convención SCCM→g/L/h (24.16+0.74 vs 22.414): re-ajustarlo ahora consolidaría el sesgo de convención en la ganancia.
+6. **Bloque secundario/aroma y constantes fijas**: sin nuevas observaciones de esos estados.
+7. **Capa CO2 sintética**: asunto cerrado (§6); el foco es natural.
+8. **Kd0 solo con datos de 20 °C** (donde el modelo predice kd=0): usar LAB013–015 (16 °C) + validación de viabilidad.
+
+---
+
+## 15. Experimentos adicionales recomendados (propuesta, no realizada)
+
+**Diseño recomendado [INTERPRETACIÓN]: control SIN nutrición + fermentación con nutrición de dosis conocida**, mismo mosto/cepa/SP 20 °C, nutrición en el mismo estado de densidad (~1040 g/L) que el protocolo histórico. Justificación: el contraste de dosis ya existe (parcialmente) en LAB016–018 pendiente de confirmar; lo que **no existe en todo el dataset** es terminación observada sin el artefacto del pulso. Hipótesis que discriminaría:
+
+- **terminación natural** (control) vs **efecto real del pulso** (tratado): separa efecto nutricional del comportamiento basal;
+- **amplitud y dinámica rápida post-pulso** (ventana −1/+2/+4–6/+12/+24 h densa): ancla A, τ_rise, τ_decay con input trazable;
+- **dose-response** contra F2 (dosis doble) una vez confirmadas las dosis.
+
+Calendario de muestreo por fermentador (nutrición solo en F-B): PI; 0 h; 6–8 h; 12 h; 24 h; 36 h; 48 h; −1 h pre-nutrición; +2 h; +4–6 h; +12 h; +24 h post; 96 h; final. G/F/YAN/Oculyze/Brix/densidad/Gly según tabla; etanol solo externo en PI, pre-nutrición, +8–12 h post y final (Alcolyzer no disponible; mínimo aceptable 3 de esas 4). Metadata obligatoria: gramos/producto/volumen/hora exactos, log `nutricion_activa` para t0, réplicas Oculyze ≥2 en puntos clave (para R). Además: **un futuro holdout a ~18 °C** sería más informativo que seguir ajustando sobre los mismos datos (interpola el rango 16–20 °C y testea Arrhenius).
+
+---
+
+## 16. Arquitectura futura propuesta (NO implementar todavía)
 
 ```
 UPSTREAM
   ↓
-chemical/metabolic activation        (causal, no bracket a posteriori)
+activación química/metabólica CAUSAL      (hoy: bracket offline a posteriori)
   ↓
 qprod_base
   ↓
-evento nutricional conocido (input trazable: t_pulso, ΔN, composición)
-  ├─ salto real de N en el estado
-  ├─ respuesta metabólica rápida transitoria   (escala ~2–8 h; p. ej. rise-decay)
-  └─ dinámica lenta de terminación             (escala decenas de horas)
+evento nutricional conocido (t_pulso, ΔN, composición trazables)
+  ├─ salto real de N en el estado                    [implementado]
+  ├─ respuesta metabólica rápida transitoria         [SOLO PROPUESTA; τ~2–8 h]
+  └─ dinámica lenta de terminación propia            [SOLO PROPUESTA; decenas de h]
   ↓
-CO2 dissolved
+CO2 disuelto
   ↓
-continuous release
+continuous release                                  [implementado; mantener]
   ↓
 qgas
 ```
 
-**[INTERPRETACIÓN]** Probablemente necesitamos separar:
-
-- **A) respuesta rápida post-nutrición:** escala ~2–8 h (bump observable);
-- **B) terminación:** escala decenas de horas.
-
-y evitar que un solo `pulse_activity_gain` intente representar ambas (el barrido de §10 muestra el trade-off; el transitorio de §11 muestra que la separación funciona en F2). La forma rise-decay es la principal hipótesis estructural, pendiente de: confirmación de dosis, evaluación en F1/F3 (§12) y calibración formal con residual de amplitud.
+Estado de las partes: implementado (salto N, release continuo, pool, gate smoothstep — pero no causal); parcialmente implementado (respuesta post-pulso como rampa+gain — existe pero con la forma inadecuada); solo propuestos (activación causal, transitorio rise-decay, terminación independiente, estado de actividad `a(t)`, unificación de convención de unidades). La separación A (respuesta rápida, ~horas) vs B (terminación, ~decenas de horas) es la hipótesis estructural principal, apoyada por los barridos de §8.6 y pendiente de: confirmación de dosis, evaluación en F1/F3 y calibración formal con residual de amplitud.
 
 ---
 
-## 15. Defectos estructurales identificados
-
-| # | Defecto | Clasificación |
-|---|---|---|
-| 1 | onset depende de química offline (futura) para el bracket; no causal | estructural + datos |
-| 2 | terminación upstream débil (qprod 33–66 % del peak a 100–150 h sin pulso) | estructural |
-| 3 | N no limita directamente βG/βF (solo μ) | estructural (decisión de modelación) |
-| 4 | muerte celular prácticamente inactiva (kd=0 a 16–22 °C) | estructural |
-| 5 | fructosa residual mantiene qprod >100 h | estructural |
-| 6 | apagado histórico dependía del término post-pulso gain=0.25 | parametrización |
-| 7 | gain=0.25 en cota inferior (no identificado) | parametrización |
-| 8 | pulse_t_rise_h≈64.7 h cerca de cota superior | parametrización |
-| 9 | reactivación rápida (~6 h) no representable con rampa de 65 h | estructural (forma funcional) |
-| 10 | un gain permanente no puede dar bump + buena cola simultáneamente (§10) | estructural (forma funcional) |
-| 11 | respuesta transitoria universal no explica el contraste F1/F3 vs F2 (§12) | datos + estructural |
-| 12 | cola histórica sobrepredicha (mediana 2.2×) | datos + parametrización |
-| 13 | censura LOD reducía el peso de la cola (39 % en t>100 h) | metodología de ajuste |
-| 14 | matrix_gain absorbe sesgos de amplitud | parametrización |
-| 15 | microleaks posibles en CO2 histórico LAB013–015 | incertidumbre experimental [HIPÓTESIS PENDIENTE] |
-| 16 | LAB016–018 sin química temporal completa (ICs heredadas) | datos |
-
----
-
-## 16. Inventario actual LAB013–LAB018
-
-### 16.1 LAB013–015 (triplicado, SP 16 °C)
-
-**[HECHO VERIFICADO]**
-- Química Y15: G, F, YAN (+ amonio/PAN), Gly — 7 muestras dinámicas + 1 pre-inóculo por LAB (`Y15_LAB013-015.csv`).
-- Biomasa Oculyze: **9 muestras por LAB** (1, 2, 4–10), 10 imágenes/muestra; t0 proxy = muestra-1: 0 / 2.5 / 7 / 23 / 29 / 47.5 / 53 / 71.5 / 143.5 h. X 0.17–2.11 kg/m³, Xd 0.002–0.184.
-- Brix/densidad/DO/CO2 disuelto en 10 muestras.
-- CO2 gaseoso **no confiable** (documentado; nunca usado para estimación; hipótesis microleak §23 del notebook).
-- t0 definitivo pendiente (`time_h` vacío en el CSV offline).
-
-### 16.2 LAB016–018 (SP 20 °C, Sauvignon Blanc)
-
-**[HECHO VERIFICADO]**
-- CO2 gaseoso confiable (máscara de artefactos auditada, 2.5–3.6 %).
-- Temperatura medida (input del modelo); Brix/densidad en 8 muestras.
-- Biomasa Oculyze en **8.9, 10.9 y 56.2 h** (X 0.17–1.74 kg/m³; X@8.9 h = 0.27–0.43 vs fallback X0=0.45).
-- ICs químicas heredadas (G0 74.05, F0 77.73, YAN0 244.33 mg/L, Gly0 1.14; `CondicionesIniciales`).
-- t0 inequívoco: fin del pulso de inoculación del log `nutricion_activa` (2026-09-01 00:03:55 / 00:04:00 / 00:04:07).
-- Evento(s) de nutrición ~56.9 h: LAB016 y LAB018 un pulso (3.8/4.1 min); **LAB017 dos pulsos** (4.0 y 7.8 min).
-- **Dosis probable [HIPÓTESIS PENDIENTE]:** F1/F3 ≈ 0.8 g SFX + 0.4 g FDA; F2 ≈ doble (§9).
-
-### 16.3 Semántica de muestras [HECHO VERIFICADO]
-
-- El número 3 de LAB013–015 fue saltado en Oculyze (la muestra 3 existe offline); no es muestra faltante.
-- El segundo `LAB015-1` del report corresponde a **LAB015-2** (match exacto por Density/Temperature).
-- Cronología: usar `hora_muestreo` del offline (o el ledger del log para t0). `Description` de Oculyze NO es fuente temporal confiable (typos, desfases 30–120 min).
-
----
-
-## 17. Qué hace falta para recalibrar (priorizado)
-
-**IMPRESCINDIBLE:**
-1. Tiempo exacto de inoculación (t0).
-2. Tiempo exacto de nutrición.
-3. Masa exacta SFX/FDA por fermentador.
-4. Composición/YAN real de ambos productos (¿20 % aplica a ambos?).
-5. G/F temporal (Y15) — bracket, terminación, β.
-6. YAN temporal — qN, sN, validación de ΔN.
-7. Biomasa viable/total (Oculyze) — μ, escala, X0.
-8. CO2 gaseoso confiable.
-9. Temperatura.
-
-**MUY DESEABLE:**
-10. Etanol (iE, balance C) — **no necesita medirse en todos los puntos si el Alcolyzer no está disponible** (§19).
-11. Glicerol (γ; viene gratis con Y15).
-12. Xd/viabilidad (único canal de muerte).
-
-Qué informa cada medición: G/F → β, kG/kF, iG, iE, terminación; YAN → qN, sN, μ, ΔN; X → μ, escala, X0; Xd → Kd0 (hoy sin señal); E → iE, β, balance C; Gly → γ; CO2 → capa de observación completa; T → Arrhenius (input conocido).
-
----
-
-## 18. Diseño de 1–2 fermentaciones nuevas
-
-Objetivos de identificación: **onset** (0–36 h denso), **respuesta a nutrición** (ventana −1 a +24 h alrededor del pulso), **terminación** (cola >96 h). Ya disponemos de un contraste preliminar de dosis (F1/F3 normales, F2 doble, pendiente de confirmar).
-
-### 18.1 Decisión estructural: ¿control sin nutrición + dosis conocida, o dosis normal + dosis doble?
-
-**Recomendación [INTERPRETACIÓN]: control SIN nutrición + fermentación con nutrición de dosis conocida.** Justificación:
-
-- El contraste de dosis ya existe (parcialmente) en LAB016–018 una vez confirmada la hipótesis del operador; repetirlo aporta poca información estructural nueva.
-- Lo que **no existe en todo el dataset** es una observación de terminación **sin** el artefacto del pulso: el control sin nutrición es el único diseño que aísla la terminación biológica (el mecanismo más débil, §6) y permite decidir si necesita fundamento propio.
-- La fermentación con dosis conocida y muestreo denso post-pulso ancla amplitud/timing/τ del transitorio con input trazable, y contrasta contra F2 (dosis doble) para dose-response.
-- Alternativa "dosis normal + dosis doble": útil solo si la confirmación del operador fracasara y el contraste de dosis tuviera que reconstruirse; secundaria en prioridad.
-
-### 18.2 Alternativa A — una sola fermentación
-
-Con nutrición de dosis confirmada, muestreo denso en onset y ventana post-pulso; la terminación queda cubierta por los puntos tardíos (menos densidad que en B).
-
-### 18.3 Alternativa B — dos fermentaciones (recomendado)
-
-F-A: control **sin** nutrición. F-B: nutrición con dosis exacta pesada y registrada. Mismo mosto, misma cepa, SP 20 °C. La nutrición de F-B se aplica en el mismo estado de densidad (~1040 g/L) que el protocolo histórico.
-
-### 18.4 Calendario de muestreo (por fermentador; nutrición solo en F-B)
-
-| # | Instante | G/F (Y15) | YAN | Oculyze | Brix | Densidad | E | Gly |
-|---|---|---|---|---|---|---|---|---|
-| 0 | PI (pre-inoculación) | sí | sí | — | sí | sí | externo | sí |
-| 1 | 0 h post-inoculación | — | — | sí | sí | sí | — | — |
-| 2 | 6–8 h | sí | sí | sí | sí | sí | — | sí |
-| 3 | 12 h | sí | sí | — | sí | sí | — | sí |
-| 4 | 24 h | sí | sí | sí | sí | sí | — | sí |
-| 5 | 36 h | sí | sí | sí | sí | sí | — | sí |
-| 6 | 48 h | sí | sí | — | sí | sí | — | sí |
-| 7 | −1 h antes de nutrición | sí | sí | sí | sí | sí | externo | sí |
-| 8 | +2 h post-nutrición | sí | sí | — | sí | sí | — | sí |
-| 9 | +4–6 h post-nutrición | sí | sí | sí | sí | sí | — | sí |
-| 10 | +12 h post-nutrición | sí | sí | — | sí | sí | — | sí |
-| 11 | +24 h post-nutrición | sí | sí | sí | sí | sí | externo | sí |
-| 12 | 96 h (o +48 h post-pulso) | sí | — | sí | sí | sí | — | sí |
-| 13 | final (declinación clara) | sí | sí | sí | sí | sí | externo | sí |
-
-- **Plan mínimo:** puntos 0, 1, 2, 4, 5, 7, 8, 9, 11, 13 (10 por fermentador).
-- **Plan recomendado:** los 14 (solo en F-B; en F-A, el bloque 7–11 se sustituye por un punto a la hora nominal del pulso +24 h).
-- Con nutrición ~56 h, los puntos 8–12 caen en 58–104 h absolutas.
-- Metadata obligatoria: producto/gramos/volumen/hora exactos de la nutrición, log `nutricion_activa` para t0, y réplicas Oculyze (≥2 preparaciones) en los puntos 1, 4, 7 y 11 para estimar R.
-
----
-
-## 19. Estrategia etanol / Alcolyzer
-
-El Alcolyzer no está disponible en el laboratorio. Pocas muestras estratégicas al servicio externo:
-
-1. PI (E0 real — el histórico fue 9.2–11.8 g/L, no cero);
-2. pre-nutrición (E al pulso: estado fisiológico + inhibición en el bump);
-3. +8–12 h post-nutrición (E durante el máximo de reactivación);
-4. fase tardía/final (ancla de iE en la terminación y balance C).
-
-**¿Se pueden reducir aún más? [INTERPRETACIÓN]** A 3 muestras (eliminando la #3): se pierde la E en el máximo del bump — el punto que mejor informaría si la reactivación depende del estado de E; el resto de la información (G/F/YAN/X en ese instante) se mantiene. A 2 (PI + final): se pierde el ancla de E en el pulso y la terminación queda mal condicionada para iE. **Recomendación: mantener 4; aceptar 3 como mínimo.** El resto del perfil de E queda inferido por el balance CO2 (44 g CO2 por 46 g etanol) con la incertidumbre correspondiente.
-
----
-
-## 20. Preguntas prioritarias para el colega que hizo la calibración
-
-**Prioridad máxima (bloquean dosis/pulso y transitorio):**
-
-1. ¿Cuál fue exactamente la formulación y masa de SFX/FDA en LAB004–LAB012?
-2. ¿De dónde sale el supuesto 20 % de YAN?
-3. ¿Ese 20 % aplica a ambos productos?
-4. ¿Cuál fue exactamente la dosis de LAB016–LAB018?
-5. ¿F2 recibió efectivamente el doble?
-6. ¿Cuál era la interpretación física esperada de `pulse_activity_gain`?
-7. ¿Por qué terminó en 0.25, cota inferior?
-8. ¿Qué representaba físicamente `pulse_t_rise_h`?
-9. ¿Por qué quedó en ~64.7 h si las respuestas observadas pueden ocurrir en pocas horas?
-10. ¿El mecanismo post-pulso pretendía representar reactivación, terminación o ambas?
-11. ¿Era conocida la sobrepredicción histórica de la cola?
-12. ¿Por qué N no aparece directamente en beta_G/beta_F?
-13. ¿Se contempló alguna variable de actividad metabólica?
-14. ¿De dónde sale 30 pg/célula?
-15. ¿Cómo definiría un t0 físicamente correcto para el modelo?
-
-**Secundarias:**
-
-16. ¿Por qué se eligieron Δ(G+F)=5 g/L y ΔE=2 g/L como umbrales del bracket? ¿Sensibilidad?
-17. ¿Era consciente de que el gate químico necesitaba química futura (no causal)?
-18. ¿`matrix_gain` (3.12) se interpreta físicamente o es escala empírica?
-19. ¿Se sospechaban microleaks en los datos históricos de CO2?
-20. ¿Por qué el upstream usó ΔN=0.08 kg/m³ del workbook y la capa CO2 0.14 kg/m³ del protocolo?
-21. ¿Por qué LAB012 se consideró holdout de la capa CO2 si participó en θ_natural?
-22. ¿El O2 de la capa (qmax en cota inferior 0.15) tiene interpretación física?
-23. ¿Qué problemas del modelo sabía que quedaban abiertos?
-
----
-
-## 21. Readiness para el estimador de estado (EKF/UKF/MHE)
-
-### 21.1 Checklist
-
-| Ítem | Estado | Notas |
-|---|---|---|
-| Modelo dinámico final | **parcial** | decidir arquitectura post-nutrición y terminación (§14) antes de congelar |
-| Estados (7) | **sí** | X, Xd, N, G, F, E, Gly |
-| Inputs conocidos | **sí** | T medida; pulsos N |
-| Nutriciones como inputs | **parcial** | dosis LAB016–018 pendiente de confirmar (§9); trazabilidad exigida en fermentaciones nuevas |
-| Observation functions | **parcial** | CO2 (capa completa), X/Xd Oculyze (×0.03), YAN→N, Y15→G/F/Gly; Brix/densidad sin función validada |
-| Unidades consistentes | **sí, con cuidado** | kg/m³ vs g/L; Mcél/mL×0.03; SCCM→g/L/h oficial (24.16 L/mol, 44.0095 g/mol, 2 L, 0.74) |
-| t0 inequívoco | **sí** (LAB016–018) | fin de inoculación del log; LAB013–015 pendiente |
-| Inicialización | **parcial** | PI + 0 h dan X0/N0/G0/F0/E0 reales en el plan nuevo |
-| Q (proceso) | **falta** | de residuos de recalibración |
-| R (medición) | **parcial** | pisos/rel históricos como punto de partida |
-| Ruido real Oculyze | **falta** | sin réplicas por muestra (10 imágenes = réplicas técnicas agregadas) |
-| Ruido química Y15 | **parcial** | de triplicados LAB013–015 |
-| Máscara CO2 event-aware | **sí** | Hampel + ventanas auditadas |
-| Latencia causal del filtro | **parcial** | pipeline actual batch |
-| Periodos inválidos | **sí (diseño)** | mask/NaN-aware ya existe |
-| Observabilidad | **falta análisis formal** | Xd probablemente no observable (kd≈0) |
-| Parámetros fijos | **sí** | tras recalibración sin cotas injustificadas |
-| Parámetros aumentados | diseño | E0/bias-E, X0, eficiencia-N del pulso, parámetros del transitorio (A, τ_rise, τ_decay), drift de gain |
-| Validación externa previa | **falta** | holdout end-to-end |
-
-### 21.2 BLOQUEANTES antes de implementar un EKF/MHE serio
-
-1. **mecanismo causal de onset** — el chemical bracket histórico usa química futura y **NO puede utilizarse directamente en tiempo real** (§4); necesario un predictor causal (proxy online: densidad/Brix/CO2 temprano) o un estado dinámico de activación;
-2. inputs de nutrición conocidos y trazables (dosis/tiempo confirmados);
-3. decidir arquitectura post-nutrición (transitorio separado de terminación, §14);
-4. terminación razonablemente representada (control sin pulso §18);
-5. observation functions validadas;
-6. condiciones iniciales robustas (PI + 0 h);
-7. ruido Q/R con base en datos (réplicas);
-8. manejo event-aware de artefactos CO2 (existe; portar a causal);
-9. validar con al menos un experimento no usado en la recalibración.
-
-### 21.3 Estado adicional de actividad (consideración, NO implementar)
-
-**[INTERPRETACIÓN]** Si se añade un estado de **actividad fermentativa/metabólica** (p. ej. `a(t)` que sigue lag → 1 → bump post-pulso → decaimiento), se podrían representar de manera causal lag + reactivación + decay dentro del filtro, en lugar de forzarlo con el gate no causal y el gain permanente. Evaluar identifiabilidad y costo antes de decidir (§14).
-
----
-
-## 22. Decisiones antes de recalibrar
-
-| Decisión | Evidencia actual | Dato que falta | Riesgo de cambiarlo ahora | Recomendación |
-|---|---|---|---|---|
-| Chemical activation (forma) | gate corrige onset (RMSE −77–86 %) pero necesita bracket químico | G/F 6–36 h (plan §18) | bajo | **mantener la forma**; hacer el bracket medible/causal |
-| `pulse_activity_gain` | 0.25 en cota; apagado de facto; barrido: gain alto destruye la cola (§10) | amplitud del bump + cola con dosis confirmada | alto (reaparece cola) | **re-emplazar por transitorio + terminación**; no congelar en 0.25 |
-| `pulse_t_rise_h` | 64.7 h casi cota sup.; bump real en ~6 h | ventana densa 2–12 h post-nutrición | medio | re-estimar; rise corto + decay (τ≈2/4 h como referencia diagnóstica) |
-| Respuesta transitoria rise-decay | reproduce F2 (35.7 % vs 35.6 %) y cola; no explica F1/F3 (§12) | dosis confirmada; réplicas del pulso | medio (universalidad) | **candidata principal**; calibrar con residual de amplitud |
-| β dependiente de N | N solo afecta μ | YAN pre/post pulso + G/F en el bump | medio | evaluar β(N) |
-| Muerte celular | kd inerte; Xd≈0 | Xd con señal real (Oculyze LAB013–018) | medio | mantener; revisar con Xd nuevo |
-| matrix_gain | escala empírica | calibración SCCM→g/L/h | medio | mantener; monitorear |
-| E0 | histórico 9.2–11.8; sin medir en LAB016–018 | E en PI | bajo | medir E en PI |
-| X0/Xd0 | fallback 0.45/0; Oculyze 8.9 h ≈ 0.27–0.43 | muestra 0 h | bajo | medir reales |
-| CI químicas LAB016–018 | heredadas | Y15 PI + 0 h | bajo | medir directas |
-| Nutriciones (declaración) | contrafactual con 0.14/0.28 corrige la cola (150 h: 0.005–0.023 vs obs 0.01–0.03) | dosis real (0.12/0.24 bajo hipótesis operador) | alto sin declarar | **declarar pulso** con dosis confirmada + sensibilidad ±2× |
-| Continuous release | nominal; τ≤20 h; no causa cola | — | bajo | **mantener** |
-
----
-
-## 23. Roadmap actualizado
+## 17. Prioridades de trabajo (roadmap)
 
 | # | Etapa | Criterio de salida |
 |---|---|---|
-| 1 | Confirmar metadata/dosis con el colega (§20, preguntas 1–5, 14, 15) | dosis SFX/FDA + factor YAN + t0 documentados por escrito |
-| 2 | Corregir inputs LAB016–018 (ΔN por fermentador; re-ejecutar contrafactual con 0.12/0.24) | cola del holdout corregida con la dosis confirmada; desviación documentada |
-| 3 | Cerrar dataset Oculyze/química LAB013–018 (mapeo LAB015-2, t0, réplicas) | dataset único versionado, sin ambigüedades de identidad/tiempo |
-| 4 | Realizar 1–2 fermentaciones informativas (§18: control + dosis conocida) | perfiles G/F/YAN/X/Xd/E con calendario cumplido y metadata de pulso completa |
-| 5 | Seleccionar arquitectura mínima (§14: transitorio vs alternativas; actividad como estado) | lista cerrada de cambios estructurales, con criterios de rechazo |
-| 6 | Recalibrar upstream si corresponde (θ_natural con datos nuevos) | sin cotas activas injustificadas; X/Xd/G/F/YAN con residuos aceptables |
-| 7 | Recalibrar capa CO2/pulso (transitorio + terminación; residual de amplitud post-pulso) | cola y bump reproducidos en calibración; parámetros dentro de cotas con margen |
-| 8 | Holdout externo (1 fermentación no usada) | métricas end-to-end (onset, peak, cola, reactivación) dentro de tolerancias pre-declaradas |
-| 9 | Congelar modelo | versión etiquetada (θ + capa + eventos), hashes y changelog |
-| 10 | Comenzar estimador de estado (§21 bloqueantes resueltos) | filtro causal validado contra el holdout de la etapa 8 |
+| 1 | Confirmar metadata/dosis con el operador/colega (§11.2, §18) | dosis SFX/FDA + factor YAN + t0 LAB013–015 por escrito |
+| 2 | Corregir inputs LAB016–018 (ΔN por fermentador; re-ejecutar contrafactual) | cola corregida con dosis confirmada; desviación documentada |
+| 3 | Cerrar dataset Oculyze/química LAB013–018 (t0 de LAB013–015, réplicas) | dataset único versionado sin ambigüedades |
+| 4 | Unificar convención SCCM→g/L/h (24.16/0.74 vs 22.414) y decidir matrix_gain | una sola convención documentada en código y docs |
+| 5 | 1–2 fermentaciones informativas (§15: control + dosis conocida) | perfiles con calendario cumplido y metadata completa |
+| 6 | Seleccionar arquitectura mínima (§16) | lista cerrada de cambios estructurales con criterios de rechazo |
+| 7 | Recalibrar upstream si corresponde (θ con datos nuevos) | sin cotas activas injustificadas; residuos aceptables |
+| 8 | Recalibrar capa CO2 (transitorio + terminación + residual de amplitud) | cola y bump reproducidos en calibración |
+| 9 | Holdout externo (fermentación no usada; idealmente ~18 °C) | métricas end-to-end dentro de tolerancias pre-declaradas |
+| 10 | Congelar modelo y comenzar estimador (bloqueantes §12 resueltos) | filtro causal validado contra el holdout de #9 |
 
 ---
 
-## 24. Resumen ejecutivo
+## 18. Hechos pendientes de confirmar
 
-**Cómo funciona hoy el modelo [HECHO VERIFICADO].** ODE de 7 estados (X, Xd, N, G, F, E, Gly) con temperatura exógena y pulsos exactos; CO2 biológico `0.4777·(βG+βF)·X`, filtrado por un gate de encendido anclado a química (`_bounded_smoothstep_activation`), una respuesta post-pulso (rampa `r(t)` + gain permanente, `effective_qprod_grid`), un pool disuelto con solubilidad Csat(T,E,G,F) y liberación continua, escalado por `matrix_gain` = 3.12.
-
-**Qué aprendimos [HECHO VERIFICADO / RESULTADO DIAGNÓSTICO].** (i) El gate químico es solo onset y explica la mayor parte del error LAB016–018 sin química (RMSE −77–86 % al re-posicionarlo). (ii) En natural, el "nitrogen boost" ajustó gain=0.25 (cota inferior) y rise=64.7 h: una atenuación lenta que hacía de apagado de facto. (iii) La terminación biológica es débil (kd inerte, N no limita β, fructosa sostiene qprod al 33–66 % del peak a 100–150 h); la cola no es del pool (τ≤20 h). (iv) Declarar el pulso con dosis de protocolo corrige la cola sin reajustar nada (150 h: 0.27–0.28 → 0.005–0.023 vs obs 0.01–0.03 g/L/h). (v) Un gain permanente no puede dar bump y buena cola a la vez; el transitorio rise-decay (A≈0.30, τ_rise≈2 h, τ_decay≈4 h) reproduce el bump de LAB017 (35.7 % vs 35.6 %) y retorna a la cola correcta — pero no explica el contraste F1/F3 (~14–15 %). (vi) La dosis de LAB016–018 probablemente fue 0.8+0.4 g (F1/F3) y doble (F2) → ΔN = 0.12/0.24 kg/m³ bajo el factor 20 % — [HIPÓTESIS PENDIENTE].
-
-**Conclusión central:** *La calibración histórica utilizaba mecanismos data-assisted y una única dinámica post-pulso lenta que servía simultáneamente para respuesta a nutrición y terminación. Los nuevos experimentos muestran que lag, reactivación rápida y terminación ocurren en escalas temporales distintas y probablemente deben representarse mediante mecanismos separados.*
-
-**Qué está funcionando [HECHO VERIFICADO].** Peak principal (tiempo/amplitud) y ascenso tras el gate condicionado; cadena de unidades verificada; t0 de LAB016–018 inequívoco; máscara de artefactos CO2 auditada; contrafactual de pulso corrigiendo la cola.
-
-**Qué está fallando [HECHO VERIFICADO / INTERPRETACIÓN].** Onset no predictivo sin química (y no causal por diseño); terminación dependiente del artefacto del pulso; bump no representable con rampa de 65 h ni con gain permanente; transitorio universal insuficiente para F1/F3; gain y rise en cotas; microleaks [HIPÓTESIS PENDIENTE] en CO2 de LAB013–015.
-
-**Qué datos faltan.** Confirmación de dosis/composición YAN; G/F/YAN/X/Xd/E/Gly temporales en fermentaciones nuevas; réplicas Oculyze para R; E0/X0 medidos; control sin nutrición para aislar la terminación.
-
-**Qué medir en las próximas fermentaciones.** §18: control + dosis conocida; calendario denso en 0–36 h (onset) y −1/+2/+4–6/+12/+24 h alrededor del pulso; etanol externo solo en PI, pre-nutrición, +8–12 h post y final (§19).
-
-**Qué preguntar al colega.** Las 15 preguntas de prioridad máxima de §20 (formulación/masas SFX-FDA, factor 20 %, dosis real LAB016–018, significado físico del gain y del rise, cola conocida, β sin N, actividad metabólica, 30 pg/célula, t0 físico).
-
-**Qué debe quedar resuelto antes del estimador.** Los 9 bloqueantes de §21.2: mecanismo causal de onset, inputs de nutrición trazables, arquitectura post-nutrición decidida, terminación representada, observation functions validadas, ICs robustas, Q/R con datos, manejo event-aware causal de artefactos, y validación con un experimento no usado en la recalibración. Considerar un estado de actividad metabólica si permite representar causalmente lag + reactivación + decay (§21.3). Con kd≈0, Xd es probablemente no observable: proyectar el filtro sobre {X, N, G, F, E, Gly} + CO2.
+1. **Dosis real LAB016–018** (¿0.8+0.4 / doble?) y del histórico LAB004–012 (¿1.0+0.4?); masas pesadas y volúmenes.
+2. **Aporte YAN de SFX y FDA** (¿el 20 % aplica a ambos productos?).
+3. **Procedencia de 30 pg/célula** (constante Oculyze→kg/m³).
+4. **t0 físico de LAB013–015** (`time_h` vacío en el CSV offline).
+5. **Microleaks** en CO2 de LAB013–015 (hipótesis).
+6. Significado físico pretendido de `pulse_activity_gain`/`pulse_t_rise_h` y consciencia del gate no causal y de la cola histórica (preguntas al colega que calibró).
+7. Por qué el upstream usó ΔN=0.08 y la capa 0.14; por qué LAB012 fue holdout de capa habiendo participado de θ.
+8. Rehabilitación o no de LAB002 como referencia térmica (CO2 QC-excluido).
+9. Sincronización pendiente de documentos espejo: `CO2_MODEL_EXPLANATION.md` aún cita el `kCO2_release_h` sintético pre-adopción (15.986) y el `.tex` homónimo de este documento requiere la misma actualización.
 
 ---
 
-*Documento v2 generado por auditoría y diagnósticos de solo lectura (2026-09-08). No se modificaron modelos, notebooks, datos ni resultados. Únicos archivos mantenidos: este `.md` y su equivalente `.tex`.*
+## Tabla de prioridades
+
+| Tema | Estado actual | Evidencia | Riesgo | Acción siguiente |
+|---|---|---|---|---|
+| θ natural (upstream) | congelado, 11 parámetros, LAB004–012 | `theta.csv`; §4 | bajo | mantener; recalibrar solo con datos nuevos (LAB013-015 + fermentaciones §15) |
+| Capa CO2 natural | congelada, 9 parámetros (3 en cota) | `fit_parameters.csv`; §5 | medio (cotas activas) | re-estimar tras unificar convención y dosis |
+| Capa CO2 sintética | adoptada, asunto cerrado | A/B causal (§6) | bajo | nada (no investigar más) |
+| Input CO2 lot2 | canónico `CO2_FILT_*`, raw fallback | §6, cerrado | bajo | documentar (hecho) |
+| Onset causal | **no existe**; bracket a posteriori | §8.2–8.4, §10-A | **alto** (bloquea estimador) | mecanismo causal o estado de actividad |
+| Terminación | débil; dependía del gain del pulso | §8.5, §10-B | alto | control sin nutrición (§15) |
+| Respuesta nutricional | rampa 65 h + gain 0.25 inadecuados | barridos §8.6 | alto | transitorio rise-decay separado; residual de amplitud |
+| N / YAN | N solo en μ; dosis inconsistente 0.08/0.14; deuda PAN+0.82 | §11 | medio | confirmar dosis; documentar 0.82; evaluar β(N) |
+| Muerte celular (Xd) | inerte a 16–22 °C; Oculyze con señal a 16 °C | §2.3, §7 | medio | revisar con Xd de LAB013–015 |
+| LAB013–015 | química+biomasa nuevas sin usar en fit; CO2 no confiable | §7 | medio | incorporar tras t0; no usar su CO2 gaseoso |
+| LAB016–018 | holdout externo ejecutado; diagnósticos completos | §8 | alto si se convierten en training | mantener como holdout hasta decisión escrita |
+| Oculyze | report.csv versionado (6 LAB); imágenes retiradas | §3.2 | bajo | réplicas para R en futuras campañas |
+| CO2 disuelto | pool interno de la capa; Carbodoseur solo histórico | §2.1 | bajo | opcional: estado del central solo si el estimador lo necesita |
+| Convención de unidades | inconsistente 24.16/0.74 vs 22.414 | §6 | medio | unificar antes de recalibrar ganancias |
+| EKF/estimador | no iniciado; 9 bloqueantes | §12 | alto | resolver bloqueantes 1–4 primero |
+
+---
+
+*Documento v3 (2026-09-08), reestructurado desde la v2 tras auditoría de solo lectura del repositorio (código, datos y resultados verificados contra el árbol real; líneas citadas verificadas). No se modificaron modelos, notebooks, datos ni resultados. Único archivo modificado: este `.md`. Su espejo `.tex` y `CO2_MODEL_EXPLANATION.md` requieren sincronización posterior (§18.9).*

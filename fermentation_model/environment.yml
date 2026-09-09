@@ -1,4 +1,4 @@
-name: fermentation-doe
+name: fermentation
 channels:
   - conda-forge
   - IDAES-PSE
@@ -15,6 +15,7 @@ dependencies:
   - ipykernel
   - jupyterlab
   - pypdf
+  - pytest
   - thermo
   - chemicals
   - pywin32
