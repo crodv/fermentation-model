@@ -1,0 +1,25 @@
+{
+  "experiment": "co2_sccm_correction_2026",
+  "old_policy": "read saved historical artifacts; never reoptimize LEGACY",
+  "new_policy": "optimize SCCM_CORRECTED on frozen historical timestamps and censor mask",
+  "legacy_factor_g_l_h_per_sccm_at_2L": 0.058905148567859375,
+  "corrected_factor_g_l_h_per_sccm_at_2L": 0.0404391928807947,
+  "corrected_over_legacy": 0.6865137235705009,
+  "corrected_constants": {
+    "MW_CO2_g_mol": 44.0095,
+    "Vm_L_mol": 24.16,
+    "K_CO2": 0.74,
+    "reference_volume_L": 2.0
+  },
+  "residual_sigma_floor_policy": "ambiguous sensor-scale floor; scaled by corrected/legacy ratio for direct SCCM isolation",
+  "detection_limit_policy": "values scaled dimensionally; historical left-censor booleans frozen",
+  "native_corrected_mask_diagnostic_only": true,
+  "n_starts": 5,
+  "max_nfev": 300,
+  "seed": 20260812,
+  "matrices": [
+    "synthetic",
+    "natural"
+  ],
+  "primary_matrix": "natural"
+}

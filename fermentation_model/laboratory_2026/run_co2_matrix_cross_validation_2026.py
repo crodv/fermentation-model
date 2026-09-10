@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 import math
 import os
@@ -47,6 +48,9 @@ PLOT_DIR = RESULTS_DIR / "figures"
 NOTEBOOK_DIR = SCRIPT_DIR / "notebooks"
 NOTEBOOK_PATH = NOTEBOOK_DIR / "co2_solubility_o2_cross_matrix_2026.ipynb"
 EXECUTED_NOTEBOOK_PATH = NOTEBOOK_DIR / "co2_solubility_o2_cross_matrix_2026.executed.ipynb"
+SCCM_CORRECTED_RESULTS_DIR = (
+    SCRIPT_DIR / "results" / "co2_matrix_cross_validation_2026_sccm_corrected"
+)
 
 LOT1_CO2_PATH = (
     SCRIPT_DIR / "results" / "lot1_data_preview" / "processed" / "lot1_co2_filt_volume_corrected_10min.csv"
@@ -131,6 +135,10 @@ IDENTIFIABILITY_PROFILE_MAX_NFEV = 140
 LOO_MAX_NFEV = 180
 CO2_MOLAR_MASS_G_MOL = 44.01
 STANDARD_MOLAR_VOLUME_L_MOL = 22.414
+CORRECTED_CO2_MOLAR_MASS_G_MOL = 44.0095
+CORRECTED_MOLAR_VOLUME_L_MOL = 24.16
+CORRECTED_CO2_RESPONSE_FACTOR = 0.74
+CO2_RESIDUAL_SIGMA_FLOOR_G_L_H = 0.04
 PARAMETER_BOUNDS = {
     "kCO2_release_h": (0.03, 25.0),
     "CO2sat_scale": (0.35, 2.50),
@@ -155,6 +163,37 @@ SYNTHETIC_SENSOR_LABELS = {
     "lot2_F2": 2,
     "lot2_F3": 6,
 }
+
+
+@dataclass(frozen=True)
+class SCCMConversion:
+    """Physical constants for converting a native CO2 flow to g L-1 h-1."""
+
+    name: str
+    molar_mass_g_mol: float
+    molar_volume_l_mol: float
+    response_factor: float = 1.0
+
+    def factor_g_l_h_per_sccm(self, volume_l: float = 2.0) -> float:
+        return float(
+            self.molar_mass_g_mol
+            * 60.0
+            * self.response_factor
+            / (1000.0 * self.molar_volume_l_mol * float(volume_l))
+        )
+
+
+LEGACY_SCCM_CONVERSION = SCCMConversion(
+    name="LEGACY",
+    molar_mass_g_mol=CO2_MOLAR_MASS_G_MOL,
+    molar_volume_l_mol=STANDARD_MOLAR_VOLUME_L_MOL,
+)
+SCCM_CORRECTED_CONVERSION = SCCMConversion(
+    name="SCCM_CORRECTED",
+    molar_mass_g_mol=CORRECTED_CO2_MOLAR_MASS_G_MOL,
+    molar_volume_l_mol=CORRECTED_MOLAR_VOLUME_L_MOL,
+    response_factor=CORRECTED_CO2_RESPONSE_FACTOR,
+)
 
 
 @dataclass
@@ -552,9 +591,22 @@ def load_batches() -> tuple[dict[str, base.BatchData], dict[str, dict[str, float
     return batches, theta_by_matrix, natural_tables
 
 
-def _sccm_to_g_l_h(flow_sccm: pd.Series, volume_l: float) -> pd.Series:
-    gas_l_h = pd.to_numeric(flow_sccm, errors="coerce") * 60.0 / 1000.0
-    return gas_l_h * CO2_MOLAR_MASS_G_MOL / STANDARD_MOLAR_VOLUME_L_MOL / float(volume_l)
+def _sccm_to_g_l_h(
+    flow_sccm: pd.Series,
+    volume_l: float | pd.Series,
+    conversion_spec: SCCMConversion = LEGACY_SCCM_CONVERSION,
+) -> pd.Series:
+    """Convert native SCCM using an explicit, auditable conversion specification."""
+
+    native = pd.to_numeric(flow_sccm, errors="coerce")
+    volume = pd.to_numeric(volume_l, errors="coerce")
+    return (
+        native
+        * conversion_spec.molar_mass_g_mol
+        * 60.0
+        * conversion_spec.response_factor
+        / (1000.0 * conversion_spec.molar_volume_l_mol * volume)
+    )
 
 
 def _sensor_assignment(batch: str) -> tuple[str, int, str]:
@@ -580,7 +632,10 @@ def _sensor_assignment(batch: str) -> tuple[str, int, str]:
     return "unknown", -1, "unresolved"
 
 
-def apply_sensor_zero_correction(raw: pd.DataFrame) -> tuple[pd.DataFrame, pd.DataFrame]:
+def apply_sensor_zero_correction(
+    raw: pd.DataFrame,
+    conversion_spec: SCCMConversion = LEGACY_SCCM_CONVERSION,
+) -> tuple[pd.DataFrame, pd.DataFrame]:
     """Estimate a run-specific sensor zero from the initial low-flow plateau.
 
     The offset is the non-negative 10th percentile within the first 12 h of
@@ -609,9 +664,10 @@ def apply_sensor_zero_correction(raw: pd.DataFrame) -> tuple[pd.DataFrame, pd.Da
         raw_quantile = float(candidates.quantile(SENSOR_ZERO_QUANTILE)) if len(candidates) else 0.0
         offset_sccm = max(0.0, raw_quantile)
         corrected_native = native - offset_sccm
-        conversion = (
-            60.0 / 1000.0 * CO2_MOLAR_MASS_G_MOL / STANDARD_MOLAR_VOLUME_L_MOL
-            / volume_l
+        conversion = _sccm_to_g_l_h(
+            pd.Series(1.0, index=group.index),
+            volume_l,
+            conversion_spec,
         )
         group["acquisition_channel"] = channel
         group["sensor_id"] = sensor_id
@@ -950,7 +1006,9 @@ def smooth_hourly_co2_profiles(
     return pd.concat(output, ignore_index=True).sort_values(["matrix", "batch", "t_h"]).reset_index(drop=True)
 
 
-def _natural_early_sensor_rows() -> tuple[pd.DataFrame, pd.DataFrame]:
+def _natural_early_sensor_rows(
+    conversion_spec: SCCMConversion = LEGACY_SCCM_CONVERSION,
+) -> tuple[pd.DataFrame, pd.DataFrame]:
     """Read the CO2-only LAB001-LAB003 records for coverage/QC.
 
     These runs have process sensor files in the repository but no matching
@@ -993,7 +1051,9 @@ def _natural_early_sensor_rows() -> tuple[pd.DataFrame, pd.DataFrame]:
             )
             raw["t_h"] = (raw["timestamp"] - t0).dt.total_seconds() / 3600.0
             raw = raw[raw["t_h"].ge(0.0)].copy()
-            raw["co2_rate_signed_g_l_h"] = _sccm_to_g_l_h(raw["flow_filt_sccm"], 2.0)
+            raw["co2_rate_signed_g_l_h"] = _sccm_to_g_l_h(
+                raw["flow_filt_sccm"], 2.0, conversion_spec
+            )
             raw["co2_rate_raw_g_l_h"] = raw["co2_rate_signed_g_l_h"].clip(lower=0.0)
             raw["matrix"] = "natural"
             raw["batch"] = batch
@@ -1035,6 +1095,7 @@ def load_co2_data(
     natural_tables: dict[str, pd.DataFrame],
     chemical_support: pd.DataFrame,
     nutrient_pulses: pd.DataFrame,
+    conversion_spec: SCCMConversion = LEGACY_SCCM_CONVERSION,
 ) -> tuple[
     pd.DataFrame,
     pd.DataFrame,
@@ -1122,7 +1183,7 @@ def load_co2_data(
         & raw["t_h"].le(raw["chemistry_last_h"] + 1e-9)
     ].copy()
     raw = _attach_temperature_context(raw, natural_tables)
-    raw, sensor_zero_offsets = apply_sensor_zero_correction(raw)
+    raw, sensor_zero_offsets = apply_sensor_zero_correction(raw, conversion_spec)
     sampling_schedule = load_sampling_schedule()
     sampling_schedule = sampling_schedule[sampling_schedule["batch"].isin(raw["batch"].unique())].copy()
     sampling_schedule = sampling_schedule.merge(
@@ -1937,7 +1998,16 @@ def _profile_matrix_gain(
         raw_by_batch[batch_name] = prediction
         quantifiable = ~group["left_censored"].astype(bool).to_numpy()
         if quantifiable.any():
-            sigma = max(0.04, 0.10 * float(group.loc[~group["left_censored"], "co2_rate_g_l_h"].max()))
+            sigma_floor = (
+                float(group["residual_sigma_floor_g_l_h"].iloc[0])
+                if "residual_sigma_floor_g_l_h" in group
+                else CO2_RESIDUAL_SIGMA_FLOOR_G_L_H
+            )
+            sigma = max(
+                sigma_floor,
+                0.10
+                * float(group.loc[~group["left_censored"], "co2_rate_g_l_h"].max()),
+            )
             weight = 1.0 / (sigma * math.sqrt(len(group)))
             observed = group["co2_rate_g_l_h"].to_numpy(dtype=float)[quantifiable]
             prediction_quantifiable = prediction[quantifiable]
@@ -1962,7 +2032,12 @@ def _fit_residual(
     for batch_name in batch_names:
         group = observations[observations["batch"].eq(batch_name)]
         observed = group["co2_rate_g_l_h"].to_numpy(dtype=float)
-        sigma = max(0.04, 0.10 * float(group["co2_rate_g_l_h"].max()))
+        sigma_floor = (
+            float(group["residual_sigma_floor_g_l_h"].iloc[0])
+            if "residual_sigma_floor_g_l_h" in group
+            else CO2_RESIDUAL_SIGMA_FLOOR_G_L_H
+        )
+        sigma = max(sigma_floor, 0.10 * float(group["co2_rate_g_l_h"].max()))
         prediction = gain * raw_by_batch[batch_name]
         censored = group["left_censored"].astype(bool).to_numpy()
         batch_residuals = []
@@ -2340,6 +2415,7 @@ def _metric_row(
     detection_limit: np.ndarray,
     model_variant: str = MODEL_NAME,
     pulse_time_h: float = np.nan,
+    early_emission_threshold_g_l_h: float = EARLY_EMISSION_THRESHOLD_G_L_H,
 ) -> dict[str, object]:
     left_censored = np.asarray(left_censored, dtype=bool)
     quantifiable = ~left_censored
@@ -2370,7 +2446,7 @@ def _metric_row(
     observed_baseline = float(np.median(observed[early_mask])) if early_mask.any() else float(observed[0])
     dynamic_range = max(float(np.max(observed)) - observed_baseline, 0.0)
     visual_low_threshold = max(
-        EARLY_EMISSION_THRESHOLD_G_L_H,
+        early_emission_threshold_g_l_h,
         observed_baseline + INITIAL_RISE_LOW_FRACTION * dynamic_range,
     )
     visual_high_threshold = max(
@@ -2384,7 +2460,7 @@ def _metric_row(
         time_h, predicted, visual_low_threshold, visual_high_threshold
     )
     predicted_first_emission_h = _sustained_onset_h(
-        time_h, predicted, EARLY_EMISSION_THRESHOLD_G_L_H, consecutive=2
+        time_h, predicted, early_emission_threshold_g_l_h, consecutive=2
     )
     observed_postpulse_peak = _postpulse_peak_time_h(
         time_h, observed, pulse_time_h
@@ -2483,6 +2559,11 @@ def predict_and_score(
             time_h = group["t_h"].to_numpy(dtype=float)
             left_censored = group["left_censored"].astype(bool).to_numpy()
             detection_limit = group["detection_limit_g_l_h"].to_numpy(dtype=float)
+            early_emission_threshold = (
+                float(group["early_emission_threshold_g_l_h"].iloc[0])
+                if "early_emission_threshold_g_l_h" in group
+                else EARLY_EMISSION_THRESHOLD_G_L_H
+            )
             metric_rows.append(
                 _metric_row(
                     calibration_matrix,
@@ -2496,6 +2577,7 @@ def predict_and_score(
                     detection_limit,
                     model_variant,
                     cache[batch_name].n_pulse_time_h,
+                    early_emission_threshold,
                 )
             )
             for time_value, observed_value, predicted_value, raw_value, censored, artifact_fraction, detection_limit in zip(
@@ -4018,6 +4100,320 @@ def run_analysis(n_starts: int = 5, max_nfev: int = 300, seed: int = 20260812) -
         "baseline_common_support_validation": baseline_common_support_validation,
         "filter_impact": filter_impact,
         "manifest": manifest,
+    }
+
+
+SCCM_SCALED_OBSERVATION_COLUMNS = (
+    "co2_rate_signed_g_l_h",
+    "co2_rate_uncorrected_physical_g_l_h",
+    "co2_rate_zero_corrected_signed_g_l_h",
+    "co2_rate_raw_g_l_h",
+    "co2_rate_filtered_g_l_h",
+    "co2_rate_robust_median_g_l_h",
+    "co2_rate_smoothed_g_l_h",
+    "co2_rate_g_l_h",
+    "detection_limit_g_l_h",
+)
+
+
+def _coerce_bool_column(frame: pd.DataFrame, column: str) -> None:
+    if column not in frame:
+        return
+    if frame[column].dtype == bool:
+        return
+    frame[column] = frame[column].astype(str).str.lower().map({"true": True, "false": False})
+    if frame[column].isna().any():
+        raise ValueError(f"Could not parse every value in boolean column {column!r}")
+
+
+def _directory_sha256(path: Path) -> dict[str, str]:
+    hashes: dict[str, str] = {}
+    for file_path in sorted(item for item in path.rglob("*") if item.is_file()):
+        digest = hashlib.sha256(file_path.read_bytes()).hexdigest()
+        hashes[str(file_path.relative_to(path)).replace("\\", "/")] = digest
+    return hashes
+
+
+def frozen_sccm_corrected_observations(
+    legacy_observations: pd.DataFrame,
+) -> pd.DataFrame:
+    """Scale the frozen historical observations without changing their support.
+
+    Sensor-zero correction, clipping, artifact replacement, hourly aggregation,
+    smoothing and the left-censor mask are inherited byte-for-value from the
+    historical observation table.  Every rate-like quantity is then converted
+    by the exact corrected/legacy factor ratio.  This is algebraically identical
+    to changing the SCCM factor while freezing all preprocessing decisions.
+    """
+
+    legacy_factor = LEGACY_SCCM_CONVERSION.factor_g_l_h_per_sccm(2.0)
+    corrected_factor = SCCM_CORRECTED_CONVERSION.factor_g_l_h_per_sccm(2.0)
+    ratio = corrected_factor / legacy_factor
+    corrected = legacy_observations.copy()
+    _coerce_bool_column(corrected, "left_censored")
+    frozen_mask = corrected["left_censored"].copy()
+    frozen_time = corrected[["matrix", "batch", "t_h"]].copy()
+    for column in SCCM_SCALED_OBSERVATION_COLUMNS:
+        if column in corrected:
+            corrected[column] = pd.to_numeric(corrected[column], errors="coerce") * ratio
+    corrected["residual_sigma_floor_g_l_h"] = CO2_RESIDUAL_SIGMA_FLOOR_G_L_H * ratio
+    corrected["early_emission_threshold_g_l_h"] = EARLY_EMISSION_THRESHOLD_G_L_H * ratio
+    corrected["sccm_conversion"] = SCCM_CORRECTED_CONVERSION.name
+    corrected["sccm_scale_ratio_to_legacy"] = ratio
+    if not frozen_time.equals(corrected[["matrix", "batch", "t_h"]]):
+        raise AssertionError("Frozen SCCM correction changed the observation timestamps")
+    if not frozen_mask.equals(corrected["left_censored"]):
+        raise AssertionError("Frozen SCCM correction changed the historical censor mask")
+    return corrected
+
+
+def _mask_audit_table(
+    legacy: pd.DataFrame,
+    corrected_frozen: pd.DataFrame,
+    inventory: pd.DataFrame,
+) -> pd.DataFrame:
+    rows: list[dict[str, object]] = []
+    raw_by_batch = inventory.set_index("batch")["n_co2_raw"].to_dict()
+    for (matrix, batch), old_group in legacy.groupby(["matrix", "batch"], sort=True):
+        new_group = corrected_frozen[
+            corrected_frozen["matrix"].eq(matrix) & corrected_frozen["batch"].eq(batch)
+        ].copy()
+        old_group = old_group.sort_values("t_h")
+        new_group = new_group.sort_values("t_h")
+        old_time = np.round(old_group["t_h"].to_numpy(dtype=float), 10)
+        new_time = np.round(new_group["t_h"].to_numpy(dtype=float), 10)
+        timestamp_differences = len(set(old_time).symmetric_difference(set(new_time)))
+        old_mask = old_group["left_censored"].astype(bool).to_numpy()
+        new_mask = new_group["left_censored"].astype(bool).to_numpy()
+        mask_differences = (
+            int(np.count_nonzero(old_mask != new_mask))
+            if len(old_mask) == len(new_mask)
+            else abs(len(old_mask) - len(new_mask)) + min(len(old_mask), len(new_mask))
+        )
+        rows.append(
+            {
+                "matrix": matrix,
+                "batch": batch,
+                "N raw": int(raw_by_batch.get(batch, len(old_group))),
+                "N total": int(len(old_group)),
+                "N usado OLD": int((~old_mask).sum()),
+                "N usado NEW frozen": int((~new_mask).sum()),
+                "diferencias de máscara": mask_differences,
+                "timestamps distintos": int(timestamp_differences),
+            }
+        )
+    return pd.DataFrame(rows)
+
+
+def _native_corrected_mask_diagnostic(
+    legacy: pd.DataFrame,
+    native_corrected: pd.DataFrame,
+) -> pd.DataFrame:
+    old = legacy[["matrix", "batch", "t_h", "left_censored", "artifact_fraction"]].copy()
+    new = native_corrected[
+        ["matrix", "batch", "t_h", "left_censored", "artifact_fraction"]
+    ].copy()
+    for frame in (old, new):
+        frame["timestamp_key"] = np.round(pd.to_numeric(frame["t_h"], errors="coerce"), 10)
+        _coerce_bool_column(frame, "left_censored")
+    joined = old.merge(
+        new,
+        on=["matrix", "batch", "timestamp_key"],
+        how="outer",
+        suffixes=("_old", "_native_corrected"),
+        indicator=True,
+    )
+    rows: list[dict[str, object]] = []
+    for (matrix, batch), group in joined.groupby(["matrix", "batch"], sort=True):
+        common = group["_merge"].eq("both")
+        rows.append(
+            {
+                "matrix": matrix,
+                "batch": batch,
+                "N OLD": int(group["t_h_old"].notna().sum()),
+                "N native-corrected": int(group["t_h_native_corrected"].notna().sum()),
+                "timestamps distintos": int((~common).sum()),
+                "censura distinta": int(
+                    (
+                        group.loc[common, "left_censored_old"].astype(bool)
+                        != group.loc[common, "left_censored_native_corrected"].astype(bool)
+                    ).sum()
+                ),
+                "estado de artefacto distinto": int(
+                    (
+                        group.loc[common, "artifact_fraction_old"].gt(0.0)
+                        != group.loc[common, "artifact_fraction_native_corrected"].gt(0.0)
+                    ).sum()
+                ),
+            }
+        )
+    return pd.DataFrame(rows)
+
+
+def prepare_sccm_correction_inputs() -> dict[str, object]:
+    """Prepare the frozen primary comparison and the native-mask diagnostic."""
+
+    old_hashes = _directory_sha256(RESULTS_DIR)
+    old_observations = pd.read_csv(RESULTS_DIR / "co2_observations_hourly.csv")
+    _coerce_bool_column(old_observations, "left_censored")
+    old_inventory = pd.read_csv(RESULTS_DIR / "experiment_inventory.csv")
+    corrected_frozen = frozen_sccm_corrected_observations(old_observations)
+
+    batches, theta_by_matrix, natural_tables = load_batches()
+    chemical_support = chemical_support_table(batches)
+    natural_nutrient_pulses = natural_tables["nutrient_pulses"].copy()
+    nutrient_pulses = effective_nutrient_pulse_table(batches, natural_nutrient_pulses)
+    (
+        native_corrected_observations,
+        _,
+        native_corrected_sensor_qc,
+        native_corrected_qc_summary,
+        _,
+        native_corrected_zero_offsets,
+    ) = load_co2_data(
+        natural_tables,
+        chemical_support,
+        nutrient_pulses,
+        conversion_spec=SCCM_CORRECTED_CONVERSION,
+    )
+    cache, driver_diagnostics = build_driver_cache(
+        batches, theta_by_matrix, corrected_frozen
+    )
+    return {
+        "old_hashes_before": old_hashes,
+        "old_observations": old_observations,
+        "old_inventory": old_inventory,
+        "old_fit_parameters": pd.read_csv(RESULTS_DIR / "fit_parameters.csv"),
+        "old_fit_starts": pd.read_csv(RESULTS_DIR / "fit_start_diagnostics.csv"),
+        "old_predictions": pd.read_csv(RESULTS_DIR / "prediction_rows.csv"),
+        "old_batch_metrics": pd.read_csv(RESULTS_DIR / "batch_metrics.csv"),
+        "old_validation": pd.read_csv(RESULTS_DIR / "validation_summary.csv"),
+        "old_jacobian_identifiability": pd.read_csv(
+            RESULTS_DIR / "activation_jacobian_identifiability.csv"
+        ),
+        "corrected_frozen_observations": corrected_frozen,
+        "native_corrected_observations": native_corrected_observations,
+        "native_corrected_sensor_qc": native_corrected_sensor_qc,
+        "native_corrected_qc_summary": native_corrected_qc_summary,
+        "native_corrected_zero_offsets": native_corrected_zero_offsets,
+        "mask_audit": _mask_audit_table(
+            old_observations, corrected_frozen, old_inventory
+        ),
+        "native_mask_diagnostic": _native_corrected_mask_diagnostic(
+            old_observations, native_corrected_observations
+        ),
+        "batches": batches,
+        "theta_by_matrix": theta_by_matrix,
+        "chemical_support": chemical_support,
+        "nutrient_pulses": nutrient_pulses,
+        "cache": cache,
+        "driver_diagnostics": driver_diagnostics,
+    }
+
+
+def run_sccm_correction_fit(
+    prepared: dict[str, object] | None = None,
+    n_starts: int = 5,
+    max_nfev: int = 300,
+    seed: int = 20260812,
+    output_dir: Path = SCCM_CORRECTED_RESULTS_DIR,
+) -> dict[str, object]:
+    """Fit only SCCM_CORRECTED while treating saved LEGACY artifacts as read-only."""
+
+    if prepared is None:
+        prepared = prepare_sccm_correction_inputs()
+    observations = prepared["corrected_frozen_observations"]
+    cache = prepared["cache"]
+    fits: dict[str, dict[str, float]] = {}
+    start_frames: list[pd.DataFrame] = []
+    for matrix in ("synthetic", "natural"):
+        parameters, starts = fit_matrix(
+            matrix,
+            observations,
+            cache,
+            n_starts=n_starts,
+            max_nfev=max_nfev,
+            seed=seed,
+        )
+        fits[matrix] = parameters
+        start_frames.append(starts)
+    fit_parameters = fit_parameter_table(fits)
+    fit_starts = pd.concat(start_frames, ignore_index=True)
+    predictions, batch_metrics, validation = predict_and_score(
+        fits, observations, cache
+    )
+    (
+        jacobian_identifiability,
+        jacobian_singular_values,
+        local_parameter_correlations,
+    ) = jacobian_identifiability_diagnostics(fits, observations, cache)
+
+    output_dir = Path(output_dir)
+    output_dir.mkdir(parents=True, exist_ok=True)
+    observations.to_csv(output_dir / "co2_observations_hourly.csv", index=False)
+    fit_parameters.to_csv(output_dir / "fit_parameters.csv", index=False)
+    fit_starts.to_csv(output_dir / "fit_start_diagnostics.csv", index=False)
+    predictions.to_csv(output_dir / "prediction_rows.csv", index=False)
+    batch_metrics.to_csv(output_dir / "batch_metrics.csv", index=False)
+    validation.to_csv(output_dir / "validation_summary.csv", index=False)
+    prepared["mask_audit"].to_csv(output_dir / "frozen_mask_audit.csv", index=False)
+    prepared["native_mask_diagnostic"].to_csv(
+        output_dir / "native_corrected_mask_diagnostic.csv", index=False
+    )
+    jacobian_identifiability.to_csv(
+        output_dir / "activation_jacobian_identifiability.csv", index=False
+    )
+    jacobian_singular_values.to_csv(
+        output_dir / "activation_jacobian_singular_values.csv", index=False
+    )
+    local_parameter_correlations.to_csv(
+        output_dir / "activation_local_parameter_correlations.csv", index=False
+    )
+    legacy_factor = LEGACY_SCCM_CONVERSION.factor_g_l_h_per_sccm(2.0)
+    corrected_factor = SCCM_CORRECTED_CONVERSION.factor_g_l_h_per_sccm(2.0)
+    manifest = {
+        "experiment": "co2_sccm_correction_2026",
+        "old_policy": "read saved historical artifacts; never reoptimize LEGACY",
+        "new_policy": "optimize SCCM_CORRECTED on frozen historical timestamps and censor mask",
+        "legacy_factor_g_l_h_per_sccm_at_2L": legacy_factor,
+        "corrected_factor_g_l_h_per_sccm_at_2L": corrected_factor,
+        "corrected_over_legacy": corrected_factor / legacy_factor,
+        "corrected_constants": {
+            "MW_CO2_g_mol": CORRECTED_CO2_MOLAR_MASS_G_MOL,
+            "Vm_L_mol": CORRECTED_MOLAR_VOLUME_L_MOL,
+            "K_CO2": CORRECTED_CO2_RESPONSE_FACTOR,
+            "reference_volume_L": 2.0,
+        },
+        "residual_sigma_floor_policy": "ambiguous sensor-scale floor; scaled by corrected/legacy ratio for direct SCCM isolation",
+        "detection_limit_policy": "values scaled dimensionally; historical left-censor booleans frozen",
+        "native_corrected_mask_diagnostic_only": True,
+        "n_starts": n_starts,
+        "max_nfev": max_nfev,
+        "seed": seed,
+        "matrices": ["synthetic", "natural"],
+        "primary_matrix": "natural",
+    }
+    (output_dir / "analysis_manifest.json").write_text(
+        json.dumps(manifest, indent=2), encoding="utf-8"
+    )
+    old_hashes_after = _directory_sha256(RESULTS_DIR)
+    if prepared["old_hashes_before"] != old_hashes_after:
+        raise AssertionError("Historical results changed during SCCM_CORRECTED fitting")
+    return {
+        **prepared,
+        "fits": fits,
+        "fit_parameters": fit_parameters,
+        "fit_starts": fit_starts,
+        "predictions": predictions,
+        "batch_metrics": batch_metrics,
+        "validation": validation,
+        "jacobian_identifiability": jacobian_identifiability,
+        "jacobian_singular_values": jacobian_singular_values,
+        "local_parameter_correlations": local_parameter_correlations,
+        "manifest": manifest,
+        "output_dir": output_dir,
+        "old_hashes_after": old_hashes_after,
+        "old_results_unchanged": prepared["old_hashes_before"] == old_hashes_after,
     }
 
 

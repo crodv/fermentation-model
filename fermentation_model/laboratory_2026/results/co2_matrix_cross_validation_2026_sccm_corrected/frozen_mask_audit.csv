@@ -1,0 +1,14 @@
+matrix,batch,N raw,N total,N usado OLD,N usado NEW frozen,diferencias de máscara,timestamps distintos
+natural,LAB004,962,162,97,97,0,0
+natural,LAB005,962,162,119,119,0,0
+natural,LAB006,1250,210,139,139,0,0
+natural,LAB007,960,161,101,101,0,0
+natural,LAB008,960,161,114,114,0,0
+natural,LAB010,1100,185,84,84,0,0
+natural,LAB011,955,161,76,76,0,0
+natural,LAB012,955,161,98,98,0,0
+synthetic,lot1_F1,1270,213,178,178,0,0
+synthetic,lot1_F3,1270,213,156,156,0,0
+synthetic,lot2_F1,596,100,53,53,0,0
+synthetic,lot2_F2,595,100,89,89,0,0
+synthetic,lot2_F3,595,100,88,88,0,0
