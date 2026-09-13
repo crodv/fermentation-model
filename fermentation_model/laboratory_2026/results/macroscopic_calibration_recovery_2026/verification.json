@@ -1,0 +1,36 @@
+[
+  {
+    "selection": "natural",
+    "batch": "natural/LAB004",
+    "max_abs_error": 0.0
+  },
+  {
+    "selection": "natural",
+    "batch": "synthetic/lot2_F3",
+    "max_abs_error": 0.0
+  },
+  {
+    "selection": "synthetic",
+    "batch": "natural/LAB004",
+    "max_abs_error": 0.0
+  },
+  {
+    "selection": "synthetic",
+    "batch": "synthetic/lot2_F3",
+    "max_abs_error": 0.0
+  },
+  {
+    "selection": "joint_reference",
+    "batch": "natural/LAB004",
+    "max_abs_error": 0.0
+  },
+  {
+    "selection": "joint_reference",
+    "batch": "synthetic/lot2_F3",
+    "max_abs_error": 0.0
+  },
+  {
+    "check": "reject_missing_parameter",
+    "passed": true
+  }
+]

@@ -1,0 +1,9 @@
+,evidencia_termica,evidencia_modelo,evidencia_quimica,recuperacion_gaseosa,confianza,conclusion
+LAB004,parcial (programa calido),ratio_peak/int ~0.9-1.5,R_rel 0.95-1.12,normal,alta,compatible con cinetica normal; replica A consistente
+LAB005,parcial (programa calido),ratio_peak/int ~0.9-1.5,R_rel 0.95-1.12,normal,alta,compatible con cinetica normal; replica A consistente
+LAB006,"alta (16 C, ancho 80 h)",cola predicha en exceso (+8.4 g/L; tail_share~1),R_rel 0.69 (moderadamente bajo),"levemente baja, no concluyente",media,mixto: cinetica fria real + artefacto de cola del modelo; evidencia de perdida de gas INSUFICIENTE
+LAB007,parcial (programa calido),ratio_peak/int ~0.9-1.5,R_rel 0.95-1.12,normal,alta,compatible con cinetica normal; replica A consistente
+LAB008,parcial (programa calido),ratio_peak/int ~0.9-1.5,R_rel 0.95-1.12,normal,alta,compatible con cinetica normal; replica A consistente
+LAB010,alta (15 C iso),prediccion baja = artefacto del gate (cut 69%); no corrobora,R_rel 0.47 con dGF/dE iguales a los demas,anormalmente baja,media-alta,"recuperacion gaseosa anormalmente baja: posible perdida de gas o lectura instrumental baja (F1, mayo); fermentador vs sensor no separable"
+LAB011,media (final calido),exceso NO reproducible con swaps X0/T (limitacion estructural),"R_rel 1.14/1.31 (alta, no deficitaria)",alta,media,actividad gaseosa mayor que la predicha por el modelo; causa no identificada (limitacion estructural); no compatible con perdida
+LAB012,media (final calido),exceso NO reproducible con swaps X0/T (limitacion estructural),"R_rel 1.14/1.31 (alta, no deficitaria)",alta,media,actividad gaseosa mayor que la predicha por el modelo; causa no identificada (limitacion estructural); no compatible con perdida

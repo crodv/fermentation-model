@@ -1,0 +1,10 @@
+population,model,n,wsse,weighted_rmse,interpretation
+natural_historical,joint_reference,545,12566.032797006668,4.801764354061832,calibración
+natural_historical,natural,545,11672.084819320573,4.6278147535579635,calibración
+natural_historical,synthetic,545,13040.723997014062,4.891618744288576,evaluación retrospectiva fuera del conjunto de ajuste
+synthetic_historical,joint_reference,482,11128.794267050174,4.805079061411076,calibración
+synthetic_historical,natural,482,14026.388376639281,5.394477808175975,evaluación retrospectiva fuera del conjunto de ajuste
+synthetic_historical,synthetic,482,14594.190878015761,5.502581604232328,calibración
+synthetic_lot2,joint_reference,286,13172.96455286977,6.786701453462188,evaluación retrospectiva fuera del conjunto de ajuste
+synthetic_lot2,natural,286,9055.206652138022,5.626860734082754,evaluación retrospectiva fuera del conjunto de ajuste
+synthetic_lot2,synthetic,286,3282.72035123038,3.387926089235155,calibración

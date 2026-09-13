@@ -1,0 +1,23 @@
+matriz,experimento,inicio_h,fin_h,n_observaciones_evaluadas,T_min_C,T_max_C,pulsos
+natural,LAB004,0.0,163.0,74,17.7,21.4,N: 0.08 g/L @ 68 h
+natural,LAB005,0.0,163.0,74,18.0,21.4,N: 0.08 g/L @ 68 h
+natural,LAB006,0.0,211.0,86,16.0,18.4,N: 0.08 g/L @ 99 h
+natural,LAB007,0.0,160.0,77,17.4,21.1,N: 0.08 g/L @ 65 h
+natural,LAB008,0.0,160.0,77,17.4,21.1,N: 0.08 g/L @ 65 h
+natural,LAB009,0.0,160.0,70,17.6,22.1,N: 0.08 g/L @ 41 h
+natural,LAB010,0.0,186.9999999999418,31,14.9,16.5,N: 0.08 g/L @ 79 h
+natural,LAB011,0.0,162.9999999999418,27,14.9,21.4,N: 0.08 g/L @ 72 h
+natural,LAB012,0.0,162.9999999999418,29,15.0,21.2,N: 0.08 g/L @ 72 h
+synthetic,MS007,0.0,213.0,51,15.0,15.0,N: 0.1 g/L @ 24 h
+synthetic,MS008,0.0,213.0,50,15.0,15.0,N: 0.1 g/L @ 96 h
+synthetic,MS009,0.0,213.0,51,23.0,23.0,N: 0.1 g/L @ 24 h
+synthetic,MS010,0.0,213.5,50,19.0,19.0,N: 0.1 g/L @ 24 h
+synthetic,MS011,0.0,213.5,50,19.0,19.0,N: 0.1 g/L @ 96 h
+synthetic,MS012,0.0,213.5,50,23.0,23.0,N: 0.1 g/L @ 96 h
+synthetic,MS013,0.0,213.0,45,19.0,19.0,N: 0.1 g/L @ 72 h
+synthetic,MS014,0.0,213.0,45,19.0,19.0,N: 0.1 g/L @ 72 h
+synthetic,MS015,0.0,213.0,45,15.0,15.0,N: 0.1 g/L @ 72 h
+synthetic,MS016,0.0,208.0,45,23.0,23.0,N: 0.1 g/L @ 72 h
+synthetic,lot2_F1,0.0,190.0,99,16.6,20.5,N: 0.05 g/L @ 26 h; F: 35 g/L @ 71.8333 h
+synthetic,lot2_F2,0.0,190.0,98,18.7,22.6,
+synthetic,lot2_F3,0.0,168.0,89,17.6,23.4,N: 0.05 g/L @ 26 h; X: 1 g/L @ 50 h

@@ -1,0 +1,10 @@
+state,matrix,wsse_equal_batch_fixed_co2,n_residuals,matrix_gain,co2_refitted
+A_historical,synthetic,19.51560083358501,632,1.459910016356168,False
+A_historical,natural,27.952095190997145,1216,2.139010913120153,False
+A_historical,all,47.46769602458215,1848,,False
+B_full_theta_no_refit,synthetic,27.810252813345052,632,1.459910016356168,False
+B_full_theta_no_refit,natural,54.47286647532228,1216,2.139010913120153,False
+B_full_theta_no_refit,all,82.28311928866734,1848,,False
+C_full_theta_refit,synthetic,18.908939812749626,632,1.1496483931039987,True
+C_full_theta_refit,natural,29.341781101147834,1216,1.54228321334526,True
+C_full_theta_refit,all,48.25072091389746,1848,,True

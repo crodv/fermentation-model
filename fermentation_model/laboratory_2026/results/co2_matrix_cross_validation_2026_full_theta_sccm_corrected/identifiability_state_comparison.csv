@@ -1,0 +1,5 @@
+state,matrix,n_residuals,n_shape_parameters,effective_rank,condition_number_log_parameter_jacobian,smallest_singular_value,largest_singular_value,residual_variance_scale,interpretation
+A_historical,synthetic,632,8,8,29245713.06789899,2.6607393795512816e-07,7.781522044281636,0.031275001335873416,ill_conditioned
+A_historical,natural,1216,8,8,129.77310841124432,0.07874208435198196,10.2186050491371,0.023139151648176443,moderate_or_better
+C_full_theta_refit,synthetic,632,8,8,90760979151.16344,3.373548693260813e-08,3061.865826144793,0.030302788161457733,ill_conditioned
+C_full_theta_refit,natural,1216,8,8,13749519.126085069,8.860414025115339e-07,12.182643210335575,0.02428955389167867,ill_conditioned

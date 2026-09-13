@@ -1,0 +1,4 @@
+quantity,n_rows,max_absolute_difference,mean_absolute_difference
+observed_g_l_h,4178,0.0,0.0
+predicted_g_l_h,4178,5.551115123125783e-16,3.924626465445059e-17
+raw_model_qgas_g_l_h,4178,3.0531133177191805e-16,3.825356281442042e-17

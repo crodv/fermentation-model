@@ -1,0 +1,123 @@
+{
+  "experiment": "co2_matrix_cross_validation_2026_full_theta_sccm_corrected",
+  "model": "solubility_o2_nitrogen_boost_continuous_release",
+  "states": {
+    "A_historical": {
+      "theta": "historical partial CSV plus DEFAULT_THETA fallback",
+      "co2": "saved SCCM-corrected historical CO2 parameters",
+      "fit": false
+    },
+    "B_full_theta_no_refit": {
+      "theta": "complete matrix-specific theta CSV",
+      "co2": "same saved SCCM-corrected historical CO2 parameters as A",
+      "fit": false
+    },
+    "C_full_theta_refit": {
+      "theta": "complete matrix-specific theta CSV",
+      "co2": "nine original CO2-layer parameters recalibrated",
+      "fit": true
+    }
+  },
+  "sccm_conversion": {
+    "name": "SCCM_CORRECTED",
+    "factor_g_l_h_per_sccm_at_2L": 0.0404391928807947,
+    "required_factor": 0.0404391928807947,
+    "MW_CO2_g_mol": 44.0095,
+    "Vm_L_mol": 24.16,
+    "K_CO2": 0.74,
+    "support_policy": "saved corrected observations; historical timestamps and censor mask frozen"
+  },
+  "theta": {
+    "natural": "laboratory_2026/results/estimability_historical_natural/theta_natural_full.csv",
+    "synthetic": "laboratory_2026/results/estimability_historical_synthetic_plus_lot2/theta_synthetic_full.csv",
+    "joint": "shared/results/new_must_glycerol_overnight_validation/theta_multistart_07.csv",
+    "required_parameter_count": 17,
+    "joint_use": "loaded and validated; not used because the original cross-matrix transfer evaluates target-matrix upstream drivers"
+  },
+  "co2_parameters": [
+    "kCO2_release_h",
+    "CO2sat_scale",
+    "O2_qmax_mg_gdw_h",
+    "O2_initial_scale",
+    "pulse_t_rise_h",
+    "pulse_activity_gain",
+    "chem_activation_start_fraction",
+    "chem_activation_duration_fraction",
+    "matrix_gain"
+  ],
+  "parameter_bounds": {
+    "kCO2_release_h": [
+      0.03,
+      25.0
+    ],
+    "CO2sat_scale": [
+      0.35,
+      2.5
+    ],
+    "O2_qmax_mg_gdw_h": [
+      0.15,
+      6.0
+    ],
+    "O2_initial_scale": [
+      0.05,
+      1.5
+    ],
+    "pulse_t_rise_h": [
+      1.0,
+      72.0
+    ],
+    "pulse_activity_gain": [
+      0.25,
+      4.0
+    ],
+    "chem_activation_start_fraction": [
+      0.01,
+      0.95
+    ],
+    "chem_activation_duration_fraction": [
+      0.35,
+      2.0
+    ],
+    "matrix_gain": [
+      0.1,
+      20.0
+    ]
+  },
+  "objective": "unchanged full-profile + onset + post-pulse peak residual, equal batch weighting and left-censor hinge",
+  "n_starts": 5,
+  "max_nfev": 300,
+  "seed": 20260812,
+  "holdouts": {
+    "synthetic": "lot2_F3",
+    "natural": "LAB012"
+  },
+  "excluded_batches": {
+    "LAB001": "discarded: unreliable CO2 implementation/profile",
+    "LAB002": "discarded: unreliable CO2 implementation/profile",
+    "LAB003": "discarded: unreliable CO2 implementation/profile",
+    "LAB009": "discarded: unreliable CO2 implementation/profile",
+    "lot1_F2": "discarded: unreliable CO2 implementation/profile (DOE-F02)"
+  },
+  "historical_co2_parameters_source": "laboratory_2026/results/co2_matrix_cross_validation_2026_sccm_corrected",
+  "historical_results_unchanged": true,
+  "identifiability": {
+    "states": [
+      "A_historical",
+      "C_full_theta_refit"
+    ],
+    "B_full_theta_no_refit": "not applicable because B is deliberately not an optimum",
+    "methods": [
+      "local log-Jacobian",
+      "objective profiles",
+      "leave-one-batch-out"
+    ]
+  },
+  "preserved_out_of_scope": [
+    "natural delta-N 0.14 retained",
+    "density-1040 timing retained",
+    "nitrogen boost retained",
+    "gate and O2 structure retained",
+    "LAB016-LAB018 not introduced"
+  ],
+  "tail_metric": "not added: the established suite has no operational tail definition"
+}

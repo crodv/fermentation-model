@@ -1,0 +1,7 @@
+calibration_matrix,parameter,estimate,lower_bound,upper_bound,active_bound,relative_bound_distance
+synthetic,kCO2_release_h,2.351151080954658,0.03,25.0,False,0.3514971513515476
+synthetic,CO2sat_scale,0.3500000067482265,0.35,2.5,True,9.806480361785304e-09
+synthetic,matrix_gain,1.2468541670331736,0.1,20.0,False,0.4762283251919763
+natural,kCO2_release_h,8.086961952777477,0.03,25.0,False,0.1678141131301129
+natural,CO2sat_scale,0.35000000013633054,0.35,2.5,True,1.9811475912564965e-10
+natural,matrix_gain,0.9172703622368343,0.1,20.0,False,0.41828979332495475

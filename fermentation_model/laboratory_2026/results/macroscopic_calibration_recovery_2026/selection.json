@@ -1,0 +1,23 @@
+{
+  "natural": {
+    "candidate": "natural_historical",
+    "scope": "natural_historical",
+    "wsse": 11672.084819320573,
+    "n": 545,
+    "weighted_rmse": 4.6278147535579635
+  },
+  "synthetic": {
+    "candidate": "synthetic_plus_lot2",
+    "scope": "synthetic_plus_lot2",
+    "wsse": 17876.911229246143,
+    "n": 768,
+    "weighted_rmse": 4.82464798333318
+  },
+  "joint_reference": {
+    "candidate": "multistart_07",
+    "scope": "historical_both",
+    "wsse": 23694.82706405684,
+    "n": 1027,
+    "weighted_rmse": 4.803320324350869
+  }
+}

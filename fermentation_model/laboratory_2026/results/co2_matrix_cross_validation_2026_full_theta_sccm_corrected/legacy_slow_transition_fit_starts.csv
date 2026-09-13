@@ -1,0 +1,11 @@
+matrix,model,start,success,status,nfev,wsse_equal_batch,matrix_gain,message,kCO2_release_h,CO2sat_scale,O2_qmax_mg_gdw_h,O2_initial_scale,pulse_t_rise_h,pulse_activity_gain,chem_activation_start_fraction,chem_activation_duration_fraction
+synthetic,solubility_o2_slow_transition,0,True,2,14,60.00208256584879,1.246856558010856,`ftol` termination condition is satisfied.,2.348593403602335,0.3500000065815617,0.15,1.0,1.0,1.0,0.0,1.0
+synthetic,solubility_o2_slow_transition,1,True,2,17,60.002082250417025,1.246853778329984,`ftol` termination condition is satisfied.,2.351564435592289,0.3500000130275098,0.15,1.0,1.0,1.0,0.0,1.0
+synthetic,solubility_o2_slow_transition,2,True,2,17,60.00208258269925,1.2468565298271728,`ftol` termination condition is satisfied.,2.3486233465435284,0.3500000115763251,0.15,1.0,1.0,1.0,0.0,1.0
+synthetic,solubility_o2_slow_transition,3,True,2,19,60.002082153289976,1.2468539587610499,`ftol` termination condition is satisfied.,2.351373008885227,0.35000000440200746,0.15,1.0,1.0,1.0,0.0,1.0
+synthetic,solubility_o2_slow_transition,4,True,2,18,60.00208212957614,1.2468541670331736,`ftol` termination condition is satisfied.,2.351151080954658,0.3500000067482265,0.15,1.0,1.0,1.0,0.0,1.0
+natural,solubility_o2_slow_transition,0,True,2,40,89.00585502307624,0.9172711631371473,`ftol` termination condition is satisfied.,8.087330034034686,0.35000001098371647,0.15,1.0,1.0,1.0,0.0,1.0
+natural,solubility_o2_slow_transition,1,True,2,22,89.00585506504271,0.9172698001704392,`ftol` termination condition is satisfied.,8.086703492321652,0.3500000000000795,0.15,1.0,1.0,1.0,0.0,1.0
+natural,solubility_o2_slow_transition,2,True,2,13,139.5695800548558,0.6841595908778841,`ftol` termination condition is satisfied.,10.143387900265594,0.35000000000000003,0.15,1.0,1.0,1.0,0.0,1.0
+natural,solubility_o2_slow_transition,3,True,2,26,89.00585520974329,0.9172729981776623,`ftol` termination condition is satisfied.,8.088171121197199,0.3500000198284056,0.15,1.0,1.0,1.0,0.0,1.0
+natural,solubility_o2_slow_transition,4,True,2,27,89.00585498517113,0.9172703622368343,`ftol` termination condition is satisfied.,8.086961952777477,0.35000000013633054,0.15,1.0,1.0,1.0,0.0,1.0
