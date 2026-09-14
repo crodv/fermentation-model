@@ -2,6 +2,35 @@
 
 Reglas para agentes de código que trabajen en este repositorio.
 
+## Historial de modificaciones realizadas por agentes
+
+- Cuando una tarea cree, modifique o elimine archivos relevantes del proyecto —por ejemplo notebooks, scripts, módulos, documentación, pipelines o archivos de configuración—, actualizar al final de la tarea, una vez verificados los cambios, el historial único `fermentation_model/docs/AGENT_CHANGELOG.md`.
+
+- El historial es breve y append-only: no borrar ni reescribir entradas anteriores y no crear un archivo `.md` separado para cada tarea.
+
+- Registrar una sola entrada por tarea completada, no una entrada por archivo, con este formato:
+
+  ```markdown
+  ### YYYY-MM-DD HH:MM TZ
+
+  - Archivos: `<archivo principal>`[, `<otros archivos relevantes>`]
+  - Cambio: resumen breve de los cambios efectivos realizados y, cuando sea útil, su motivo operativo.
+  ```
+
+- Obtener la fecha, hora y zona horaria reales del sistema; no inventarlas.
+
+- Si una tarea modifica un notebook SOURCE y regenera su EXECUTED, incluir ambos en la misma entrada.
+
+- Si una tarea afecta varias partes relacionadas del proyecto, se pueden usar varias viñetas dentro de una única entrada, manteniendo el contenido conciso.
+
+- No registrar tareas de solo lectura o análisis que no modifiquen archivos.
+
+- No incluir razonamientos internos, métricas extensas, análisis científicos largos ni explicaciones innecesarias. Incluir solo el contexto suficiente para comprender qué cambió.
+
+- Si la tarea modifica únicamente `AGENTS.md` o `AGENT_CHANGELOG.md` para mantener esta política, evitar entradas recursivas o innecesarias.
+
+- No reconstruir retrospectivamente el historial ni documentar commits o cambios anteriores, salvo solicitud explícita.
+
 ## Python / Conda environment
 
 - El entorno oficial es `fermentation`.
