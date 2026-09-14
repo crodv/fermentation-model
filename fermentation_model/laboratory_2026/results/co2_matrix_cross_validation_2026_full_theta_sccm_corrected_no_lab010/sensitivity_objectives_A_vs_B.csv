@@ -1,0 +1,7 @@
+scenario,matrix,wsse_equal_batch,support
+A_current_with_LAB010,natural,29.341781101147838,native_fit_support
+A_current_with_LAB010,synthetic,18.908939812749622,native_fit_support
+B_no_LAB010,synthetic,18.908939812749626,native_fit_support
+B_no_LAB010,natural,15.959851000664939,native_fit_support
+A_current_with_LAB010,natural,18.501859050281425,common_six_batch_support
+B_no_LAB010,natural,15.959851000664939,common_six_batch_support

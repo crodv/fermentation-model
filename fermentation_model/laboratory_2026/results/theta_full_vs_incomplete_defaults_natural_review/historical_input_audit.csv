@@ -1,0 +1,10 @@
+batch,role,participated_in_natural_kinetic_calibration,later_CO2_layer_status,n_model_times,t_min_h,t_max_h,temperature_min_c,temperature_max_c,N_pulses,X0,Xd0,N0,G0,F0,E0,Gly0,n_X,n_Xd,n_N,n_G,n_F,n_E,n_Gly
+LAB004,historical calibration replay; NOT holdout,True,not relevant here,89,0.0,163.0,17.7,21.4,68h:0.08,0.3939,0.0092999999999999,0.23076,75.04,70.80999999999999,9.707652,0.99,12,12,13,13,13,5,13
+LAB005,historical calibration replay; NOT holdout,True,not relevant here,89,0.0,163.0,18.0,21.4,68h:0.08,0.4932,0.0158999999999999,0.2272999999999999,77.71,87.95,9.786576,1.09,12,12,13,13,13,5,13
+LAB006,historical calibration replay; NOT holdout,True,not relevant here,114,0.0,211.0,16.0,18.4,99h:0.08,0.0989999999999999,0.0275999999999999,0.22912,81.63,75.81,9.8655,1.17,14,14,15,15,15,5,15
+LAB007,historical calibration replay; NOT holdout,True,not relevant here,82,0.0,160.0,17.4,21.1,65h:0.08,0.2916,0.0008999999999999,0.23904,77.52,74.55,11.759676,0.89,13,13,13,13,13,6,13
+LAB008,historical calibration replay; NOT holdout,True,not relevant here,82,0.0,160.0,17.4,21.1,65h:0.08,0.2534999999999999,0.0033,0.23922,76.21,74.89,9.234108,0.85,13,13,13,13,13,6,13
+LAB009,historical calibration replay; NOT holdout,True,excluded from CO2 layer only,82,0.0,160.0,17.6,22.1,41h:0.08,0.3602999999999999,0.0008999999999999,0.2374,75.75,76.68,9.707652,0.75,12,12,12,12,12,5,12
+LAB010,historical calibration replay; NOT holdout,True,not relevant here,101,0.0,186.9999999999418,14.9,16.5,79h:0.08,0.9609,0.1127999999999999,0.2256999999999999,78.49,77.05,9.313032,1.25,9,9,4,4,4,4,4
+LAB011,historical calibration replay; NOT holdout,True,not relevant here,87,0.0,162.9999999999418,14.9,21.4,72h:0.08,1.0656,0.0380999999999998,0.22024,75.61,76.67,9.313032,1.25,7,7,4,4,4,4,4
+LAB012,historical calibration replay; NOT holdout,True,not relevant here,88,0.0,162.9999999999418,15.0,21.2,72h:0.08,0.8513999999999999,0.1208999999999999,0.22206,75.0,79.88,9.391956,1.27,8,8,4,4,4,4,4

@@ -1,0 +1,19 @@
+theta,batch,n_observations,wsse,weighted_rmse_sigma_units,note,mean_state_nrmse_observed_range
+theta_full,LAB004,81,715.1955508846917,2.9714600287199127,Raw RMSE is not pooled across states with different physical scales; WSSE uses historical sigmas.,0.14900254936190474
+theta_full,LAB005,81,853.9734845780429,3.2469805243725824,Raw RMSE is not pooled across states with different physical scales; WSSE uses historical sigmas.,0.16810594053060043
+theta_full,LAB006,93,1646.0856870117384,4.207118502835452,Raw RMSE is not pooled across states with different physical scales; WSSE uses historical sigmas.,0.19383422013059204
+theta_full,LAB007,84,426.41196250660187,2.2530718778998944,Raw RMSE is not pooled across states with different physical scales; WSSE uses historical sigmas.,0.12772864816532087
+theta_full,LAB008,84,598.3943260165416,2.6690339031918273,Raw RMSE is not pooled across states with different physical scales; WSSE uses historical sigmas.,0.13800598398335032
+theta_full,LAB009,77,834.8526515043853,3.2927560230496398,Raw RMSE is not pooled across states with different physical scales; WSSE uses historical sigmas.,0.14796636956140885
+theta_full,LAB010,38,2028.218297800727,7.305762501724106,Raw RMSE is not pooled across states with different physical scales; WSSE uses historical sigmas.,0.41759304952462134
+theta_full,LAB011,34,2516.8345003043246,8.603751747150646,Raw RMSE is not pooled across states with different physical scales; WSSE uses historical sigmas.,0.5529680425550477
+theta_full,LAB012,36,2052.118358713519,7.550052168166932,Raw RMSE is not pooled across states with different physical scales; WSSE uses historical sigmas.,0.5688802048599457
+theta_incomplete_defaults,LAB004,81,1480.5556311000566,4.2753321018936274,Raw RMSE is not pooled across states with different physical scales; WSSE uses historical sigmas.,0.19267472480168055
+theta_incomplete_defaults,LAB005,81,2047.9461221788938,5.028248746730683,Raw RMSE is not pooled across states with different physical scales; WSSE uses historical sigmas.,0.2150544974312533
+theta_incomplete_defaults,LAB006,93,3154.7488469654722,5.82426223761705,Raw RMSE is not pooled across states with different physical scales; WSSE uses historical sigmas.,0.23624547932232542
+theta_incomplete_defaults,LAB007,84,1697.0533872831531,4.494776581241345,Raw RMSE is not pooled across states with different physical scales; WSSE uses historical sigmas.,0.18715332490872097
+theta_incomplete_defaults,LAB008,84,1934.9630231937601,4.799507692007587,Raw RMSE is not pooled across states with different physical scales; WSSE uses historical sigmas.,0.19716790352613914
+theta_incomplete_defaults,LAB009,77,1923.3159147605722,4.997812397752072,Raw RMSE is not pooled across states with different physical scales; WSSE uses historical sigmas.,0.2186143293828998
+theta_incomplete_defaults,LAB010,38,1529.4515867279847,6.344188361526312,Raw RMSE is not pooled across states with different physical scales; WSSE uses historical sigmas.,0.3714801264762144
+theta_incomplete_defaults,LAB011,34,1944.1098214546219,7.561726035173338,Raw RMSE is not pooled across states with different physical scales; WSSE uses historical sigmas.,0.4042178358031818
+theta_incomplete_defaults,LAB012,36,1536.4940924219757,6.533023148295587,Raw RMSE is not pooled across states with different physical scales; WSSE uses historical sigmas.,0.5106385294382778

@@ -1,0 +1,5 @@
+scenario,matrix,n_residuals,n_shape_parameters,effective_rank,condition_number_log_parameter_jacobian,smallest_singular_value,largest_singular_value,residual_variance_scale,interpretation
+A_current_with_LAB010,synthetic,632,8,8,90760979151.16344,3.373548693260813e-08,3061.865826144793,0.0303027881614577,ill_conditioned
+A_current_with_LAB010,natural,1216,8,8,13749519.126085067,8.860414025115339e-07,12.182643210335575,0.0242895538916786,ill_conditioned
+B_no_LAB010,synthetic,632,8,8,90760979151.16344,3.373548693260813e-08,3061.865826144793,0.030302788161457733,ill_conditioned
+B_no_LAB010,natural,1029,8,8,21549.667741207788,0.05115635278581802,1102.4024053863877,0.01563158765980895,ill_conditioned

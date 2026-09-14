@@ -1,0 +1,3 @@
+theta,n_observations,wsse,weighted_rmse_sigma_units,note,mean_state_nrmse_observed_range,metric_label
+theta_full,608,11672.084819320573,4.381496083133488,Raw RMSE is not pooled across states with different physical scales; WSSE uses historical sigmas.,0.2737872231858658,in-sample calibration replay metrics
+theta_incomplete_defaults,608,17248.638426086487,5.3262999441955,Raw RMSE is not pooled across states with different physical scales; WSSE uses historical sigmas.,0.28147186123229917,in-sample calibration replay metrics

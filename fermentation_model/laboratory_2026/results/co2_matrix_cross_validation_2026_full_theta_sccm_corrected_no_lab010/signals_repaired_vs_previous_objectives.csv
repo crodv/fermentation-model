@@ -1,0 +1,5 @@
+parameter_set,observation_support,wsse_equal_batch
+A_previous_signals,A_previous_signals,24.381874322807125
+A_previous_signals,B_repaired_signals,16.18612732862302
+B_repaired_signals,A_previous_signals,24.513715515258355
+B_repaired_signals,B_repaired_signals,15.959851000664939

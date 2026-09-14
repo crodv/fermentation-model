@@ -1,0 +1,5 @@
+observed,model,direct_observation_function_validated,scored,note
+Carbodoseur dissolved CO2 [g/L],latent dissolved CO2 pool [g/L],False,False,
+offline DO [mg/L],internal depletion-only O2 [mg/L],False,False,
+Brix / density,none,False,False,
+gas-phase CO2,qgas release,False,False,documented unreliable; loaded only for exploratory overlay

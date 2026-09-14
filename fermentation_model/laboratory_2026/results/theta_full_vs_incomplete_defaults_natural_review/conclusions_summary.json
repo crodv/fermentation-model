@@ -1,0 +1,64 @@
+{
+  "historical_replay_is_holdout": false,
+  "historical_labs": [
+    "LAB004",
+    "LAB005",
+    "LAB006",
+    "LAB007",
+    "LAB008",
+    "LAB009",
+    "LAB010",
+    "LAB011",
+    "LAB012"
+  ],
+  "external_holdout_labs": [
+    "LAB013",
+    "LAB014",
+    "LAB015"
+  ],
+  "replay_weighted_rmse": {
+    "theta_full": 4.381496083133488,
+    "theta_incomplete_defaults": 5.3262999441955
+  },
+  "external_weighted_rmse": {
+    "theta_full": 5.888580836386732,
+    "theta_incomplete_defaults": 5.685144041782011
+  },
+  "replay_lower_error_theta": "theta_full",
+  "external_lower_error_theta": "theta_incomplete_defaults",
+  "replay_states_most_changed": [
+    "F",
+    "E",
+    "G"
+  ],
+  "external_states_most_changed": [
+    "F",
+    "G",
+    "Gly"
+  ],
+  "replay_batches_most_changed": [
+    "LAB007",
+    "LAB008",
+    "LAB005"
+  ],
+  "oat_parameter_ranking": {
+    "external holdout": [
+      "sF",
+      "sG",
+      "sN",
+      "qXF",
+      "qXG",
+      "m0"
+    ],
+    "historical calibration replay": [
+      "sF",
+      "sG",
+      "sN",
+      "m0",
+      "qXF",
+      "qXG"
+    ]
+  },
+  "time_limitation": "LAB013–LAB015 use proxy hours from numbered sample 1, not absolute time since inoculation",
+  "optimization_executed": false
+}

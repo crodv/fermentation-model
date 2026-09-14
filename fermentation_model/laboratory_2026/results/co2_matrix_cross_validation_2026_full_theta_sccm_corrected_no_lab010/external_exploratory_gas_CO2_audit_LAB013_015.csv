@@ -1,0 +1,4 @@
+batch,source_file,n_raw,n_hourly,first_time_proxy_h,last_time_proxy_h,sensor_zero_offset_sccm,sccm_factor_g_l_h_per_sccm,used_in_fit,used_in_metrics,reliability
+LAB013,fermentation_model/data/mem2026/LAB013-015/CO2_FILT_F1_LAB013.csv,48809,143,1.375,143.4988888888889,0.0,0.0404391928807947,False,False,documented unreliable; visualization only
+LAB014,fermentation_model/data/mem2026/LAB013-015/CO2_FILT_F2_LAB014.csv,48807,143,1.3805555555555555,143.4988888888889,0.0,0.0404391928807947,False,False,documented unreliable; visualization only
+LAB015,fermentation_model/data/mem2026/LAB013-015/CO2_FILT_F3_LAB015.csv,48806,143,1.3836111111111111,143.4988888888889,0.214,0.0404391928807947,False,False,documented unreliable; visualization only

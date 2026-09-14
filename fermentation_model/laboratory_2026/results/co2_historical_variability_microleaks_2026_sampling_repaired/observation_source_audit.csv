@@ -1,0 +1,9 @@
+LAB,signal_version,sampling_repair_applied,max_abs_change_g_l_h
+LAB004,experimental_repaired_plus_current_smoothing,True,0.45583832336924046
+LAB005,original_current_smoothed,False,0.0
+LAB006,original_current_smoothed,False,0.0
+LAB007,experimental_repaired_plus_current_smoothing,True,0.21463442466107488
+LAB008,experimental_repaired_plus_current_smoothing,True,0.150300290409774
+LAB010,original_current_smoothed,False,0.0
+LAB011,original_current_smoothed,False,0.0
+LAB012,original_current_smoothed,False,0.0

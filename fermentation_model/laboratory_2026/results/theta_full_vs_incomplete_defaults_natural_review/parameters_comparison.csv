@@ -1,0 +1,18 @@
+parameter,theta_full,theta_incomplete_defaults,differs,theta_full_source,theta_incomplete_defaults_source
+mu0,0.0787279167844739,0.0787279167844739,False,estimability_historical_natural/theta.csv (re-estimated natural calibration),same re-estimated natural-calibration value
+sN,8.751445870938538,18.0,True,new_must_glycerol_overnight_validation/theta_multistart_07.csv (fixed during natural calibration),DEFAULT_THETA fallback
+qN,0.0210803824284854,0.0210803824284854,False,estimability_historical_natural/theta.csv (re-estimated natural calibration),same re-estimated natural-calibration value
+qXG,0.0814909864046577,0.1125,True,new_must_glycerol_overnight_validation/theta_multistart_07.csv (fixed during natural calibration),DEFAULT_THETA fallback
+qXF,0.0709327065015376,0.1125,True,new_must_glycerol_overnight_validation/theta_multistart_07.csv (fixed during natural calibration),DEFAULT_THETA fallback
+betaG0,0.4288780029973869,0.4288780029973869,False,estimability_historical_natural/theta.csv (re-estimated natural calibration),same re-estimated natural-calibration value
+sG,0.0974550987386739,0.03,True,new_must_glycerol_overnight_validation/theta_multistart_07.csv (fixed during natural calibration),DEFAULT_THETA fallback
+betaF0,3.440399174765835,3.440399174765835,False,estimability_historical_natural/theta.csv (re-estimated natural calibration),same re-estimated natural-calibration value
+sF,0.1782952055176543,0.03,True,new_must_glycerol_overnight_validation/theta_multistart_07.csv (fixed during natural calibration),DEFAULT_THETA fallback
+qEG,1.712806793770099,1.712806793770099,False,estimability_historical_natural/theta.csv (re-estimated natural calibration),same re-estimated natural-calibration value
+qEF,5.023016750172416,5.023016750172416,False,estimability_historical_natural/theta.csv (re-estimated natural calibration),same re-estimated natural-calibration value
+iG,0.0560374372695645,0.0560374372695645,False,estimability_historical_natural/theta.csv (re-estimated natural calibration),same re-estimated natural-calibration value
+iE,0.0401679409799797,0.0401679409799797,False,estimability_historical_natural/theta.csv (re-estimated natural calibration),same re-estimated natural-calibration value
+Kd0,0.0001502495478967,0.0001502495478967,False,estimability_historical_natural/theta.csv (re-estimated natural calibration),same re-estimated natural-calibration value
+m0,0.0183385793928771,0.01,True,new_must_glycerol_overnight_validation/theta_multistart_07.csv (fixed during natural calibration),DEFAULT_THETA fallback
+gammaG0,0.1155587913675031,0.1155587913675031,False,estimability_historical_natural/theta.csv (re-estimated natural calibration),same re-estimated natural-calibration value
+gammaF0,0.000100001621599,0.000100001621599,False,estimability_historical_natural/theta.csv (re-estimated natural calibration),same re-estimated natural-calibration value

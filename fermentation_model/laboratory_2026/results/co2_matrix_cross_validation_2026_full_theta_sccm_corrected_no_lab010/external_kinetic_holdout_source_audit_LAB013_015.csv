@@ -1,0 +1,14 @@
+source,exists,used_for_state_holdout,used_for_exploratory_gas_plot,relative_path
+offline ledger / Brix / density / DO / dissolved CO2,True,True,False,fermentation_model/data/mem2026/LAB013-015/LAB013-LAB015-offline-measurements.csv
+offline combined ledger + Y15,True,True,False,fermentation_model/data/mem2026/LAB013-015/LAB013-LAB015-offline-combined.csv
+Y15 PI and temporal chemistry,True,True,False,fermentation_model/data/mem2026/LAB013-015/Y15_LAB013-015.csv
+prior t0 audit,True,True,False,fermentation_model/laboratory_2026/notebooks/natural_must_initial_conditions_analysis.ipynb
+LAB013 measured temperature,True,True,False,fermentation_model/data/mem2026/LAB013-015/Temp_F1_LAB013.csv
+LAB013 Oculyze X/Xd,True,True,False,fermentation_model/data/mem2026/LAB013-015/LAB013_OCULYZE/report.csv
+LAB013 gas CO2 — EXCLUDED,True,False,True,fermentation_model/data/mem2026/LAB013-015/CO2_FILT_F1_LAB013.csv
+LAB014 measured temperature,True,True,False,fermentation_model/data/mem2026/LAB013-015/Temp_F2_LAB014.csv
+LAB014 Oculyze X/Xd,True,True,False,fermentation_model/data/mem2026/LAB013-015/LAB014_OCULYZE/report.csv
+LAB014 gas CO2 — EXCLUDED,True,False,True,fermentation_model/data/mem2026/LAB013-015/CO2_FILT_F2_LAB014.csv
+LAB015 measured temperature,True,True,False,fermentation_model/data/mem2026/LAB013-015/Temp_F3_LAB015.csv
+LAB015 Oculyze X/Xd,True,True,False,fermentation_model/data/mem2026/LAB013-015/LAB015_OCULYZE/report.csv
+LAB015 gas CO2 — EXCLUDED,True,False,True,fermentation_model/data/mem2026/LAB013-015/CO2_FILT_F3_LAB015.csv

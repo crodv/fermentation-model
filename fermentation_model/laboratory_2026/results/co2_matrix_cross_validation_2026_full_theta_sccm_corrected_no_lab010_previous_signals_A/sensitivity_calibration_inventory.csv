@@ -1,0 +1,3 @@
+scenario,natural_fit_batches,n_natural_fit_batches,natural_internal_holdout,LAB010_role
+A_current_with_LAB010,"LAB004, LAB005, LAB006, LAB007, LAB008, LAB010, LAB011",7,LAB012,calibration
+B_no_LAB010,"LAB004, LAB005, LAB006, LAB007, LAB008, LAB011",6,LAB012,excluded fit; frozen diagnostic

@@ -1,0 +1,4 @@
+batch,last_chemistry_proxy_h,observed_final_GplusF_g_l,predicted_final_GplusF_g_l,observed_final_YAN_mg_l,predicted_final_N_mg_l,observed_final_Gly_g_l,predicted_final_Gly_g_l,qCO2_effective_peak_proxy_h,qCO2_below_10pct_peak_proxy_h,mean_last12h_qCO2_over_peak,final_qgas_over_peak,absolute_termination_time_valid
+LAB013,53.0,134.95,85.41639273728043,164.0,1.0827171183933619e-09,2.16,4.06262518887102,38.0,,0.2500929631248905,0.3158092470523716,False
+LAB014,53.0,130.70999999999998,85.48232300533518,146.0,4.9240049197671576e-11,2.39,4.124064146187259,37.5,,0.2418196934361446,0.3053392881661306,False
+LAB015,53.0,137.72,79.60116791489324,168.0,5.670831005718403e-13,2.15,4.242828315708366,51.5,142.25,0.15216973344464635,0.22228008526684287,False

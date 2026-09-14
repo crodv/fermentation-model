@@ -1,0 +1,4 @@
+batch,proxy_origin,proxy_definition,first_temperature_log,first_oculyze_process_description,pi_y15_start,pi_y15_end,first_temporal_y15_analysis,nutrition_edges,inoculation_t0_resolved,absolute_onset_valid
+LAB013,2026-08-18 10:00:00,numbered reactor sample 1; NOT inoculation,2026-08-18 11:20:36,18/08/2026 10:00,2026-08-18 11:05:18,2026-08-18 11:16:31,2026-08-18 13:12:58,0,False,False
+LAB014,2026-08-18 10:00:00,numbered reactor sample 1; NOT inoculation,2026-08-18 11:20:50,18/08/2026 10:00,2026-08-18 11:06:06,2026-08-18 11:20:08,2026-08-18 13:13:46,0,False,False
+LAB015,2026-08-18 10:00:00,numbered reactor sample 1; NOT inoculation,2026-08-18 11:21:05,18/08/2026 10:00,2026-08-18 11:08:30,2026-08-18 11:23:44,2026-08-18 13:16:10,0,False,False

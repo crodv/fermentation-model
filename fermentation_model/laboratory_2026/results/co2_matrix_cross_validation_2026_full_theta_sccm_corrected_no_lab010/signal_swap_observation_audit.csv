@@ -1,0 +1,4 @@
+batch,n_rows,n_changed_signal_rows,max_abs_signal_change_g_l_h,integral_old_g_l,integral_new_g_l,left_censored_old,left_censored_new,observation_signal_version
+LAB004,162,51,0.45583832336924046,31.239595572866982,34.33260681484959,65,65,experimental_repaired_plus_current_smoothing
+LAB007,161,53,0.21463442466107482,35.22718595137019,36.15597019325146,60,61,experimental_repaired_plus_current_smoothing
+LAB008,161,57,0.150300290409774,29.956624843238945,29.893660828231262,47,47,experimental_repaired_plus_current_smoothing
