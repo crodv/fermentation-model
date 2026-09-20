@@ -1,0 +1,198 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[spanish,es-nodecimaldot]{babel}
+\usepackage{amsmath,amssymb}
+\usepackage{booktabs,longtable,array}
+\usepackage[justification=centering,font=small]{caption}
+\usepackage[margin=2.2cm]{geometry}
+
+\setlength{\parindent}{0pt}
+\setlength{\jot}{9pt}
+\AtBeginDocument{%
+  \setlength{\abovedisplayskip}{7pt}%
+  \setlength{\belowdisplayskip}{7pt}%
+  \setlength{\abovedisplayshortskip}{4pt}%
+  \setlength{\belowdisplayshortskip}{5pt}%
+}
+\newcommand{\dd}{\mathrm{d}}
+\newcommand{\kgm}{\ensuremath{\mathrm{kg\,m^{-3}}}}
+\newcommand{\gL}{\ensuremath{\mathrm{g\,L^{-1}}}}
+
+\begin{document}
+
+\begin{center}
+{\Large\bfseries Modelo de fermentación y capa CO\textsubscript{2} --- ecuaciones y parámetros}\\[2pt]
+Estado vigente (mosto natural; capa CO\textsubscript{2} canónica SCCM\_CORRECTED). 2026-09-19.
+\end{center}
+
+Estados: $X,X_d$ biomasa viable/muerta, $N$ nitrógeno asimilable, $G,F$ glucosa/fructosa,
+$E$ etanol, $Gly$ glicerol $[\kgm]$. $T$ temperatura $[\mathrm{K}]$ (input medido), $t$ $[\mathrm{h}]$.
+
+\section*{1. Modelo upstream (ODE central)}
+
+Pulsos (canales $N,G,F,E,X$): salto exacto del estado en $t_p$ entre tramos de integración.
+\begin{align}
+\dot X &= (\mu - k_d)\,X \tag{U1}\\
+\dot X_d &= k_d\,X \tag{U2}\\
+\dot N &= -\,q_N\,a_\mu\,\phi_n\,X \tag{U3}\\
+\dot G &= -\Big(q_{XG}\,a_\mu\phi_n + q_{EG}\,f_G + m\,\frac{G}{G+F}\Big)X \tag{U4}\\
+\dot F &= -\Big(q_{XF}\,a_\mu\phi_n + q_{EF}\,f_F + m\,\frac{F}{G+F}\Big)X \tag{U5}\\
+\dot E &= (\beta_G+\beta_F)\,X \tag{U6}\\
+\dot{Gly} &= (\gamma_{G0}\,f_G + \gamma_{F0}\,f_F)\,X \tag{U7}
+\end{align}
+
+\subsection*{Términos cinéticos}
+\begin{align}
+a_\mu &= \exp\!\Big[\tfrac{E_{ac}(T-300)}{300\,R\,T}\Big], \qquad
+a_\beta = \exp\!\Big[\tfrac{E_{afe}(T-296.15)}{296.15\,R\,T}\Big], \qquad
+a_k = \exp\!\Big[\tfrac{E_{ak}(T-293.15)}{293.15\,R\,T}\Big] \tag{U8}\\
+k_n &= \frac{\mu_0}{s_N}a_k, \qquad
+k_G = \frac{\beta_{G0}}{s_G}a_k, \qquad
+k_F = \frac{\beta_{F0}}{s_F}a_k, \qquad
+\imath_e = \frac{\imath_E}{a_k}, \qquad
+\imath_g = \frac{\imath_G}{a_k} \tag{U9}\\
+\phi_n &= \frac{N}{N+k_n}, \qquad
+\phi_G = \frac{G}{G+k_G}, \qquad
+\phi_F = \frac{F}{F+k_F} \tag{U10}\\
+\Phi_E &= \frac{1}{1+\imath_e\,E}, \qquad
+\Phi_{G\to F} = \frac{1}{1+\imath_g\,G} \tag{U11}\\
+\mu &= \mu_0\,a_\mu\,\phi_n \tag{U12}\\
+f_G &\equiv a_\beta\,\phi_G\,\Phi_E, \qquad
+f_F \equiv a_\beta\,\phi_F\,\Phi_{G\to F}\,\Phi_E, \qquad
+\beta_G = \beta_{G0}f_G, \qquad
+\beta_F = \beta_{F0}f_F \tag{U13}\\
+m &= m_0\exp\!\Big[\tfrac{E_{am}(T-293.3)}{293.3\,R\,T}\Big]\cdot\frac{G+F}{G+F+c_m} \tag{U14}\\
+k_d &= \begin{cases}
+K_{d0}\exp\!\Big[C_{de}E+\tfrac{E_{td}(T-305.65)}{305.65\,R\,T}\Big] & T\ge T_D(E)\\
+0 & T<T_D(E)
+\end{cases} \tag{U15}\\
+T_D(E) &= -0.0001\,E^3+0.0049\,E^2-0.1279\,E+315.89 \tag{U16}
+\end{align}
+
+\section*{2. Capa CO\textsubscript{2}}
+
+\begin{align}
+q_{bio} &= \chi_{CO_2/E}\,\max(\beta_G+\beta_F,0)\,X, \qquad
+\chi_{CO_2/E}=\frac{44.01}{2(46.07)}=0.4776 \tag{C1}
+\end{align}
+
+\textbf{Gate de activación química (bracket offline).} $t_U$: primera muestra química con
+$\Delta(G+F)\ge 5$ \gL~o $\Delta E\ge 2$ \gL; $t_L$: muestra anterior.
+\begin{align}
+t_s &= t_L + f_s\,(t_U-t_L), \qquad
+\Delta t_a = f_d\,(t_U-t_L), \qquad
+z = \operatorname{clip}\!\Big(\frac{t-t_s}{\Delta t_a},0,1\Big) \tag{C2}\\
+a_{chem}(t) &= 3z^2-2z^3 \tag{C3}
+\end{align}
+
+\textbf{O\textsubscript{2} (pool interno, Euler; no es estado del central).}
+$O_2(0)=s_{O_2}\,O_{2,sat}(T,E,G,F)$.
+\begin{align}
+u &= q_{O_2,max}\,X\,\frac{O_2}{K_{O_2}+O_2}, \qquad
+O_2 \leftarrow \max\!\big(O_2-\Delta t\,u,\,0\big) \tag{C4}\\
+\phi_{ana} &= \frac{K_{ana}^{h}}{K_{ana}^{h}+O_2^{h}}, \qquad
+f_{ferm} = 0.08+0.92\,\phi_{ana} \tag{C5}\\
+q_{resp} &= \frac{44.01}{32000}\,u \tag{C6}\\
+q_{prod} &= a_{chem}\,\big(q_{bio}\,f_{ferm} + q_{resp}\big) \tag{C7}
+\end{align}
+
+\textbf{Pulso de N (salto + transición de utilización).} Salto exacto
+$N(t_p^+)=N(t_p^-)+\Delta N$ en el central; en la capa, con
+$r(t)=\operatorname{clip}\!\big(\frac{t-t_p}{t_{rise}},0,1\big)$ y contrafactual sin pulso:
+\begin{align}
+X_{eff} &= \max\!\big(X^{sin} + r\,\Delta X,\,0\big) \tag{C8}\\
+g_{act} &= 1+(g_{pulse}-1)\,r \tag{C9}\\
+q_{bio}^{pulso} &= \max\!\big(g_{act}\,q_{bio}^{sin} + r\,\Delta q_{bio},\,0\big) \tag{C10}
+\end{align}
+
+\textbf{CO\textsubscript{2} disuelto (pool, Euler) y liberación continua.}
+\begin{align}
+C^*_{sat} &= 1.69\,e^{-0.032\,(T-20)}\,e^{0.0016\,E}\,e^{-0.0012\,(G+F)}, \qquad
+C_{sat} = s_{sat}\,C^*_{sat} \tag{C11}\\
+f_{rel} &= 0.05+0.95\,\frac{C}{C+C_{sat}}, \qquad
+\hat q_{gas} = \min\!\big(k_C\,C\,f_{rel},\;\; C/\Delta t + q_{prod}\big) \tag{C12}\\
+C &\leftarrow \max\!\big(C+\Delta t\,(q_{prod}-\hat q_{gas}),\,0\big) \tag{C13}
+\end{align}
+
+\textbf{Observación.} $\hat y = g_{m}\,\hat q_{gas}$; la señal observada SCCM se convierte con
+\begin{align}
+\kappa &= \frac{44.0095\cdot 60\cdot 0.74}{1000\cdot 24.16\cdot V} = 0.0404392 \quad (V=2~\mathrm{L})
+\tag{C14}
+\end{align}
+
+\section*{3. Parámetros}
+
+\begin{small}
+\begin{longtable}{@{}l p{6.6cm} p{3.6cm} r@{}}
+\caption{Upstream $\theta$ (mosto natural, congelado)}\\
+\toprule
+Símbolo & Descripción & Unidades & Valor \\
+\midrule
+\endhead
+$\mu_0$ & crecimiento específico máximo (ref.\ 300 K) & $\mathrm{h^{-1}}$ & 0.078728 \\
+$s_N$ & parametriza $k_n$ ($k_{n0}=\mu_0/s_N$) & $\mathrm{h^{-1}\,m^{3}\,kg^{-1}}$ & 8.751446 \\
+$q_N$ & consumo de N asociado a crecimiento & $\mathrm{kg\,N\,kg_X^{-1}\,h^{-1}}$ & 0.021080 \\
+$q_{XG}$ & consumo de G asociado a crecimiento & $\mathrm{kg\,S\,kg_X^{-1}\,h^{-1}}$ & 0.081491 \\
+$q_{XF}$ & consumo de F asociado a crecimiento & $\mathrm{kg\,S\,kg_X^{-1}\,h^{-1}}$ & 0.070933 \\
+$\beta_{G0}$ & producción de E desde G (ref.\ 296.15 K) & $\mathrm{kg\,E\,kg_X^{-1}\,h^{-1}}$ & 0.428878 \\
+$\beta_{F0}$ & producción de E desde F (ref.\ 296.15 K) & $\mathrm{kg\,E\,kg_X^{-1}\,h^{-1}}$ & 3.440399 \\
+$s_G$ & parametriza $k_G$ ($k_{G0}=\beta_{G0}/s_G$) & $\mathrm{kg\,E\,kg_X^{-1}\,h^{-1}\,m^{3}\,kg^{-1}}$ & 0.097455 \\
+$s_F$ & parametriza $k_F$ ($k_{F0}=\beta_{F0}/s_F$) & ídem & 0.178295 \\
+$q_{EG}$ & consumo fermentativo de G & $\mathrm{kg\,S\,kg_X^{-1}\,h^{-1}}$ & 1.712807 \\
+$q_{EF}$ & consumo fermentativo de F & $\mathrm{kg\,S\,kg_X^{-1}\,h^{-1}}$ & 5.023017 \\
+$\imath_G$ & inhibición competitiva G sobre F ($1/K_{IG0}$) & $\mathrm{m^{3}\,kg^{-1}}$ & 0.056037 \\
+$\imath_E$ & inhibición por etanol ($1/K_{IE0}$) & $\mathrm{m^{3}\,kg^{-1}}$ & 0.040168 \\
+$m_0$ & mantenimiento (ref.\ 293.3 K, U14) & $\mathrm{kg\,S\,kg_X^{-1}\,h^{-1}}$ & 0.018339 \\
+$K_{d0}$ & muerte de referencia (U15) & $\mathrm{h^{-1}}$ & 0.000150 \\
+$\gamma_{G0}$ & producción de glicerol desde G & $\mathrm{kg\,Gly\,kg_X^{-1}\,h^{-1}}$ & 0.115559 \\
+$\gamma_{F0}$ & producción de glicerol desde F & $\mathrm{kg\,Gly\,kg_X^{-1}\,h^{-1}}$ & 0.000100 \\
+\bottomrule
+\end{longtable}
+
+\begin{longtable}{@{}l p{5.6cm} p{3.2cm} r r@{}}
+\caption{Capa CO\textsubscript{2} (9 parámetros; canónicos SCCM\_CORRECTED)}\\
+\toprule
+Símbolo & Descripción & Unidades & Natural & Sintético \\
+\midrule
+\endhead
+$k_C$ ($k_{CO2\_release\_h}$) & liberación de CO\textsubscript{2} disuelto (C12) & $\mathrm{h^{-1}}$ & 0.424382 & 3.883746 \\
+$s_{sat}$ & escala de saturación (C11) & $-$ & 0.350040$^{*}$ & 0.425408 \\
+$q_{O_2,max}$ & uptake máximo de O\textsubscript{2} (C4) & $\mathrm{mg\,g_{XD}^{-1}\,h^{-1}}$ & 0.150000$^{*}$ & 0.150164$^{*}$ \\
+$s_{O_2}$ & O\textsubscript{2}(0) relativo a saturación & $-$ & 0.195484 & 0.380416 \\
+$t_{rise}$ & rampa de utilización del pulso (C8--C10) & $\mathrm{h}$ & 64.659221 & 36.500023 \\
+$g_{pulse}$ & ganancia permanente post-pulso (C9) & $-$ & 0.250000$^{*}$ & 1.233338 \\
+$f_s$ & inicio de activación en el bracket (C2) & $-$ & 0.735179 & 0.010004$^{*}$ \\
+$f_d$ & duración de activación / ancho bracket (C2) & $-$ & 1.063783 & 0.350000$^{*}$ \\
+$g_m$ & ganancia empírica de observación (C14) & $-$ & 2.139011 & 1.459910 \\
+\bottomrule
+\end{longtable}
+
+\begin{longtable}{@{}l p{7.4cm} p{4.4cm}@{}}
+\caption{Constantes fijas}\\
+\toprule
+Símbolo & Descripción & Valor \\
+\midrule
+\endhead
+$R$ & constante de los gases & $\mathrm{8.314\,kJ\,kmol^{-1}\,K^{-1}}$ \\
+$E_{ac}$ & activación crecimiento (U8) & $\mathrm{59{,}453\,kJ\,kmol^{-1}}$ \\
+$E_{afe}$ & activación producción de E (U8) & $\mathrm{11{,}000\,kJ\,kmol^{-1}}$ \\
+$E_{ak}$ & activación de $k_n,k_G,k_F,\imath_e,\imath_g$ (U8--U9) & $\mathrm{46{,}055\,kJ\,kmol^{-1}}$ \\
+$E_{am}$ & activación mantenimiento (U14) & $\mathrm{37{,}681\,kJ\,kmol^{-1}}$ \\
+$E_{td}$ & activación muerte térmica (U15) & $\mathrm{130{,}000\,kJ\,kmol^{-1}}$ \\
+$C_{de}$ & constante etanol-muerte (U15) & $\mathrm{0.0415\,m^{3}\,kg^{-1}}$ \\
+$c_m$ & cutoff azúcar-mantenimiento (U14) & $\mathrm{1.0\,kg\,m^{-3}}$ \\
+$K_{O_2}$ & semi-saturación O\textsubscript{2} (C4) & $\mathrm{0.25\,mg\,L^{-1}}$ \\
+$K_{ana}$, $h$ & Hill anaeróbico (C5) & $\mathrm{0.75\,mg\,L^{-1}}$; 2.0 \\
+piso Crabtree & fracción fermentativa mínima (C5) & 0.08 \\
+$\chi_{CO_2/E}$ & CO\textsubscript{2} por etanol (C1) & $\mathrm{0.4776\,g\,g^{-1}}$ \\
+$44.01/32000$ & CO\textsubscript{2} respiratorio por O\textsubscript{2} (C6) & $\mathrm{g\,mg^{-1}}$ \\
+$1.69$, $-0.032$, $0.0016$, $-0.0012$ & coeficientes de $C^*_{sat}$ (C11) & $\gL$; $\mathrm{{}^{\circ}C^{-1}}$; $\mathrm{m^{3}\,kg^{-1}}$ ($\times 2$) \\
+piso liberación & fracción mínima de $f_{rel}$ (C12) & 0.05 \\
+$\Delta t$ & grilla interna de integración de la capa & 0.25 h \\
+$\kappa$ & conversión SCCM (C14) & $\mathrm{0.0404392\,g\,L^{-1}\,h^{-1}\,SCCM^{-1}}$ \\
+\bottomrule
+\end{longtable}
+\end{small}
+
+\end{document}
