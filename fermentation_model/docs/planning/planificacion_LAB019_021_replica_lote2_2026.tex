@@ -1,0 +1,149 @@
+\documentclass[10pt,landscape]{article}
+\usepackage[margin=1.6cm]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[spanish,es-noshorthands]{babel}
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage{longtable}
+\usepackage{array}
+\usepackage{xcolor}
+\usepackage{colortbl}
+\usepackage{ragged2e}
+\definecolor{prim}{HTML}{1B2A4A}
+\definecolor{primlight}{HTML}{D6E4F0}
+\definecolor{gris}{HTML}{F7F7F5}
+\newcolumntype{L}[1]{>{\RaggedRight\arraybackslash}p{#1}}
+\renewcommand{\arraystretch}{1.25}
+\setlength{\aboverulesep}{0pt}
+\setlength{\belowrulesep}{0pt}
+\title{\textcolor{prim}{Planificación LAB019--021: réplica del Lote 2 (LAB004--006)}\\[2pt]\large Vendimia 2026 --- mosto natural, escala laboratorio}
+\author{}
+\date{20/09/2026 (v2: Carbodoseur + tiempos de procesamiento)}
+\begin{document}
+\maketitle
+\thispagestyle{empty}
+\vspace{-1.2cm}
+
+\section{Objeto y contexto}
+Se replica el lote LAB004--LAB006 (mosto natural \emph{Sauvignon blanc}, levadura Zymaflore X5, reactores R-2L de 2 L) del 6--15 de abril de 2026, cuya implementación de medición de CO$_2$ presentó fugas y fue descartada del análisis (\texttt{EXCLUDED\_BATCHES}). Con el sistema de CO$_2$ correctamente conectado y verificado, se repiten los perfiles de temperatura y nutrición originales para obtener una serie continua confiable sobre el mismo diseño experimental, y se agrega la medición de CO$_2$ disuelto con \textbf{Carbodoseur} en eventos clave (observabilidad del pool de CO2 disuelto del modelo).
+
+\textbf{Correspondencia:} LAB019 = R-2L-01 (F1), Protocolo A, réplica de LAB004; LAB020 = R-2L-02 (F2), Protocolo A, réplica de LAB005; LAB021 = R-2L-03 (F3), Protocolo C, réplica de LAB006. La condición A lleva 2 réplicas (F1/F2) y la C es la fermentación de contraste (arranque frío), igual que en el lote original.
+
+\section{Análisis de los experimentos originales}
+De las hojas \texttt{Eventos\_operacion}, \texttt{Perfiles\_temperatura} y \texttt{LAB004..LAB006} del workbook homologado:
+
+\begin{table}[h]\centering
+\begin{tabular}{L{6.2cm} L{7.5cm} L{7.5cm}}
+\toprule
+\rowcolor{primlight}\textbf{Hito} & \textbf{Protocolo A (LAB004/005)} & \textbf{Protocolo C (LAB006)} \\
+\midrule
+Pulso nutricional 2 (densidad 1040) & t=51 h (mié 08/04 16:00) & t=75 h (jue 09/04 16:00) \\
+Cambio de T 1 & 21\,\textdegree C a t=99 h & 18\,\textdegree C a t=123 h \\
+Cambio de T 2 & 16\,\textdegree C a t=171 h & 21\,\textdegree C a t=219 h \\
+Fermentación seca (GF$<$4 g/L) & t$\approx$122--146 h & t$\approx$170--194 h \\
+Última muestra del original & t=163 h (13 muestras) & t=211 h (15 muestras) \\
+Duración total & $\approx$163 h ($\approx$6.8 días) & $\approx$211 h ($\approx$8.8 días) \\
+Grilla original & 2 muestras/día hábil (08:00 y 15:00) + sábado y domingo & ídem, extendida un día más \\
+\bottomrule
+\end{tabular}
+\caption{Hitos de los experimentos originales (LAB004--006, siembra lunes 06/04/2026 13:00).}
+\end{table}
+
+Con $t_0$ = lunes 21/09 a las 16:00: \textbf{A} seca entre el sábado 26 y el domingo 27/09 (t=122--146 h), fin del protocolo el lunes 28/09 a mediodía (t=163 h); \textbf{C} seca entre el lunes 28 y el martes 29/09 por la tarde (t=170--194 h), fin del protocolo el miércoles 30/09 (t=211 h). \textbf{La campaña completa cierra el jueves 01/10/2026} (muestra condicional + desmontaje).
+
+\section{Anclas temporales y definiciones}
+\begin{itemize}\setlength{\itemsep}{1pt}
+\item \textbf{PI (pre-inóculo):} muestra del mosto antes de inocular, lunes 15:30. Sin Oculyze. Cierra la deuda de $E_0$/YAN$_0$ y da la condición inicial del pool de CO$_2$ disuelto (en agosto el mosto arrancó con $\approx$430--470 mg/L, mientras el modelo hoy inicializa el pool en 0).
+\item \textbf{t$_0$:} lunes 21/09/2026 \textbf{16:00}, fin del pulso de inoculación de la bomba peristáltica (programada 15:55$\rightarrow$16:00, $\approx$4--5 min). Todos los tiempos $t$ [h] se miden desde t$_0$.
+\item El par PI/t$_0$ (15:30 / 16:10) queda a 40 min: única excepción a la separación mínima, por ser el par ancla pre/post inoculación (y duplicado de método para el Carbodoseur).
+\item \textbf{Visitas y procesamiento:} cada visita demora \textbf{$\approx$1.5--2 h} (3 fermentadores $\times$ Y15, Oculyze, Carbodoseur, Brix, densidad, DO). Visitas a las \textbf{08:30} (listo $\sim$10:30) y \textbf{14:30} (listo $\sim$16:30, con margen antes de la limpieza de 17:00); viernes solo 08:30 (salida 12:30). Fin de semana sin personal.
+\end{itemize}
+
+\section{Perfiles de temperatura (programados en baños/controladores)}
+\begin{table}[h]\centering
+\begin{tabular}{L{3.4cm} L{1.8cm} L{2.6cm} L{1.8cm} L{3.1cm} L{7.6cm}}
+\toprule
+\rowcolor{primlight}\textbf{Reactor} & \textbf{Fase} & \textbf{Setpoint} & \textbf{t [h]} & \textbf{Fecha-hora} & \textbf{Nota} \\
+\midrule
+LAB019/020 (A) & 1 & 18 \textdegree C & 0 & lun 21/09 16:00 & Setpoint inicial; mosto cargado ya equilibrado \\LAB019/020 (A) & 2 & 21 \textdegree C & 99 & vie 25/09 19:00 & Automático, sin personal (réplica exacta del original) \\LAB019/020 (A) & 3 & 16 \textdegree C & 171 & lun 28/09 19:00 & Automático (réplica exacta del original) \\LAB021 (C) & 1 & 16 \textdegree C & 0 & lun 21/09 16:00 & Setpoint inicial \\LAB021 (C) & 2 & 18 \textdegree C & 123 & s\'ab 26/09 19:00 & Automático, fin de semana (réplica exacta) \\LAB021 (C) & 3 & 21 \textdegree C & 219 & mi\'e 30/09 19:00 & Automático (réplica exacta del original) \\
+\bottomrule
+\end{tabular}
+\caption{Los tiempos replican exactamente los ejecutados en LAB004--006 (Eventos\_operacion).}
+\end{table}
+
+\section{Nutrición (automatizada con bomba peristáltica)}
+\begin{itemize}\setlength{\itemsep}{1pt}
+\item \textbf{Pulso 1 (con la inoculación):} Springferm Xtrem 1.00 g + FDA 0.40 g por reactor, \emph{dentro del inóculo} (50\% del suplemento total; igual en A y C). Lunes 15:55$\rightarrow$16:00.
+\item \textbf{Pulso 2 (A):} igual dosis, t=51 h $\Rightarrow$ \textbf{mié 23/09 19:00}. El original lo aplicó al cruzar densidad 1040 (LAB004: 1044.3 g/L en t=50 h). \emph{Contingencia:} si la densidad de la muestra -05 (mié 14:30) es $\geq$1052 g/L, reprogramar a jue 08:30; si es $\leq$1036 g/L, adelantar a mié 16:30.
+\item \textbf{Pulso 2 (C):} igual dosis, t=75 h $\Rightarrow$ \textbf{jue 24/09 19:00} (LAB006: densidad 1040.0 g/L en t=74 h). \emph{Contingencia:} si densidad(-07, jue 14:30) $\geq$1048 g/L $\rightarrow$ vie 08:30; si $\leq$1032 g/L $\rightarrow$ jue 16:30.
+\item Verificar en el log de la bomba (flanco de caída) la ejecución de cada pulso a la mañana siguiente.
+\end{itemize}
+
+\section{Plan de muestreo}
+Dos visitas completas por día hábil (\textbf{08:30 y 14:30}; el viernes solo 08:30), muestreando los tres reactores en cada visita, más un \textbf{mini-muestreo el martes a las 11:45} (solo Carbodoseur + densidad/Brix/DO, sin Y15/Oculyze/Alcolyzer, $\approx$15--20 min): separación intra-día 6 h (2.75--3.25 h con el mini), entre días 18 h. Análisis por visita completa: \textbf{Y15} (glucosa, fructosa, PAN, NH$_4\rightarrow$YAN, glicerol), \textbf{Alcolyzer} (etanol), \textbf{Oculyze} (queda en su software), \textbf{densidad + Brix + DO} (medidor portátil). El etanol se mide en todas las muestras completas (el original solo en $\approx$5), con prioridad PI y t$_0$.
+
+\subsection*{Carbodoseur (CO$_2$ disuelto) — 8 eventos fijos + 1 condicional}
+\begin{itemize}\setlength{\itemsep}{1pt}
+\item \textbf{Eventos:} PI, -01, -02, -02B (mini), -05, -06, -09, -14 fijos; -15 si se toma ($\approx$100 mL por lectura, $\approx$0.8--0.9 L por reactor en total).
+\item \textbf{Por qué estos puntos:} IC del pool en PI/t0 (el modelo hoy parte en 0 y el mosto real arrancó con $\sim$450 mg/L); trayectoria pre-onset con tres puntos el martes (16.5 / 19.75 / 22.5 h) y respuesta post-pulso (-06), donde las variantes \emph{threshold} vs \emph{continuous release} del modelo divergen; meseta (-05) para el nivel del pool vs Csat; -09 y el par -14/-15 flanqueando los cambios de setpoint para validar Csat(T).
+\item \textbf{Protocolo:} tomar SIEMPRE la primera alícuota, directo del puerto y sin burbujear; anotar \emph{volumen remanente} (mL) y T de medición en la planilla de registro; el CO$_2$ disuelto se completa después con la tabla digitalizada. Leer DO en la misma visita.
+\item \textbf{Volumen:} presupuesto total $\approx$0.8--0.9 L (Carbodoseur) + $\approx$0.4--0.6 L (química) por reactor ($\approx$65--75\% del batch). Registrar volumen acumulado; si se vuelve crítico, las lecturas de -14/-15 son las primeras a suspender.
+\end{itemize}
+
+{\footnotesize
+\begin{longtable}{c L{2.2cm} L{1.6cm} c L{1.9cm} L{1.9cm} L{1.9cm} c c L{5.8cm}}
+\toprule
+\rowcolor{primlight}\textbf{N$^\circ$} & \textbf{Fecha-hora} & \textbf{Día} & \textbf{t [h]} & \textbf{LAB019 (F1)} & \textbf{LAB020 (F2)} & \textbf{LAB021 (F3)} & \textbf{Carbo} & \textbf{Sep.} & \textbf{Nota} \\
+\midrule
+\endfirsthead
+\toprule
+\rowcolor{primlight}\textbf{N$^\circ$} & \textbf{Fecha-hora} & \textbf{Día} & \textbf{t [h]} & \textbf{LAB019 (F1)} & \textbf{LAB020 (F2)} & \textbf{LAB021 (F3)} & \textbf{Carbo} & \textbf{Sep.} & \textbf{Nota} \\
+\midrule
+\endhead
+1 & 21/09 15:30 & lun & -- & PI & PI & PI & SÍ & -- & Pre-inóculo (muestra del mosto antes de inocular): cierra la deuda de E0/YAN0 y da la IC del pool de CO2 disuelto ($\neq$0) \\2 & 21/09 16:10 & lun & 0.17 & 01 & 01 & 01 & SÍ & 0.67* & Muestra t=0. Par ancla PI/t0 (40 min): excepción documentada a la separación mínima; duplica la IC del pool y estima la precisión del Carbodoseur \\3 & 22/09 08:30 & mar & 16.5 & 02 & 02 & 02 & SÍ & 16.33 & Fase de latencia/adaptación (CO2 detectable desde \textasciitilde{}8-10 h). Ventana de onset: discrimina acumulación previa (threshold) vs emisión temprana (continuous) \\4 & 22/09 11:45 & mar & 19.75 & 02B & 02B & 02B & SÍ & 3.25 & Punto intermedio de la trayectoria del pool pre-onset: día martes queda 16.5 / 19.75 / 22.5 h. \textasciitilde{}15-20 min; no interfiere con el almuerzo ni la visita de las 14:30 \\5 & 22/09 14:30 & mar & 22.5 & 03 & 03 & 03 & -- & 2.75 & Inicio de fase exponencial \\6 & 23/09 08:30 & mié & 40.5 & 04 & 04 & 04 & -- & 18 & Crecimiento exponencial; previo al pulso 2 de A (mié 19:00) \\7 & 23/09 14:30 & mié & 46.5 & 05 & 05 & 05 & SÍ & 6 & Última muestra antes del pulso 2 de A (19:00). Meseta exponencial: nivel del pool vs Csat. Contingencia: densidad esperada \textasciitilde{}1044 g/L (LAB004 t=50 h) \\8 & 24/09 08:30 & jue & 64.5 & 06 & 06 & 06 & SÍ & 18 & 13.5 h post-pulso A: respuesta del pool al pulso. Verificar en el log que la bomba ejecutó el pulso \\9 & 24/09 14:30 & jue & 70.5 & 07 & 07 & 07 & -- & 6 & Última muestra antes del pulso 2 de C (jue 19:00). Contingencia: densidad esperada \textasciitilde{}1040 g/L (LAB006 t=74 h) \\10 & 25/09 08:30 & vie & 88.5 & 08 & 08 & 08 & -- & 18 & 13.5 h post-pulso C; cierre de semana (salida viernes 12:30) \\11 & 28/09 08:30 & lun & 160.5 & 09 & 09 & 09 & SÍ & 72 & Post-fin de semana: A seca esperada (t=122-146 h). Post-cambios T (A 21 \textdegree{}C, C 18 \textdegree{}C): valida Csat(T). Descargar/respaldar datos \\12 & 28/09 14:30 & lun & 166.5 & 10 & 10 & 10 & -- & 6 & Confirmación de sequedad A (GF<2 g/L en 2 muestras seguidas da por terminados LAB019/020) \\13 & 29/09 08:30 & mar & 184.5 & 11 & 11 & 11 & -- & 18 & Muestra final de A (condicional); C en fase final \\14 & 29/09 14:30 & mar & 190.5 & 12 & 12 & 12 & -- & 6 & Cercanía a sequedad de C (LAB006: GF=4.7 g/L a t=170 h) \\15 & 30/09 08:30 & mié & 208.5 & 13 & 13 & 13 & -- & 18 & C casi seca (LAB006: GF=0.9 g/L a t=194 h) \\16 & 30/09 14:30 & mié & 214.5 & 14 & 14 & 14 & SÍ & 6 & Fase final de C, 4.5 h antes de su salto a 21 \textdegree{}C (19:00): par pre/post de Csat(T) con -15 \\17 & 01/10 08:30 & jue & 232.5 & --- & --- & -15 & cond & 18 & Solo LAB021 y solo si GF(-14) > 2 g/L; 13 h después del salto a 21 \textdegree{}C de C: cierre del par térmico. Luego desmontaje y cierre de campaña \\
+\bottomrule
+\end{longtable}
+}
+\footnotesize *Par ancla PI/t$_0$ (excepción documentada). Sep.\ = horas desde la visita anterior. Carbo = lectura de Carbodoseur (CO$_2$ disuelto); cond = solo si se toma -15.
+
+\subsection*{Criterios de término}
+\begin{itemize}\setlength{\itemsep}{1pt}
+\item \textbf{LAB019/020 (A):} GF $<$ 2 g/L en dos muestras consecutivas (esperado -09/-10, lunes 28/09); el martes 29 a las 14:30 se vacían y desmontan F1/F2 si se confirma; -11 queda solo para LAB021.
+\item \textbf{LAB021 (C):} GF $<$ 2 g/L en dos consecutivas (esperado -13/-14, miércoles 30/09); -15 (jueves 01/10 08:30) solo si GF(-14) $>$ 2 g/L.
+\item \textbf{Ventana ciega de fin de semana:} la sequedad de A (t=122--146 h) ocurrirá entre el sábado y el domingo sin muestreo; la señal continua de CO$_2$ ---justo lo que esta réplica corrige--- cubre el intervalo.
+\end{itemize}
+
+\section{Cronograma día a día}
+{\footnotesize
+\renewcommand{\arraystretch}{1.15}
+\begin{longtable}{L{1.7cm} L{1.2cm} L{1.1cm} c L{4.6cm} L{1.6cm} L{1.7cm} L{7.2cm}}
+\toprule
+\rowcolor{primlight}\textbf{Fecha} & \textbf{Día} & \textbf{Hora} & \textbf{t [h]} & \textbf{Evento} & \textbf{Reactores} & \textbf{Tipo} & \textbf{Detalle} \\
+\midrule
+\endfirsthead
+\toprule
+\rowcolor{primlight}\textbf{Fecha} & \textbf{Día} & \textbf{Hora} & \textbf{t [h]} & \textbf{Evento} & \textbf{Reactores} & \textbf{Tipo} & \textbf{Detalle} \\
+\midrule
+\endhead
+21/09 & lun & 08:30 &  & Verificación del sistema CO2 sin fugas & F1,F2,F3 & Preparación & Prueba de presión/agua jabonosa en todas las conexiones y trampas; zero-check de sensores; comparar baseline F1 vs F2/F3 \\21/09 & lun & 10:00 &  & Calibración de bombas peristálticas & F1,F2,F3 & Preparación & Verificar caudal/volumen de las bombas de inóculo y nutrición; cargar programas de la semana \\21/09 & lun & 10:00 &  & Baños/controladores a setpoint inicial & F1,F2,F3 & Preparación & F1,F2: 18 \textdegree{}C; F3: 16 \textdegree{}C (para que el mosto llegue equilibrado a t0) \\21/09 & lun & 11:00 &  & Preparación de dosis, inóculo y material & F1,F2,F3 & Preparación & Pesar Springferm Xtrem (1.00 g/dosis) y FDA (0.40 g/dosis); rehidratar inóculo Zymaflore X5; tubos, etiquetas, hielo; Y15 y Alcolyzer operativos; imprimir planilla de registro; iniciar loggers CO2/T \\21/09 & lun & 14:30 &  & Carga y homogeneización del mosto & F1,F2,F3 & Preparación & Mosto natural Sauvignon blanc, 2 L por reactor; registrar volumen y temperatura \\21/09 & lun & 15:30 &  & MUESTRA PI (pre-inóculo) + Carbodoseur & F1,F2,F3 & Muestreo & Carbodoseur primero (\textasciitilde{}100 mL/reactor), luego panel. Y15 de PI puede procesarse mientras corre la inoculación \\21/09 & lun & 15:40 &  & Carga de inóculo + suplemento en línea de bomba & F1,F2,F3 & Preparación & El suplemento del pulso 1 va dentro del inóculo \\21/09 & lun & 15:55 &  & Inoculación automatizada (pulso 1) & F1,F2,F3 & Automático & Bomba peristáltica 15:55$\rightarrow$16:00 (\textasciitilde{}4-5 min, ref. LAB016-018: 232-246 s) \\21/09 & lun & 16:00 & 0 & t0 = fin de la inoculación & F1,F2,F3 & Automático & Ancla temporal de toda la campaña \\21/09 & lun & 16:10 & 0.17 & MUESTRA -01 (t=0) + Carbodoseur & F1,F2,F3 & Muestreo & Panel completo; lunes ajustado (PI y t0 en \textasciitilde{}2 h): si no alcanza, Y15 restante en la tarde-jueves \\21/09 & lun & 16:15 & 0.25 & Verificación inicial de trazas & F1,F2,F3 & Verificación & Confirmar que CO2/T están registrando y que la bomba logueó la inoculación; 17:00-17:30 limpieza diaria \\22/09 & mar & 08:30 & 16.5 & MUESTRA -02 (t=16.5 h) + Carbodoseur & F1,F2,F3 & Muestreo & Fase de latencia/adaptación (CO2 detectable desde \textasciitilde{}8-10 h). Ventana de onset: discrimina acumulación previa (threshold) vs emisión temprana (continuous) \\22/09 & mar & 11:45 & 19.75 & MINI-MUESTRA -02B (t=19.75 h) + Carbodoseur & F1,F2,F3 & Muestreo & Punto intermedio de la trayectoria del pool pre-onset: día martes queda 16.5 / 19.75 / 22.5 h. \textasciitilde{}15-20 min; no interfiere con el almuerzo ni la visita de las 14:30 \\22/09 & mar & 14:30 & 22.5 & MUESTRA -03 (t=22.5 h) & F1,F2,F3 & Muestreo & Inicio de fase exponencial \\23/09 & mié & 08:30 & 40.5 & MUESTRA -04 (t=40.5 h) & F1,F2,F3 & Muestreo & Crecimiento exponencial; previo al pulso 2 de A (mié 19:00) \\23/09 & mié & 14:30 & 46.5 & MUESTRA -05 (t=46.5 h) + Carbodoseur & F1,F2,F3 & Muestreo & Última muestra antes del pulso 2 de A (19:00). Meseta exponencial: nivel del pool vs Csat. Contingencia: densidad esperada \textasciitilde{}1044 g/L (LAB004 t=50 h) \\23/09 & mié & 19:00 & 51 & Pulso nutricional 2 — condición A & F1,F2 & Automático & Springferm Xtrem 1.00 g + FDA 0.40 g por reactor (t=51 h; original: densidad 1040) \\24/09 & jue & 08:30 & 64.5 & MUESTRA -06 (t=64.5 h) + Carbodoseur & F1,F2,F3 & Muestreo & 13.5 h post-pulso A: respuesta del pool al pulso. Verificar en el log que la bomba ejecutó el pulso \\24/09 & jue & 08:30 & 64.5 & Verificar log: pulso 2 de A ejecutado & F1,F2 & Verificación & Revisar flanco de la bomba en el logger (análogo a nutricion\_activa de LAB016-018) \\24/09 & jue & 14:30 & 70.5 & MUESTRA -07 (t=70.5 h) & F1,F2,F3 & Muestreo & Última muestra antes del pulso 2 de C (jue 19:00). Contingencia: densidad esperada \textasciitilde{}1040 g/L (LAB006 t=74 h) \\24/09 & jue & 19:00 & 75 & Pulso nutricional 2 — condición C & F3 & Automático & Springferm Xtrem 1.00 g + FDA 0.40 g (t=75 h; original: densidad 1040) \\25/09 & vie & 08:30 & 88.5 & MUESTRA -08 (t=88.5 h) & F1,F2,F3 & Muestreo & 13.5 h post-pulso C; cierre de semana (salida viernes 12:30) \\25/09 & vie & 08:30 & 88.5 & Verificar log: pulso 2 de C ejecutado & F3 & Verificación & Ídem \\25/09 & vie & 11:30 & 91.5 & Cierre de fin de semana & F1,F2,F3 & Verificación & Confirmar programación del setpoint F3 (sáb 19:00), capacidad de loggers hasta el lunes y bombas sin eventos pendientes; 12:00-12:30 limpieza y salida \\25/09 & vie & 19:00 & 99 & Setpoint 21 \textdegree{}C (A) & F1,F2 & Automático & t=99 h (réplica exacta del original) \\\rowcolor{gris} 26/09 & sáb & 00:00 &  & Fin de semana sin personal & F1,F2,F3 & Sin personal & Sábado y domingo: logging continuo CO2/T; único evento: setpoint F3 18 \textdegree{}C (sáb 19:00, automático). Ventana ciega de muestreo: la sequedad de A (t=122-146 h) ocurrirá aquí; el CO2 continuo sin fugas cubre el intervalo \\\rowcolor{gris} 26/09 & sáb & 19:00 & 123 & Setpoint 18 \textdegree{}C (C) & F3 & Automático & t=123 h (réplica exacta del original) \\28/09 & lun & 08:30 & 160.5 & MUESTRA -09 (t=160.5 h) + Carbodoseur & F1,F2,F3 & Muestreo & Post-fin de semana: A seca esperada (t=122-146 h). Post-cambios T (A 21 \textdegree{}C, C 18 \textdegree{}C): valida Csat(T). Descargar/respaldar datos \\28/09 & lun & 08:30 & 160.5 & Verificar cambios T del finde + respaldo & F1,F2,F3 & Verificación & Confirmar setpoint 21 \textdegree{}C en F1/F2 (vie 19:00) y 18 \textdegree{}C en F3 (sáb 19:00); descargar y respaldar datos \\28/09 & lun & 14:30 & 166.5 & MUESTRA -10 (t=166.5 h) & F1,F2,F3 & Muestreo & Confirmación de sequedad A (GF<2 g/L en 2 muestras seguidas da por terminados LAB019/020) \\28/09 & lun & 19:00 & 171 & Setpoint 16 \textdegree{}C (A) & F1,F2 & Automático & t=171 h (réplica exacta del original) \\29/09 & mar & 08:30 & 184.5 & MUESTRA -11 (t=184.5 h) & F1,F2,F3 & Muestreo & Muestra final de A (condicional); C en fase final \\29/09 & mar & 14:30 & 190.5 & MUESTRA -12 (t=190.5 h) & F1,F2,F3 & Muestreo & Cercanía a sequedad de C (LAB006: GF=4.7 g/L a t=170 h) \\29/09 & mar & 14:30 & 190.5 & Si LAB019/020 confirmadas secas: vaciar F1/F2 & F1,F2 & Cierre & Criterio: GF<2 g/L en 2 muestras consecutivas (-09/-10) \\30/09 & mié & 08:30 & 208.5 & MUESTRA -13 (t=208.5 h) & F1,F2,F3 & Muestreo & C casi seca (LAB006: GF=0.9 g/L a t=194 h) \\30/09 & mié & 14:30 & 214.5 & MUESTRA -14 (t=214.5 h) + Carbodoseur & F1,F2,F3 & Muestreo & Fase final de C, 4.5 h antes de su salto a 21 \textdegree{}C (19:00): par pre/post de Csat(T) con -15 \\30/09 & mié & 14:30 & 214.5 & Desmontaje F1/F2 (si no se hizo el martes) & F1,F2 & Cierre & Limpieza de reactores liberados \\30/09 & mié & 19:00 & 219 & Setpoint 21 \textdegree{}C (C) & F3 & Automático & t=219 h (réplica exacta del original) \\01/10 & jue & 08:30 & 232.5 & MUESTRA -15 (condicional, solo LAB021) + Carbodoseur & F3 & Muestreo & Solo si GF(-14) > 2 g/L \\01/10 & jue & 09:30 & 233.5 & Cierre de campaña & F1,F2,F3 & Cierre & Desmontaje F3, descarga y respaldo final de datos, limpieza del laboratorio \\
+\bottomrule
+\end{longtable}
+}
+
+\section{Restricciones y contingencias}
+\begin{itemize}\setlength{\itemsep}{1pt}
+\item \textbf{Horarios y procesamiento:} lun--jue 8:00--17:30 con visitas 08:30 y 14:30; cada visita $\approx$1.5--2 h de proceso (08:30$\rightarrow\sim$10:30; 14:30$\rightarrow\sim$16:30, margen antes de la limpieza de 17:00). Viernes 08:00--12:30 (visita 08:30). Fin de semana sin personal.
+\item \textbf{Separación entre muestras:} mínimo 2 h (piso 1.5 h); el plan usa 6 h intra-día y 18 h entre días. Única excepción: el par PI/t$_0$ del lunes.
+\item \textbf{Mosto retrasado:} si no está listo a las 15:30, correr PI y t$_0$ (p.\,ej.\ mosto 16:00 $\rightarrow$ PI 16:00, t$_0$ 16:30) y desplazar \emph{todos} los eventos automáticos por el mismo desfase, manteniendo los tiempos $t$ [h].
+\item \textbf{Fugas CO$_2$:} verificación con presión/jabón el lunes a.\,m.; revisar trazas a diario (caída a cero o asimetría F1 vs F2/F3 son señales de fuga).
+\item \textbf{Carbodoseur:} primera alícuota de cada visita marcada, sin burbujear; anotar volumen remanente y T; CO$_2$ después con la tabla digitalizada; $\approx$100 mL por lectura; vigilar volumen acumulado por reactor.
+\item \textbf{Trazabilidad:} nombrar canales LAB019/020/021 antes del lunes 16:00; registrar la hora exacta de cada flanco de bomba; descargar y respaldar datos el lunes 28 a.\,m.\ y al cierre.
+\end{itemize}
+
+\vspace{4pt}
+{\sloppy
+\noindent\begin{minipage}{\linewidth}
+\textcolor{gray}{\footnotesize Fuentes: \texttt{mosto\_natural\_xthiol.xlsx} (hojas \texttt{Eventos\_operacion}, \texttt{Perfiles\_temperatura}, \texttt{LAB004..LAB006}); \texttt{Planilla\_Maestra\_ID\_2026\_14\_07\_26.xlsx}; \texttt{docs/natural\_must\_temporal\_audit\_LAB001\_018.md}; \texttt{docs/natural\_must\_model\_calibration\_and\_estimator\_readiness\_2026.md} (CO2sat\_scale en cota inferior; Carbodoseur LAB013--015). Registro de mediciones: \texttt{registro\_muestras\_LAB019\_021\_2026.xlsx}.}
+\end{minipage}\par}
+\end{document}
