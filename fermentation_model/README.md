@@ -38,8 +38,9 @@ belong to a workflow-owned results directory.
   natural) from historical and 2026 DOE data by the
   `laboratory_2026/run_estimability_*` runners.
 - The CO2 response layer is calibrated afterwards on top of those upstream
-  drivers by `run_co2_matrix_cross_validation_2026.py`, reusing the
-  `pilot_2025` CO2 solubility model.
+  drivers by `run_co2_matrix_cross_validation_2026_full_theta.py`, reusing the
+  `pilot_2025` CO2 solubility model. The similarly named runner without the
+  `_full_theta` suffix is retained as the historical partial-theta baseline.
 - Current work is oriented primarily to natural must, cross-matrix validation
   and hold-out assessment with the 2026 batches.
 
@@ -67,11 +68,44 @@ no generic `results/` directory. This makes ownership visible from the path.
 
 ### CO2 cross-matrix calibration and validation (current focus)
 
-- Runner: `laboratory_2026/run_co2_matrix_cross_validation_2026.py`
+- Corrected full-theta runner:
+  `laboratory_2026/run_co2_matrix_cross_validation_2026_full_theta.py`
 - Notebook:
-  `laboratory_2026/notebooks/co2_solubility_o2_cross_matrix_2026.ipynb`
+  `laboratory_2026/notebooks/co2_solubility_o2_cross_matrix_2026_full_theta.ipynb`
   (the `.executed.ipynb` sibling keeps the outputs of a full run)
-- Results: `laboratory_2026/results/co2_matrix_cross_validation_2026/`
+- Results:
+  `laboratory_2026/results/co2_matrix_cross_validation_2026_full_theta_sccm_corrected/`
+- Natural upstream parameters:
+  `laboratory_2026/results/estimability_historical_natural/theta_natural_full.csv`
+- Synthetic upstream parameters:
+  `laboratory_2026/results/estimability_historical_synthetic_plus_lot2/theta_synthetic_full.csv`
+
+Both full-theta files contain exactly the 17 kinetic parameters and are checked
+before simulation without filling missing values from `DEFAULT_THETA`. The
+full-theta analysis retains the old partial reconstruction only as state
+`A_historical`; states `B_full_theta_no_refit` and `C_full_theta_refit` use the
+complete matrix-specific vectors. The natural parameters fitted in state C
+remain subject to the identifiability limitations recorded in
+`docs/work_state/model_parameter_consistency.md`.
+
+The following active-looking artifacts still reconstruct the historical
+incomplete upstream vector and must not be interpreted as full-theta results:
+
+- `laboratory_2026/run_co2_matrix_cross_validation_2026.py` loads natural
+  `theta.csv` and synthetic `theta_by_case.csv` over `base.DEFAULT_THETA`;
+- `laboratory_2026/notebooks/co2_solubility_o2_cross_matrix_2026.ipynb` and its
+  executed sibling reproduce that historical CO2 analysis;
+- `laboratory_2026/notebooks/lab013_015_natural_must_co2_model_analysis.ipynb`;
+- `laboratory_2026/notebooks/lab016_018_natural_must_holdout.ipynb`.
+
+`run_estimability_historical_by_medium.py` still writes `theta.csv` as a subset
+artifact: it contains the fitted/extended targets but omits the six fixed core
+parameters `sN`, `qXG`, `qXF`, `sG`, `sF` and `m0`. This is a valid calibration
+output only when combined with the same complete seed used by the fitter; it is
+not a standalone 17-parameter kinetic vector. The synthetic-plus-Lot-2 runner
+does perform that complete-seed reconstruction. The diagnostic notebook
+`theta_full_vs_incomplete_defaults_natural_review.ipynb` intentionally reads
+both variants for comparison.
 
 The nutrient-pulse calendar for the historical natural-must analysis is a
 versioned input at
@@ -81,7 +115,7 @@ repository-relative paths.
 Run from the repository root:
 
 ```powershell
-python fermentation_model\laboratory_2026\run_co2_matrix_cross_validation_2026.py
+python fermentation_model\laboratory_2026\run_co2_matrix_cross_validation_2026_full_theta.py
 ```
 
 ### Laboratory 2026 selected design (MBDoE stage)

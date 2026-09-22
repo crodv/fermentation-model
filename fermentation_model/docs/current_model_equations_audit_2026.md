@@ -1,8 +1,10 @@
 # Auditoría de las ecuaciones realmente ejecutadas del modelo de fermentación
 
-**Fecha de auditoría:** 2026-09-09  
-**Alcance:** reconstrucción de solo lectura de las ecuaciones que produjeron los resultados versionados y las evaluaciones actuales. No se recalibró, no se ejecutó ningún optimizador y no se usó literatura externa.  
-**Inventario:** 75 ecuaciones/relaciones matemáticas únicas del modelo, sus entradas, discretizaciones y funciones de observación; 36 entradas de contraste notebook--código.
+**Auditoría original:** 2026-09-09. **Actualización de vigencia:** 2026-09-22.
+
+**Alcance:** reconstrucción de solo lectura de las ecuaciones que produjeron los resultados versionados y actualización de su trazabilidad después de las correcciones full-theta y SCCM. No se recalibró ni se ejecutó ningún optimizador durante esta actualización; se auditaron el código y los artefactos ya versionados.
+
+**Inventario:** se conservan las 75 ecuaciones/relaciones matemáticas únicas y las 36 entradas originales de contraste notebook--código. La actualización añade la clasificación de estados A/B/C y no altera ese conteo histórico.
 
 ## 1. Dictamen ejecutivo
 
@@ -14,11 +16,13 @@ y=(X,X_d,N,G,F,E,Gly),
 
 integrado por `base.simulate` con LSODA entre eventos y saltos exactos en los canales `N`, `G`, `F`, `E` y `X`. La señal de CO2 no es un estado de ese ODE. Se calcula en una capa posterior que: (i) deriva producción biológica desde la tasa de etanol; (ii) interpone una activación química no causal; (iii) integra un pool interno de O2; (iv) reemplaza el efecto instantáneo de un pulso N por una rampa contrafactual; (v) integra por Euler un pool interno de CO2 disuelto; y (vi) multiplica la liberación gaseosa por `matrix_gain`.
 
-No existe un único modelo canónico numéricamente consistente en todas las ramas activas. La **forma de las ecuaciones** sí es común, pero hay tres incompatibilidades activas:
+La **forma de las ecuaciones** sigue siendo común. El estado de las tres incompatibilidades detectadas originalmente es ahora:
 
-1. **[CONFLICT] Vector upstream incompleto.** El runner que generó `theta.csv` fijó `sN`, `qXG`, `qXF`, `sG`, `sF` y `m0` en valores heredados de `theta_multistart_07.csv`. Esos seis nombres no se guardaron en `theta.csv`. `co2_cross._load_theta` y los notebooks LAB013--015/LAB016--018 rellenan los ausentes con `base.DEFAULT_THETA`, que contiene valores distintos.
-2. **[CONFLICT] Dosis de N.** La calibración upstream usó `N:...@0.08 kg m^-3`; la calibración CO2 reemplazó los pulsos naturales por `0.14 kg m^-3` y tiempos derivados del cruce de densidad 1040 g/L. Los resultados upstream y CO2 no usan la misma entrada N.
-3. **[CONFLICT] Conversión SCCM.** La calibración/artefacto CO2 usa 22.414 L mol^-1 sin factor 0.74; el holdout LAB016--018 convierte la observación con 24.16 L mol^-1 y factor 0.74, pero conserva el `matrix_gain` ajustado con la primera convención.
+1. **[RESUELTO EN FULL-THETA; HISTÓRICO EN A] Vector upstream incompleto.** El runner original y los notebooks LAB013--015/LAB016--018 todavía reconstruyen los seis nombres ausentes desde `base.DEFAULT_THETA`. La rama corregida carga `theta_natural_full.csv` y `theta_synthetic_full.csv`, exige exactamente 17/17 parámetros y no usa fallback en B/C. El estado A conserva la reconstrucción antigua solo para reproducibilidad.
+2. **[CONFLICTO ABIERTO] Dosis y calendario de N.** La calibración upstream usó `N:...@0.08 kg m^-3`; la capa CO2 mantiene `0.14 kg m^-3` y tiempos derivados del cruce de densidad 1040 g/L. Full-theta no modifica esta entrada.
+3. **[RESUELTO EN LA RAMA SCCM_CORRECTED] Conversión SCCM.** Los análisis nuevos usan 24.16 L mol^-1, factor 0.74 y \(1\ \mathrm{SCCM}=0.0404391928807947\ \mathrm{g\,L^{-1}h^{-1}}\) a 2 L. Los artefactos LEGACY con 22.414 L mol^-1 permanecen inmutables como referencia histórica.
+
+El endpoint reproducible con parametrización completa es `run_co2_matrix_cross_validation_2026_full_theta.py` y sus resultados `co2_matrix_cross_validation_2026_full_theta_sccm_corrected/`. Esto no convierte automáticamente el refit natural C en una estimación física resuelta: conserva límites activos y mala condición local. El modelo numérico está definido; la interpretación física de varios parámetros CO2 continúa limitada.
 
 Las ecuaciones Markdown del notebook CO2 están **mayoritariamente actualizadas, pero no son una especificación exacta**: omiten el mínimo `DRIVER_GRID_H=0.25 h` en la duración del smoothstep y no muestran los índices/recortes de las integraciones Euler de O2 y CO2. Resultado del contraste de 36 entradas: **23 MATCH, 1 MISMATCH, 3 PARTIAL_MATCH, 1 DOCUMENTATION_ONLY y 8 CODE_ONLY**.
 
@@ -29,7 +33,8 @@ Las ecuaciones Markdown del notebook CO2 están **mayoritariamente actualizadas,
 | Notebook | Evidencia de ejecución | Acción real |
 |---|---:|---|
 | `laboratory_2026/notebooks/fermentation_estimability_historical_natural.ipynb` | versión `.executed.ipynb`, celdas de código 1--13 ejecutadas; fuentes idénticas al notebook fuente | llama `analysis.run_medium_analysis("natural", ..., fit_nfev=300)` y genera `theta.csv` |
-| `laboratory_2026/notebooks/co2_solubility_o2_cross_matrix_2026.ipynb` | versión `.executed.ipynb`, celdas de código 1--10 ejecutadas; fuentes idénticas | llama `analysis.run_analysis(n_starts=5,max_nfev=300,seed=20260812)`; modelo declarado: `solubility_o2_nitrogen_boost_continuous_release` |
+| `laboratory_2026/notebooks/co2_solubility_o2_cross_matrix_2026.ipynb` | versión `.executed.ipynb`, celdas de código 1--10 ejecutadas; fuentes idénticas | baseline histórico: usa los subsets sobre `DEFAULT_THETA` |
+| `laboratory_2026/notebooks/co2_solubility_o2_cross_matrix_2026_full_theta.ipynb` | SOURCE sin outputs; EXECUTED con 12/12 celdas ejecutadas y cero errores; código/Markdown idénticos | ejecuta A histórico, B full theta sin refit y C full theta con refit, todos sobre observaciones SCCM corregidas |
 | `laboratory_2026/notebooks/lab013_015_natural_must_co2_model_analysis.ipynb` | 32 celdas de código con contador | carga `theta_A`; define `theta_B` congelado en código; simula el ODE y reproduce la capa CO2; el notebook actual no optimiza |
 | `laboratory_2026/notebooks/lab016_018_natural_must_holdout.ipynb` | 43 celdas de código con contador, más una celda exploratoria posterior | carga ambos artefactos congelados; simula escenarios de IC y diagnósticos; no ajusta parámetros |
 
@@ -64,6 +69,16 @@ co2_solubility_o2_cross_matrix_2026.executed.ipynb, cell 4
      -> raw_qgas_grid_prediction
      -> _profile_matrix_gain / fit_matrix
      -> fit_parameters.csv, prediction_rows.csv, etc.
+
+co2_solubility_o2_cross_matrix_2026_full_theta.executed.ipynb
+  -> run_co2_matrix_cross_validation_2026_full_theta.run_analysis
+     -> valida theta natural, sintético y conjunto [17/17, sin fallback]
+     -> historical.load_batches                            [solo reconstruye A]
+     -> cache_A = theta parcial + DEFAULT_THETA             [baseline histórico]
+     -> cache_full = theta_natural_full/theta_synthetic_full [B y C]
+     -> observaciones SCCM_CORRECTED
+     -> A: CO2 previo; B: mismo CO2 con full theta; C: refit de 9 parámetros CO2
+     -> three_state_*.csv, theta_validation*.csv, analysis_manifest.json
 
 lab013_015..., cells 8, 16, 18, 20, 23
   -> theta_A = DEFAULT_THETA + theta.csv
@@ -416,23 +431,23 @@ q_{obs}=g_{matrix}q_{gas}. \tag{R62}
 
 Fuente inmediata: **[EXECUTED] [PROFILED]** `predict_and_score`, líneas 2450--2482; holdout LAB016--018, celda 11. `matrix_gain` se perfila por mínimos cuadrados acotados, no integra el balance físico.
 
-En calibración/artefacto CO2,
+En los artefactos LEGACY históricos,
 
 \[
 y_{g/L/h}=y_{sccm}\frac{60}{1000}\frac{44.01}{22.414}\frac{1}{V_L};\quad
 V_L=2\Rightarrow1\ \mathrm{SCCM}=0.05890515\ \mathrm{g\,L^{-1}h^{-1}}. \tag{R63}
 \]
 
-Fuente inmediata: **[EXECUTED]** `run_co2_matrix_cross_validation_2026.py`, `_sccm_to_g_l_h`, líneas 555--557; constantes líneas 132--133.
+Fuente inmediata: **[EXECUTED] [HISTÓRICO]** `run_co2_matrix_cross_validation_2026.py`, `_sccm_to_g_l_h` con `LEGACY_SCCM_CONVERSION`. Esta relación se conserva para reproducir A LEGACY, no para análisis nuevos.
 
-En el holdout LAB016--018,
+En `SCCM_CORRECTED`, utilizado por la rama full-theta,
 
 \[
 y_{g/L/h}=y_{sccm}\frac{44.0095(60)(0.74)}{1000(24.16)(2.0)}
 =0.04043919y_{sccm}. \tag{R64}
 \]
 
-Fuente inmediata: **[EXECUTED]** `lab016_018_natural_must_holdout.ipynb`, celda 17. **[CONFLICT]** R62 usa un gain perfilado contra R63, pero el holdout compara contra R64.
+Fuente inmediata: **[EXECUTED] [CANÓNICO PARA ANÁLISIS NUEVOS]** `SCCM_CORRECTED_CONVERSION` en `run_co2_matrix_cross_validation_2026.py` y validación exacta en `run_co2_matrix_cross_validation_2026_full_theta.py`. El experimento full-theta carga observaciones y parámetros CO2 ajustados sobre R64; por tanto la incompatibilidad de conversión quedó resuelta allí. El notebook LAB016--018 original continúa usando theta y parámetros CO2 históricos y no debe presentarse como validación del endpoint full-theta.
 
 Corrección de cero usada en la calibración CO2:
 
@@ -518,31 +533,31 @@ Fuente inmediata: **[EXECUTED] [PROFILED]** `_profile_matrix_gain`, líneas 1909
 
 Los valores históricos exactos están en `results/estimability_historical_natural/batch_summary.csv`: X0 0.099--1.0656, Xd0 0.0009--0.1209, N0 0.22024--0.23922, G0 75.0--81.63, F0 70.81--87.95, E0 9.234108--11.759676 y Gly0 0.75--1.27.
 
-## 13. Parámetros del modelo actual
+## 13. Parámetros del modelo actualizado
 
 ### 13.1 Upstream: valores que determinan las siete ODE
 
-| symbol | code_name | description | unit | equation_where_used | value_natural_current | status | source |
+| symbol | code_name | description | unit | equation_where_used | value_natural_full | status | source |
 |---|---|---|---|---|---:|---|---|
-| mu0 | `mu0` | escala de crecimiento | h^-1 | R09,R19 | 0.0787279168 | REESTIMATED_UPSTREAM | `theta.csv`, fila mu0 |
-| sN | `sN` | parametriza KN=mu0/sN | (kg m^-3)^-1 h^-1 | R09 | **upstream fit 8.75144587; downstream 18.0** | FIXED_UPSTREAM | `theta_multistart_07.csv`; `DEFAULT_THETA:142` |
-| qN | `qN` | consumo N por growth factor y X | h^-1 | R28 | 0.0210803824 | REESTIMATED_UPSTREAM | `theta.csv` |
-| qXG | `qXG` | azúcar G asociada a crecimiento | h^-1 | R29 | **upstream 0.0814909864; downstream 0.1125** | FIXED_UPSTREAM | heredado; `DEFAULT_THETA:144` |
-| qXF | `qXF` | azúcar F asociada a crecimiento | h^-1 | R30 | **upstream 0.0709327065; downstream 0.1125** | FIXED_UPSTREAM | heredado; `DEFAULT_THETA:145` |
-| betaG0 | `betaG0` | producción de etanol desde G | h^-1 | R10,R20 | 0.4288780030 | REESTIMATED_UPSTREAM | `theta.csv` |
-| sG | `sG` | parametriza KG=betaG0/sG | (g L^-1)^-1 h^-1 | R10 | **upstream 0.0974550987; downstream 0.03** | FIXED_UPSTREAM | heredado; `DEFAULT_THETA:147` |
-| betaF0 | `betaF0` | producción de etanol desde F | h^-1 | R11,R21 | 3.4403991748 | REESTIMATED_UPSTREAM | `theta.csv` |
-| sF | `sF` | parametriza KF=betaF0/sF | (g L^-1)^-1 h^-1 | R11 | **upstream 0.1782952055; downstream 0.03** | FIXED_UPSTREAM | heredado; `DEFAULT_THETA:149` |
-| qEG | `qEG` | consumo G fermentativo | h^-1 | R29 | 1.7128067938 | REESTIMATED_UPSTREAM | `theta.csv` |
-| qEF | `qEF` | consumo F fermentativo | h^-1 | R30 | 5.0230167502 | REESTIMATED_UPSTREAM | `theta.csv` |
-| iG | `iG` | inhibición de F por G | L g^-1 | R12,R18,R21,R30,R32 | 0.0560374373 | REESTIMATED_UPSTREAM | `theta.csv` |
-| iE | `iE` | inhibición por etanol | L g^-1 | R13,R17,R20,R21 | 0.0401679410 | REESTIMATED_UPSTREAM | `theta.csv` |
-| Kd0 | `Kd0` | escala de muerte | h^-1 | R24,R26,R27 | 0.000150249548 | REESTIMATED_UPSTREAM | `theta.csv` |
-| m0 | `m0` | mantenimiento | h^-1 | R22,R25,R29,R30 | **upstream 0.0183385794; downstream 0.01** | FIXED_UPSTREAM | heredado; `DEFAULT_THETA:155` |
-| gammaG0 | `gammaG0` | formación Gly ligada a G | h^-1 | R32 | 0.1155587914 | REESTIMATED_UPSTREAM | `theta.csv` |
-| gammaF0 | `gammaF0` | formación Gly ligada a F | h^-1 | R32 | 0.000100001622 | REESTIMATED_UPSTREAM | `theta.csv` |
+| mu0 | `mu0` | escala de crecimiento | h^-1 | R09,R19 | 0.0787279168 | REESTIMATED_UPSTREAM | `theta_natural_full.csv`; originalmente `theta.csv` |
+| sN | `sN` | parametriza KN=mu0/sN | (kg m^-3)^-1 h^-1 | R09 | 8.7514458709 | FIXED_UPSTREAM | `theta_natural_full.csv`; heredado de `theta_multistart_07.csv` |
+| qN | `qN` | consumo N por growth factor y X | h^-1 | R28 | 0.0210803824 | REESTIMATED_UPSTREAM | `theta_natural_full.csv`; originalmente `theta.csv` |
+| qXG | `qXG` | azúcar G asociada a crecimiento | h^-1 | R29 | 0.0814909864 | FIXED_UPSTREAM | `theta_natural_full.csv`; heredado |
+| qXF | `qXF` | azúcar F asociada a crecimiento | h^-1 | R30 | 0.0709327065 | FIXED_UPSTREAM | `theta_natural_full.csv`; heredado |
+| betaG0 | `betaG0` | producción de etanol desde G | h^-1 | R10,R20 | 0.4288780030 | REESTIMATED_UPSTREAM | `theta_natural_full.csv`; originalmente `theta.csv` |
+| sG | `sG` | parametriza KG=betaG0/sG | (g L^-1)^-1 h^-1 | R10 | 0.0974550987 | FIXED_UPSTREAM | `theta_natural_full.csv`; heredado |
+| betaF0 | `betaF0` | producción de etanol desde F | h^-1 | R11,R21 | 3.4403991748 | REESTIMATED_UPSTREAM | `theta_natural_full.csv`; originalmente `theta.csv` |
+| sF | `sF` | parametriza KF=betaF0/sF | (g L^-1)^-1 h^-1 | R11 | 0.1782952055 | FIXED_UPSTREAM | `theta_natural_full.csv`; heredado |
+| qEG | `qEG` | consumo G fermentativo | h^-1 | R29 | 1.7128067938 | REESTIMATED_UPSTREAM | `theta_natural_full.csv`; originalmente `theta.csv` |
+| qEF | `qEF` | consumo F fermentativo | h^-1 | R30 | 5.0230167502 | REESTIMATED_UPSTREAM | `theta_natural_full.csv`; originalmente `theta.csv` |
+| iG | `iG` | inhibición de F por G | L g^-1 | R12,R18,R21,R30,R32 | 0.0560374373 | REESTIMATED_UPSTREAM | `theta_natural_full.csv`; originalmente `theta.csv` |
+| iE | `iE` | inhibición por etanol | L g^-1 | R13,R17,R20,R21 | 0.0401679410 | REESTIMATED_UPSTREAM | `theta_natural_full.csv`; originalmente `theta.csv` |
+| Kd0 | `Kd0` | escala de muerte | h^-1 | R24,R26,R27 | 0.000150249548 | REESTIMATED_UPSTREAM | `theta_natural_full.csv`; originalmente `theta.csv` |
+| m0 | `m0` | mantenimiento | h^-1 | R22,R25,R29,R30 | 0.0183385794 | FIXED_UPSTREAM | `theta_natural_full.csv`; heredado |
+| gammaG0 | `gammaG0` | formación Gly ligada a G | h^-1 | R32 | 0.1155587914 | REESTIMATED_UPSTREAM | `theta_natural_full.csv`; originalmente `theta.csv` |
+| gammaF0 | `gammaF0` | formación Gly ligada a F | h^-1 | R32 | 0.000100001622 | REESTIMATED_UPSTREAM | `theta_natural_full.csv`; originalmente `theta.csv` |
 
-**[CONFLICT]** “upstream fit” es el vector con el que se obtuvo el objetivo de calibración y “downstream” el vector reconstruido realmente por CO2/LAB013--018. `run_estimability_historical_by_medium.py:878-897` parte de `final.load_theta_final`; `co2_cross._load_theta:186-194` parte de `DEFAULT_THETA`.
+El CSV completo serializa exactamente los 17 nombres de `base.FULL17` y registra la procedencia por fila. El subset `theta.csv` sigue siendo evidencia válida de los 11 parámetros reestimados y de parámetros secundarios, pero no debe cargarse como vector cinético autónomo. Los valores fallback de la rama A se conservan en §15.1.
 
 ### 13.2 Constantes upstream
 
@@ -558,21 +573,21 @@ Los valores históricos exactos están en `results/estimability_historical_natur
 | `MAINTENANCE_SUGAR_CUTOFF_KG_M3` | semisaturación mantenimiento | 1.0 | R25 | FIXED_CONSTANT, `base:210` |
 | `eps` | protección denominadores | 1e-8 | R09--R25 | FIXED_CONSTANT, `kinetic_terms:395` |
 
-### 13.3 Capa CO2 natural adoptada
+### 13.3 Capa CO2 natural: estados A/B/C sobre SCCM corregido
 
-| symbol | code_name | description | unit | equation_where_used | value_natural_current | status | source |
-|---|---|---|---|---|---:|---|---|
-| k_release | `kCO2_release_h` | transferencia/liberación | h^-1 | R58 | 0.4245882714 | FITTED_CO2 | `fit_parameters.csv` |
-| s_sat | `CO2sat_scale` | escala solubilidad CO2 | 1 | R56 | 0.3513895411 | FITTED_CO2 | idem; cota inferior activa |
-| qO2max | `O2_qmax_mg_gdw_h` | consumo O2 | mg O2 gDW^-1 h^-1 | R39 | 0.15 | FITTED_CO2 | idem; cota inferior activa |
-| sO2,0 | `O2_initial_scale` | fracción O2 inicial | 1 | R38 | 0.1953996657 | FITTED_CO2 | idem |
-| t_rise | `pulse_t_rise_h` | duración rampa N | h | R44 | 64.65870375 | FITTED_CO2 | idem |
-| gN | `pulse_activity_gain` | multiplicador final actividad | 1 | R48--R49 | 0.25 | FITTED_CO2 | idem; cota inferior activa |
-| s | `chem_activation_start_fraction` | inicio relativo bracket | 1 | R52 | 0.7350566959 | FITTED_CO2 | idem |
-| d | `chem_activation_duration_fraction` | duración relativa bracket | 1 | R52 | 1.0639098681 | FITTED_CO2 | idem |
-| g_matrix | `matrix_gain` | escala observación | 1 | R62,R75 | 3.1157569444 | PROFILED | idem; `_profile_matrix_gain` |
+| code_name | A histórico / B sin refit | C full theta refit | estado C |
+|---|---:|---:|---|
+| `kCO2_release_h` | 0.4243820035 | 0.2890476484 | libre |
+| `CO2sat_scale` | 0.3500401486 | 2.4999999956 | cota superior activa |
+| `O2_qmax_mg_gdw_h` | 0.1500000000 | 3.0511396610 | libre |
+| `O2_initial_scale` | 0.1954835969 | 1.4856644260 | cota superior activa |
+| `pulse_t_rise_h` | 64.6592211849 | 64.3046189928 | libre |
+| `pulse_activity_gain` | 0.2500000000 | 0.2500000000 | cota inferior activa |
+| `chem_activation_start_fraction` | 0.7351793215 | 0.7617698235 | libre |
+| `chem_activation_duration_fraction` | 1.0637830936 | 0.8011851848 | libre |
+| `matrix_gain` | 2.1390109131 | 1.5422832133 | perfilado/libre |
 
-Valores sintéticos coexistentes en el mismo artefacto, específicos de matriz: 3.8837002051, 0.4254086787, 0.1501636955, 0.3804161554, 36.50000857, 1.2333381539, 0.0100040237, 0.3500000007 y 2.1265561099, en el mismo orden.
+A y B comparten los parámetros CO2 de la calibración SCCM-corregida previa; solo cambia theta, por diseño. C reajusta los mismos nueve parámetros sobre full theta. WSSE natural A/B/C = 27.952/54.473/29.342; total = 47.468/82.283/48.251. C recupera el ajuste agregado, pero sus límites activos y condición local impiden tratar todos sus parámetros naturales como estimaciones físicas resueltas.
 
 ### 13.4 Constantes, inputs y discretización CO2
 
@@ -592,8 +607,8 @@ Valores sintéticos coexistentes en el mismo artefacto, específicos de matriz: 
 | `temperature_c` | serie medida/reconstruida | degC | R01,R37,R56 | INPUT |
 | `initials[X..Gly]` | por batch | unidades de estado | condición inicial | INPUT |
 | `model_pulse_time_h`,`amount_N_kg_m3` | por batch | h, kg m^-3 | R33,R44 | INPUT |
-| `44.01`, `22.414`, `V_L` | conversión artefacto | g mol^-1, L mol^-1, L | R63 | FIXED_CONSTANT/INPUT |
-| `44.0095`, `24.16`, `0.74`, `2.0` | conversión holdout | varias | R64 | FIXED_CONSTANT |
+| `44.01`, `22.414`, `V_L` | conversión LEGACY histórica | g mol^-1, L mol^-1, L | R63 | FIXED_CONSTANT/INPUT; solo reproducibilidad |
+| `44.0095`, `24.16`, `0.74`, `2.0` | conversión SCCM_CORRECTED | varias | R64 | FIXED_CONSTANT; análisis nuevos |
 
 ### 13.5 Filas adicionales presentes en `theta.csv`
 
@@ -636,17 +651,17 @@ Valores sintéticos coexistentes en el mismo artefacto, específicos de matriz: 
 | K03 | sin Markdown | O2sat y O2 inicial | pilot/cache/effective | pilot:271-288; co2:1711 | CODE_ONLY | no ecuación en notebook CO2 |
 | K04 | sin Markdown | qresp | `effective_qprod_grid` | `co2_cross:1727` | CODE_ONLY | coeficiente 44.01/32/1000 |
 | K05 | sin Markdown | qobs=matrix_gain*qgas | `predict_and_score` | `co2_cross:2481` | CODE_ONLY | función final |
-| K06 | sin Markdown | conversión 22.414 | `_sccm_to_g_l_h` | `co2_cross:555-557` | CODE_ONLY | calibración histórica |
-| K07 | texto sin fórmula | conversión 24.16*0.74 | celda 17 | holdout c17 | CODE_ONLY | incompatibilidad activa |
+| K06 | sin Markdown | conversión 22.414 | `_sccm_to_g_l_h` | `co2_cross`, `LEGACY_SCCM_CONVERSION` | CODE_ONLY | baseline histórico inmutable |
+| K07 | texto sin fórmula | conversión 24.16*0.74 | `SCCM_CORRECTED_CONVERSION` | `co2_cross` + full-theta | CODE_ONLY | conversión vigente; ya no es incompatibilidad en la rama corregida |
 | K08 | sin Markdown | clips estados/no negatividad | `kinetic_terms`,`simulate` | `base:387-392,581-585` | CODE_ONLY | afecta resultado numérico |
 
-Conteo: MATCH 23; MISMATCH 1; PARTIAL_MATCH 3; DOCUMENTATION_ONLY 1; CODE_ONLY 8.
+Conteo del contraste original: MATCH 23; MISMATCH 1; PARTIAL_MATCH 3; DOCUMENTATION_ONLY 1; CODE_ONLY 8. Se conserva como evidencia del snapshot del 09-09; la actualización full-theta añade gates de integridad de parámetros y conversión, pero no se mezcla artificialmente con ese conteo.
 
 ## 15. Conflictos y ramas activas
 
-### 15.1 Parámetros fijos perdidos al serializar theta
+### 15.1 Parámetros fijos perdidos al serializar theta — resuelto en B/C
 
-| parámetro | usado al generar theta natural | usado al regenerar drivers CO2/holdout | cociente downstream/upstream |
+| parámetro | full theta usado al ajustar upstream y en B/C | fallback histórico usado en A/LAB013--018 | cociente fallback/full |
 |---|---:|---:|---:|
 | sN | 8.751445871 | 18.0 | 2.0568 |
 | qXG | 0.081490986 | 0.1125 | 1.3805 |
@@ -655,17 +670,25 @@ Conteo: MATCH 23; MISMATCH 1; PARTIAL_MATCH 3; DOCUMENTATION_ONLY 1; CODE_ONLY 8
 | sF | 0.178295206 | 0.03 | 0.1683 |
 | m0 | 0.018338579 | 0.01 | 0.5453 |
 
-Esto no es una hipótesis: se deduce de `final.load_theta_final` -> `joint.load_reference_theta` (primera ruta existente `theta_multistart_07.csv`) frente a `_load_theta` (`DEFAULT_THETA` + filas de `theta.csv`). LAB013 celda 8 repite explícitamente la segunda lógica.
+Esto no es una hipótesis: se deduce de `final.load_theta_final` -> `joint.load_reference_theta` frente a `_load_theta` (`DEFAULT_THETA` + filas de `theta.csv`). La corrección serializa los seis valores junto con los once reestimados en `theta_natural_full.csv`; `_read_complete_theta` exige igualdad exacta con `base.FULL17`. La discrepancia persiste únicamente al reproducir A o ejecutar los notebooks antiguos.
 
 ### 15.2 Ramas de resultados
 
-- **Calibración upstream natural:** forma R01--R33; 11 parámetros ajustados; seis fijos heredados; pulso 0.08.
-- **Calibración CO2 natural y sus resultados:** misma forma upstream, pero seis fijos `DEFAULT_THETA`; pulso 0.14 y tiempos por densidad; R34--R65; parámetros CO2 ajustados.
+- **Calibración upstream natural:** forma R01--R33; 11 parámetros ajustados; seis fijos heredados; vector completo reconstruido en `theta_natural_full.csv`; pulso 0.08.
+- **A histórico:** theta subset + `DEFAULT_THETA`, parámetros CO2 SCCM-corregidos previos; se conserva como baseline reproducible.
+- **B full theta sin refit:** `theta_natural_full.csv`/`theta_synthetic_full.csv` con los mismos parámetros CO2 de A; aísla el efecto del cambio de theta.
+- **C full theta refit:** los mismos vectores completos y conversión SCCM corregida, con nueve parámetros CO2 reajustados. Es el endpoint computacional full-theta, sujeto a las limitaciones de identificabilidad ya indicadas.
 - **LAB013--015 escenario A:** mismos defaults downstream + 11 valores de `theta.csv`; sin pulso. Escenario B cambia los 11 nombres a valores literales congelados; no es el artefacto canónico `theta.csv`.
 - **LAB016--018 estricto:** mismos defaults downstream + `theta.csv`; sin pulso; ICs proxy/escenario; bracket `[0,0]` activa A=1 desde t=0; observación con R64.
 - **Diagnósticos LAB016--018:** usan CO2 observado para mover el gate o dosis asumidas; se ejecutaron, pero están marcados como no holdout y no constituyen una calibración canónica.
 
+### 15.3 Estado del documento compacto `modelo_ecuaciones_2026`
+
+Su tabla upstream coincide con `theta_natural_full.csv`, pero su tabla CO2 conserva los valores de A/B (`matrix_gain` natural 2.139011), no los del refit C (`1.542283`). Tomado literalmente, ese documento describe B: full theta con CO2 previo sin refit. Debe citarse como tal y no como si fuera simultáneamente el ajuste C.
+
 ## 16. MODELO ACTUAL REALMENTE IMPLEMENTADO
+
+La estructura matemática A--N siguiente es compartida por A/B/C. Para reproducir el endpoint full-theta deben usarse conjuntamente: (i) el vector completo de la matriz; (ii) observaciones `SCCM_CORRECTED`; y (iii) los parámetros CO2 del estado elegido. No se deben mezclar silenciosamente parámetros de C con theta parcial ni presentar B como si fuera C.
 
 En orden de reproducción conceptual:
 
@@ -693,7 +716,7 @@ En orden de reproducción conceptual:
 
 **L. Liberación gaseosa:** R57--R60, incluidos 0.05/0.95 y limitador disponible.
 
-**M. Observación final:** R62; observación experimental convertida por R63 o R64 según pipeline.
+**M. Observación final:** R62; R64 es la conversión vigente para análisis nuevos y R63 queda limitada a LEGACY.
 
 **N. Observaciones offline:** R66--R74. Brix, densidad y DO de LAB016--018 no tienen función de observación validada en el pipeline estricto.
 
@@ -718,6 +741,9 @@ En orden de reproducción conceptual:
 - [x] Auxiliares, Arrhenius, inhibiciones, piecewise, eps y clips documentados.
 - [x] Pulso N, contrafactual con/sin pulso y conflicto 0.08/0.14 documentados.
 - [x] O2, activación, solubilidad, pool, `qgas` y `qobs` documentados con discretización real.
+- [x] Theta natural/sintético full 17/17 y procedencia de los seis parámetros fijos verificados.
+- [x] Estados A/B/C y conversión `SCCM_CORRECTED` separados de LEGACY.
+- [x] Resultados históricos preservados sin reescritura y reproducción de A verificada a `5.6e-16`.
 - [x] Markdown relevante contrastado con el código ejecutado.
 - [x] Ecuaciones obsoletas separadas como comparadores o no implementadas.
 - [x] Valores extraídos de artefactos versionados; no se ejecutó fitting.
@@ -726,6 +752,6 @@ En orden de reproducción conceptual:
 
 ## 19. Rutas auditadas
 
-Núcleo: `shared/run_new_must_glycerol_estimability_doe.py`, `shared/new_must_data_loader.py`, `laboratory_2026/run_estimability_historical_by_medium.py`, `laboratory_2026/run_estimability_old_vs_lot1.py`, `laboratory_2026/run_final_operational_doe_v2.py`, `laboratory_2026/run_co2_matrix_cross_validation_2026.py`, `pilot_2025/run_pilot_2025_co2_solubility_integrated_doe.py`, `shared/run_secondary_joint_campaign_doe.py`.
+Núcleo: `shared/run_new_must_glycerol_estimability_doe.py`, `shared/new_must_data_loader.py`, `laboratory_2026/run_estimability_historical_by_medium.py`, `laboratory_2026/run_estimability_old_vs_lot1.py`, `laboratory_2026/run_final_operational_doe_v2.py`, `laboratory_2026/run_co2_matrix_cross_validation_2026.py`, `laboratory_2026/run_co2_matrix_cross_validation_2026_full_theta.py`, `pilot_2025/run_pilot_2025_co2_solubility_integrated_doe.py`, `shared/run_secondary_joint_campaign_doe.py`.
 
-Artefactos: `laboratory_2026/results/estimability_historical_natural/theta.csv`, `batch_summary.csv`, `measurement_support.csv`, `laboratory_2026/results/co2_matrix_cross_validation_2026/fit_parameters.csv`, `driver_diagnostics.csv`, `natural_nutrient_pulse_details.csv`, `effective_nutrient_pulses.csv`, `analysis_manifest.json`, y el artefacto heredado `shared/results/new_must_glycerol_overnight_validation/theta_multistart_07.csv` requerido para reconstruir el vector que realmente alimentó la calibración upstream.
+Artefactos vigentes: `theta_natural_full.csv`, `theta_synthetic_full.csv` y `laboratory_2026/results/co2_matrix_cross_validation_2026_full_theta_sccm_corrected/{analysis_manifest.json,theta_validation.csv,theta_historical_reconstruction_audit.csv,three_state_objective_summary.csv,three_state_co2_parameters.csv}`. Artefactos históricos preservados: `theta.csv`, `theta_by_case.csv`, `co2_matrix_cross_validation_2026/`, `co2_matrix_cross_validation_2026_sccm_corrected/` y `shared/results/new_must_glycerol_overnight_validation/theta_multistart_07.csv`.

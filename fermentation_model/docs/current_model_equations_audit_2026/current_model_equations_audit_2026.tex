@@ -140,17 +140,17 @@
   \vfill
   \begin{minipage}{0.82\textwidth}
     \small
-    \textbf{Alcance.} Este documento reconstruye la cadena matemática que
-    produjo los resultados versionados del modelo upstream y de la capa de
-    CO$_2$. Se auditaron cuatro notebooks principales ---incluidas las
-    versiones ejecutadas de la calibración upstream y de la matriz CO$_2$---,
-    ocho módulos nucleares y sus artefactos de parámetros. Se documentan 75
-    relaciones matemáticas únicas. No se ejecutaron optimizadores ni se
-    alteraron código, notebooks, parámetros o resultados.
+    \textbf{Alcance.} Auditoría original del 9 de septiembre, actualizada el
+    22 de septiembre de 2026 para incorporar la corrección full-theta, la
+    conversión SCCM corregida y los estados A/B/C. Se conservan las 75
+    relaciones matemáticas y el contraste histórico de 36 entradas. La
+    actualización fue de solo lectura sobre código y artefactos versionados;
+    no ejecutó optimizadores ni alteró parámetros o resultados científicos.
   \end{minipage}
 
   \vfill
-  {\sffamily\color{auditslate}9 de septiembre de 2026}\par
+  {\sffamily\color{auditslate}Auditoría original: 9 de septiembre de 2026\\
+   Actualización de vigencia: 22 de septiembre de 2026}\par
   \vspace{0.4cm}
 \end{titlepage}
 
@@ -170,16 +170,24 @@ La forma central es el sistema de siete estados
 Se integra con LSODA entre saltos exactos. CO$_2$ y O$_2$ no son estados de
 ese sistema: son pools discretos internos de una capa posterior.
 
-No hay un único modelo numéricamente consistente en todas las ramas activas:
+El estado actualizado de los tres conflictos originales es:
 \begin{enumerate}[label=\textbf{C\arabic*.}]
-\item \E{CONFLICT} Seis parámetros fijos usados al calibrar upstream no se
-guardaron en \path{theta.csv}; la capa CO$_2$ los repone desde
-\code{DEFAULT\_THETA}, con valores distintos.
-\item \E{CONFLICT} Upstream usó $\Delta N=0.08$ kg m$^{-3}$; la capa CO$_2$
+\item \E{RESUELTO EN B/C; HISTÓRICO EN A}. Los seis parámetros fijos omitidos
+de \path{theta.csv} están serializados en \path{theta_natural_full.csv} y
+\path{theta_synthetic_full.csv}; B/C exigen 17/17 y no usan fallback. A y los
+notebooks antiguos conservan \code{DEFAULT\_THETA} para reproducibilidad.
+\item \E{CONFLICTO ABIERTO}. Upstream usó $\Delta N=0.08$ kg m$^{-3}$; CO$_2$
 sobrescribe $\Delta N=0.14$ kg m$^{-3}$ y cambia los tiempos.
-\item \E{CONFLICT} La calibración convierte SCCM con 22.414 L mol$^{-1}$;
-LAB016--018 usa 24.16 L mol$^{-1}$ y factor 0.74, conservando el gain anterior.
+\item \E{RESUELTO EN SCCM\_CORRECTED}. Los análisis nuevos usan 24.16
+L mol$^{-1}$, factor 0.74 y 0.04043919 g L$^{-1}$ h$^{-1}$ SCCM$^{-1}$
+a 2 L. La conversión 22.414 queda solo en LEGACY.
 \end{enumerate}
+
+El endpoint reproducible con parametrización completa es
+\path{run_co2_matrix_cross_validation_2026_full_theta.py}. Su estado C es un
+refit computacional completo, pero los límites activos y la mala condición
+local impiden interpretar todos sus parámetros naturales como magnitudes
+físicas resueltas.
 
 Las fuentes de las 30 celdas del notebook CO$_2$ son idénticas a las de su
 versión ejecutada. Sus ecuaciones Markdown están mayormente actualizadas, pero
@@ -212,6 +220,13 @@ co2_solubility_o2_cross_matrix_2026.executed.ipynb, celda 4
  -> pilot.co2_production_g_l_h -> joint._core_rates
  -> effective_qprod_grid -> raw_qgas_grid_prediction
  -> _profile_matrix_gain -> fit_parameters.csv
+
+co2_solubility_o2_cross_matrix_2026_full_theta.executed.ipynb
+ -> run_co2_matrix_cross_validation_2026_full_theta.run_analysis
+ -> valida theta natural/sintetico/conjunto [17/17; sin fallback]
+ -> A: reconstruccion historica; B: full theta sin refit
+ -> C: full theta + refit de nueve parametros CO2
+ -> observaciones SCCM_CORRECTED y three_state_*.csv
 
 lab013_015..., celdas 8,16,18,20,23
  -> theta_A; theta_B literal congelado; base.simulate; replay CO2
@@ -451,19 +466,19 @@ q_{obs}=g_{matrix}q_{gas}. \tag{R62}
 \end{equation}
 \sourceinfo{\E{EXECUTED}\E{PROFILED} \code{predict\_and\_score}, líneas 2450--2482.}
 
-Calibración/artefacto:
+Conversión LEGACY histórica:
 \begin{equation}
 y_{g/L/h}=y_{sccm}\frac{60}{1000}\frac{44.01}{22.414}\frac1{V_L};
 \quad V_L=2:\ 1\mathrm{\ SCCM}=0.05890515\mathrm{\ g\,L^{-1}h^{-1}}. \tag{R63}
 \end{equation}
-\sourceinfo{\E{EXECUTED} \code{\_sccm\_to\_g\_l\_h}, líneas 555--557.}
+\sourceinfo{\E{HISTÓRICO} \code{LEGACY\_SCCM\_CONVERSION}; se conserva para reproducir A LEGACY.}
 
-Holdout LAB016--018:
+Conversión SCCM\_CORRECTED vigente para análisis nuevos:
 \begin{equation}
 y_{g/L/h}=y_{sccm}\frac{44.0095(60)(0.74)}{1000(24.16)(2.0)}
 =0.04043919y_{sccm}. \tag{R64}
 \end{equation}
-\sourceinfo{\E{EXECUTED}\E{CONFLICT} Notebook LAB016--018, celda 17.}
+\sourceinfo{\E{EXECUTED}\E{CANÓNICO} Validada por el runner full-theta; observaciones y parámetros CO$_2$ se ajustan sobre la misma conversión.}
 
 \begin{equation}
 b_r=\max[0,Q_{0.10}\{y_{sccm}(t):t\le t_0+12h\}],\qquad
@@ -535,7 +550,7 @@ fallback y escenario \\
 \begin{longtable}{p{0.09\textwidth}p{0.15\textwidth}p{0.16\textwidth}p{0.23\textwidth}p{0.19\textwidth}}
 \caption{Parámetros upstream que intervienen en las siete ODE.}\label{tab:parametros-upstream}\\
 \toprule
-\tablehead{Símbolo} & \tablehead{Unidad} & \tablehead{Valor natural} & \tablehead{Estado} & \tablehead{Fuente/ecuación} \\
+\tablehead{Símbolo} & \tablehead{Unidad} & \tablehead{Valor full} & \tablehead{Estado} & \tablehead{Fuente/ecuación} \\
 \midrule
 \endhead
 \midrule
@@ -543,29 +558,30 @@ fallback y escenario \\
 \endfoot
 \bottomrule
 \endlastfoot
-$\mu_0$ & h$^{-1}$ & 0.0787279168 & REESTIMATED\_UPSTREAM & \path{theta.csv}; R09,R19 \\
-$s_N$ & (kg m$^{-3}$)$^{-1}$h$^{-1}$ & 8.75144587 / 18.0 & FIXED\_UPSTREAM, conflicto & heredado / default; R09 \\
-$q_N$ & h$^{-1}$ & 0.0210803824 & REESTIMATED\_UPSTREAM & \path{theta.csv}; R28 \\
-$q_{XG}$ & h$^{-1}$ & 0.0814909864 / 0.1125 & FIXED\_UPSTREAM, conflicto & heredado / default; R29 \\
-$q_{XF}$ & h$^{-1}$ & 0.0709327065 / 0.1125 & FIXED\_UPSTREAM, conflicto & heredado / default; R30 \\
-$\beta_{G0}$ & h$^{-1}$ & 0.4288780030 & REESTIMATED\_UPSTREAM & \path{theta.csv}; R10,R20 \\
-$s_G$ & (g L$^{-1}$)$^{-1}$h$^{-1}$ & 0.0974550987 / 0.03 & FIXED\_UPSTREAM, conflicto & heredado / default; R10 \\
-$\beta_{F0}$ & h$^{-1}$ & 3.4403991748 & REESTIMATED\_UPSTREAM & \path{theta.csv}; R11,R21 \\
-$s_F$ & (g L$^{-1}$)$^{-1}$h$^{-1}$ & 0.1782952055 / 0.03 & FIXED\_UPSTREAM, conflicto & heredado / default; R11 \\
-$q_{EG}$ & h$^{-1}$ & 1.7128067938 & REESTIMATED\_UPSTREAM & \path{theta.csv}; R29 \\
-$q_{EF}$ & h$^{-1}$ & 5.0230167502 & REESTIMATED\_UPSTREAM & \path{theta.csv}; R30 \\
-$i_G$ & L g$^{-1}$ & 0.0560374373 & REESTIMATED\_UPSTREAM & \path{theta.csv}; R12,R18 \\
-$i_E$ & L g$^{-1}$ & 0.0401679410 & REESTIMATED\_UPSTREAM & \path{theta.csv}; R13,R17 \\
-$K_{d0}$ & h$^{-1}$ & 0.000150249548 & REESTIMATED\_UPSTREAM & \path{theta.csv}; R24 \\
-$m_0$ & h$^{-1}$ & 0.0183385794 / 0.01 & FIXED\_UPSTREAM, conflicto & heredado / default; R22 \\
-$\gamma_{G0}$ & h$^{-1}$ & 0.1155587914 & REESTIMATED\_UPSTREAM & \path{theta.csv}; R32 \\
-$\gamma_{F0}$ & h$^{-1}$ & 0.000100001622 & REESTIMATED\_UPSTREAM & \path{theta.csv}; R32 \\
+$\mu_0$ & h$^{-1}$ & 0.0787279168 & REESTIMATED\_UPSTREAM & \path{theta_natural_full.csv}; R09,R19 \\
+$s_N$ & (kg m$^{-3}$)$^{-1}$h$^{-1}$ & 8.75144587 & FIXED\_UPSTREAM & full theta; R09 \\
+$q_N$ & h$^{-1}$ & 0.0210803824 & REESTIMATED\_UPSTREAM & full theta; R28 \\
+$q_{XG}$ & h$^{-1}$ & 0.0814909864 & FIXED\_UPSTREAM & full theta; R29 \\
+$q_{XF}$ & h$^{-1}$ & 0.0709327065 & FIXED\_UPSTREAM & full theta; R30 \\
+$\beta_{G0}$ & h$^{-1}$ & 0.4288780030 & REESTIMATED\_UPSTREAM & full theta; R10,R20 \\
+$s_G$ & (g L$^{-1}$)$^{-1}$h$^{-1}$ & 0.0974550987 & FIXED\_UPSTREAM & full theta; R10 \\
+$\beta_{F0}$ & h$^{-1}$ & 3.4403991748 & REESTIMATED\_UPSTREAM & full theta; R11,R21 \\
+$s_F$ & (g L$^{-1}$)$^{-1}$h$^{-1}$ & 0.1782952055 & FIXED\_UPSTREAM & full theta; R11 \\
+$q_{EG}$ & h$^{-1}$ & 1.7128067938 & REESTIMATED\_UPSTREAM & full theta; R29 \\
+$q_{EF}$ & h$^{-1}$ & 5.0230167502 & REESTIMATED\_UPSTREAM & full theta; R30 \\
+$i_G$ & L g$^{-1}$ & 0.0560374373 & REESTIMATED\_UPSTREAM & full theta; R12,R18 \\
+$i_E$ & L g$^{-1}$ & 0.0401679410 & REESTIMATED\_UPSTREAM & full theta; R13,R17 \\
+$K_{d0}$ & h$^{-1}$ & 0.000150249548 & REESTIMATED\_UPSTREAM & full theta; R24 \\
+$m_0$ & h$^{-1}$ & 0.0183385794 & FIXED\_UPSTREAM & full theta; R22 \\
+$\gamma_{G0}$ & h$^{-1}$ & 0.1155587914 & REESTIMATED\_UPSTREAM & full theta; R32 \\
+$\gamma_{F0}$ & h$^{-1}$ & 0.000100001622 & REESTIMATED\_UPSTREAM & full theta; R32 \\
 \end{longtable}
 \rowcolors{2}{}{}
 \endgroup
 
-La primera cifra de cada par conflictivo fue usada al generar el ajuste upstream;
-la segunda es la que reconstruyen CO$_2$, LAB013--015 y LAB016--018.
+El vector completo exige exactamente los 17 nombres. La rama A y los notebooks
+LAB013--015/LAB016--018 conservan los antiguos fallbacks 18.0, 0.1125, 0.1125,
+0.03, 0.03 y 0.01 para $s_N,q_{XG},q_{XF},s_G,s_F,m_0$.
 
 Constantes upstream: $C_{de}=0.0415$, $E_{td}=130000$ J mol$^{-1}$,
 $R=8.314$ J mol$^{-1}$K$^{-1}$, $E_{ac}=59453$, $E_{afe}=11000$,
@@ -576,33 +592,36 @@ J mol$^{-1}$. Son \E{FIXED} en \code{base.FIXED\_CONSTANTS}, líneas 160--172.
 
 \begin{table}[H]
 \centering
-\caption{Parámetros adoptados de la capa CO$_2$ para mosto natural.}
+\caption{Parámetros CO$_2$ naturales A/B y C sobre SCCM corregido.}
 \label{tab:parametros-co2-natural}
 \small
 \rowcolors{2}{white}{auditpale!55}
 \begin{tabularx}{\textwidth}{>{\ttfamily\raggedright\arraybackslash}X
-  S[table-format=1.10]
-  >{\raggedright\arraybackslash}p{0.25\textwidth}
-  >{\centering\arraybackslash}p{0.10\textwidth}}
+  S[table-format=2.10]
+  S[table-format=2.10]
+  >{\raggedright\arraybackslash}p{0.20\textwidth}}
 \toprule
 \multicolumn{1}{l}{\tablehead{Nombre en código}} &
-{\tablehead{Valor}} & \tablehead{Estado} & \tablehead{Uso} \\
+{\tablehead{A/B}} & {\tablehead{C refit}} & \tablehead{Estado C} \\
 \midrule
-kCO2\_release\_h & 0.4245882714 & FITTED\_CO2 & R58 \\
-CO2sat\_scale & 0.3513895411 & FITTED\_CO2; cota & R56 \\
-O2\_qmax\_mg\_gdw\_h & 0.15 & FITTED\_CO2; cota & R39 \\
-O2\_initial\_scale & 0.1953996657 & FITTED\_CO2 & R38 \\
-pulse\_t\_rise\_h & 64.65870375 & FITTED\_CO2 & R44 \\
-pulse\_activity\_gain & 0.25 & FITTED\_CO2; cota & R48--R49 \\
-chem\_activation\_start\_fraction & 0.7350566959 & FITTED\_CO2 & R52 \\
-chem\_activation\_duration\_fraction & 1.0639098681 & FITTED\_CO2 & R52 \\
-matrix\_gain & 3.1157569444 & PROFILED & R62,R75 \\
+kCO2\_release\_h & 0.4243820035 & 0.2890476484 & libre \\
+CO2sat\_scale & 0.3500401486 & 2.4999999956 & cota superior \\
+O2\_qmax\_mg\_gdw\_h & 0.1500000000 & 3.0511396610 & libre \\
+O2\_initial\_scale & 0.1954835969 & 1.4856644260 & cota superior \\
+pulse\_t\_rise\_h & 64.6592211849 & 64.3046189928 & libre \\
+pulse\_activity\_gain & 0.2500000000 & 0.2500000000 & cota inferior \\
+chem\_activation\_start\_fraction & 0.7351793215 & 0.7617698235 & libre \\
+chem\_activation\_duration\_fraction & 1.0637830936 & 0.8011851848 & libre \\
+matrix\_gain & 2.1390109131 & 1.5422832133 & perfilado/libre \\
 \bottomrule
 \end{tabularx}
 \rowcolors{2}{}{}
 \end{table}
 
-Fuente: \path{laboratory_2026/results/co2_matrix_cross_validation_2026/fit_parameters.csv}.
+Fuente: \path{co2_matrix_cross_validation_2026_full_theta_sccm_corrected/three_state_co2_parameters.csv}.
+A/B comparten CO$_2$ y aíslan el cambio de theta; C reajusta los nueve parámetros.
+WSSE natural A/B/C: 27.952/54.473/29.342. C recupera el ajuste, pero no resuelve
+la identificabilidad física de sus parámetros naturales.
 Constantes: $K_{O2}=0.25$ mg L$^{-1}$, $K_{ana}=0.75$ mg L$^{-1}$,
 $h=2$, $f_C=0.08$, piso release 0.05 y malla 0.25 h.
 
@@ -615,8 +634,8 @@ sus parámetros con los naturales. Las filas secundarias/aroma adicionales de
 \begingroup
 \footnotesize
 \rowcolors{2}{white}{auditpale!45}
-\begin{longtable}{p{0.09\textwidth}p{0.18\textwidth}p{0.35\textwidth}p{0.20\textwidth}}
-\caption{Correspondencia entre ecuaciones documentadas y código ejecutado.}\label{tab:notebook-codigo}\\
+\begin{longtable}{p{0.09\textwidth}p{0.22\textwidth}p{0.31\textwidth}p{0.20\textwidth}}
+\caption{Correspondencia entre ecuaciones documentadas y código ejecutado.}\\
 \toprule
 \tablehead{ID} & \tablehead{Estado} & \tablehead{Declaración Markdown} & \tablehead{Implementación/nota} \\
 \midrule
@@ -627,7 +646,7 @@ sus parámetros con los naturales. Las filas secundarias/aroma adicionales de
 \bottomrule
 \endlastfoot
 U01 & MATCH & $F=J^TJ$ & runner upstream, líneas 899--907 \\
-C01--02 & MATCH & cero y señal corregida & \code{apply\_sensor\_zero\_correction} \\
+C01--02 & MATCH & cero y señal corregida & \path{apply_sensor_zero_correction} \\
 C03 & MATCH & $t_s=L+f_s(U-L)$ & smoothstep, línea 1373 \\
 C04 & MISMATCH & $\Delta t=f_d(U-L)$ & código: $\max[f_d(U-L),0.25h]$ \\
 C05 & MATCH & $3z^2-2z^3$ & exacta \\
@@ -644,11 +663,33 @@ K01--08 & CODE\_ONLY & ODE, auxiliares, O$_2^*$, $q_{resp}$, $q_{obs}$, conversi
 \rowcolors{2}{}{}
 \endgroup
 
-Conteo exacto de las 36 entradas expandidas: 23 MATCH, 1 MISMATCH,
+Conteo del snapshot original de 36 entradas: 23 MATCH, 1 MISMATCH,
 3 PARTIAL\_MATCH, 1 DOCUMENTATION\_ONLY y 8 CODE\_ONLY. El informe Markdown
 acompañante contiene una fila por entrada con notebook, celda, función y líneas.
+La actualización full-theta agrega validaciones 17/17 y SCCM\_CORRECTED, pero no
+altera artificialmente ese conteo histórico.
+
+\subsection{Ramas numéricas y vigencia}
+
+\begin{itemize}
+\item \textbf{A histórico}: subset theta + \code{DEFAULT\_THETA}, con CO$_2$
+SCCM-corregido previo; baseline reproducible.
+\item \textbf{B full theta sin refit}: vector completo con los mismos parámetros
+CO$_2$ de A; aísla el efecto de theta.
+\item \textbf{C full theta refit}: vector completo y nueve parámetros CO$_2$
+reajustados; endpoint computacional vigente, con reservas de identificabilidad.
+\item LAB013--015 y LAB016--018 conservan la reconstrucción parcial histórica y
+no son validaciones del endpoint C.
+\end{itemize}
+
+El documento compacto \path{modelo_ecuaciones_2026.tex} combina el theta full
+con los parámetros CO$_2$ de A/B. Por tanto describe B, no el refit C.
 
 \section{Modelo actual realmente implementado}
+
+La estructura siguiente es común a A/B/C. El endpoint full-theta requiere usar
+conjuntamente el vector completo de la matriz, observaciones SCCM\_CORRECTED y
+los parámetros CO$_2$ del estado elegido; no deben mezclarse silenciosamente.
 
 \begin{enumerate}[label=\Alph*.]
 \item Estados upstream: siete estados, IC por batch y no negatividad.
@@ -663,7 +704,7 @@ acompañante contiene una fila por entrada con notebook, celda, función y líne
 \item Solubilidad CO$_2$: R56.
 \item Pool disuelto: R61, $C_0=0$.
 \item Liberación gaseosa: R57--R60.
-\item Observación final: R62, con R63 o R64 según pipeline.
+\item Observación final: R62; R64 es vigente y R63 queda limitada a LEGACY.
 \item Observaciones offline: R66--R74.
 \end{enumerate}
 
@@ -703,14 +744,18 @@ Módulos nucleares:
 \item \path{laboratory_2026/run_estimability_old_vs_lot1.py}
 \item \path{laboratory_2026/run_final_operational_doe_v2.py}
 \item \path{laboratory_2026/run_co2_matrix_cross_validation_2026.py}
+\item \path{laboratory_2026/run_co2_matrix_cross_validation_2026_full_theta.py}
 \item \path{pilot_2025/run_pilot_2025_co2_solubility_integrated_doe.py}
 \item \path{shared/run_secondary_joint_campaign_doe.py}
 \end{itemize}
 
-Artefactos decisivos: \path{theta.csv}, \path{fit_parameters.csv},
-\path{batch_summary.csv}, \path{measurement_support.csv},
-\path{driver_diagnostics.csv}, \path{natural_nutrient_pulse_details.csv},
-\path{effective_nutrient_pulses.csv}, \path{analysis_manifest.json} y
-\path{shared/results/new_must_glycerol_overnight_validation/theta_multistart_07.csv}.
+Artefactos vigentes: \path{theta_natural_full.csv},
+\path{theta_synthetic_full.csv} y el directorio
+\path{co2_matrix_cross_validation_2026_full_theta_sccm_corrected/}, en particular
+\path{analysis_manifest.json}, \path{theta_validation.csv},
+\path{theta_historical_reconstruction_audit.csv},
+\path{three_state_objective_summary.csv} y
+\path{three_state_co2_parameters.csv}. Los subsets \path{theta.csv}/
+\path{theta_by_case.csv} y los resultados previos se conservan como históricos.
 
 \end{document}

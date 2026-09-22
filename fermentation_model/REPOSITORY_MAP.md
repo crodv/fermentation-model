@@ -84,6 +84,7 @@ their own file location.
 
 ```text
 laboratory_2026/
+├── run_co2_matrix_cross_validation_2026_full_theta.py
 ├── run_co2_matrix_cross_validation_2026.py
 ├── run_estimability_historical_by_medium.py
 ├── run_estimability_historical_synthetic_plus_lot2.py
@@ -101,7 +102,9 @@ laboratory_2026/
 
 Notebook families under `laboratory_2026/notebooks/`:
 
-- CO2 cross-matrix: `co2_solubility_o2_cross_matrix_2026(.executed).ipynb`
+- CO2 cross-matrix corrected: `co2_solubility_o2_cross_matrix_2026_full_theta(.executed).ipynb`
+- CO2 cross-matrix historical partial-theta baseline:
+  `co2_solubility_o2_cross_matrix_2026(.executed).ipynb`
 - Estimability by medium/stage: `fermentation_estimability_*`
 - Lot previews: `fermentation_lot1_data_preview`,
   `fermentation_lot2_data_preview`
@@ -113,13 +116,28 @@ Notebook families under `laboratory_2026/notebooks/`:
 - Progress presentation: `presentation_model_co2_progress`
 
 Result families mirror the runners under `laboratory_2026/results/`
-(`co2_matrix_cross_validation_2026/`, `estimability_historical_*`,
+(`co2_matrix_cross_validation_2026_full_theta_sccm_corrected/`,
+`co2_matrix_cross_validation_2026/`, `estimability_historical_*`,
 `lot1_*`/`lot2_*`, `final_operational_doe_*`).
 
 The authoritative design handoff is
 `laboratory_2026/results/design_execution_bundle_2026-06-09/`. The current
-authoritative scientific output is
-`laboratory_2026/results/co2_matrix_cross_validation_2026/`.
+full-theta scientific output is
+`laboratory_2026/results/co2_matrix_cross_validation_2026_full_theta_sccm_corrected/`.
+Its natural and synthetic drivers are respectively `theta_natural_full.csv`
+and `theta_synthetic_full.csv`, both validated as exact 17-parameter vectors.
+The older `co2_matrix_cross_validation_2026/` tree is a historical baseline,
+not the corrected full-theta endpoint.
+
+#### Theta compatibility map
+
+| Classification | Files | Effective behavior |
+| --- | --- | --- |
+| Corrected full theta | `run_co2_matrix_cross_validation_2026_full_theta.py`; `co2_solubility_o2_cross_matrix_2026_full_theta(.executed).ipynb`; `results/co2_matrix_cross_validation_2026_full_theta_sccm_corrected/` | Requires all 17 parameters from `theta_natural_full.csv` / `theta_synthetic_full.csv`; no `DEFAULT_THETA` fallback in states B/C. State A deliberately reproduces the old baseline for comparison. |
+| Historical incomplete reconstruction | `run_co2_matrix_cross_validation_2026.py`; `co2_solubility_o2_cross_matrix_2026(.executed).ipynb`; `lab013_015_natural_must_co2_model_analysis.ipynb`; `lab016_018_natural_must_holdout.ipynb` | Loads the subset artifact over `base.DEFAULT_THETA`; the six omitted fixed core parameters therefore take historical fallback values. |
+| Partial artifact producer | `run_estimability_historical_by_medium.py`; `results/estimability_historical_natural/theta.csv` | The fit uses a complete seed, but the CSV serializes only fitted/extended targets and is not a standalone core vector. |
+| Safe complete-seed overlay | `run_estimability_historical_synthetic_plus_lot2.py` | Reads the historical synthetic `theta.csv`/checkpoint over `final.load_theta_final()`, preserving the fixed core parameters. |
+| Intentional comparison | `theta_full_vs_incomplete_defaults_natural_review(.executed).ipynb` | Reads both variants expressly to audit their differences. |
 
 ### Pilot campaigns
 
@@ -197,12 +215,16 @@ pilot_2025 CO2 solubility model
 (run_pilot_2025_co2_solubility_integrated_doe.py)
         │
         ▼
-laboratory_2026/run_co2_matrix_cross_validation_2026.py
+laboratory_2026/run_co2_matrix_cross_validation_2026_full_theta.py
         │  consumes lot1/lot2 processed CO2 tables, the historical
-        │  natural-must batches and the versioned nutrient calendar
+        │  natural-must batches, complete matrix-specific theta and the
+        │  versioned nutrient calendar
         ▼
-laboratory_2026/results/co2_matrix_cross_validation_2026/
+laboratory_2026/results/co2_matrix_cross_validation_2026_full_theta_sccm_corrected/
 ```
+
+The runner without `_full_theta` and its `co2_matrix_cross_validation_2026/`
+output remain available only to reproduce the historical partial-theta state.
 
 ## Rules for future additions
 
