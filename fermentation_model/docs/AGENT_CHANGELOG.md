@@ -71,3 +71,38 @@ Registro breve de cambios implementados por agentes en el repositorio.
 
 - Archivos: `docs/planning/registro_muestras_LAB019_021_v3_2026.tex`, `.pdf`
 - Cambio: nueva versión v3 de la planilla de registro, solo PDF (el v2 editado a mano por el laboratorio y su xlsx quedan intactos): papel carta explícito (letterpaper landscape), formato compactado para reducir de 7 a 4 páginas (margen 1.0 cm, arraystretch 1.15, filas de 0.55 cm, menos espaciado entre bloques, 5 bloques/página) y corrección de las muestras de las 12:00 (03/07/10), que sí son visita completa con Y15/Oculyze/Alcolyzer — se quitó su etiqueta "(mini: sin ...)"; las mini 05 (mar 16:45 opcional) y 13 (vie 11:00) conservan su marca. Se preservaron las ediciones manuales del v2 (sin título ni párrafos de instrucciones ni pie). Validación: PDF sin errores ni overfull, tamaño carta verificado (792×612 pt) y aceptado visualmente 4/4.
+
+### 2026-09-23 13:30 -03:00
+
+- Archivos: `laboratory_2026/notebooks/volume_analysis/01_auditoria_volumen_natural.ipynb`, `01_auditoria_volumen_natural.executed.ipynb`, `02_comparacion_theta_fijo_quimica_co2.ipynb`, `02_comparacion_theta_fijo_quimica_co2.executed.ipynb`, `_volume_analysis.py`
+- Cambio: se añadieron notebooks ejecutados para auditar escenarios de pérdida/adición de volumen en LAB004–012 y comparar química y CO₂ con parámetros congelados; se explicitan los supuestos de 65 mL por muestra y 20 mL de nutrición ilustrativa. Ambos notebooks se ejecutaron y validaron sin errores; no se modificó el modelo productivo ni se recalibraron parámetros.
+
+### 2026-09-25 19:47 HSP
+
+- Archivos: `data/mem2026/LAB019-021/Mediciones-Offline-LAB019-021.xlsx`
+- Cambio: se agregó la hoja `Nutricion` con los pulsos nutricionales 2 ejecutados según registro del laboratorio (LAB019/F1 24-09 09:20; LAB020/F2 24-09 16:40; LAB021/F3 23-09 16:30; 80 ppm YAN, 1 g Springferm Xtrem + 0.4 g FDA en 100 mL de solución), anotando en Notas la muestra de densidad que disparó cada pulso (≈1040 g/L). El llenado de la hoja `MedicionesOffline` (muestras PI–11) corresponde al laboratorio; no se modificaron otras hojas.
+
+### 2026-09-27 21:47 HSP
+
+- Archivos: `data/mem2026/LAB019-021/Oculyze_report_LAB019.csv`
+- Cambio: corrección del typo de densidad en la fila `LAB019-9` (10134.4 → 1034.4 g/L), detectado por contraste con el Excel offline y el Brix de la misma muestra. Las densidades del Excel `Mediciones-Offline-LAB019-021.xlsx` resultaron todas consistentes (residual ρ-vs-Brix ≤1.1 g/L en 36 puntos) y no se modificaron. Nota para uso futuro: la columna `Density` de los CSV Oculyze en la muestra 1 contiene "1070" sin decimales con T=0 en los tres fermentadores (entrada redondeada de la app, no medición); la densidad maestra sigue siendo la del Excel.
+
+### 2026-09-27 22:18 HSP
+
+- Archivos: `laboratory_2026/notebooks/diagnostics/lab019_021_replica_vs_originals_data_comparison.ipynb`, `lab019_021_replica_vs_originals_data_comparison.executed.ipynb`, `laboratory_2026/results/lab019_021_replica_vs_originals_data_comparison/` (5 CSV)
+- Cambio: nuevo notebook de diagnóstico (SOURCE + EXECUTED, 13 celdas de código sin errores, 7 figuras solo inline en el EXECUTED — sin PNG en `results/`, política acordada de no guardar imágenes salvo pedido expreso) que compara los datos de laboratorio de las réplicas LAB019-021 contra sus originales LAB004/006/009, sin modelo ni capa CO2. Carga workbook homologado (abril) + Y15/Excel offline/Oculyze con resta de fila CERO (septiembre); dos alineaciones (reloj y azúcar consumida); hitos interpolados (cruce densidad 1040, GF=100/90/40, agotamiento NH3) con Δ réplica−original; dispersión por grupo A vs C; tabla de flags QA exportada. Fallbacks documentados: filas m11 sin metadatos (orden F1/F2/F3, 25/09 08:30), hora de muestreo del Excel como tiempo de observación (m1 Oculyze con su propio timestamp), temperatura Anton Paar excluida. Resultados destacados: LAB020 replica a LAB006 en hitos de azúcar (Δ entre −1.6 y +0.3 h), LAB019 corre +6.5–7.5 h tras LAB004, LAB021 +4.0–4.7 h tras LAB009 pero cruza GF40 5.7 h antes; media |Δ| grupo A 6.7 h vs C 4.1 h.
+
+### 2026-09-27 23:31 -03:00
+
+- Archivos: `laboratory_2026/notebooks/diagnostics/lab019_021_replica_vs_originals_data_comparison.ipynb`, `laboratory_2026/notebooks/diagnostics/lab019_021_replica_vs_originals_data_comparison.executed.ipynb`
+- Cambio: se añadió una figura conjunta de los tres pares alineada por horas desde t0, con las mismas cinco señales de la figura por estado y marcas QA; se regeneró el notebook ejecutado (8 figuras, sin errores).
+
+### 2026-09-28 10:06 -03:00
+
+- Archivos: `laboratory_2026/notebooks/diagnostics/lab019_021_replica_vs_originals_data_comparison.ipynb`, `laboratory_2026/notebooks/diagnostics/lab019_021_replica_vs_originals_data_comparison.executed.ipynb`
+- Cambio: se unificó el nombre de la columna de acetaldehído de las réplicas con el panel secundario y se regeneró la figura ejecutada; ahora aparecen las tres curvas naranjas de acetaldehído.
+
+### 2026-09-28 10:24 HSP
+
+- Archivos: `data/mem2026/LAB019-021/Mediciones-Offline-LAB019-021.xlsx` (hoja `Nutricion`); `laboratory_2026/notebooks/diagnostics/lab019_021_replica_vs_originals_data_comparison.ipynb`/`.executed.ipynb`; `laboratory_2026/notebooks/diagnostics/provisional_co2_temperatura_backups_lab019_021.ipynb`/`.executed.ipynb` (nuevo, provisorio a eliminar)
+- Cambio: corrección del t0 de las réplicas: la inoculación (aplicación manual de levadura) fue el lun 21/09 **17:00**, no las 16:00 del plan — el Excel `Experimentos` (17:00) era correcto. El pulso 1 de nutrición (misma dosis del pulso 2: 80 ppm YAN, 1 g SFX + 0.4 g FDA en 100 mL) se dosificó **al mosto antes del inóculo**, por lo que la muestra 01 es pre-inoculación (explica su YAN 260 y la concentración Oculyze de 17:21, post-inóculo). En ambos notebooks T0 pasó de 16:00 a 17:00 y se re-ejecutaron (cero errores); en la hoja `Nutricion` se agregaron las 3 filas del Pulso 1 (hora exacta por confirmar, entre 13:00 y 15:50). Hitos actualizados (Δ réplica−original): LAB019 +5.5…+6.5 h tras LAB004, LAB020 −2.6…−0.7 h vs LAB006, LAB021 +3.0…+3.7 h tras LAB009 y −6.7 h en GF40; media |Δ| grupo A 5.9 h vs C 4.5 h. El notebook provisorio grafica CO2 raw/filtrado y temperatura de los backups globales (carga robusta: 1 línea corrupta en temperatura, 6 timestamps en CO2, fuera de la ventana de campaña). Verificado que `nutricion_activa`/`freq_nut` no registran actividad en toda la campaña (nutrición e inóculo manuales).

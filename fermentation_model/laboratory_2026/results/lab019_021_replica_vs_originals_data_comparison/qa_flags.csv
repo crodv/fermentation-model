@@ -1,0 +1,16 @@
+﻿lote,canal,muestra,problema,acción
+LAB004,GF,t=0,GF0=145.9 con densidad 1067.7: 12 g/L bajo respecto a LAB019 a igual densidad; inconsistente,marcado
+LAB004,Brix,t=146,Brix 22.6 en vino casi seco = error de ingreso (regla Brix<=17.5),excluido por regla
+LAB006,Brix,t=146,Brix 22.5 ídem,excluido por regla
+LAB004/006/009,Viability,todo,"columna duplicada de la concentración Oculyze en el workbook, no es viabilidad",no graficada
+LAB009,X_ocu,t=160,concentración/viabilidad con crash final (6.8/4.6%) atípico,marcado
+LAB004/006,acetic,todo,canal 'Y15 Acetico' vacío en el workbook (sólo LAB009 tiene acético),panel secundario sin original
+LAB019,GF,m4,GF 151.2 g/L por sobre el valor de m3 (no monótono); outlier Y15,marcado
+LAB020,G,m4,glucosa -7.28 g/L inválida,canal G sin punto
+LAB019/020/021,G,m5-m7 (23-09),canal GLUCOSE-320 'Out' todo el miércoles 23/09,sin split glu/fru ese día
+LAB021,GF,m8/m11,"GF faltante (m8) y 'Out High' (m11, glucosa 1.10)",sin punto
+LAB019,X_ocu,m1,"28.65 medida 17:21 = 21 min post-inoculación (17:00): inóculo fresco sin mezclar del todo; plausible, no artefacto",marcado
+LAB019/LAB021,X_ocu,m9,concentración idéntica 72.12 en dos reactores: posible repetición en la app,marcado
+LAB019/020/021,density,PI,hora PI del Excel (12:30) pendiente de corrección a 15:10,usada hora Excel
+LAB019/020/021,m11,metadatos,filas sin fecha/hora/lab: fallback 25/09 08:30 orden F1/F2/F3,fallback documentado
+LAB019/020/021,T,todo,temperatura Anton Paar no confiable: excluida de este análisis,canal excluido
