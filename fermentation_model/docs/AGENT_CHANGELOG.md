@@ -116,3 +116,8 @@ Registro breve de cambios implementados por agentes en el repositorio.
 
 - Archivos: `laboratory_2026/notebooks/holdouts/lab019_021_theta_full_holdout.ipynb`, `laboratory_2026/notebooks/holdouts/lab019_021_theta_full_holdout.executed.ipynb`, `laboratory_2026/results/lab019_021_theta_full_holdout/`
 - Cambio: se eliminó la exportación de figuras a `results` y los PNG previamente generados; se activó el backend inline y se regeneró el EXECUTED con las dos figuras embebidas en sus outputs. Verificado: 2 outputs `image/png`, 11 celdas ejecutadas, cero errores y cero archivos de imagen en `results`.
+
+### 2026-09-28 11:57 -03:00
+
+- Archivos: `.gitattributes`, `fermentation_model/docs/AGENT_CHANGELOG.md`
+- Cambio: se configuraron los backups globales de CO2 y temperatura de LAB019–LAB021 en Git LFS para su respaldo remoto; se separaron y publicaron las ramas `model/sampling-volume-correction` y `analysis/lab019-021-holdout`, cada una con upstream, y se creó un worktree independiente para el holdout.
