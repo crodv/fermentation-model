@@ -1,0 +1,10 @@
+state,calibration_matrix,parameter,estimate,lower_bound,upper_bound,active_bound,relative_bound_distance,co2_refitted
+C_full_theta_refit,natural,kCO2_release_h,0.2783490956541603,0.03,25.0,False,0.3312319734354777,True
+C_full_theta_refit,natural,CO2sat_scale,2.4989077876688888,0.35,2.5,True,0.000222256007866,True
+C_full_theta_refit,natural,O2_qmax_mg_gdw_h,0.253137377347088,0.15,6.0,False,0.1418579943421063,True
+C_full_theta_refit,natural,O2_initial_scale,0.1796055523674549,0.05,1.5,False,0.3759676142416194,True
+C_full_theta_refit,natural,pulse_t_rise_h,56.741847126013056,1.0,72.0,False,0.0556868666679066,True
+C_full_theta_refit,natural,pulse_activity_gain,0.2500105322628576,0.25,4.0,True,1.5194523330864704e-05,True
+C_full_theta_refit,natural,chem_activation_start_fraction,0.7415746393413655,0.01,0.95,False,0.0543901765559162,True
+C_full_theta_refit,natural,chem_activation_duration_fraction,0.4577733073937537,0.35,2.0,False,0.1540135814756579,True
+C_full_theta_refit,natural,matrix_gain,1.6022220798034803,0.1,20.0,False,0.4764419783268531,True

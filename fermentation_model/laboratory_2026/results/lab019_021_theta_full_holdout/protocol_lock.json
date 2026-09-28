@@ -1,0 +1,19 @@
+{
+  "holdout_labs": [
+    "LAB019",
+    "LAB020",
+    "LAB021"
+  ],
+  "fit_performed": false,
+  "t0": "2026-09-21 17:00:00",
+  "initial_sample": "m1 post-nutrition/pre-inoculation, assigned to model t=0",
+  "theta_full": "fermentation_model\\laboratory_2026\\results\\estimability_historical_natural\\theta_natural_full.csv",
+  "secondary_parameters": "fermentation_model\\laboratory_2026\\results\\final_operational_doe_v2\\theta_final_operational_v2.csv",
+  "co2_parameters": "C_full_theta_refit/natural",
+  "first_nutrition": "contained in m1; not replayed",
+  "second_nitrogen_increment_kg_m3": 0.14,
+  "co2_conversion_g_l_h_per_sccm_at_2L": 0.0404391928807947,
+  "co2_initial_artifact_rule": "raw Hampel max(3.5*MAD_sigma, 0.5 SCCM), search [-0.5, 0.75] h, plus 90 min recovery",
+  "primary_activation": "predicted G+F drop >=5 g/L or predicted E rise >=2 g/L",
+  "conditional_activation": "observed chemistry bracket; diagnostic only"
+}
