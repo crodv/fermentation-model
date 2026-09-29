@@ -106,3 +106,39 @@ Registro breve de cambios implementados por agentes en el repositorio.
 
 - Archivos: `data/mem2026/LAB019-021/Mediciones-Offline-LAB019-021.xlsx` (hoja `Nutricion`); `laboratory_2026/notebooks/diagnostics/lab019_021_replica_vs_originals_data_comparison.ipynb`/`.executed.ipynb`; `laboratory_2026/notebooks/diagnostics/provisional_co2_temperatura_backups_lab019_021.ipynb`/`.executed.ipynb` (nuevo, provisorio a eliminar)
 - Cambio: corrección del t0 de las réplicas: la inoculación (aplicación manual de levadura) fue el lun 21/09 **17:00**, no las 16:00 del plan — el Excel `Experimentos` (17:00) era correcto. El pulso 1 de nutrición (misma dosis del pulso 2: 80 ppm YAN, 1 g SFX + 0.4 g FDA en 100 mL) se dosificó **al mosto antes del inóculo**, por lo que la muestra 01 es pre-inoculación (explica su YAN 260 y la concentración Oculyze de 17:21, post-inóculo). En ambos notebooks T0 pasó de 16:00 a 17:00 y se re-ejecutaron (cero errores); en la hoja `Nutricion` se agregaron las 3 filas del Pulso 1 (hora exacta por confirmar, entre 13:00 y 15:50). Hitos actualizados (Δ réplica−original): LAB019 +5.5…+6.5 h tras LAB004, LAB020 −2.6…−0.7 h vs LAB006, LAB021 +3.0…+3.7 h tras LAB009 y −6.7 h en GF40; media |Δ| grupo A 5.9 h vs C 4.5 h. El notebook provisorio grafica CO2 raw/filtrado y temperatura de los backups globales (carga robusta: 1 línea corrupta en temperatura, 6 timestamps en CO2, fuera de la ventana de campaña). Verificado que `nutricion_activa`/`freq_nut` no registran actividad en toda la campaña (nutrición e inóculo manuales).
+
+### 2026-09-28 14:28 HSP
+
+- Archivos: `laboratory_2026/notebooks/holdouts/lab019_021_theta_full_holdout.ipynb`, `laboratory_2026/notebooks/holdouts/lab019_021_theta_full_holdout.executed.ipynb`, `laboratory_2026/results/lab019_021_theta_full_holdout/transient_kernel_diagnostic_metrics.csv`
+- Cambio: se añadió al holdout una sección de variante diagnóstica sin calibración (réplica de la sección 14 de `lab016_018_natural_must_holdout`): kernel rise-decay normalizado A=0.30, tau_r=2 h, tau_d=4 h superpuesto al qprod de la capa congelada, con dos escalados de dosis (0.14 modelada y 0.08 ejecutada) y réplica verificada del pool de release continuo. Figura inline (trayectoria completa + zoom post-pulso); sin cambios en theta ni en los parámetros CO2 (verificado por snapshots).
+
+### 2026-09-28 20:01 HSP
+
+- Archivos: `laboratory_2026/notebooks/holdouts/lab019_021_theta_full_holdout.ipynb`, `laboratory_2026/notebooks/holdouts/lab019_021_theta_full_holdout.executed.ipynb`, `laboratory_2026/results/lab019_021_theta_full_holdout/dissolved_co2_carbodoseur.csv`
+- Cambio: nueva sección de señal del logger: figura 2x3 (CO2 filtrado + temperatura filtrada con mediana 1 min + mediana móvil 15 min, SP como referencia) y cálculo de CO2 disuelto por Carbodoseur interpolando la tabla digitalizada `Tabla_CO2_disuelto_carbodoseur_long.csv` con la lectura `Vol_Residual_mL` (muestras 1-6) y la temperatura del log filtrada; T recortada al techo de tabla (20 °C) se marca. Sin ajustes ni optimizaciones.
+
+### 2026-09-28 21:08 HSP
+
+- Archivos: `laboratory_2026/notebooks/holdouts/lab019_021_theta_full_holdout.ipynb`, `laboratory_2026/notebooks/holdouts/lab019_021_theta_full_holdout.executed.ipynb`, `laboratory_2026/results/lab019_021_theta_full_holdout/dissolved_co2_carbodoseur.csv`
+- Cambio: sección del logger movida al inicio del notebook (celdas 4-6, tras los parámetros congelados), ahora con carga propia de los CSV de respaldo; filtrado de temperatura más agresivo (mediana 1 min -> mediana móvil 20 min -> media móvil 45 min, centradas) y líneas más gruesas en ambas figuras. Valores de CO2 disuelto regenerados con el filtro nuevo (cambios < 0.02 g/L).
+
+### 2026-09-29 09:22 -03:00
+
+- Archivos: `laboratory_2026/notebooks/holdouts/lab019_021_theta_full_holdout.ipynb`, `laboratory_2026/notebooks/holdouts/lab019_021_theta_full_holdout.executed.ipynb`, `laboratory_2026/results/lab019_021_theta_full_holdout/co2_auc_replicas_vs_originals.csv`
+- Cambio: nueva celda bajo la figura de CO2 disuelto que calcula el AUC del flujo de CO2 (CO2 total emitido) de las tres réplicas y lo compara con sus originales pareados (LAB004/006/009, cargados con el loader histórico y reconvertidos con la misma convención 0.0404 g/L/h por sccm; regla simétrica: inicio 2.5 h, cero p10, mediana horaria). Figura con curvas acumuladas por pareja y barras (ventana común 0-160 h y horizonte completo); ratios réplica/original 1.15 / 1.48 / 4.04, consistente con fugas crecientes en los originales (57-88% del CO2 estequiométrico no llegó al medidor).
+
+### 2026-09-29 10:01 -03:00
+
+- Archivos: `laboratory_2026/notebooks/holdouts/lab019_021_theta_full_holdout.ipynb`, `laboratory_2026/notebooks/holdouts/lab019_021_theta_full_holdout.executed.ipynb`, `laboratory_2026/notebooks/diagnostics/lab019_021_replica_vs_originals_data_comparison.ipynb`, `laboratory_2026/notebooks/diagnostics/lab019_021_replica_vs_originals_data_comparison.executed.ipynb`, resultados CSV asociados.
+- Cambio: lectura completa del Excel actualizado, incluida m12 a 166 h; auditoría explícita de Y15 faltante para m12. El holdout ahora toma hora y dosis del segundo pulso desde `Nutricion` (80 mg/L registrados), y añade diagnósticos de arranque con CO2 disuelto y sensibilidad a X0 sin recalibración. Ambos notebooks se regeneraron con figuras inline y sin errores.
+- Auditoría: el AUC de LAB009 se conserva como comparación descriptiva; su gas fue excluido por QC histórico y los cocientes réplica/original no demuestran fugas.
+
+### 2026-09-29 10:52 -03:00
+
+- Archivos: `data/mem2026/LAB019-021/ONLINE(26-09-28 15-33)_1.txt` (nuevo dato del usuario), `laboratory_2026/notebooks/holdouts/lab019_021_theta_full_holdout.ipynb`, `laboratory_2026/notebooks/holdouts/lab019_021_theta_full_holdout.executed.ipynb`, `laboratory_2026/notebooks/diagnostics/lab019_021_replica_vs_originals_data_comparison.ipynb`, `laboratory_2026/notebooks/diagnostics/lab019_021_replica_vs_originals_data_comparison.executed.ipynb`, resultados CSV asociados.
+- Cambio: se incorporó Y15 m12 de los tres reactores a química, tablas, métricas y figuras. Los azúcares negativos se conservan como QA y se usa el canal de rango bajo cuando entrega valores no negativos (LAB020/021); LAB019 m12 queda sin G+F cuantitativo. Se explicita la extrapolación de temperatura hasta 166 h. Ambos notebooks se regeneraron sin errores y con figuras inline.
+
+### 2026-09-29 11:08 -03:00
+
+- Archivos: `laboratory_2026/notebooks/holdouts/lab019_021_theta_full_holdout.ipynb`, `laboratory_2026/notebooks/holdouts/lab019_021_theta_full_holdout.executed.ipynb`
+- Cambio: se corrigió la figura de diagnóstico temprano con una leyenda única, espacio reservado para título y paneles, y notación matemática para CO2 y exponentes. Se regeneró el notebook ejecutado; figura inspeccionada, sin warnings de glifos ni solapamientos.
