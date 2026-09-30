@@ -16,5 +16,7 @@
   "co2_initial_artifact_rule": "raw Hampel max(3.5*MAD_sigma, 0.5 SCCM), search [-0.5, 0.75] h, plus 90 min recovery",
   "primary_activation": "predicted G+F drop >=5 g/L or predicted E rise >=2 g/L",
   "conditional_activation": "observed chemistry bracket; diagnostic only",
-  "initial_biomass": "X0 = Oculyze m1 Concentration x MILLION_CELLS_ML_TO_KG_M3 (0.03 kg/m3 per million cells/mL, 30 pg/cell); Xd0 = X0 x (1 - viability%); replaces inheritance from matched original"
+  "initial_biomass": "X0 = Oculyze m1 Concentration x MILLION_CELLS_ML_TO_KG_M3 (0.03 kg/m3 per million cells/mL, 30 pg/cell); Xd0 = X0 x (1 - viability%); replaces inheritance from matched original",
+  "ethanol": "observed column Etanol (Excel offline, % v/v) -> g/L via ETHANOL_G_L_PER_PERCENT_VV = 7.8924; E0 initialized from m1 (pipeline convention)",
+  "ethanol_m12_dilution": "per-lab Alcolyzer aliquot diluted to 37.5 mL: LAB020 27.5 mL wine + 10 mL water (x15/11); LAB021 32.5 mL wine + 5 mL water (x15/13); Brix/density measured pre-dilution, uncorrected"
 }

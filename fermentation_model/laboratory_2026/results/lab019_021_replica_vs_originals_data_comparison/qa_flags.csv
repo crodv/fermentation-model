@@ -13,6 +13,10 @@ LAB019,X_ocu,m1,"28.65 medida 17:21 = 21 min post-inoculación (17:00): inóculo
 LAB019/LAB021,X_ocu,m9,concentración idéntica 72.12 en dos reactores: posible repetición en la app,marcado
 LAB019/020/021,density,PI,hora PI del Excel (12:30) pendiente de corrección a 15:10,usada hora Excel
 LAB019/020/021,T,todo,temperatura Anton Paar no confiable: excluida de este análisis,canal excluido
+LAB019/020/021,etanol,m1,"pre-inoculación con ~1.5% v/v: señal basal del equipo, mismo patrón que los originales (ETANOL t=0 1.23-1.25)",marcado
+LAB019/020/021,etanol,"m1,m4,m7,m10,m11,m12",Alcolyzer medido sólo en 6 de 12 muestras,panel secundario con huecos
+LAB020,etanol,m12,alícuota diluida 27.5->37.5 mL; corregida x15/11 (7.33 -> 10.00 % v/v),corregido
+LAB021,etanol,m12,"alícuota diluida 32.5->37.5 mL; corregida x15/13 (8.66 -> 9.99 % v/v), consistente con LAB019 (9.91, sin diluir)",corregido
 LAB019,GF,m12,GLU-FRU-320 negativo; rango bajo auditado,sin punto GF
 LAB019,G,m12,glucosa de rango bajo negativa,sin punto G
 LAB020,GF,m12,GLU-FRU-320 negativo; rango bajo auditado,rango bajo usado

@@ -142,3 +142,64 @@ Registro breve de cambios implementados por agentes en el repositorio.
 
 - Archivos: `laboratory_2026/notebooks/holdouts/lab019_021_theta_full_holdout.ipynb`, `laboratory_2026/notebooks/holdouts/lab019_021_theta_full_holdout.executed.ipynb`
 - Cambio: se corrigió la figura de diagnóstico temprano con una leyenda única, espacio reservado para título y paneles, y notación matemática para CO2 y exponentes. Se regeneró el notebook ejecutado; figura inspeccionada, sin warnings de glifos ni solapamientos.
+
+
+### 2026-09-29 16:05 -03:00
+
+- Archivos: `laboratory_2026/notebooks/diagnostics/lab019_021_co2_onset_effective_model_test.ipynb`, `laboratory_2026/notebooks/diagnostics/lab019_021_co2_onset_effective_model_test.executed.ipynb`
+- Cambio: prueba reversible de modelos causales efectivos M1/M2 con `theta_natural_full` congelado; ajuste en LAB004-LAB008, seleccion historica en LAB011-LAB012 y evaluacion sin ajuste en LAB019-LAB021. M0 se reprodujo exactamente, las figuras quedaron inline y no se escribieron imagenes ni resultados externos.
+
+
+### 2026-09-29 16:15 -03:00
+
+- Archivos: `laboratory_2026/notebooks/diagnostics/lab019_021_co2_onset_effective_model_test.ipynb`, `laboratory_2026/notebooks/diagnostics/lab019_021_co2_onset_effective_model_test.executed.ipynb`
+- Cambio: se separaron el titulo, la leyenda y los paneles en la figura de calibracion historica M1/M2; se regenero el notebook ejecutado y la figura se verifico visualmente sin solapamientos.
+
+
+### 2026-09-29 16:35 -03:00
+
+- Archivos: `laboratory_2026/notebooks/diagnostics/lab019_021_co2_onset_effective_model_test.ipynb`, `laboratory_2026/notebooks/diagnostics/lab019_021_co2_onset_effective_model_test.executed.ipynb`
+- Cambio: se rehizo la prueba de la capa de CO2 con LAB005/LAB007/LAB008 en peso 1 y LAB019-LAB021 en peso 2, excluyendo LAB004/LAB006; LAB011-LAB012 seleccionan M1/M2 y LAB016-LAB018 quedan como holdout externo con condiciones iniciales heredadas del mismo mosto. Se regeneraron y verificaron las figuras inline sin escribir resultados ni imagenes externas.
+
+
+### 2026-09-29 16:45 -03:00
+
+- Archivos: `laboratory_2026/notebooks/diagnostics/lab019_021_co2_onset_effective_model_test.ipynb`, `laboratory_2026/notebooks/diagnostics/lab019_021_co2_onset_effective_model_test.executed.ipynb`
+- Cambio: las figuras de calibracion, seleccion y holdout ahora muestran las curvas completas. Los limites de ajuste o puntuacion se marcan explicitamente y el tramo posterior al primer pulso posible de LAB016-LAB018 queda sombreado como contexto no puntuado.
+
+
+### 2026-09-29 16:49 -03:00
+
+- Archivos: `laboratory_2026/notebooks/diagnostics/lab019_021_co2_onset_effective_model_test.ipynb`, `laboratory_2026/notebooks/diagnostics/lab019_021_co2_onset_effective_model_test.executed.ipynb`
+- Cambio: se retiraron de todas las figuras las lineas de fin de tramo, el sombreado y sus leyendas; se conservaron unicamente las curvas observadas y las predicciones completas M0/M1/M2.
+
+
+### 2026-09-29 17:20 -03:00
+
+- Archivos: `laboratory_2026/notebooks/diagnostics/lab019_021_co2_onset_effective_model_test.ipynb`, `laboratory_2026/notebooks/diagnostics/lab019_021_co2_onset_effective_model_test.executed.ipynb`
+- Cambio: se agrego un reajuste local de M0 dentro del notebook (nueva seccion tras el ajuste M1/M2), reutilizando `co2_cross.fit_matrix` con los mismos lotes, tramos y pesos (LAB005/007/008 peso 1; LAB019-021 peso 2 como lotes gemelos), con `theta_full` y `three_state_co2_parameters.csv` congelados. El holdout externo, el resumen y las figuras ahora comparan M0 actual, M0 reajustado, M1 y M2. El reajuste vive solo en el notebook: 0 archivos de resultados escritos y auditoria de inmutabilidad OK.
+
+### 2026-09-30 09:02 HSP
+
+- Archivos: `laboratory_2026/notebooks/holdouts/lab019_021_theta_full_holdout.ipynb`, `laboratory_2026/notebooks/holdouts/lab019_021_theta_full_holdout.executed.ipynb`, `laboratory_2026/notebooks/diagnostics/lab019_021_replica_vs_originals_data_comparison.ipynb`, `laboratory_2026/notebooks/diagnostics/lab019_021_replica_vs_originals_data_comparison.executed.ipynb`, `laboratory_2026/notebooks/diagnostics/lab019_021_co2_onset_effective_model_test.ipynb`, `laboratory_2026/notebooks/diagnostics/lab019_021_co2_onset_effective_model_test.executed.ipynb`
+- Cambio: integrada la nueva columna `Etanol` (% v/v, muestras 1/4/7/10/11/12) del Excel offline `Mediciones-Offline-LAB019-021.xlsx` en los tres análisis de LAB019-021. Comparación de datos: etanol de réplicas vs originales en el panel secundario (rotulado corregido a % v/v), QA flags nuevos (m1 pre-inoculación, LAB021 m12 no monótono) y `n_etanol` en la auditoría. Holdout theta_full: etanol observado convertido a g/L (×7.8924, convención del repo), E ahora se puntúa en las métricas y figura, y E0 se inicializa desde m1 (misma convención que los originales; antes E0=0). Prueba CO2 onset: etanol en el bracket químico observado y E0 consistente. Los tres notebooks re-ejecutados y sus resultados regenerados (CSV del holdout y de la comparación actualizados); auditoría de inmutabilidad de la prueba CO2 OK.
+
+### 2026-09-30 09:12 HSP
+
+- Archivos: `laboratory_2026/notebooks/diagnostics/lab019_021_replica_vs_originals_data_comparison.ipynb`, `laboratory_2026/notebooks/diagnostics/lab019_021_replica_vs_originals_data_comparison.executed.ipynb`
+- Cambio: los paneles secundarios ahora conectan sólo los puntos medidos (`np.isfinite`), de modo que series esparsas como el etanol (% v/v en m1/m4/m7/m10/m11/m12) se ven como trayectoria continua en vez de puntos aislados cortados por los NaN de las muestras sin medición. Notebook re-ejecutado y figura verificada.
+
+### 2026-09-30 09:30 HSP
+
+- Archivos: `laboratory_2026/notebooks/holdouts/lab019_021_theta_full_holdout.ipynb`, `laboratory_2026/notebooks/holdouts/lab019_021_theta_full_holdout.executed.ipynb`, `laboratory_2026/notebooks/diagnostics/lab019_021_replica_vs_originals_data_comparison.ipynb`, `laboratory_2026/notebooks/diagnostics/lab019_021_replica_vs_originals_data_comparison.executed.ipynb`, `laboratory_2026/notebooks/diagnostics/lab019_021_co2_onset_effective_model_test.ipynb`, `laboratory_2026/notebooks/diagnostics/lab019_021_co2_onset_effective_model_test.executed.ipynb`
+- Cambio: corrección de dilución del Alcolyzer en m12 de LAB020/LAB021 (27.5 mL de vino + 10 mL de agua = 37.5 mL): solo la columna Etanol se multiplica x37.5/27.5 (7.33->10.00 y 8.66->11.81 % v/v); Brix y densidad se midieron antes de diluir y quedan sin corrección. Documentado en `protocol_lock.json`, QA flags (LAB021 m12 sigue marcado: 11.81 % v/v excede el máximo teórico desde GF0) y markdowns. Tres notebooks re-ejecutados; solo cambian las métricas de E de LAB020/LAB021.
+
+### 2026-09-30 09:53 HSP
+
+- Archivos: `laboratory_2026/notebooks/holdouts/lab019_021_theta_full_holdout.ipynb`, `laboratory_2026/notebooks/holdouts/lab019_021_theta_full_holdout.executed.ipynb`, `laboratory_2026/notebooks/diagnostics/lab019_021_replica_vs_originals_data_comparison.ipynb`, `laboratory_2026/notebooks/diagnostics/lab019_021_replica_vs_originals_data_comparison.executed.ipynb`, `laboratory_2026/notebooks/diagnostics/lab019_021_co2_onset_effective_model_test.ipynb`, `laboratory_2026/notebooks/diagnostics/lab019_021_co2_onset_effective_model_test.executed.ipynb`
+- Cambio: precisión por lote de la dilución del Alcolyzer m12: LAB020 = 27.5 mL vino + 10 mL agua (x15/11) y LAB021 = 32.5 mL vino + 5 mL agua (x15/13), ambas a 37.5 mL (aclaración del laboratorio). LAB021 m12 queda en 9.99 % v/v, consistente con LAB019 sin diluir (9.91): se retiró la marca de anomalía del QA flag y del gráfico. Tres notebooks re-ejecutados; solo cambia la métrica E de LAB021 (MAE 4.42->3.73 g/L, bias -0.96->+1.91).
+
+### 2026-09-30 11:06 -03:00
+
+- Archivos: `laboratory_2026/notebooks/KalmanFilter/lab005_m0_interval_advance_ekf_prep.ipynb`, `laboratory_2026/notebooks/KalmanFilter/lab005_m0_interval_advance_ekf_prep.executed.ipynb` (carpeta nueva `notebooks/KalmanFilter`)
+- Cambio: primer notebook preparatorio del EKF. Implementa `advance_m0(estado, tiempo_objetivo, entradas, theta, parametros_co2)` con estado extendido (7 estados biológicos + O2 + pool de CO2 disuelto + tiempo) y temperatura exógena, reutilizando `base.rhs`/`base.kinetic_terms` (LSODA igual que `base.simulate`) y la discretización 0.25 h de `effective_qprod_grid`/`raw_qgas_grid_prediction` con M0_actual congelado (theta_natural_full + three_state_co2_parameters C_full_theta_refit/natural). Caso LAB005 0-55 h pre-pulso: reproduce la referencia bit a bit (estados, qprod, O2, pool, qgas, qobs), bordes externos 1 h/2 h equivalentes, reanudación desde checkpoint exacta, corrección artificial X+10 % a las 20 h propagada con pools conservados y tasas recalculadas, balance discreto del pool residual 0. Sin escritura de artefactos; no se implementó el EKF ni P0/Q/R.

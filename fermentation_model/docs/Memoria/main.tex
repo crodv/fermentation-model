@@ -1,0 +1,86 @@
+\documentclass[12pt,spanish]{thesis}
+
+\usepackage[latin1]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{amsmath}
+
+%Interlineado
+\usepackage{setspace}
+\setstretch{1.5}
+
+\usepackage{times}
+\usepackage{amssymb}
+\usepackage{float}
+\usepackage{color}
+\usepackage{graphicx}
+\usepackage{eso-pic}
+\usepackage{multicol}
+\usepackage{enumerate}
+\usepackage{url}
+\usepackage{soul}
+\usepackage{fancyhdr}
+
+%Margenes
+\usepackage[top=3cm,bottom=3cm,left=4.2cm,right=3cm]{geometry}
+\pagestyle{empty} 
+\frenchspacing
+
+\fancyhead[L]{}
+\fancyhead[C]{}
+\fancyhead[R]{}
+\fancyfoot[R]{\thepage}
+\fancyfoot[C]{}
+
+
+%Fin Preambulo
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+\thispagestyle{empty}
+
+\begin{center}
+\linespread{1.15}
+\textbf{\large{UNIVERSIDAD TE\'CNICA FEDERICO SANTA MARI\'A\\}
+\normalsize{DEPARTAMENTO DE ELECTRO\'NICA\\VALPARAI\'SO - CHILE\\}}
+
+\vspace{0.5cm}
+\begin{figure}[H]
+\centering
+  \includegraphics[width=5.85cm]{fig/usmLogo.png}
+\end{figure}
+\vspace{0.5cm}
+
+\linespread{1}\hangindent=0cm
+\textbf{\Large ``IMPLEMENTACIO\'ON DE UN GEMELO DIGITAL PARA FERMENTACIO\'N DE VINOS BLANCOS''\\}
+\vspace{3cm}
+
+\hangindent=0cm\large \textbf{Claudio Antonio Rodri\'guez Va\'squez}\\
+\vspace{0.5cm}
+\hangindent=0cm\normalsize \textbf{MEMORIA DE TITULACIO\'N PARA OPTAR AL TI\'TULO DE INGENIERO CIVIL ELECTRO\'NICO}\\
+\vspace{1cm}
+\hangindent=0cm\normalsize \textbf{PROFESOR GUIA: Manuel Olivares\hspace{2cm}}\\
+\vspace{0.5cm}
+\hangindent=0cm\normalsize \textbf{PROFESOR CORREFERENTE: Marcela Carvajal\hspace{2cm}}\\
+
+\end{center}
+
+\thispagestyle{empty}
+\newpage
+\pagestyle{fancy}
+\renewcommand\headrulewidth{0pt}
+
+%Numeros romanos al pie de pagina, secciones sin numero.
+\pagenumbering{roman}
+\include{cap0}
+
+%Se sigue con numeros arabes al pie de pagina
+\pagenumbering{arabic}
+\tableofcontents
+\newpage
+
+\include{cap1}
+
+\include{referencias}
+
+		
+\end{document}

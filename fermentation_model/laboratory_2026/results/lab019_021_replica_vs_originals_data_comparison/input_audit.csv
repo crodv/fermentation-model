@@ -1,7 +1,7 @@
-﻿lote,campaña,n_GF,n_YAN,n_densidad,n_Brix,n_X_ocu,t_max_h
-LAB004,abril (original),13,13,13,12,12,163.0
-LAB006,abril (original),15,15,15,14,14,211.0
-LAB009,abril (original),12,12,11,11,12,160.0
-LAB019,sept (réplica),11,13,13,13,11,166.0
-LAB020,sept (réplica),12,13,13,13,11,166.0
-LAB021,sept (réplica),10,13,13,13,11,166.0
+﻿lote,campaña,n_GF,n_YAN,n_densidad,n_Brix,n_X_ocu,n_etanol,t_max_h
+LAB004,abril (original),13,13,13,12,12,5,163.0
+LAB006,abril (original),15,15,15,14,14,5,211.0
+LAB009,abril (original),12,12,11,11,12,5,160.0
+LAB019,sept (réplica),11,13,13,13,11,6,166.0
+LAB020,sept (réplica),12,13,13,13,11,6,166.0
+LAB021,sept (réplica),10,13,13,13,11,6,166.0
