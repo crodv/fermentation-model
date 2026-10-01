@@ -203,3 +203,28 @@ Registro breve de cambios implementados por agentes en el repositorio.
 
 - Archivos: `laboratory_2026/notebooks/KalmanFilter/lab005_m0_interval_advance_ekf_prep.ipynb`, `laboratory_2026/notebooks/KalmanFilter/lab005_m0_interval_advance_ekf_prep.executed.ipynb` (carpeta nueva `notebooks/KalmanFilter`)
 - Cambio: primer notebook preparatorio del EKF. Implementa `advance_m0(estado, tiempo_objetivo, entradas, theta, parametros_co2)` con estado extendido (7 estados biológicos + O2 + pool de CO2 disuelto + tiempo) y temperatura exógena, reutilizando `base.rhs`/`base.kinetic_terms` (LSODA igual que `base.simulate`) y la discretización 0.25 h de `effective_qprod_grid`/`raw_qgas_grid_prediction` con M0_actual congelado (theta_natural_full + three_state_co2_parameters C_full_theta_refit/natural). Caso LAB005 0-55 h pre-pulso: reproduce la referencia bit a bit (estados, qprod, O2, pool, qgas, qobs), bordes externos 1 h/2 h equivalentes, reanudación desde checkpoint exacta, corrección artificial X+10 % a las 20 h propagada con pools conservados y tasas recalculadas, balance discreto del pool residual 0. Sin escritura de artefactos; no se implementó el EKF ni P0/Q/R.
+
+### 2026-09-30 12:40 -03:00
+
+- Archivos: `laboratory_2026/notebooks/diagnostics/lab019_021_co2_onset_effective_model_test.ipynb`, `laboratory_2026/notebooks/diagnostics/lab019_021_co2_onset_effective_model_test.executed.ipynb`
+- Cambio: añadida prueba de respuesta nutricional transitoria rise-decay con curvas completas válidas y theta_full congelado; LAB005/007/008 peso 1, LAB019-021 peso 2. Comparador sin transitorio ajustado sobre el mismo soporte, activación con química predicha, métricas por pulso/cola, validación LAB011-012 y holdout pre-nutrición LAB016-018. Cuatro figuras nuevas inline, límites de parámetros y dosis/retiros documentados; ejecución sin errores, artefactos anteriores protegidos intactos y sin escritura de imágenes/resultados externos.
+
+### 2026-09-30 13:12 -03:00
+
+- Archivos: `laboratory_2026/notebooks/diagnostics/lab019_021_co2_onset_effective_model_test.ipynb`, `laboratory_2026/notebooks/diagnostics/lab019_021_co2_onset_effective_model_test.executed.ipynb`
+- Cambio: incorporada nutrición posterior de LAB016-018 en horas recuperadas del log, incluidos ambos eventos de LAB017, con saltos N exactos y dosis de referencia explícita del diagnóstico previo. Añadidas máscaras de artefactos raw, métricas post-pulso/cola y curvas completas con nutrición. Corregido el reajuste pre-pulso de M0 congelando los dos parámetros nutricionales no informados por ese soporte, eliminando la amplificación arbitraria. Añadidos perfiles térmicos LAB011-012 y diagnóstico de sensibilidad/producción/liberación, sin cambiar theta_full ni constantes térmicas. Ejecutado sin errores, 12 figuras inline y artefactos protegidos intactos.
+
+### 2026-09-30 13:37 -03:00
+
+- Archivos: `laboratory_2026/notebooks/diagnostics/lab019_021_co2_onset_effective_model_test.ipynb`, `laboratory_2026/notebooks/diagnostics/lab019_021_co2_onset_effective_model_test.executed.ipynb`
+- Cambio: retiradas las secciones obsoletas de M1/M2, M0 pre-pulso y sus comparaciones, cálculos, tablas y figuras; notebook centrado en el ajuste completo con transitorio nutricional, holdout con nutrición y diagnóstico térmico. EXECUTED regenerado sin errores, con siete figuras inline y resultados numéricos vigentes idénticos.
+
+### 2026-09-30 16:56 -03:00
+
+- Archivos: `laboratory_2026/notebooks/diagnostics/lab019_021_co2_production_blocks_audit.ipynb`, `laboratory_2026/notebooks/diagnostics/lab019_021_co2_production_blocks_audit.executed.ipynb`
+- Cambio: creada auditoría de seis variantes de nutrición/oxígeno con comparación congelada y reajustes equivalentes, validación LAB011–012, holdout LAB016–018, sensibilidad de activación y diagnóstico térmico. Controles manuales centralizados para recalcular curvas sin repetir los ajustes. EXECUTED verificado sin errores, con siete figuras inline, balances y referencia reproducidos; theta_full y notebooks anteriores protegidos.
+
+### 2026-10-01 11:59 -03:00
+
+- Archivos: `laboratory_2026/notebooks/diagnostics/lab019_021_co2_temperature_shape_audit.ipynb`, `laboratory_2026/notebooks/diagnostics/lab019_021_co2_temperature_shape_audit.executed.ipynb`
+- Cambio: creada auditoría del reloj térmico, adaptación inicial y liberación dependiente de temperatura, conservando theta_full, el pool seleccionado y la respuesta transitoria de nutrición. Incluye ajuste estructural, selección LAB011–LAB012, holdout LAB016–LAB018, cambios de setpoint, sensibilidad isotérmica y explorador manual. EXECUTED verificado sin errores ni warnings, con seis figuras inline y artefactos anteriores intactos.
