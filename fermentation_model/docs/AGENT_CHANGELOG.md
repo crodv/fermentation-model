@@ -228,3 +228,73 @@ Registro breve de cambios implementados por agentes en el repositorio.
 
 - Archivos: `laboratory_2026/notebooks/diagnostics/lab019_021_co2_temperature_shape_audit.ipynb`, `laboratory_2026/notebooks/diagnostics/lab019_021_co2_temperature_shape_audit.executed.ipynb`
 - Cambio: creada auditoría del reloj térmico, adaptación inicial y liberación dependiente de temperatura, conservando theta_full, el pool seleccionado y la respuesta transitoria de nutrición. Incluye ajuste estructural, selección LAB011–LAB012, holdout LAB016–LAB018, cambios de setpoint, sensibilidad isotérmica y explorador manual. EXECUTED verificado sin errores ni warnings, con seis figuras inline y artefactos anteriores intactos.
+
+### 2026-10-01 15:01 -03:00
+
+- Archivos: `laboratory_2026/notebooks/diagnostics/lab019_021_co2_temperature_shape_audit.ipynb`, `laboratory_2026/notebooks/diagnostics/lab019_021_co2_temperature_shape_audit.executed.ipynb`
+- Cambio: añadida prueba del reloj térmico residual dentro de las siete ecuaciones cinéticas, con pulsos exactos en tiempo real, búsqueda discreta, selección LAB011–LAB012 y evaluación externa LAB016–LAB018. Incorporados controles manuales, auditoría de estados internos y 21 figuras SVG inline; EXECUTED verificado sin errores ni warnings y sin imágenes externas.
+
+### 2026-10-01 16:16 -03:00
+
+- Archivos: `laboratory_2026/notebooks/diagnostics/lab019_021_co2_temperature_shape_audit.executed.ipynb`
+- Cambio: EXECUTED regenerado con el intérprete del environment `fermentation` (Python 3.11.16) porque la versión anterior de hoy fue ejecutada con el Python del sistema 3.12 desde una sesión sin el entorno activado (`language_info` 3.12 en el artefacto). Notebook fuente sin cambios; ejecución completa sin errores ni warnings (31 celdas, 21 figuras SVG inline, identidad s_kin(B=0) exacta y auditoría de artefactos protegidos OK).
+
+### 2026-10-01 17:15 -03:00
+
+- Archivos: `laboratory_2026/notebooks/diagnostics/lab019_021_co2_temperature_shape_audit.ipynb`, `laboratory_2026/notebooks/diagnostics/lab019_021_co2_temperature_shape_audit.executed.ipynb`
+- Cambio: reemplazado en la sección del reloj cinético el render SVG artesanal (`svg_line_chart` con fuente Arial, introducido para esquivar el crash 0xC06D007F de una sesión con PATH corrupto) por figuras matplotlib estándar del notebook (`kinetic_line_chart`, estilo seaborn global, salida PNG inline). Misma firma de datos, colores y líneas verticales de pulsos; 21 figuras (11 ajuste + 6 LAB021 + 4 explorador manual). EXECUTED regenerado con `fermentation` 3.11.16 sin errores ni warnings, artefactos protegidos intactos.
+
+### 2026-10-05 09:22 -03:00
+
+- Archivos: `laboratory_2026/notebooks/diagnostics/lab019_021_co2_production_blocks_audit.ipynb`, `laboratory_2026/notebooks/diagnostics/lab019_021_co2_production_blocks_audit.executed.ipynb`
+- Cambio: añadida debajo del holdout externo una comparación de las seis variantes con activación condicionada por onset manual, siguiendo el mecanismo de LAB016-018. Incluye controles editables por LAB, curvas completas y métricas antes/después; nueva figura PNG inline ejecutada sin errores ni warnings, conservando celdas y outputs anteriores.
+
+### 2026-10-05 10:12 -03:00
+
+- Archivos: `laboratory_2026/notebooks/diagnostics/lab019_021_co2_production_blocks_audit.ipynb`, `laboratory_2026/notebooks/diagnostics/lab019_021_co2_production_blocks_audit.executed.ipynb`
+- Cambio: añadida comparación controlada de `Actual con O2` sustituyendo individualmente `matrix_gain`, `kCO2_release_h` y `CO2sat_scale` por sus valores históricos, además del caso conjunto. Conserva `theta_full`, onset manual, pulsos y transitorio; incluye curvas completas y métricas prepulso, con figura PNG inline ejecutada sin errores ni warnings.
+
+### 2026-10-05 10:27 -03:00
+
+- Archivos: `laboratory_2026/notebooks/diagnostics/lab019_021_co2_production_blocks_audit.ipynb`, `laboratory_2026/notebooks/diagnostics/lab019_021_co2_production_blocks_audit.executed.ipynb`
+- Cambio: añadida comparación controlada de `Actual con O2` entre `theta_full` y el theta antiguo efectivo con seis defaults, conservando capa de CO2, onset, condiciones iniciales, pulsos y transitorio. Incluye flujo predicho, producción biológica y métricas prepulso; figura PNG inline ejecutada sin errores ni warnings.
+
+### 2026-10-05 11:49 -03:00
+
+- Archivos: `laboratory_2026/notebooks/diagnostics/lab019_021_co2_production_blocks_audit.ipynb`, `laboratory_2026/notebooks/diagnostics/lab019_021_co2_production_blocks_audit.executed.ipynb`
+- Cambio: reemplazada la curva conjunta de tres parámetros históricos por un ajuste diagnóstico compartido sobre LAB016–LAB018 de los parámetros del pool y del transitorio, conservando `theta_full`, oxígeno, onset, condiciones iniciales y pulsos. SOURCE y EXECUTED incluyen la figura PNG inline, tablas de parámetros y métricas; ejecución completa instrumentada sin errores ni warnings.
+
+### 2026-10-05 13:09 -03:00
+
+- Archivos: `laboratory_2026/notebooks/diagnostics/lab019_021_replica_vs_originals_data_comparison.ipynb`, `laboratory_2026/notebooks/diagnostics/lab019_021_replica_vs_originals_data_comparison.executed.ipynb`
+- Cambio: nueva sección "Curvas de CO2: réplica vs original (alineación por reloj)" tras la comparación conjunta: 3 paneles con el flujo de CO2 por par (réplicas desde `backup_global_co2.csv`, originales vía loader histórico PT1/PT2), misma convención 0.0404 g/L/h por sccm + cero p10 + mediana horaria, pulsos marcados y anotación de AUC 0-160 h por panel; ratios 1.15/1.48/4.04 (fugas crecientes de los originales documentadas en el markdown). Figura inline solamente, sin nuevos artefactos en results.
+
+### 2026-10-05 16:00 -03:00
+
+- Archivos: `laboratory_2026/notebooks/co2_reformulation/01_co2_production_baseline.source.ipynb`, `laboratory_2026/notebooks/co2_reformulation/01_co2_production_baseline.executed.ipynb`, `laboratory_2026/notebooks/co2_reformulation/_co2_reformulation.py`, `laboratory_2026/notebooks/co2_reformulation/_build_notebook.py`
+- Cambio: nueva comparación de seis formulaciones de CO2 con theta_full congelado, calibración compartida LAB019–021, validación interna por LAB excluido y evaluación externa LAB016–018. Incluye ecuaciones del paper y adaptación reducida explícita, transitorio único, retiros/adiciones registrados, auditorías de masa y CO2 disuelto, residuos, sensibilidades y perfiles. SOURCE sin outputs y EXECUTED con 12 figuras inline de trayectorias completas, verificados sin errores ni warnings de celdas; sin imágenes en results, commit ni push.
+
+### 2026-10-05 16:32 -03:00
+
+- Archivos: `laboratory_2026/notebooks/co2_reformulation/01_co2_production_baseline.source.ipynb`, `laboratory_2026/notebooks/co2_reformulation/01_co2_production_baseline.executed.ipynb`, `laboratory_2026/notebooks/co2_reformulation/_co2_reformulation.py`, `laboratory_2026/notebooks/co2_reformulation/_build_notebook.py`
+- Cambio: sustituidos el transitorio exponencial y el pool de saturación/liberación por producción de CO2 y estados auxiliares de nitrógeno/transportadores de David 2012, condicionados a theta_full intacto. Calibración LAB019–021, exclusión por LAB y transferencia LAB016–018; hipótesis térmicas y de reparto explícitas, residuos, conservación de N y coherencia química. SOURCE y EXECUTED verificados con 12 figuras inline completas, sin errores ni warnings de celdas; se documenta que el ajuste sigue siendo insuficiente. Sin imágenes en results, commit ni push.
+
+### 2026-10-05 18:58 -03:00
+
+- Archivos: `laboratory_2026/notebooks/diagnostics/lab019_021_co2_production_blocks_audit.ipynb`, `laboratory_2026/notebooks/diagnostics/lab019_021_co2_production_blocks_audit.executed.ipynb`
+- Cambio: añadida figura LAB016–LAB018 con los nueve parámetros históricos de CO2, ICs antiguas y transitorio A=0.30, subida=4 h y caída=12 h, comparando theta_full con theta antiguo efectivo sin ajuste. Incluye parámetros y métricas; EXECUTED regenerado con fermentation, figura inspeccionada y liberación/transitorio verificados contra las funciones antiguas, sin errores de celdas.
+
+### 2026-10-05 20:58 -03:00
+
+- Archivos: `laboratory_2026/notebooks/co2_reformulation/02_nutrition_structure_comparison.source.ipynb`, `laboratory_2026/notebooks/co2_reformulation/02_nutrition_structure_comparison.executed.ipynb`, `laboratory_2026/notebooks/co2_reformulation/_nutrition_structure_comparison.py`
+- Cambio: comparación congelada de la formulación vigente y nutrición directa con/sin transitorio, cruzando theta antiguo/full y parámetros históricos/curva azul para LAB016–021. Incluye ecuaciones, parámetros, ICs, pulsos, métricas, gate predicho y diagnóstico separado con onset manual; SOURCE limpio y EXECUTED con diez figuras inline. Ejecución verificada en fermentation, reproducción de referencias y balance del pool comprobados, sin reajustes ni cambios a datos o notebooks anteriores.
+
+### 2026-10-05 21:12 -03:00
+
+- Archivos: `laboratory_2026/notebooks/co2_reformulation/02_nutrition_structure_comparison.source.ipynb`, `laboratory_2026/notebooks/co2_reformulation/02_nutrition_structure_comparison.executed.ipynb`, `laboratory_2026/notebooks/co2_reformulation/_nutrition_structure_comparison.py`
+- Cambio: añadida figura LAB019–021 con rampa/gain/transitorio y todos los parámetros antiguos, comparando theta antiguo/full con onset manual editable de 28/32/24 h. Incluye ecuaciones, parámetros y métricas; EXECUTED regenerado con once figuras, figura nueva inspeccionada y referencias anteriores verificadas. Se comprobó que el cambio de gate conserva biología, oxígeno y transitorio, sin reajustes.
+
+### 2026-10-05 22:03 -03:00
+
+- Archivos: `laboratory_2026/notebooks/co2_reformulation/02_nutrition_structure_comparison.source.ipynb`, `laboratory_2026/notebooks/co2_reformulation/02_nutrition_structure_comparison.executed.ipynb`, `laboratory_2026/notebooks/co2_reformulation/_nutrition_structure_comparison.py`
+- Cambio: estandarizada la notación de tasas de CO2 por etapa, con tabla de definiciones, equivalencias anteriores y correspondencia con columnas internas. Ecuaciones de las figuras distinguen q_bio, q_base, q_prod, q_out y q_pred, y separan T_N de M_N. EXECUTED regenerado en fermentation; las once figuras permanecen idénticas y las referencias numéricas se conservan, sin cambios al modelo ni parámetros.
