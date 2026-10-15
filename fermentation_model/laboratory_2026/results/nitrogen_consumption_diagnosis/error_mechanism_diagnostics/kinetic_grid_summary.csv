@@ -1,0 +1,13 @@
+lab,theta,initialization,n_cases,n_admissible,n_improve_all,n_nonworse_all
+LAB019,theta_defaults,viable_comun_volumen,25,25,7,9
+LAB019,theta_defaults,viable_ponderada,25,25,4,6
+LAB019,theta_full,viable_comun_volumen,25,25,0,0
+LAB019,theta_full,viable_ponderada,25,25,1,1
+LAB020,theta_defaults,viable_comun_volumen,25,25,7,9
+LAB020,theta_defaults,viable_ponderada,25,25,6,8
+LAB020,theta_full,viable_comun_volumen,25,25,0,0
+LAB020,theta_full,viable_ponderada,25,25,1,2
+LAB021,theta_defaults,viable_comun_volumen,25,25,3,5
+LAB021,theta_defaults,viable_ponderada,25,25,0,2
+LAB021,theta_full,viable_comun_volumen,25,25,3,5
+LAB021,theta_full,viable_ponderada,25,25,0,2

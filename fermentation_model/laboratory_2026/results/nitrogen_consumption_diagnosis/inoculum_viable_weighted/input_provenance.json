@@ -1,0 +1,30 @@
+{
+  "user_viable_million_cells_ml": {
+    "LAB019": 25.04,
+    "LAB020": 13.56,
+    "LAB021": 12.04
+  },
+  "mean_viable": 16.88,
+  "viable_inoculum_million_cells_ml": 424.19,
+  "total_inoculum_million_cells_ml": 496.77,
+  "inoculum_volume_ml_per_reactor": 30.0,
+  "assumed_final_volume_ml": 2000.0,
+  "common_viable_million_cells_ml": 6.362850000000001,
+  "scale": 0.37694609004739343,
+  "weighted_viable_million_cells_ml": {
+    "LAB019": 9.438730094786731,
+    "LAB020": 5.111388981042655,
+    "LAB021": 4.538430924170616
+  },
+  "mass_factor_g_l_per_million_cells_ml": 0.03,
+  "common_Xd_g_l": 0.032660999999999996,
+  "source": "User-provided viable lab counts and inoculum volumes; normalization hypothesis",
+  "no_second_viability_correction": true,
+  "old_data_changed": false,
+  "assumptions": [
+    "2 L is final volume",
+    "Relative viable lab ratios meaningful",
+    "Equal cell mass conversion",
+    "Nonviable inoculum contribution common"
+  ]
+}

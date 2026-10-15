@@ -1,0 +1,13 @@
+theta,lab,mode,gas_linearization_supported,n_chemical_channels_checked,max_chemical_discrepancy_over_sigma,chemical_linearization_supported,joint_linearization_supported,reason
+theta_full,LAB019,CO2,False,0,,,False,negative core state: G min=-0.0663194
+theta_full,LAB019,CO2_Y15,False,4,12.887134830308995,False,False,
+theta_full,LAB020,CO2,False,0,,,False,
+theta_full,LAB020,CO2_Y15,False,4,1.894679423686,False,False,
+theta_full,LAB021,CO2,False,0,,,False,
+theta_full,LAB021,CO2_Y15,False,4,0.8052640858015145,True,False,
+theta_defaults,LAB019,CO2,True,0,,,True,
+theta_defaults,LAB019,CO2_Y15,False,4,12.499045408948533,False,False,
+theta_defaults,LAB020,CO2,True,0,,,True,
+theta_defaults,LAB020,CO2_Y15,True,4,4.439586576661945,False,False,
+theta_defaults,LAB021,CO2,False,0,,,False,
+theta_defaults,LAB021,CO2_Y15,False,4,6.06905675122611,False,False,

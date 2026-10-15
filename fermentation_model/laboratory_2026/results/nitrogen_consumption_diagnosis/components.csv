@@ -1,0 +1,152 @@
+lab,t_h,PAN,ammonia_raw,ammonia_N,YAN,cohort,conversion,sample,source,is_NUT,time_provisional,sum_check,factor_change_082_to_0823_mg_l
+LAB004,0.0,93.0,168.0,137.76,230.76,historico,0.82,ING26-LAB004-01,mosto_natural_xthiol.xlsx,False,False,0.0,0.504
+LAB004,19.0,63.0,146.0,119.72,182.72,historico,0.82,ING26-LAB004-02,mosto_natural_xthiol.xlsx,False,False,0.0,0.438
+LAB004,26.0,50.0,131.0,107.41999999999999,157.42,historico,0.82,ING26-LAB004-03,mosto_natural_xthiol.xlsx,False,False,0.0,0.393
+LAB004,43.0,29.0,38.0,31.159999999999997,60.16,historico,0.82,ING26-LAB004-04,mosto_natural_xthiol.xlsx,False,False,0.0,0.114
+LAB004,50.0,19.0,0.0,0.0,19.0,historico,0.82,ING26-LAB004-05,mosto_natural_xthiol.xlsx,False,False,0.0,0.0
+LAB004,67.0,5.0,0.0,0.0,5.0,historico,0.82,ING26-LAB004-06,mosto_natural_xthiol.xlsx,False,False,0.0,0.0
+LAB004,68.0,,,,,historico,0.82,ING26-LAB004-N,mosto_natural_xthiol.xlsx,False,False,,
+LAB004,74.0,17.0,23.0,18.86,35.86,historico,0.82,ING26-LAB004-07,mosto_natural_xthiol.xlsx,False,False,0.0,0.069
+LAB004,91.0,9.0,0.0,0.0,9.0,historico,0.82,ING26-LAB004-08,mosto_natural_xthiol.xlsx,False,False,0.0,0.0
+LAB004,98.0,7.0,0.0,0.0,7.0,historico,0.82,ING26-LAB004-09,mosto_natural_xthiol.xlsx,False,False,0.0,0.0
+LAB004,115.0,43.0,0.0,0.0,43.0,historico,0.82,ING26-LAB004-10,mosto_natural_xthiol.xlsx,False,False,0.0,0.0
+LAB004,122.0,11.0,0.0,0.0,11.0,historico,0.82,ING26-LAB004-11,mosto_natural_xthiol.xlsx,False,False,0.0,0.0
+LAB004,146.0,25.0,0.0,0.0,25.0,historico,0.82,ING26-LAB004-12,mosto_natural_xthiol.xlsx,False,False,0.0,0.0
+LAB004,163.0,26.0,3.0,2.46,28.46,historico,0.82,ING26-LAB004-13,mosto_natural_xthiol.xlsx,False,False,8.881784197001252e-16,0.009000000000000001
+LAB005,0.0,92.0,165.0,135.29999999999998,227.3,historico,0.82,ING26-LAB005-01,mosto_natural_xthiol.xlsx,False,False,2.842170943040401e-14,0.495
+LAB005,19.0,71.0,147.0,120.53999999999999,191.54,historico,0.82,ING26-LAB005-02,mosto_natural_xthiol.xlsx,False,False,0.0,0.441
+LAB005,26.0,50.0,132.0,108.24,158.24,historico,0.82,ING26-LAB005-03,mosto_natural_xthiol.xlsx,False,False,1.4210854715202004e-14,0.396
+LAB005,43.0,27.0,32.0,26.24,53.24,historico,0.82,ING26-LAB005-04,mosto_natural_xthiol.xlsx,False,False,3.552713678800501e-15,0.096
+LAB005,50.0,19.0,0.0,0.0,19.0,historico,0.82,ING26-LAB005-05,mosto_natural_xthiol.xlsx,False,False,0.0,0.0
+LAB005,67.0,12.0,0.0,0.0,12.0,historico,0.82,ING26-LAB005-06,mosto_natural_xthiol.xlsx,False,False,0.0,0.0
+LAB005,68.0,,,,,historico,0.82,ING26-LAB005-N,mosto_natural_xthiol.xlsx,False,False,,
+LAB005,74.0,16.0,24.0,19.68,35.68,historico,0.82,ING26-LAB005-07,mosto_natural_xthiol.xlsx,False,False,0.0,0.07200000000000001
+LAB005,91.0,11.0,0.0,0.0,11.0,historico,0.82,ING26-LAB005-08,mosto_natural_xthiol.xlsx,False,False,0.0,0.0
+LAB005,98.0,10.0,0.0,0.0,10.0,historico,0.82,ING26-LAB005-09,mosto_natural_xthiol.xlsx,False,False,0.0,0.0
+LAB005,115.0,46.0,0.0,0.0,46.0,historico,0.82,ING26-LAB005-10,mosto_natural_xthiol.xlsx,False,False,0.0,0.0
+LAB005,122.0,14.0,0.0,0.0,14.0,historico,0.82,ING26-LAB005-11,mosto_natural_xthiol.xlsx,False,False,0.0,0.0
+LAB005,146.0,27.0,0.0,0.0,27.0,historico,0.82,ING26-LAB005-12,mosto_natural_xthiol.xlsx,False,False,0.0,0.0
+LAB005,163.0,29.0,4.0,3.28,32.28,historico,0.82,ING26-LAB005-13,mosto_natural_xthiol.xlsx,False,False,1.3322676295501878e-15,0.012
+LAB006,0.0,93.0,166.0,136.12,229.12,historico,0.82,ING26-LAB006-01,mosto_natural_xthiol.xlsx,False,False,0.0,0.498
+LAB006,19.0,76.0,150.0,122.99999999999999,199.0,historico,0.82,ING26-LAB006-02,mosto_natural_xthiol.xlsx,False,False,1.4210854715202004e-14,0.45
+LAB006,26.0,62.0,145.0,118.89999999999999,180.9,historico,0.82,ING26-LAB006-03,mosto_natural_xthiol.xlsx,False,False,1.4210854715202004e-14,0.435
+LAB006,43.0,46.0,105.0,86.1,132.1,historico,0.82,ING26-LAB006-04,mosto_natural_xthiol.xlsx,False,False,0.0,0.315
+LAB006,50.0,36.0,80.0,65.6,101.6,historico,0.82,ING26-LAB006-05,mosto_natural_xthiol.xlsx,False,False,0.0,0.24
+LAB006,67.0,24.0,20.0,16.4,40.4,historico,0.82,ING26-LAB006-06,mosto_natural_xthiol.xlsx,False,False,0.0,0.06
+LAB006,74.0,21.0,0.0,0.0,21.0,historico,0.82,ING26-LAB006-07,mosto_natural_xthiol.xlsx,False,False,0.0,0.0
+LAB006,98.0,0.0,0.0,0.0,0.0,historico,0.82,ING26-LAB006-08,mosto_natural_xthiol.xlsx,False,False,0.0,0.0
+LAB006,99.0,,,,,historico,0.82,ING26-LAB006-N,mosto_natural_xthiol.xlsx,False,False,,
+LAB006,115.0,58.0,0.0,0.0,58.0,historico,0.82,ING26-LAB006-09,mosto_natural_xthiol.xlsx,False,False,0.0,0.0
+LAB006,122.0,27.0,0.0,0.0,27.0,historico,0.82,ING26-LAB006-10,mosto_natural_xthiol.xlsx,False,False,0.0,0.0
+LAB006,139.0,39.0,0.0,0.0,39.0,historico,0.82,ING26-LAB006-11,mosto_natural_xthiol.xlsx,False,False,0.0,0.0
+LAB006,146.0,41.0,0.0,0.0,41.0,historico,0.82,ING26-LAB006-12,mosto_natural_xthiol.xlsx,False,False,0.0,0.0
+LAB006,170.0,39.0,7.0,5.739999999999999,44.74,historico,0.82,ING26-LAB006-13,mosto_natural_xthiol.xlsx,False,False,2.6645352591003757e-15,0.021
+LAB006,194.0,40.0,2.0,1.64,41.64,historico,0.82,ING26-LAB006-14,mosto_natural_xthiol.xlsx,False,False,6.661338147750939e-16,0.006
+LAB006,211.0,32.0,0.0,0.0,32.0,historico,0.82,ING26-LAB006-15,mosto_natural_xthiol.xlsx,False,False,0.0,0.0
+LAB007,0.0,98.0,172.0,141.04,239.04,historico,0.82,ING26-LAB007-L-01,mosto_natural_xthiol.xlsx,False,False,0.0,0.516
+LAB007,16.0,74.0,142.0,116.44,190.44,historico,0.82,ING26-LAB007-L-02,mosto_natural_xthiol.xlsx,False,False,0.0,0.426
+LAB007,24.0,67.0,135.0,110.69999999999999,177.7,historico,0.82,ING26-LAB007-L-03,mosto_natural_xthiol.xlsx,False,False,0.0,0.405
+LAB007,40.0,36.0,32.0,26.24,62.24,historico,0.82,ING26-LAB007-L-04,mosto_natural_xthiol.xlsx,False,False,3.552713678800501e-15,0.096
+LAB007,48.0,35.0,5.0,4.1,39.1,historico,0.82,ING26-LAB007-L-05,mosto_natural_xthiol.xlsx,False,False,1.7763568394002505e-15,0.015
+LAB007,64.0,2.0,0.0,0.0,2.0,historico,0.82,ING26-LAB007-L-06,mosto_natural_xthiol.xlsx,False,False,0.0,0.0
+LAB007,65.0,,,,,historico,0.82,ING26-LAB007-L-N,mosto_natural_xthiol.xlsx,False,False,,
+LAB007,72.0,24.0,29.0,23.779999999999998,47.78,historico,0.82,ING26-LAB007-L-07,mosto_natural_xthiol.xlsx,False,False,3.552713678800501e-15,0.08700000000000001
+LAB007,88.0,19.0,0.0,0.0,19.0,historico,0.82,ING26-LAB007-L-08,mosto_natural_xthiol.xlsx,False,False,0.0,0.0
+LAB007,96.0,30.0,0.0,0.0,30.0,historico,0.82,ING26-LAB007-L-09,mosto_natural_xthiol.xlsx,False,False,0.0,0.0
+LAB007,112.0,6.0,0.0,0.0,6.0,historico,0.82,ING26-LAB007-L-10,mosto_natural_xthiol.xlsx,False,False,0.0,0.0
+LAB007,120.0,6.0,0.0,0.0,6.0,historico,0.82,ING26-LAB007-L-11,mosto_natural_xthiol.xlsx,False,False,0.0,0.0
+LAB007,144.0,27.0,0.0,0.0,27.0,historico,0.82,ING26-LAB007-L-12,mosto_natural_xthiol.xlsx,False,False,0.0,0.0
+LAB007,160.0,16.0,0.0,0.0,16.0,historico,0.82,ING26-LAB007-L-13,mosto_natural_xthiol.xlsx,False,False,0.0,0.0
+LAB008,0.0,99.0,171.0,140.22,239.22,historico,0.82,ING26-LAB008-L-01,mosto_natural_xthiol.xlsx,False,False,0.0,0.513
+LAB008,16.0,71.0,139.0,113.97999999999999,184.98,historico,0.82,ING26-LAB008-L-02,mosto_natural_xthiol.xlsx,False,False,0.0,0.417
+LAB008,24.0,69.0,134.0,109.88,178.88,historico,0.82,ING26-LAB008-L-03,mosto_natural_xthiol.xlsx,False,False,0.0,0.402
+LAB008,40.0,36.0,34.0,27.88,63.88,historico,0.82,ING26-LAB008-L-04,mosto_natural_xthiol.xlsx,False,False,3.552713678800501e-15,0.10200000000000001
+LAB008,48.0,33.0,5.0,4.1,37.1,historico,0.82,ING26-LAB008-L-05,mosto_natural_xthiol.xlsx,False,False,1.7763568394002505e-15,0.015
+LAB008,64.0,11.0,0.0,0.0,11.0,historico,0.82,ING26-LAB008-L-06,mosto_natural_xthiol.xlsx,False,False,0.0,0.0
+LAB008,65.0,,,,,historico,0.82,ING26-LAB008-L-06,mosto_natural_xthiol.xlsx,False,False,,
+LAB008,72.0,24.0,29.0,23.779999999999998,47.78,historico,0.82,ING26-LAB008-L-07,mosto_natural_xthiol.xlsx,False,False,3.552713678800501e-15,0.08700000000000001
+LAB008,88.0,18.0,0.0,0.0,18.0,historico,0.82,ING26-LAB008-L-08,mosto_natural_xthiol.xlsx,False,False,0.0,0.0
+LAB008,96.0,20.0,0.0,0.0,20.0,historico,0.82,ING26-LAB008-L-09,mosto_natural_xthiol.xlsx,False,False,0.0,0.0
+LAB008,112.0,5.0,0.0,0.0,5.0,historico,0.82,ING26-LAB008-L-10,mosto_natural_xthiol.xlsx,False,False,0.0,0.0
+LAB008,120.0,6.0,0.0,0.0,6.0,historico,0.82,ING26-LAB008-L-11,mosto_natural_xthiol.xlsx,False,False,0.0,0.0
+LAB008,144.0,27.0,0.0,0.0,27.0,historico,0.82,ING26-LAB008-L-12,mosto_natural_xthiol.xlsx,False,False,0.0,0.0
+LAB008,160.0,15.0,0.0,0.0,15.0,historico,0.82,ING26-LAB008-L-13,mosto_natural_xthiol.xlsx,False,False,0.0,0.0
+LAB009,0.0,98.0,170.0,139.4,237.4,historico,0.82,ING26-LAB009-L-01,mosto_natural_xthiol.xlsx,False,False,0.0,0.51
+LAB009,16.0,67.0,122.0,100.03999999999999,167.04,historico,0.82,ING26-LAB009-L-02,mosto_natural_xthiol.xlsx,False,False,0.0,0.366
+LAB009,24.0,57.0,111.0,91.02,148.01999999999998,historico,0.82,ING26-LAB009-L-03,mosto_natural_xthiol.xlsx,False,False,-1.4210854715202004e-14,0.333
+LAB009,40.0,21.0,0.0,0.0,21.0,historico,0.82,ING26-LAB009-L-04,mosto_natural_xthiol.xlsx,False,False,0.0,0.0
+LAB009,41.0,,,,,historico,0.82,ING26-LAB009-L-N,mosto_natural_xthiol.xlsx,False,False,,
+LAB009,48.0,33.0,46.0,37.72,70.72,historico,0.82,ING26-LAB009-L-05,mosto_natural_xthiol.xlsx,False,False,0.0,0.138
+LAB009,64.0,19.0,0.0,0.0,19.0,historico,0.82,ING26-LAB009-L-06,mosto_natural_xthiol.xlsx,False,False,0.0,0.0
+LAB009,72.0,17.0,0.0,0.0,17.0,historico,0.82,ING26-LAB009-L-07,mosto_natural_xthiol.xlsx,False,False,0.0,0.0
+LAB009,88.0,17.0,0.0,0.0,17.0,historico,0.82,ING26-LAB009-L-08,mosto_natural_xthiol.xlsx,False,False,0.0,0.0
+LAB009,96.0,19.0,0.0,0.0,19.0,historico,0.82,ING26-LAB009-L-09,mosto_natural_xthiol.xlsx,False,False,0.0,0.0
+LAB009,120.0,5.0,0.0,0.0,5.0,historico,0.82,ING26-LAB009-L-10,mosto_natural_xthiol.xlsx,False,False,0.0,0.0
+LAB009,144.0,25.0,0.0,0.0,25.0,historico,0.82,ING26-LAB009-L-11,mosto_natural_xthiol.xlsx,False,False,0.0,0.0
+LAB009,160.0,0.0,0.0,0.0,0.0,historico,0.82,ING26-LAB009-L-12,mosto_natural_xthiol.xlsx,False,False,0.0,0.0
+LAB010,0.0,115.0,135.0,110.69999999999999,225.7,historico,0.82,ING26-LAB010-L-01,mosto_natural_xthiol.xlsx,False,False,0.0,0.405
+LAB010,18.999999999941792,,,,,historico,0.82,ING26-LAB010-L-02,mosto_natural_xthiol.xlsx,False,False,,
+LAB010,24.0,,,,,historico,0.82,ING26-LAB010-L-03,mosto_natural_xthiol.xlsx,False,False,,
+LAB010,42.99999999994179,,,,,historico,0.82,ING26-LAB010-L-04,mosto_natural_xthiol.xlsx,False,False,,
+LAB010,66.99999999994179,,,,,historico,0.82,ING26-LAB010-L-05,mosto_natural_xthiol.xlsx,False,False,,
+LAB010,72.0,77.0,91.0,74.61999999999999,151.62,historico,0.82,ING26-LAB010-L-06,mosto_natural_xthiol.xlsx,False,False,1.4210854715202004e-14,0.273
+LAB010,79.0,,,,,historico,0.82,ING26-LAB010-L-N,mosto_natural_xthiol.xlsx,False,False,,
+LAB010,138.9999999999418,,,,,historico,0.82,ING26-LAB010-L-07,mosto_natural_xthiol.xlsx,False,False,,
+LAB010,162.9999999999418,16.0,0.0,0.0,16.0,historico,0.82,ING26-LAB010-L-08,mosto_natural_xthiol.xlsx,False,False,0.0,0.0
+LAB010,186.9999999999418,20.0,0.0,0.0,20.0,historico,0.82,ING26-LAB010-L-09,mosto_natural_xthiol.xlsx,False,False,0.0,0.0
+LAB011,0.0,112.0,132.0,108.24,220.24,historico,0.82,ING26-LAB011-L-01,mosto_natural_xthiol.xlsx,False,False,1.4210854715202004e-14,0.396
+LAB011,18.999999999941792,115.0,132.0,108.24,223.24,historico,0.82,ING26-LAB011-L-02,mosto_natural_xthiol.xlsx,False,False,1.4210854715202004e-14,0.396
+LAB011,24.0,,,,,historico,0.82,ING26-LAB011-L-03,mosto_natural_xthiol.xlsx,False,False,,
+LAB011,42.99999999994179,,,,,historico,0.82,ING26-LAB011-L-04,mosto_natural_xthiol.xlsx,False,False,,
+LAB011,66.99999999994179,63.0,67.0,54.94,117.94,historico,0.82,ING26-LAB011-L-06,mosto_natural_xthiol.xlsx,False,False,0.0,0.201
+LAB011,72.0,,,,,historico,0.82,ING26-LAB011-L-N,mosto_natural_xthiol.xlsx,False,False,,
+LAB011,138.9999999999418,,,,,historico,0.82,ING26-LAB011-L-07,mosto_natural_xthiol.xlsx,False,False,,
+LAB011,162.9999999999418,24.0,2.0,1.64,25.64,historico,0.82,ING26-LAB011-L-08,mosto_natural_xthiol.xlsx,False,False,6.661338147750939e-16,0.006
+LAB012,0.0,113.0,133.0,109.05999999999999,222.06,historico,0.82,ING26-LAB012-L-01,mosto_natural_xthiol.xlsx,False,False,1.4210854715202004e-14,0.399
+LAB012,18.999999999941792,,,,,historico,0.82,ING26-LAB012-L-02,mosto_natural_xthiol.xlsx,False,False,,
+LAB012,24.0,,,,,historico,0.82,ING26-LAB012-L-03,mosto_natural_xthiol.xlsx,False,False,,
+LAB012,42.99999999994179,,,,,historico,0.82,ING26-LAB012-L-04,mosto_natural_xthiol.xlsx,False,False,,
+LAB012,48.0,166.0,136.0,111.52,277.52,historico,0.82,ING26-LAB012-L-05,mosto_natural_xthiol.xlsx,False,False,-1.4210854715202004e-14,0.40800000000000003
+LAB012,66.99999999994179,153.0,99.0,81.17999999999999,234.18,historico,0.82,ING26-LAB012-L-06,mosto_natural_xthiol.xlsx,False,False,1.4210854715202004e-14,0.297
+LAB012,72.0,,,,,historico,0.82,ING26-LAB012-L-N,mosto_natural_xthiol.xlsx,False,False,,
+LAB012,138.9999999999418,,,,,historico,0.82,ING26-LAB012-L-07,mosto_natural_xthiol.xlsx,False,False,,
+LAB012,162.9999999999418,114.0,14.0,11.479999999999999,125.48,historico,0.82,ING26-LAB012-L-08,mosto_natural_xthiol.xlsx,False,False,5.329070518200751e-15,0.042
+LAB019,0.0,116.0,175.0,144.025,260.025,reciente,0.823,1,Y15 exports + offline Excel,False,False,-2.842170943040401e-14,0.525
+LAB019,16.0,97.0,164.0,134.97199999999998,231.97199999999998,reciente,0.823,2,Y15 exports + offline Excel,False,False,0.0,0.492
+LAB019,19.0,88.0,157.0,129.21099999999998,217.21099999999998,reciente,0.823,3,Y15 exports + offline Excel,False,False,0.0,0.47100000000000003
+LAB019,22.0,84.0,157.0,129.21099999999998,213.21099999999998,reciente,0.823,4,Y15 exports + offline Excel,False,False,0.0,0.47100000000000003
+LAB019,40.0,63.0,118.0,97.11399999999999,160.11399999999998,reciente,0.823,5,Y15 exports + offline Excel,False,False,-1.4210854715202004e-14,0.354
+LAB019,43.0,50.0,97.0,79.83099999999999,129.831,reciente,0.823,6,Y15 exports + offline Excel,False,False,0.0,0.291
+LAB019,46.0,44.0,78.0,64.194,108.194,reciente,0.823,7,Y15 exports + offline Excel,False,False,0.0,0.234
+LAB019,64.0,30.0,-2.0,0.0,30.0,reciente,0.823,8,Y15 exports + offline Excel,False,False,0.0,-0.006
+LAB019,64.51555555555555,52.0,58.0,47.733999999999995,99.734,reciente,0.823,NUT,Y15 exports + offline Excel,True,True,0.0,0.17400000000000002
+LAB019,67.5,40.0,31.0,25.512999999999998,65.513,reciente,0.823,9,Y15 exports + offline Excel,False,False,7.105427357601002e-15,0.093
+LAB019,70.5,36.0,16.0,13.168,49.168,reciente,0.823,10,Y15 exports + offline Excel,False,False,0.0,0.048
+LAB019,87.5,21.0,-4.0,0.0,21.0,reciente,0.823,11,Y15 exports + offline Excel,False,False,0.0,-0.012
+LAB019,166.0,33.0,1.0,0.823,33.823,reciente,0.823,12,Y15 exports + offline Excel,False,False,4.440892098500626e-16,0.003
+LAB020,0.0,114.0,172.0,141.55599999999998,255.55599999999998,reciente,0.823,1,Y15 exports + offline Excel,False,False,0.0,0.516
+LAB020,16.0,102.0,165.0,135.795,237.795,reciente,0.823,2,Y15 exports + offline Excel,False,False,0.0,0.495
+LAB020,19.0,91.0,162.0,133.326,224.326,reciente,0.823,3,Y15 exports + offline Excel,False,False,0.0,0.486
+LAB020,22.0,89.0,159.0,130.857,219.857,reciente,0.823,4,Y15 exports + offline Excel,False,False,0.0,0.47700000000000004
+LAB020,40.0,66.0,135.0,111.10499999999999,177.105,reciente,0.823,5,Y15 exports + offline Excel,False,False,0.0,0.405
+LAB020,43.0,61.0,123.0,101.229,162.22899999999998,reciente,0.823,6,Y15 exports + offline Excel,False,False,-1.4210854715202004e-14,0.369
+LAB020,46.0,53.0,108.0,88.884,141.88400000000001,reciente,0.823,7,Y15 exports + offline Excel,False,False,1.4210854715202004e-14,0.324
+LAB020,64.0,38.0,33.0,27.159,65.15899999999999,reciente,0.823,8,Y15 exports + offline Excel,False,False,-7.105427357601002e-15,0.099
+LAB020,67.5,37.0,24.0,19.752,56.751999999999995,reciente,0.823,9,Y15 exports + offline Excel,False,False,-3.552713678800501e-15,0.07200000000000001
+LAB020,70.5,34.0,13.0,10.699,44.699,reciente,0.823,10,Y15 exports + offline Excel,False,False,-1.7763568394002505e-15,0.039
+LAB020,71.92541666666666,55.0,65.0,53.495,108.495,reciente,0.823,NUT,Y15 exports + offline Excel,True,True,7.105427357601002e-15,0.195
+LAB020,87.5,34.0,4.0,3.292,37.292,reciente,0.823,11,Y15 exports + offline Excel,False,False,1.7763568394002505e-15,0.012
+LAB020,166.0,32.0,-1.0,0.0,32.0,reciente,0.823,12,Y15 exports + offline Excel,False,False,0.0,-0.003
+LAB021,0.0,118.0,174.0,143.202,261.202,reciente,0.823,1,Y15 exports + offline Excel,False,False,0.0,0.522
+LAB021,16.0,85.0,157.0,129.21099999999998,214.21099999999998,reciente,0.823,2,Y15 exports + offline Excel,False,False,0.0,0.47100000000000003
+LAB021,19.0,79.0,152.0,125.09599999999999,204.096,reciente,0.823,3,Y15 exports + offline Excel,False,False,1.4210854715202004e-14,0.456
+LAB021,22.0,71.0,140.0,115.22,186.22,reciente,0.823,4,Y15 exports + offline Excel,False,False,0.0,0.42
+LAB021,40.0,34.0,17.0,13.991,47.991,reciente,0.823,5,Y15 exports + offline Excel,False,False,0.0,0.051000000000000004
+LAB021,43.0,30.0,19.0,15.636999999999999,45.637,reciente,0.823,6,Y15 exports + offline Excel,False,False,1.7763568394002505e-15,0.057
+LAB021,46.0,14.0,-4.0,0.0,14.0,reciente,0.823,7,Y15 exports + offline Excel,False,False,0.0,-0.012
+LAB021,47.675,37.0,50.0,41.15,78.15,reciente,0.823,NUT,Y15 exports + offline Excel,True,True,7.105427357601002e-15,0.15
+LAB021,64.0,17.0,-2.0,0.0,17.0,reciente,0.823,8,Y15 exports + offline Excel,False,False,0.0,-0.006
+LAB021,67.5,18.0,0.0,0.0,18.0,reciente,0.823,9,Y15 exports + offline Excel,False,False,0.0,0.0
+LAB021,70.5,17.0,-3.0,0.0,17.0,reciente,0.823,10,Y15 exports + offline Excel,False,False,0.0,-0.009000000000000001
+LAB021,87.5,15.0,-5.0,0.0,15.0,reciente,0.823,11,Y15 exports + offline Excel,False,False,0.0,-0.015
+LAB021,166.0,27.0,0.0,0.0,27.0,reciente,0.823,12,Y15 exports + offline Excel,False,False,0.0,0.0

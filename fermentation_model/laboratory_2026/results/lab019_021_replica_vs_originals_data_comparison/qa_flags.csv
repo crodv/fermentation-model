@@ -23,3 +23,6 @@ LAB020,GF,m12,GLU-FRU-320 negativo; rango bajo auditado,rango bajo usado
 LAB020,G,m12,glucosa de rango bajo negativa,sin punto G
 LAB021,GF,m12,GLU-FRU-320 negativo; rango bajo auditado,rango bajo usado
 LAB021,G,m12,glucosa de rango bajo negativa,sin punto G
+LAB019,NUT,NUT,extracción desconocida: intervalo provisional pulso–primer análisis,incluida; canales PAN/NH3/YAN; sin inventar otros canales
+LAB020,NUT,NUT,extracción desconocida: intervalo provisional pulso–primer análisis,incluida; canales PAN/NH3/YAN; sin inventar otros canales
+LAB021,NUT,NUT,extracción desconocida: intervalo provisional pulso–primer análisis,incluida; canales PAN/NH3/YAN; sin inventar otros canales

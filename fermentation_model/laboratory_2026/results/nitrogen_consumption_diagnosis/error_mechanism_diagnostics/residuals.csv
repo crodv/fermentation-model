@@ -1,0 +1,475 @@
+state,t_h,observed,predicted,residual,phase,unit,sigma_weight,zero_substitution,lab,theta,case
+N,16.0,231.97199999999998,79.65710482304853,-152.31489517695147,temprana_0_30h,mg N/L,18.55776,False,LAB019,theta_full,referencia_anterior
+N,19.0,217.21099999999998,37.03617928234418,-180.17482071765582,temprana_0_30h,mg N/L,17.37688,False,LAB019,theta_full,referencia_anterior
+N,22.0,213.21099999999998,2.9221863763691562,-210.28881362363083,temprana_0_30h,mg N/L,17.05688,False,LAB019,theta_full,referencia_anterior
+N,40.0,160.11399999999998,1.1878711623513685e-18,-160.11399999999998,tardia_pre_pulso,mg N/L,12.809119999999998,False,LAB019,theta_full,referencia_anterior
+N,43.0,129.831,9.980479902820628e-22,-129.831,tardia_pre_pulso,mg N/L,12.0,False,LAB019,theta_full,referencia_anterior
+N,46.0,108.194,7.970742565804721e-25,-108.194,tardia_pre_pulso,mg N/L,12.0,False,LAB019,theta_full,referencia_anterior
+N,64.0,30.0,2.8477277441804284e-43,-30.0,tardia_pre_pulso,mg N/L,12.0,False,LAB019,theta_full,referencia_anterior
+N,67.5,65.513,25.9107246068994,-39.6022753931006,post_pulso,mg N/L,12.0,False,LAB019,theta_full,referencia_anterior
+N,70.5,49.168,0.1970390563294885,-48.97096094367051,post_pulso,mg N/L,12.0,False,LAB019,theta_full,referencia_anterior
+N,87.5,21.0,9.4993171615937e-22,-21.0,post_pulso,mg N/L,12.0,False,LAB019,theta_full,referencia_anterior
+N,166.0,33.823,0.0,-33.823,post_pulso,mg N/L,12.0,False,LAB019,theta_full,referencia_anterior
+GF,16.0,144.94,133.2976309809161,-11.642369019083901,temprana_0_30h,g/L,5.0,False,LAB019,theta_full,referencia_anterior
+GF,19.0,145.55,127.53923090360657,-18.010769096393446,temprana_0_30h,g/L,5.0,False,LAB019,theta_full,referencia_anterior
+GF,22.0,151.22,121.46410128118279,-29.755898718817207,temprana_0_30h,g/L,5.0,False,LAB019,theta_full,referencia_anterior
+GF,40.0,136.87,88.47560341078392,-48.394396589216086,tardia_pre_pulso,g/L,5.0,False,LAB019,theta_full,referencia_anterior
+GF,43.0,129.5,83.52027108274496,-45.979728917255045,tardia_pre_pulso,g/L,5.0,False,LAB019,theta_full,referencia_anterior
+GF,46.0,127.72,78.53176925622563,-49.18823074377437,tardia_pre_pulso,g/L,5.0,False,LAB019,theta_full,referencia_anterior
+GF,64.0,89.86,50.88109672472427,-38.97890327527573,tardia_pre_pulso,g/L,5.0,False,LAB019,theta_full,referencia_anterior
+GF,67.5,81.43,45.05855064658944,-36.37144935341057,post_pulso,g/L,5.0,False,LAB019,theta_full,referencia_anterior
+GF,70.5,72.34,39.968004269842034,-32.37199573015797,post_pulso,g/L,5.0,False,LAB019,theta_full,referencia_anterior
+GF,87.5,43.07,15.179490065437848,-27.890509934562154,post_pulso,g/L,5.0,False,LAB019,theta_full,referencia_anterior
+GF,166.0,0.0,0.00023433380199769623,0.00023433380199769623,post_pulso,g/L,5.0,True,LAB019,theta_full,referencia_anterior
+E,22.0,13.732776000000001,25.52248130323488,11.789705303234879,temprana_0_30h,g/L,2.0,False,LAB019,theta_full,referencia_anterior
+E,46.0,18.231444,43.56454734556887,25.33310334556887,tardia_pre_pulso,g/L,2.0,False,LAB019,theta_full,referencia_anterior
+E,70.5,33.06915600000001,61.342372016942804,28.273216016942797,post_pulso,g/L,2.0,False,LAB019,theta_full,referencia_anterior
+E,87.5,48.380412,74.27771078259588,25.897298782595875,post_pulso,g/L,2.0,False,LAB019,theta_full,referencia_anterior
+E,166.0,78.213684,82.95748211835398,4.743798118353979,post_pulso,g/L,2.0,False,LAB019,theta_full,referencia_anterior
+N,16.0,231.97199999999998,73.9361012032455,-158.0358987967545,temprana_0_30h,mg N/L,18.55776,False,LAB019,theta_defaults,referencia_anterior
+N,19.0,217.21099999999998,28.1927584481731,-189.0182415518269,temprana_0_30h,mg N/L,17.37688,False,LAB019,theta_defaults,referencia_anterior
+N,22.0,213.21099999999998,0.025005173194716776,-213.18599482680528,temprana_0_30h,mg N/L,17.05688,False,LAB019,theta_defaults,referencia_anterior
+N,40.0,160.11399999999998,1.354673439046986e-40,-160.11399999999998,tardia_pre_pulso,mg N/L,12.809119999999998,False,LAB019,theta_defaults,referencia_anterior
+N,43.0,129.831,6.33951270250556e-47,-129.831,tardia_pre_pulso,mg N/L,12.0,False,LAB019,theta_defaults,referencia_anterior
+N,46.0,108.194,2.597520297615851e-53,-108.194,tardia_pre_pulso,mg N/L,12.0,False,LAB019,theta_defaults,referencia_anterior
+N,64.0,30.0,2.8269263487206426e-91,-30.0,tardia_pre_pulso,mg N/L,12.0,False,LAB019,theta_defaults,referencia_anterior
+N,67.5,65.513,21.770129922174974,-43.742870077825025,post_pulso,mg N/L,12.0,False,LAB019,theta_defaults,referencia_anterior
+N,70.5,49.168,0.0002911308396310132,-49.167708869160364,post_pulso,mg N/L,12.0,False,LAB019,theta_defaults,referencia_anterior
+N,87.5,21.0,3.4100375646755518e-46,-21.0,post_pulso,mg N/L,12.0,False,LAB019,theta_defaults,referencia_anterior
+N,166.0,33.823,0.0,-33.823,post_pulso,mg N/L,12.0,False,LAB019,theta_defaults,referencia_anterior
+GF,16.0,144.94,137.13411053247103,-7.805889467528971,temprana_0_30h,g/L,5.0,False,LAB019,theta_defaults,referencia_anterior
+GF,19.0,145.55,132.16034984578096,-13.389650154219055,temprana_0_30h,g/L,5.0,False,LAB019,theta_defaults,referencia_anterior
+GF,22.0,151.22,127.08417750806886,-24.135822491931137,temprana_0_30h,g/L,5.0,False,LAB019,theta_defaults,referencia_anterior
+GF,40.0,136.87,100.97446670174237,-35.89553329825763,tardia_pre_pulso,g/L,5.0,False,LAB019,theta_defaults,referencia_anterior
+GF,43.0,129.5,97.11974053364807,-32.38025946635193,tardia_pre_pulso,g/L,5.0,False,LAB019,theta_defaults,referencia_anterior
+GF,46.0,127.72,93.30614433483457,-34.41385566516543,tardia_pre_pulso,g/L,5.0,False,LAB019,theta_defaults,referencia_anterior
+GF,64.0,89.86,72.79031557896319,-17.06968442103681,tardia_pre_pulso,g/L,5.0,False,LAB019,theta_defaults,referencia_anterior
+GF,67.5,81.43,68.31090484031056,-13.11909515968945,post_pulso,g/L,5.0,False,LAB019,theta_defaults,referencia_anterior
+GF,70.5,72.34,64.61601262929597,-7.723987370704037,post_pulso,g/L,5.0,False,LAB019,theta_defaults,referencia_anterior
+GF,87.5,43.07,46.96280689667887,3.89280689667887,post_pulso,g/L,5.0,False,LAB019,theta_defaults,referencia_anterior
+GF,166.0,0.0,8.420447663371151,8.420447663371151,post_pulso,g/L,5.0,True,LAB019,theta_defaults,referencia_anterior
+E,22.0,13.732776000000001,21.778011612949825,8.045235612949824,temprana_0_30h,g/L,2.0,False,LAB019,theta_defaults,referencia_anterior
+E,46.0,18.231444,34.31817092207416,16.08672692207416,tardia_pre_pulso,g/L,2.0,False,LAB019,theta_defaults,referencia_anterior
+E,70.5,33.06915600000001,45.94911604296142,12.879960042961415,post_pulso,g/L,2.0,False,LAB019,theta_defaults,referencia_anterior
+E,87.5,48.380412,54.39309848801758,6.012686488017579,post_pulso,g/L,2.0,False,LAB019,theta_defaults,referencia_anterior
+E,166.0,78.213684,76.73440209746273,-1.4792819025372665,post_pulso,g/L,2.0,False,LAB019,theta_defaults,referencia_anterior
+N,16.0,231.97199999999998,219.1355463250084,-12.836453674991589,temprana_0_30h,mg N/L,18.55776,False,LAB019,theta_full,viable_comun_volumen
+N,19.0,217.21099999999998,208.58506773548524,-8.625932264514747,temprana_0_30h,mg N/L,17.37688,False,LAB019,theta_full,viable_comun_volumen
+N,22.0,213.21099999999998,196.6231459447694,-16.587854055230583,temprana_0_30h,mg N/L,17.05688,False,LAB019,theta_full,viable_comun_volumen
+N,40.0,160.11399999999998,89.77012183944329,-70.34387816055668,tardia_pre_pulso,mg N/L,12.809119999999998,False,LAB019,theta_full,viable_comun_volumen
+N,43.0,129.831,65.8252905683754,-64.00570943162461,tardia_pre_pulso,mg N/L,12.0,False,LAB019,theta_full,viable_comun_volumen
+N,46.0,108.194,39.714880824624686,-68.4791191753753,tardia_pre_pulso,mg N/L,12.0,False,LAB019,theta_full,viable_comun_volumen
+N,64.0,30.0,2.5372797175363755e-08,-29.9999999746272,tardia_pre_pulso,mg N/L,12.0,False,LAB019,theta_full,viable_comun_volumen
+N,67.5,65.513,44.60352339391603,-20.90947660608397,post_pulso,mg N/L,12.0,False,LAB019,theta_full,viable_comun_volumen
+N,70.5,49.168,13.084582756445291,-36.083417243554706,post_pulso,mg N/L,12.0,False,LAB019,theta_full,viable_comun_volumen
+N,87.5,21.0,8.487989088832896e-13,-20.99999999999915,post_pulso,mg N/L,12.0,False,LAB019,theta_full,viable_comun_volumen
+N,166.0,33.823,0.0,-33.823,post_pulso,mg N/L,12.0,False,LAB019,theta_full,viable_comun_volumen
+GF,16.0,144.94,152.2152733873466,7.275273387346601,temprana_0_30h,g/L,5.0,False,LAB019,theta_full,viable_comun_volumen
+GF,19.0,145.55,150.71417255561926,5.1641725556192455,temprana_0_30h,g/L,5.0,False,LAB019,theta_full,viable_comun_volumen
+GF,22.0,151.22,149.03985937456838,-2.180140625431619,temprana_0_30h,g/L,5.0,False,LAB019,theta_full,viable_comun_volumen
+GF,40.0,136.87,134.7117255543916,-2.158274445608413,tardia_pre_pulso,g/L,5.0,False,LAB019,theta_full,viable_comun_volumen
+GF,43.0,129.5,131.5350546293304,2.0350546293304035,tardia_pre_pulso,g/L,5.0,False,LAB019,theta_full,viable_comun_volumen
+GF,46.0,127.72,128.01503752268428,0.2950375226842823,tardia_pre_pulso,g/L,5.0,False,LAB019,theta_full,viable_comun_volumen
+GF,64.0,89.86,106.26959145557602,16.40959145557602,tardia_pre_pulso,g/L,5.0,False,LAB019,theta_full,viable_comun_volumen
+GF,67.5,81.43,101.77520998567732,20.345209985677315,post_pulso,g/L,5.0,False,LAB019,theta_full,viable_comun_volumen
+GF,70.5,72.34,97.65003168263065,25.31003168263065,post_pulso,g/L,5.0,False,LAB019,theta_full,viable_comun_volumen
+GF,87.5,43.07,74.8329219062001,31.7629219062001,post_pulso,g/L,5.0,False,LAB019,theta_full,viable_comun_volumen
+GF,166.0,0.0,1.4327912792170303,1.4327912792170303,post_pulso,g/L,5.0,True,LAB019,theta_full,viable_comun_volumen
+E,22.0,13.732776000000001,15.337694520928693,1.6049185209286918,temprana_0_30h,g/L,2.0,False,LAB019,theta_full,viable_comun_volumen
+E,46.0,18.231444,23.0449041410996,4.8134601410996005,tardia_pre_pulso,g/L,2.0,False,LAB019,theta_full,viable_comun_volumen
+E,70.5,33.06915600000001,35.09237706560139,2.0232210656013834,post_pulso,g/L,2.0,False,LAB019,theta_full,viable_comun_volumen
+E,87.5,48.380412,44.955819951867106,-3.4245920481328938,post_pulso,g/L,2.0,False,LAB019,theta_full,viable_comun_volumen
+E,166.0,78.213684,82.17166139289046,3.957977392890456,post_pulso,g/L,2.0,False,LAB019,theta_full,viable_comun_volumen
+N,16.0,231.97199999999998,218.23939735356325,-13.732602646436748,temprana_0_30h,mg N/L,18.55776,False,LAB019,theta_defaults,viable_comun_volumen
+N,19.0,217.21099999999998,207.38003079224214,-9.830969207757862,temprana_0_30h,mg N/L,17.37688,False,LAB019,theta_defaults,viable_comun_volumen
+N,22.0,213.21099999999998,195.02726745030697,-18.183732549693023,temprana_0_30h,mg N/L,17.05688,False,LAB019,theta_defaults,viable_comun_volumen
+N,40.0,160.11399999999998,82.63413304608629,-77.4798669539137,tardia_pre_pulso,mg N/L,12.809119999999998,False,LAB019,theta_defaults,viable_comun_volumen
+N,43.0,129.831,56.77634170049351,-73.0546582995065,tardia_pre_pulso,mg N/L,12.0,False,LAB019,theta_defaults,viable_comun_volumen
+N,46.0,108.194,28.14903836354215,-80.04496163645786,tardia_pre_pulso,mg N/L,12.0,False,LAB019,theta_defaults,viable_comun_volumen
+N,64.0,30.0,9.906532723189631e-20,-30.0,tardia_pre_pulso,mg N/L,12.0,False,LAB019,theta_defaults,viable_comun_volumen
+N,67.5,65.513,42.29779955242439,-23.215200447575615,post_pulso,mg N/L,12.0,False,LAB019,theta_defaults,viable_comun_volumen
+N,70.5,49.168,7.372582167438583,-41.79541783256141,post_pulso,mg N/L,12.0,False,LAB019,theta_defaults,viable_comun_volumen
+N,87.5,21.0,1.0680200285263346e-27,-21.0,post_pulso,mg N/L,12.0,False,LAB019,theta_defaults,viable_comun_volumen
+N,166.0,33.823,0.0,-33.823,post_pulso,mg N/L,12.0,False,LAB019,theta_defaults,viable_comun_volumen
+GF,16.0,144.94,153.18975977886714,8.249759778867144,temprana_0_30h,g/L,5.0,False,LAB019,theta_defaults,viable_comun_volumen
+GF,19.0,145.55,151.91898083531248,6.36898083531247,temprana_0_30h,g/L,5.0,False,LAB019,theta_defaults,viable_comun_volumen
+GF,22.0,151.22,150.49992863253283,-0.7200713674671704,temprana_0_30h,g/L,5.0,False,LAB019,theta_defaults,viable_comun_volumen
+GF,40.0,136.87,138.17736544552173,1.3073654455217252,tardia_pre_pulso,g/L,5.0,False,LAB019,theta_defaults,viable_comun_volumen
+GF,43.0,129.5,135.39187103780407,5.891871037804066,tardia_pre_pulso,g/L,5.0,False,LAB019,theta_defaults,viable_comun_volumen
+GF,46.0,127.72,132.30844638743008,4.588446387430082,tardia_pre_pulso,g/L,5.0,False,LAB019,theta_defaults,viable_comun_volumen
+GF,64.0,89.86,114.61736672701949,24.757366727019487,tardia_pre_pulso,g/L,5.0,False,LAB019,theta_defaults,viable_comun_volumen
+GF,67.5,81.43,110.85106526292788,29.42106526292787,post_pulso,g/L,5.0,False,LAB019,theta_defaults,viable_comun_volumen
+GF,70.5,72.34,107.36195695294194,35.021956952941935,post_pulso,g/L,5.0,False,LAB019,theta_defaults,viable_comun_volumen
+GF,87.5,43.07,89.72862109887575,46.65862109887575,post_pulso,g/L,5.0,False,LAB019,theta_defaults,viable_comun_volumen
+GF,166.0,0.0,30.320804443157826,30.320804443157826,post_pulso,g/L,5.0,True,LAB019,theta_defaults,viable_comun_volumen
+E,22.0,13.732776000000001,14.413235156891451,0.68045915689145,temprana_0_30h,g/L,2.0,False,LAB019,theta_defaults,viable_comun_volumen
+E,46.0,18.231444,20.0534396926477,1.8219956926477003,tardia_pre_pulso,g/L,2.0,False,LAB019,theta_defaults,viable_comun_volumen
+E,70.5,33.06915600000001,28.650990519683667,-4.41816548031634,post_pulso,g/L,2.0,False,LAB019,theta_defaults,viable_comun_volumen
+E,87.5,48.380412,35.39868341457111,-12.98172858542889,post_pulso,g/L,2.0,False,LAB019,theta_defaults,viable_comun_volumen
+E,166.0,78.213684,63.4952695867144,-14.7184144132856,post_pulso,g/L,2.0,False,LAB019,theta_defaults,viable_comun_volumen
+N,16.0,231.97199999999998,199.4744172783535,-32.49758272164646,temprana_0_30h,mg N/L,18.55776,False,LAB019,theta_full,viable_ponderada
+N,19.0,217.21099999999998,183.9026439711867,-33.30835602881327,temprana_0_30h,mg N/L,17.37688,False,LAB019,theta_full,viable_ponderada
+N,22.0,213.21099999999998,166.28962293971463,-46.921377060285344,temprana_0_30h,mg N/L,17.05688,False,LAB019,theta_full,viable_ponderada
+N,40.0,160.11399999999998,17.973575083806473,-142.1404249161935,tardia_pre_pulso,mg N/L,12.809119999999998,False,LAB019,theta_full,viable_ponderada
+N,43.0,129.831,1.340559790110713,-128.49044020988927,tardia_pre_pulso,mg N/L,12.0,False,LAB019,theta_full,viable_ponderada
+N,46.0,108.194,0.011966904795464677,-108.18203309520453,tardia_pre_pulso,mg N/L,12.0,False,LAB019,theta_full,viable_ponderada
+N,64.0,30.0,2.7517531545523708e-15,-29.999999999999996,tardia_pre_pulso,mg N/L,12.0,False,LAB019,theta_full,viable_ponderada
+N,67.5,65.513,41.91974506802518,-23.593254931974826,post_pulso,mg N/L,12.0,False,LAB019,theta_full,viable_ponderada
+N,70.5,49.168,9.34088150655769,-39.827118493442306,post_pulso,mg N/L,12.0,False,LAB019,theta_full,viable_ponderada
+N,87.5,21.0,4.7810565550995146e-14,-20.999999999999954,post_pulso,mg N/L,12.0,False,LAB019,theta_full,viable_ponderada
+N,166.0,33.823,0.0,-33.823,post_pulso,mg N/L,12.0,False,LAB019,theta_full,viable_ponderada
+GF,16.0,144.94,149.4402869513309,4.5002869513309065,temprana_0_30h,g/L,5.0,False,LAB019,theta_full,viable_ponderada
+GF,19.0,145.55,147.2675905311634,1.7175905311633812,temprana_0_30h,g/L,5.0,False,LAB019,theta_full,viable_ponderada
+GF,22.0,151.22,144.85608112007208,-6.3639188799279225,temprana_0_30h,g/L,5.0,False,LAB019,theta_full,viable_ponderada
+GF,40.0,136.87,124.80929076538098,-12.060709234619026,tardia_pre_pulso,g/L,5.0,False,LAB019,theta_full,viable_ponderada
+GF,43.0,129.5,120.72383105474894,-8.776168945251058,tardia_pre_pulso,g/L,5.0,False,LAB019,theta_full,viable_ponderada
+GF,46.0,127.72,116.65924727658472,-11.060752723415277,tardia_pre_pulso,g/L,5.0,False,LAB019,theta_full,viable_ponderada
+GF,64.0,89.86,94.44929006702506,4.589290067025061,tardia_pre_pulso,g/L,5.0,False,LAB019,theta_full,viable_ponderada
+GF,67.5,81.43,89.83404710243548,8.40404710243547,post_pulso,g/L,5.0,False,LAB019,theta_full,viable_ponderada
+GF,70.5,72.34,85.60479113659561,13.264791136595605,post_pulso,g/L,5.0,False,LAB019,theta_full,viable_ponderada
+GF,87.5,43.07,62.39837405788085,19.32837405788085,post_pulso,g/L,5.0,False,LAB019,theta_full,viable_ponderada
+GF,166.0,0.0,0.3988591576919329,0.3988591576919329,post_pulso,g/L,5.0,True,LAB019,theta_full,viable_ponderada
+E,22.0,13.732776000000001,16.847511169963713,3.114735169963712,temprana_0_30h,g/L,2.0,False,LAB019,theta_full,viable_ponderada
+E,46.0,18.231444,27.465509627385813,9.234065627385814,tardia_pre_pulso,g/L,2.0,False,LAB019,theta_full,viable_ponderada
+E,70.5,33.06915600000001,40.2304016328863,7.161245632886292,post_pulso,g/L,2.0,False,LAB019,theta_full,viable_ponderada
+E,87.5,48.380412,50.61033189354408,2.2299198935440785,post_pulso,g/L,2.0,False,LAB019,theta_full,viable_ponderada
+E,166.0,78.213684,82.73940509090205,4.525721090902053,post_pulso,g/L,2.0,False,LAB019,theta_full,viable_ponderada
+N,16.0,231.97199999999998,198.09477126216748,-33.877228737832496,temprana_0_30h,mg N/L,18.55776,False,LAB019,theta_defaults,viable_ponderada
+N,19.0,217.21099999999998,182.02783991309394,-35.18316008690606,temprana_0_30h,mg N/L,17.37688,False,LAB019,theta_defaults,viable_ponderada
+N,22.0,213.21099999999998,163.77448390629357,-49.436516093706416,temprana_0_30h,mg N/L,17.05688,False,LAB019,theta_defaults,viable_ponderada
+N,40.0,160.11399999999998,6.001432309232695,-154.1125676907673,tardia_pre_pulso,mg N/L,12.809119999999998,False,LAB019,theta_defaults,viable_ponderada
+N,43.0,129.831,0.0014247541878485465,-129.82957524581215,tardia_pre_pulso,mg N/L,12.0,False,LAB019,theta_defaults,viable_ponderada
+N,46.0,108.194,6.159482728752856e-08,-108.19399993840517,tardia_pre_pulso,mg N/L,12.0,False,LAB019,theta_defaults,viable_ponderada
+N,64.0,30.0,6.231860177464332e-34,-30.0,tardia_pre_pulso,mg N/L,12.0,False,LAB019,theta_defaults,viable_ponderada
+N,67.5,65.513,39.38542771904106,-26.127572280958937,post_pulso,mg N/L,12.0,False,LAB019,theta_defaults,viable_ponderada
+N,70.5,49.168,3.62796143176172,-45.54003856823827,post_pulso,mg N/L,12.0,False,LAB019,theta_defaults,viable_ponderada
+N,87.5,21.0,2.9221407302977652e-30,-21.0,post_pulso,mg N/L,12.0,False,LAB019,theta_defaults,viable_ponderada
+N,166.0,33.823,0.0,-33.823,post_pulso,mg N/L,12.0,False,LAB019,theta_defaults,viable_ponderada
+GF,16.0,144.94,150.85461087775127,5.914610877751272,temprana_0_30h,g/L,5.0,False,LAB019,theta_defaults,viable_ponderada
+GF,19.0,145.55,149.00755412332128,3.457554123321273,temprana_0_30h,g/L,5.0,False,LAB019,theta_defaults,viable_ponderada
+GF,22.0,151.22,146.95403744984495,-4.265962550155052,temprana_0_30h,g/L,5.0,False,LAB019,theta_defaults,viable_ponderada
+GF,40.0,136.87,129.6238561143819,-7.246143885618096,tardia_pre_pulso,g/L,5.0,False,LAB019,theta_defaults,viable_ponderada
+GF,43.0,129.5,126.29766103203775,-3.2023389679622483,tardia_pre_pulso,g/L,5.0,False,LAB019,theta_defaults,viable_ponderada
+GF,46.0,127.72,123.05502296606338,-4.664977033936623,tardia_pre_pulso,g/L,5.0,False,LAB019,theta_defaults,viable_ponderada
+GF,64.0,89.86,105.37904615630606,15.51904615630606,tardia_pre_pulso,g/L,5.0,False,LAB019,theta_defaults,viable_ponderada
+GF,67.5,81.43,101.55067609945584,20.120676099455835,post_pulso,g/L,5.0,False,LAB019,theta_defaults,viable_ponderada
+GF,70.5,72.34,98.02822317719429,25.68822317719429,post_pulso,g/L,5.0,False,LAB019,theta_defaults,viable_ponderada
+GF,87.5,43.07,80.53832782232357,37.468327822323566,post_pulso,g/L,5.0,False,LAB019,theta_defaults,viable_ponderada
+GF,166.0,0.0,24.65868199601819,24.65868199601819,post_pulso,g/L,5.0,True,LAB019,theta_defaults,viable_ponderada
+E,22.0,13.732776000000001,15.501343972929323,1.768567972929322,temprana_0_30h,g/L,2.0,False,LAB019,theta_defaults,viable_ponderada
+E,46.0,18.231444,23.217721297443493,4.986277297443493,tardia_pre_pulso,g/L,2.0,False,LAB019,theta_defaults,viable_ponderada
+E,70.5,33.06915600000001,32.16571401764275,-0.9034419823572577,post_pulso,g/L,2.0,False,LAB019,theta_defaults,viable_ponderada
+E,87.5,48.380412,39.11710576980858,-9.263306230191418,post_pulso,g/L,2.0,False,LAB019,theta_defaults,viable_ponderada
+E,166.0,78.213684,66.79830079369721,-11.415383206302792,post_pulso,g/L,2.0,False,LAB019,theta_defaults,viable_ponderada
+N,16.0,237.795,184.70872791677792,-53.086272083222056,temprana_0_30h,mg N/L,19.0236,False,LAB020,theta_full,referencia_anterior
+N,19.0,224.326,167.48373315265522,-56.84226684734478,temprana_0_30h,mg N/L,17.94608,False,LAB020,theta_full,referencia_anterior
+N,22.0,219.857,148.60656187645975,-71.25043812354023,temprana_0_30h,mg N/L,17.58856,False,LAB020,theta_full,referencia_anterior
+N,40.0,177.105,4.947059124621146,-172.15794087537884,tardia_pre_pulso,mg N/L,14.1684,False,LAB020,theta_full,referencia_anterior
+N,43.0,162.22899999999998,0.06282538003186641,-162.16617461996813,tardia_pre_pulso,mg N/L,12.97832,False,LAB020,theta_full,referencia_anterior
+N,46.0,141.88400000000001,0.0003843424632462711,-141.88361565753678,tardia_pre_pulso,mg N/L,12.0,False,LAB020,theta_full,referencia_anterior
+N,64.0,65.15899999999999,1.9813844471325155e-17,-65.15899999999999,tardia_pre_pulso,mg N/L,12.0,False,LAB020,theta_full,referencia_anterior
+N,67.5,56.751999999999995,5.234953338195338e-20,-56.751999999999995,tardia_pre_pulso,mg N/L,12.0,False,LAB020,theta_full,referencia_anterior
+N,70.5,44.699,3.1730781103860323e-22,-44.699,tardia_pre_pulso,mg N/L,12.0,False,LAB020,theta_full,referencia_anterior
+N,87.5,37.292,1.83463680814727e-07,-37.29199981653632,post_pulso,mg N/L,12.0,False,LAB020,theta_full,referencia_anterior
+N,166.0,32.0,0.0,-32.0,post_pulso,mg N/L,12.0,False,LAB020,theta_full,referencia_anterior
+GF,16.0,143.11,146.64166339578503,3.531663395785017,temprana_0_30h,g/L,5.0,False,LAB020,theta_full,referencia_anterior
+GF,19.0,145.43,144.11916380323385,-1.3108361967661608,temprana_0_30h,g/L,5.0,False,LAB020,theta_full,referencia_anterior
+GF,22.0,139.08,141.40139291486474,2.321392914864731,temprana_0_30h,g/L,5.0,False,LAB020,theta_full,referencia_anterior
+GF,40.0,138.67,120.35917896033948,-18.31082103966051,tardia_pre_pulso,g/L,5.0,False,LAB020,theta_full,referencia_anterior
+GF,43.0,135.9,116.42905765309098,-19.470942346909027,tardia_pre_pulso,g/L,5.0,False,LAB020,theta_full,referencia_anterior
+GF,46.0,134.87,112.5850401210458,-22.28495987895421,tardia_pre_pulso,g/L,5.0,False,LAB020,theta_full,referencia_anterior
+GF,64.0,106.13,91.07548086975007,-15.054519130249929,tardia_pre_pulso,g/L,5.0,False,LAB020,theta_full,referencia_anterior
+GF,67.5,103.27,87.15242340633509,-16.117576593664907,tardia_pre_pulso,g/L,5.0,False,LAB020,theta_full,referencia_anterior
+GF,70.5,98.22,83.7885580762854,-14.431441923714601,tardia_pre_pulso,g/L,5.0,False,LAB020,theta_full,referencia_anterior
+GF,87.5,77.25,62.098805162332454,-15.151194837667546,post_pulso,g/L,5.0,False,LAB020,theta_full,referencia_anterior
+GF,166.0,1.35,0.5593822102066819,-0.7906177897933182,post_pulso,g/L,5.0,False,LAB020,theta_full,referencia_anterior
+E,22.0,9.549804,17.6028197474663,8.053015747466299,temprana_0_30h,g/L,2.0,False,LAB020,theta_full,referencia_anterior
+E,46.0,18.547140000000002,28.41214837295465,9.865008372954648,tardia_pre_pulso,g/L,2.0,False,LAB020,theta_full,referencia_anterior
+E,70.5,29.596500000000002,40.42833250509581,10.831832505095807,tardia_pre_pulso,g/L,2.0,False,LAB020,theta_full,referencia_anterior
+E,87.5,40.172316,49.91709887839146,9.744782878391455,post_pulso,g/L,2.0,False,LAB020,theta_full,referencia_anterior
+E,166.0,78.88812545454545,82.59753973288771,3.7094142783422654,post_pulso,g/L,2.0,False,LAB020,theta_full,referencia_anterior
+N,16.0,237.795,183.2869766960238,-54.50802330397617,temprana_0_30h,mg N/L,19.0236,False,LAB020,theta_defaults,referencia_anterior
+N,19.0,224.326,165.57511097840384,-58.750889021596144,temprana_0_30h,mg N/L,17.94608,False,LAB020,theta_defaults,referencia_anterior
+N,22.0,219.857,146.08756620376002,-73.76943379623998,temprana_0_30h,mg N/L,17.58856,False,LAB020,theta_defaults,referencia_anterior
+N,40.0,177.105,0.09362239325982348,-177.01137760674015,tardia_pre_pulso,mg N/L,14.1684,False,LAB020,theta_defaults,referencia_anterior
+N,43.0,162.22899999999998,2.698926227802732e-06,-162.22899730107378,tardia_pre_pulso,mg N/L,12.97832,False,LAB020,theta_defaults,referencia_anterior
+N,46.0,141.88400000000001,7.42304385905169e-11,-141.8839999999258,tardia_pre_pulso,mg N/L,12.0,False,LAB020,theta_defaults,referencia_anterior
+N,64.0,65.15899999999999,3.3767861316912973e-38,-65.15899999999999,tardia_pre_pulso,mg N/L,12.0,False,LAB020,theta_defaults,referencia_anterior
+N,67.5,56.751999999999995,1.6215579309431554e-43,-56.751999999999995,tardia_pre_pulso,mg N/L,12.0,False,LAB020,theta_defaults,referencia_anterior
+N,70.5,44.699,4.4589340111789976e-48,-44.699,tardia_pre_pulso,mg N/L,12.0,False,LAB020,theta_defaults,referencia_anterior
+N,87.5,37.292,1.0651039222118855e-16,-37.292,post_pulso,mg N/L,12.0,False,LAB020,theta_defaults,referencia_anterior
+N,166.0,32.0,0.0,-32.0,post_pulso,mg N/L,12.0,False,LAB020,theta_defaults,referencia_anterior
+GF,16.0,143.11,148.2121550577382,5.102155057738173,temprana_0_30h,g/L,5.0,False,LAB020,theta_defaults,referencia_anterior
+GF,19.0,145.43,146.02364568206906,0.5936456820690523,temprana_0_30h,g/L,5.0,False,LAB020,theta_defaults,referencia_anterior
+GF,22.0,139.08,143.65764160784698,4.577641607846971,temprana_0_30h,g/L,5.0,False,LAB020,theta_defaults,referencia_anterior
+GF,40.0,138.67,125.2675973569342,-13.402402643065784,tardia_pre_pulso,g/L,5.0,False,LAB020,theta_defaults,referencia_anterior
+GF,43.0,135.9,122.05577662165993,-13.844223378340075,tardia_pre_pulso,g/L,5.0,False,LAB020,theta_defaults,referencia_anterior
+GF,46.0,134.87,118.91084812678307,-15.959151873216939,tardia_pre_pulso,g/L,5.0,False,LAB020,theta_defaults,referencia_anterior
+GF,64.0,106.13,101.51811326769484,-4.611886732305152,tardia_pre_pulso,g/L,5.0,False,LAB020,theta_defaults,referencia_anterior
+GF,67.5,103.27,98.39742442139378,-4.872575578606217,tardia_pre_pulso,g/L,5.0,False,LAB020,theta_defaults,referencia_anterior
+GF,70.5,98.22,95.75151569008369,-2.468484309916306,tardia_pre_pulso,g/L,5.0,False,LAB020,theta_defaults,referencia_anterior
+GF,87.5,77.25,78.72271294729961,1.4727129472996126,post_pulso,g/L,5.0,False,LAB020,theta_defaults,referencia_anterior
+GF,166.0,1.35,24.699975356086593,23.349975356086592,post_pulso,g/L,5.0,False,LAB020,theta_defaults,referencia_anterior
+E,22.0,9.549804,16.149147930667645,6.599343930667645,temprana_0_30h,g/L,2.0,False,LAB020,theta_defaults,referencia_anterior
+E,46.0,18.547140000000002,24.235864796908277,5.688724796908275,tardia_pre_pulso,g/L,2.0,False,LAB020,theta_defaults,referencia_anterior
+E,70.5,29.596500000000002,32.86100124738311,3.264501247383105,tardia_pre_pulso,g/L,2.0,False,LAB020,theta_defaults,referencia_anterior
+E,87.5,40.172316,39.3721612178529,-0.8001547821471036,post_pulso,g/L,2.0,False,LAB020,theta_defaults,referencia_anterior
+E,166.0,78.88812545454545,66.64883604185944,-12.239289412686006,post_pulso,g/L,2.0,False,LAB020,theta_defaults,referencia_anterior
+N,16.0,237.795,222.5756295468131,-15.219370453186887,temprana_0_30h,mg N/L,19.0236,False,LAB020,theta_full,viable_comun_volumen
+N,19.0,224.326,214.51078973796285,-9.815210262037134,temprana_0_30h,mg N/L,17.94608,False,LAB020,theta_full,viable_comun_volumen
+N,22.0,219.857,205.6382162777289,-14.21878372227109,temprana_0_30h,mg N/L,17.58856,False,LAB020,theta_full,viable_comun_volumen
+N,40.0,177.105,129.9726462893857,-47.132353710614275,tardia_pre_pulso,mg N/L,14.1684,False,LAB020,theta_full,viable_comun_volumen
+N,43.0,162.22899999999998,113.08102314836609,-49.1479768516339,tardia_pre_pulso,mg N/L,12.97832,False,LAB020,theta_full,viable_comun_volumen
+N,46.0,141.88400000000001,94.61042183777246,-47.27357816222755,tardia_pre_pulso,mg N/L,12.0,False,LAB020,theta_full,viable_comun_volumen
+N,64.0,65.15899999999999,0.011803153989774847,-65.14719684601022,tardia_pre_pulso,mg N/L,12.0,False,LAB020,theta_full,viable_comun_volumen
+N,67.5,56.751999999999995,8.152408967470425e-05,-56.75191847591032,tardia_pre_pulso,mg N/L,12.0,False,LAB020,theta_full,viable_comun_volumen
+N,70.5,44.699,1.1259456477602461e-06,-44.69899887405435,tardia_pre_pulso,mg N/L,12.0,False,LAB020,theta_full,viable_comun_volumen
+N,87.5,37.292,1.8099589067959725e-05,-37.29198190041093,post_pulso,mg N/L,12.0,False,LAB020,theta_full,viable_comun_volumen
+N,166.0,32.0,0.0,-32.0,post_pulso,mg N/L,12.0,False,LAB020,theta_full,viable_comun_volumen
+GF,16.0,143.11,152.31439424817285,9.204394248172832,temprana_0_30h,g/L,5.0,False,LAB020,theta_full,viable_comun_volumen
+GF,19.0,145.43,151.08031139727873,5.6503113972787276,temprana_0_30h,g/L,5.0,False,LAB020,theta_full,viable_comun_volumen
+GF,22.0,139.08,149.73737232080157,10.657372320801556,temprana_0_30h,g/L,5.0,False,LAB020,theta_full,viable_comun_volumen
+GF,40.0,138.67,138.80368638802912,0.13368638802913324,tardia_pre_pulso,g/L,5.0,False,LAB020,theta_full,viable_comun_volumen
+GF,43.0,135.9,136.44215529750215,0.5421552975021484,tardia_pre_pulso,g/L,5.0,False,LAB020,theta_full,viable_comun_volumen
+GF,46.0,134.87,133.88457417141214,-0.9854258285878643,tardia_pre_pulso,g/L,5.0,False,LAB020,theta_full,viable_comun_volumen
+GF,64.0,106.13,115.19079724582684,9.060797245826848,tardia_pre_pulso,g/L,5.0,False,LAB020,theta_full,viable_comun_volumen
+GF,67.5,103.27,111.50204104328998,8.232041043289982,tardia_pre_pulso,g/L,5.0,False,LAB020,theta_full,viable_comun_volumen
+GF,70.5,98.22,108.35756194974273,10.137561949742732,tardia_pre_pulso,g/L,5.0,False,LAB020,theta_full,viable_comun_volumen
+GF,87.5,77.25,88.03128179335155,10.781281793351553,post_pulso,g/L,5.0,False,LAB020,theta_full,viable_comun_volumen
+GF,166.0,1.35,7.426038112900494,6.076038112900495,post_pulso,g/L,5.0,False,LAB020,theta_full,viable_comun_volumen
+E,22.0,9.549804,14.635363109663999,5.085559109663999,temprana_0_30h,g/L,2.0,False,LAB020,theta_full,viable_comun_volumen
+E,46.0,18.547140000000002,20.322520330023373,1.7753803300233706,tardia_pre_pulso,g/L,2.0,False,LAB020,theta_full,viable_comun_volumen
+E,70.5,29.596500000000002,30.121071744816316,0.5245717448163134,tardia_pre_pulso,g/L,2.0,False,LAB020,theta_full,viable_comun_volumen
+E,87.5,40.172316,38.359363809012365,-1.8129521909876374,post_pulso,g/L,2.0,False,LAB020,theta_full,viable_comun_volumen
+E,166.0,78.88812545454545,78.47881142722919,-0.4093140273162561,post_pulso,g/L,2.0,False,LAB020,theta_full,viable_comun_volumen
+N,16.0,237.795,221.9639488883789,-15.831051111621086,temprana_0_30h,mg N/L,19.0236,False,LAB020,theta_defaults,viable_comun_volumen
+N,19.0,224.326,213.7066186952446,-10.619381304755398,temprana_0_30h,mg N/L,17.94608,False,LAB020,theta_defaults,viable_comun_volumen
+N,22.0,219.857,204.6029352138611,-15.254064786138915,temprana_0_30h,mg N/L,17.58856,False,LAB020,theta_defaults,viable_comun_volumen
+N,40.0,177.105,126.10536771141834,-50.99963228858165,tardia_pre_pulso,mg N/L,14.1684,False,LAB020,theta_defaults,viable_comun_volumen
+N,43.0,162.22899999999998,108.34668099180038,-53.88231900819961,tardia_pre_pulso,mg N/L,12.97832,False,LAB020,theta_defaults,viable_comun_volumen
+N,46.0,141.88400000000001,88.79656960858327,-53.08743039141674,tardia_pre_pulso,mg N/L,12.0,False,LAB020,theta_defaults,viable_comun_volumen
+N,64.0,65.15899999999999,4.669732219147546e-08,-65.15899995330267,tardia_pre_pulso,mg N/L,12.0,False,LAB020,theta_defaults,viable_comun_volumen
+N,67.5,56.751999999999995,1.6647121620628931e-12,-56.75199999999833,tardia_pre_pulso,mg N/L,12.0,False,LAB020,theta_defaults,viable_comun_volumen
+N,70.5,44.699,2.490012851071055e-16,-44.699,tardia_pre_pulso,mg N/L,12.0,False,LAB020,theta_defaults,viable_comun_volumen
+N,87.5,37.292,1.3411480631729174e-12,-37.29199999999866,post_pulso,mg N/L,12.0,False,LAB020,theta_defaults,viable_comun_volumen
+N,166.0,32.0,0.0,-32.0,post_pulso,mg N/L,12.0,False,LAB020,theta_defaults,viable_comun_volumen
+GF,16.0,143.11,153.07884400818176,9.968844008181748,temprana_0_30h,g/L,5.0,False,LAB020,theta_defaults,viable_comun_volumen
+GF,19.0,145.43,152.0165021206811,6.586502120681104,temprana_0_30h,g/L,5.0,False,LAB020,theta_defaults,viable_comun_volumen
+GF,22.0,139.08,150.85752244618772,11.777522446187703,temprana_0_30h,g/L,5.0,False,LAB020,theta_defaults,viable_comun_volumen
+GF,40.0,138.67,141.33454844748576,2.664548447485771,tardia_pre_pulso,g/L,5.0,False,LAB020,theta_defaults,viable_comun_volumen
+GF,43.0,135.9,139.25336548706747,3.353365487067464,tardia_pre_pulso,g/L,5.0,False,LAB020,theta_defaults,viable_comun_volumen
+GF,46.0,134.87,136.99404605534187,2.1240460553418643,tardia_pre_pulso,g/L,5.0,False,LAB020,theta_defaults,viable_comun_volumen
+GF,64.0,106.13,120.85828189935155,14.728281899351558,tardia_pre_pulso,g/L,5.0,False,LAB020,theta_defaults,viable_comun_volumen
+GF,67.5,103.27,117.83599657341043,14.56599657341043,tardia_pre_pulso,g/L,5.0,False,LAB020,theta_defaults,viable_comun_volumen
+GF,70.5,98.22,115.27639321230298,17.05639321230298,tardia_pre_pulso,g/L,5.0,False,LAB020,theta_defaults,viable_comun_volumen
+GF,87.5,77.25,98.50156649887336,21.25156649887336,post_pulso,g/L,5.0,False,LAB020,theta_defaults,viable_comun_volumen
+GF,166.0,1.35,39.03036575072871,37.68036575072871,post_pulso,g/L,5.0,False,LAB020,theta_defaults,viable_comun_volumen
+E,22.0,9.549804,13.934106327880588,4.384302327880588,temprana_0_30h,g/L,2.0,False,LAB020,theta_defaults,viable_comun_volumen
+E,46.0,18.547140000000002,18.219038440633284,-0.3281015593667185,tardia_pre_pulso,g/L,2.0,False,LAB020,theta_defaults,viable_comun_volumen
+E,70.5,29.596500000000002,25.548091223098346,-4.048408776901656,tardia_pre_pulso,g/L,2.0,False,LAB020,theta_defaults,viable_comun_volumen
+E,87.5,40.172316,31.480409026619498,-8.691906973380505,post_pulso,g/L,2.0,False,LAB020,theta_defaults,viable_comun_volumen
+E,166.0,78.88812545454545,58.35205966029415,-20.536065794251293,post_pulso,g/L,2.0,False,LAB020,theta_defaults,viable_comun_volumen
+N,16.0,237.795,229.05025621991922,-8.74474378008075,temprana_0_30h,mg N/L,19.0236,False,LAB020,theta_full,viable_ponderada
+N,19.0,224.326,222.56387119101007,-1.7621288089899323,temprana_0_30h,mg N/L,17.94608,False,LAB020,theta_full,viable_ponderada
+N,22.0,219.857,215.42489139429486,-4.432108605705142,temprana_0_30h,mg N/L,17.58856,False,LAB020,theta_full,viable_ponderada
+N,40.0,177.105,154.3191576570717,-22.78584234292827,tardia_pre_pulso,mg N/L,14.1684,False,LAB020,theta_full,viable_ponderada
+N,43.0,162.22899999999998,140.57918239359375,-21.64981760640622,tardia_pre_pulso,mg N/L,12.97832,False,LAB020,theta_full,viable_ponderada
+N,46.0,141.88400000000001,125.47235276367344,-16.41164723632657,tardia_pre_pulso,mg N/L,12.0,False,LAB020,theta_full,viable_ponderada
+N,64.0,65.15899999999999,11.151332408962658,-54.00766759103734,tardia_pre_pulso,mg N/L,12.0,False,LAB020,theta_full,viable_ponderada
+N,67.5,56.751999999999995,0.45991076216639126,-56.2920892378336,tardia_pre_pulso,mg N/L,12.0,False,LAB020,theta_full,viable_ponderada
+N,70.5,44.699,0.00781046084396589,-44.691189539156035,tardia_pre_pulso,mg N/L,12.0,False,LAB020,theta_full,viable_ponderada
+N,87.5,37.292,3.992643587318327e-05,-37.29196007356413,post_pulso,mg N/L,12.0,False,LAB020,theta_full,viable_ponderada
+N,166.0,32.0,2.9751935299088416e-66,-32.0,post_pulso,mg N/L,12.0,False,LAB020,theta_full,viable_ponderada
+GF,16.0,143.11,153.30821467479214,10.198214674792126,temprana_0_30h,g/L,5.0,False,LAB020,theta_full,viable_ponderada
+GF,19.0,145.43,152.3072149899764,6.87721498997638,temprana_0_30h,g/L,5.0,False,LAB020,theta_full,viable_ponderada
+GF,22.0,139.08,151.21576997071702,12.135769970717007,temprana_0_30h,g/L,5.0,False,LAB020,theta_full,viable_ponderada
+GF,40.0,138.67,142.2536689903199,3.5836689903199215,tardia_pre_pulso,g/L,5.0,False,LAB020,theta_full,viable_ponderada
+GF,43.0,135.9,140.30053535372417,4.400535353724166,tardia_pre_pulso,g/L,5.0,False,LAB020,theta_full,viable_ponderada
+GF,46.0,134.87,138.17820378654432,3.3082037865443112,tardia_pre_pulso,g/L,5.0,False,LAB020,theta_full,viable_ponderada
+GF,64.0,106.13,121.75772655228694,15.627726552286944,tardia_pre_pulso,g/L,5.0,False,LAB020,theta_full,viable_ponderada
+GF,67.5,103.27,118.02536999847732,14.75536999847732,tardia_pre_pulso,g/L,5.0,False,LAB020,theta_full,viable_ponderada
+GF,70.5,98.22,114.86911453981847,16.64911453981847,tardia_pre_pulso,g/L,5.0,False,LAB020,theta_full,viable_ponderada
+GF,87.5,77.25,94.53222641427072,17.282226414270724,post_pulso,g/L,5.0,False,LAB020,theta_full,viable_ponderada
+GF,166.0,1.35,11.290695882222332,9.940695882222332,post_pulso,g/L,5.0,False,LAB020,theta_full,viable_ponderada
+E,22.0,9.549804,14.112861115767183,4.563057115767183,temprana_0_30h,g/L,2.0,False,LAB020,theta_full,viable_ponderada
+E,46.0,18.547140000000002,18.768306734696335,0.2211667346963324,tardia_pre_pulso,g/L,2.0,False,LAB020,theta_full,viable_ponderada
+E,70.5,29.596500000000002,27.497870799256386,-2.0986292007436163,tardia_pre_pulso,g/L,2.0,False,LAB020,theta_full,viable_ponderada
+E,87.5,40.172316,35.600928436983565,-4.571387563016437,post_pulso,g/L,2.0,False,LAB020,theta_full,viable_ponderada
+E,166.0,78.88812545454545,76.20608311408164,-2.682042340463809,post_pulso,g/L,2.0,False,LAB020,theta_full,viable_ponderada
+N,16.0,237.795,228.56472042108027,-9.230279578919726,temprana_0_30h,mg N/L,19.0236,False,LAB020,theta_defaults,viable_ponderada
+N,19.0,224.326,221.9274317230315,-2.3985682769684935,temprana_0_30h,mg N/L,17.94608,False,LAB020,theta_defaults,viable_ponderada
+N,22.0,219.857,214.60828096585104,-5.248719034148946,temprana_0_30h,mg N/L,17.58856,False,LAB020,theta_defaults,viable_ponderada
+N,40.0,177.105,151.3733266846872,-25.731673315312758,tardia_pre_pulso,mg N/L,14.1684,False,LAB020,theta_defaults,viable_ponderada
+N,43.0,162.22899999999998,137.00954740976283,-25.21945259023714,tardia_pre_pulso,mg N/L,12.97832,False,LAB020,theta_defaults,viable_ponderada
+N,46.0,141.88400000000001,121.14463027117223,-20.739369728827782,tardia_pre_pulso,mg N/L,12.0,False,LAB020,theta_defaults,viable_ponderada
+N,64.0,65.15899999999999,1.1330489727357862,-64.0259510272642,tardia_pre_pulso,mg N/L,12.0,False,LAB020,theta_defaults,viable_ponderada
+N,67.5,56.751999999999995,8.017279687213683e-05,-56.751919827203125,tardia_pre_pulso,mg N/L,12.0,False,LAB020,theta_defaults,viable_ponderada
+N,70.5,44.699,1.593969216962697e-08,-44.6989999840603,tardia_pre_pulso,mg N/L,12.0,False,LAB020,theta_defaults,viable_ponderada
+N,87.5,37.292,6.748816006282968e-12,-37.291999999993244,post_pulso,mg N/L,12.0,False,LAB020,theta_defaults,viable_ponderada
+N,166.0,32.0,0.0,-32.0,post_pulso,mg N/L,12.0,False,LAB020,theta_defaults,viable_ponderada
+GF,16.0,143.11,153.9277302488134,10.817730248813376,temprana_0_30h,g/L,5.0,False,LAB020,theta_defaults,viable_ponderada
+GF,19.0,145.43,153.06742867517534,7.637428675175329,temprana_0_30h,g/L,5.0,False,LAB020,theta_defaults,viable_ponderada
+GF,22.0,139.08,152.12725962580345,13.047259625803434,temprana_0_30h,g/L,5.0,False,LAB020,theta_defaults,viable_ponderada
+GF,40.0,138.67,144.34229642351096,5.672296423510971,tardia_pre_pulso,g/L,5.0,False,LAB020,theta_defaults,viable_ponderada
+GF,43.0,135.9,142.6267472009017,6.726747200901684,tardia_pre_pulso,g/L,5.0,False,LAB020,theta_defaults,viable_ponderada
+GF,46.0,134.87,140.75841471548955,5.888414715489546,tardia_pre_pulso,g/L,5.0,False,LAB020,theta_defaults,viable_ponderada
+GF,64.0,106.13,126.17103205109746,20.04103205109746,tardia_pre_pulso,g/L,5.0,False,LAB020,theta_defaults,viable_ponderada
+GF,67.5,103.27,123.11240351297376,19.84240351297376,tardia_pre_pulso,g/L,5.0,False,LAB020,theta_defaults,viable_ponderada
+GF,70.5,98.22,120.53368473884302,22.313684738843023,tardia_pre_pulso,g/L,5.0,False,LAB020,theta_defaults,viable_ponderada
+GF,87.5,77.25,103.62043925819596,26.370439258195958,post_pulso,g/L,5.0,False,LAB020,theta_defaults,viable_ponderada
+GF,166.0,1.35,42.896481036684996,41.546481036684995,post_pulso,g/L,5.0,False,LAB020,theta_defaults,viable_ponderada
+E,22.0,9.549804,13.54528426812688,3.9954802681268795,temprana_0_30h,g/L,2.0,False,LAB020,theta_defaults,viable_ponderada
+E,46.0,18.547140000000002,17.04793690719209,-1.4992030928079139,tardia_pre_pulso,g/L,2.0,False,LAB020,theta_defaults,viable_ponderada
+E,70.5,29.596500000000002,23.65499414912128,-5.941505850878723,tardia_pre_pulso,g/L,2.0,False,LAB020,theta_defaults,viable_ponderada
+E,87.5,40.172316,29.53970495231619,-10.632611047683813,post_pulso,g/L,2.0,False,LAB020,theta_defaults,viable_ponderada
+E,166.0,78.88812545454545,56.26782543863809,-22.620300015907354,post_pulso,g/L,2.0,False,LAB020,theta_defaults,viable_ponderada
+N,16.0,214.21099999999998,144.48923697700823,-69.72176302299174,temprana_0_30h,mg N/L,17.13688,False,LAB021,theta_full,referencia_anterior
+N,19.0,204.096,112.21355949982612,-91.88244050017389,temprana_0_30h,mg N/L,16.32768,False,LAB021,theta_full,referencia_anterior
+N,22.0,186.22,75.84464122830052,-110.37535877169948,temprana_0_30h,mg N/L,14.8976,False,LAB021,theta_full,referencia_anterior
+N,40.0,47.991,1.2117527656859576e-09,-47.99099999878825,tardia_pre_pulso,mg N/L,12.0,False,LAB021,theta_full,referencia_anterior
+N,43.0,45.637,4.344872895137955e-12,-45.63699999999565,tardia_pre_pulso,mg N/L,12.0,False,LAB021,theta_full,referencia_anterior
+N,46.0,14.0,1.5451666115457268e-14,-13.999999999999984,tardia_pre_pulso,mg N/L,12.0,False,LAB021,theta_full,referencia_anterior
+N,64.0,17.0,2.8765437002556092e-11,-16.999999999971237,post_pulso,mg N/L,12.0,False,LAB021,theta_full,referencia_anterior
+N,67.5,18.0,0.0,-18.0,post_pulso,mg N/L,12.0,False,LAB021,theta_full,referencia_anterior
+N,70.5,17.0,0.0,-17.0,post_pulso,mg N/L,12.0,False,LAB021,theta_full,referencia_anterior
+N,87.5,15.0,0.0,-15.0,post_pulso,mg N/L,12.0,False,LAB021,theta_full,referencia_anterior
+N,166.0,27.0,0.0,-27.0,post_pulso,mg N/L,12.0,False,LAB021,theta_full,referencia_anterior
+GF,16.0,143.02,145.98650853968928,2.966508539689272,temprana_0_30h,g/L,5.0,False,LAB021,theta_full,referencia_anterior
+GF,19.0,140.29,141.93604850410676,1.6460485041067727,temprana_0_30h,g/L,5.0,False,LAB021,theta_full,referencia_anterior
+GF,22.0,136.52,137.3942560370076,0.8742560370075978,temprana_0_30h,g/L,5.0,False,LAB021,theta_full,referencia_anterior
+GF,40.0,106.73,106.83932503493111,0.10932503493110346,tardia_pre_pulso,g/L,5.0,False,LAB021,theta_full,referencia_anterior
+GF,43.0,100.06,102.10855472477479,2.048554724774789,tardia_pre_pulso,g/L,5.0,False,LAB021,theta_full,referencia_anterior
+GF,46.0,89.99,97.45450339702708,7.464503397027087,tardia_pre_pulso,g/L,5.0,False,LAB021,theta_full,referencia_anterior
+GF,67.5,40.37,60.07082710608964,19.70082710608964,post_pulso,g/L,5.0,False,LAB021,theta_full,referencia_anterior
+GF,70.5,37.15,55.14407599804935,17.994075998049354,post_pulso,g/L,5.0,False,LAB021,theta_full,referencia_anterior
+GF,166.0,0.12,0.03156001039713988,-0.08843998960286012,post_pulso,g/L,5.0,False,LAB021,theta_full,referencia_anterior
+E,22.0,15.232332,20.58086100587392,5.348529005873921,temprana_0_30h,g/L,2.0,False,LAB021,theta_full,referencia_anterior
+E,46.0,33.621624,36.930354927018925,3.308730927018928,tardia_pre_pulso,g/L,2.0,False,LAB021,theta_full,referencia_anterior
+E,70.5,57.377748,55.852947067096956,-1.524800932903041,post_pulso,g/L,2.0,False,LAB021,theta_full,referencia_anterior
+E,87.5,69.689892,66.67117335702999,-3.018718642970015,post_pulso,g/L,2.0,False,LAB021,theta_full,referencia_anterior
+E,166.0,78.86328923076924,84.3126969545652,5.449407723795957,post_pulso,g/L,2.0,False,LAB021,theta_full,referencia_anterior
+N,16.0,214.21099999999998,140.65031096583377,-73.56068903416622,temprana_0_30h,mg N/L,17.13688,False,LAB021,theta_defaults,referencia_anterior
+N,19.0,204.096,106.57934898998565,-97.51665101001434,temprana_0_30h,mg N/L,16.32768,False,LAB021,theta_defaults,referencia_anterior
+N,22.0,186.22,67.57677938578883,-118.64322061421117,temprana_0_30h,mg N/L,14.8976,False,LAB021,theta_defaults,referencia_anterior
+N,40.0,47.991,3.375656661184094e-22,-47.991,tardia_pre_pulso,mg N/L,12.0,False,LAB021,theta_defaults,referencia_anterior
+N,43.0,45.637,3.201483696536165e-27,-45.637,tardia_pre_pulso,mg N/L,12.0,False,LAB021,theta_defaults,referencia_anterior
+N,46.0,14.0,2.8277629384118703e-32,-14.0,tardia_pre_pulso,mg N/L,12.0,False,LAB021,theta_defaults,referencia_anterior
+N,64.0,17.0,0.0,-17.0,post_pulso,mg N/L,12.0,False,LAB021,theta_defaults,referencia_anterior
+N,67.5,18.0,0.0,-18.0,post_pulso,mg N/L,12.0,False,LAB021,theta_defaults,referencia_anterior
+N,70.5,17.0,0.0,-17.0,post_pulso,mg N/L,12.0,False,LAB021,theta_defaults,referencia_anterior
+N,87.5,15.0,0.0,-15.0,post_pulso,mg N/L,12.0,False,LAB021,theta_defaults,referencia_anterior
+N,166.0,27.0,0.0,-27.0,post_pulso,mg N/L,12.0,False,LAB021,theta_defaults,referencia_anterior
+GF,16.0,143.02,148.7455111088214,5.725511108821394,temprana_0_30h,g/L,5.0,False,LAB021,theta_defaults,referencia_anterior
+GF,19.0,140.29,145.36003444726336,5.070034447263367,temprana_0_30h,g/L,5.0,False,LAB021,theta_defaults,referencia_anterior
+GF,22.0,136.52,141.54242839001324,5.022428390013232,temprana_0_30h,g/L,5.0,False,LAB021,theta_defaults,referencia_anterior
+GF,40.0,106.73,117.32853257342255,10.598532573422546,tardia_pre_pulso,g/L,5.0,False,LAB021,theta_defaults,referencia_anterior
+GF,43.0,100.06,113.69640965386492,13.636409653864916,tardia_pre_pulso,g/L,5.0,False,LAB021,theta_defaults,referencia_anterior
+GF,46.0,89.99,110.14572767292637,20.155727672926375,tardia_pre_pulso,g/L,5.0,False,LAB021,theta_defaults,referencia_anterior
+GF,67.5,40.37,82.21693701788989,41.84693701788989,post_pulso,g/L,5.0,False,LAB021,theta_defaults,referencia_anterior
+GF,70.5,37.15,78.7353150918965,41.5853150918965,post_pulso,g/L,5.0,False,LAB021,theta_defaults,referencia_anterior
+GF,166.0,0.12,18.023820031364693,17.903820031364692,post_pulso,g/L,5.0,False,LAB021,theta_defaults,referencia_anterior
+E,22.0,15.232332,17.823540535892107,2.5912085358921075,temprana_0_30h,g/L,2.0,False,LAB021,theta_defaults,referencia_anterior
+E,46.0,33.621624,28.95082757363401,-4.670796426365985,tardia_pre_pulso,g/L,2.0,False,LAB021,theta_defaults,referencia_anterior
+E,70.5,57.377748,41.134605276741276,-16.24314272325872,post_pulso,g/L,2.0,False,LAB021,theta_defaults,referencia_anterior
+E,87.5,69.689892,48.250421789544184,-21.439470210455816,post_pulso,g/L,2.0,False,LAB021,theta_defaults,referencia_anterior
+E,166.0,78.86328923076924,72.14323951497697,-6.720049715792271,post_pulso,g/L,2.0,False,LAB021,theta_defaults,referencia_anterior
+N,16.0,214.21099999999998,205.02606785981223,-9.184932140187756,temprana_0_30h,mg N/L,17.13688,False,LAB021,theta_full,viable_comun_volumen
+N,19.0,204.096,189.14266699504142,-14.953333004958575,temprana_0_30h,mg N/L,16.32768,False,LAB021,theta_full,viable_comun_volumen
+N,22.0,186.22,170.7686159345899,-15.451384065410107,temprana_0_30h,mg N/L,14.8976,False,LAB021,theta_full,viable_comun_volumen
+N,40.0,47.991,8.77396299628495,-39.21703700371505,tardia_pre_pulso,mg N/L,12.0,False,LAB021,theta_full,viable_comun_volumen
+N,43.0,45.637,0.19115017176365087,-45.44584982823634,tardia_pre_pulso,mg N/L,12.0,False,LAB021,theta_full,viable_comun_volumen
+N,46.0,14.0,0.0016345410396425314,-13.998365458960357,tardia_pre_pulso,mg N/L,12.0,False,LAB021,theta_full,viable_comun_volumen
+N,64.0,17.0,3.821204894887818e-09,-16.999999996178797,post_pulso,mg N/L,12.0,False,LAB021,theta_full,viable_comun_volumen
+N,67.5,18.0,4.307953674875972e-12,-17.99999999999569,post_pulso,mg N/L,12.0,False,LAB021,theta_full,viable_comun_volumen
+N,70.5,17.0,1.1104852126960555e-14,-16.99999999999999,post_pulso,mg N/L,12.0,False,LAB021,theta_full,viable_comun_volumen
+N,87.5,15.0,7.877475414750882e-29,-15.0,post_pulso,mg N/L,12.0,False,LAB021,theta_full,viable_comun_volumen
+N,166.0,27.0,0.0,-27.0,post_pulso,mg N/L,12.0,False,LAB021,theta_full,viable_comun_volumen
+GF,16.0,143.02,153.74142955452658,10.721429554526566,temprana_0_30h,g/L,5.0,False,LAB021,theta_full,viable_comun_volumen
+GF,19.0,140.29,151.68097432739273,11.39097432739274,temprana_0_30h,g/L,5.0,False,LAB021,theta_full,viable_comun_volumen
+GF,22.0,136.52,149.33237048201644,12.812370482016433,temprana_0_30h,g/L,5.0,False,LAB021,theta_full,viable_comun_volumen
+GF,40.0,106.73,127.96928094482215,21.23928094482214,tardia_pre_pulso,g/L,5.0,False,LAB021,theta_full,viable_comun_volumen
+GF,43.0,100.06,123.46897161039034,23.40897161039034,tardia_pre_pulso,g/L,5.0,False,LAB021,theta_full,viable_comun_volumen
+GF,46.0,89.99,119.0812013989283,29.091201398928305,tardia_pre_pulso,g/L,5.0,False,LAB021,theta_full,viable_comun_volumen
+GF,67.5,40.37,83.47067026318015,43.100670263180156,post_pulso,g/L,5.0,False,LAB021,theta_full,viable_comun_volumen
+GF,70.5,37.15,78.74870127646722,41.59870127646722,post_pulso,g/L,5.0,False,LAB021,theta_full,viable_comun_volumen
+GF,166.0,0.12,0.8488755439516231,0.7288755439516231,post_pulso,g/L,5.0,False,LAB021,theta_full,viable_comun_volumen
+E,22.0,15.232332,16.127490927923947,0.8951589279239478,temprana_0_30h,g/L,2.0,False,LAB021,theta_full,viable_comun_volumen
+E,46.0,33.621624,27.80446683144579,-5.817157168554207,tardia_pre_pulso,g/L,2.0,False,LAB021,theta_full,viable_comun_volumen
+E,70.5,57.377748,44.96669581168066,-12.411052188319339,post_pulso,g/L,2.0,False,LAB021,theta_full,viable_comun_volumen
+E,87.5,69.689892,54.717150966398556,-14.972741033601444,post_pulso,g/L,2.0,False,LAB021,theta_full,viable_comun_volumen
+E,166.0,78.86328923076924,83.85517145409487,4.991882223325632,post_pulso,g/L,2.0,False,LAB021,theta_full,viable_comun_volumen
+N,16.0,214.21099999999998,203.40598647847153,-10.805013521528462,temprana_0_30h,mg N/L,17.13688,False,LAB021,theta_defaults,viable_comun_volumen
+N,19.0,204.096,186.86955806631664,-17.22644193368336,temprana_0_30h,mg N/L,16.32768,False,LAB021,theta_defaults,viable_comun_volumen
+N,22.0,186.22,167.62995359918142,-18.590046400818572,temprana_0_30h,mg N/L,14.8976,False,LAB021,theta_defaults,viable_comun_volumen
+N,40.0,47.991,0.24453075238888547,-47.74646924761111,tardia_pre_pulso,mg N/L,12.0,False,LAB021,theta_defaults,viable_comun_volumen
+N,43.0,45.637,1.4011679758339713e-05,-45.636985988320234,tardia_pre_pulso,mg N/L,12.0,False,LAB021,theta_defaults,viable_comun_volumen
+N,46.0,14.0,7.49739418776598e-10,-13.999999999250262,tardia_pre_pulso,mg N/L,12.0,False,LAB021,theta_defaults,viable_comun_volumen
+N,64.0,17.0,2.437409171241701e-20,-17.0,post_pulso,mg N/L,12.0,False,LAB021,theta_defaults,viable_comun_volumen
+N,67.5,18.0,0.0,-18.0,post_pulso,mg N/L,12.0,False,LAB021,theta_defaults,viable_comun_volumen
+N,70.5,17.0,0.0,-17.0,post_pulso,mg N/L,12.0,False,LAB021,theta_defaults,viable_comun_volumen
+N,87.5,15.0,0.0,-15.0,post_pulso,mg N/L,12.0,False,LAB021,theta_defaults,viable_comun_volumen
+N,166.0,27.0,0.0,-27.0,post_pulso,mg N/L,12.0,False,LAB021,theta_defaults,viable_comun_volumen
+GF,16.0,143.02,155.13115843348362,12.11115843348361,temprana_0_30h,g/L,5.0,False,LAB021,theta_defaults,viable_comun_volumen
+GF,19.0,140.29,153.42812609617403,13.138126096174034,temprana_0_30h,g/L,5.0,False,LAB021,theta_defaults,viable_comun_volumen
+GF,22.0,136.52,151.479321925605,14.959321925604996,temprana_0_30h,g/L,5.0,False,LAB021,theta_defaults,viable_comun_volumen
+GF,40.0,106.73,133.4361887985515,26.70618879855151,tardia_pre_pulso,g/L,5.0,False,LAB021,theta_defaults,viable_comun_volumen
+GF,43.0,100.06,129.9653876964686,29.90538769646861,tardia_pre_pulso,g/L,5.0,False,LAB021,theta_defaults,viable_comun_volumen
+GF,46.0,89.99,126.57457470592347,36.58457470592347,tardia_pre_pulso,g/L,5.0,False,LAB021,theta_defaults,viable_comun_volumen
+GF,67.5,40.37,99.16456652402877,58.794566524028774,post_pulso,g/L,5.0,False,LAB021,theta_defaults,viable_comun_volumen
+GF,70.5,37.15,95.68755522526251,58.537555225262516,post_pulso,g/L,5.0,False,LAB021,theta_defaults,viable_comun_volumen
+GF,166.0,0.12,28.34168983716621,28.22168983716621,post_pulso,g/L,5.0,False,LAB021,theta_defaults,viable_comun_volumen
+E,22.0,15.232332,14.74677800303217,-0.4855539969678304,temprana_0_30h,g/L,2.0,False,LAB021,theta_defaults,viable_comun_volumen
+E,46.0,33.621624,22.889722012322014,-10.731901987677983,tardia_pre_pulso,g/L,2.0,False,LAB021,theta_defaults,viable_comun_volumen
+E,70.5,57.377748,34.223766214349,-23.153981785651,post_pulso,g/L,2.0,False,LAB021,theta_defaults,viable_comun_volumen
+E,87.5,69.689892,40.8254226408947,-28.8644693591053,post_pulso,g/L,2.0,False,LAB021,theta_defaults,viable_comun_volumen
+E,166.0,78.86328923076924,65.89235595312007,-12.970933277649166,post_pulso,g/L,2.0,False,LAB021,theta_defaults,viable_comun_volumen
+N,16.0,214.21099999999998,221.06469773670364,6.853697736703662,temprana_0_30h,mg N/L,17.13688,False,LAB021,theta_full,viable_ponderada
+N,19.0,204.096,209.67791821294028,5.5819182129402956,temprana_0_30h,mg N/L,16.32768,False,LAB021,theta_full,viable_ponderada
+N,22.0,186.22,196.47209128868923,10.25209128868923,temprana_0_30h,mg N/L,14.8976,False,LAB021,theta_full,viable_ponderada
+N,40.0,47.991,68.70046707590079,20.709467075900786,tardia_pre_pulso,mg N/L,12.0,False,LAB021,theta_full,viable_ponderada
+N,43.0,45.637,38.694948952580134,-6.942051047419865,tardia_pre_pulso,mg N/L,12.0,False,LAB021,theta_full,viable_ponderada
+N,46.0,14.0,10.825521024135952,-3.174478975864049,tardia_pre_pulso,mg N/L,12.0,False,LAB021,theta_full,viable_ponderada
+N,64.0,17.0,2.0727694449254728e-08,-16.999999979272307,post_pulso,mg N/L,12.0,False,LAB021,theta_full,viable_ponderada
+N,67.5,18.0,2.096059993926683e-11,-17.99999999997904,post_pulso,mg N/L,12.0,False,LAB021,theta_full,viable_ponderada
+N,70.5,17.0,5.890978960011502e-14,-16.999999999999943,post_pulso,mg N/L,12.0,False,LAB021,theta_full,viable_ponderada
+N,87.5,15.0,1.4228615440447373e-27,-15.0,post_pulso,mg N/L,12.0,False,LAB021,theta_full,viable_ponderada
+N,166.0,27.0,1.683203367685002e-89,-27.0,post_pulso,mg N/L,12.0,False,LAB021,theta_full,viable_ponderada
+GF,16.0,143.02,155.84597255285632,12.825972552856314,temprana_0_30h,g/L,5.0,False,LAB021,theta_full,viable_ponderada
+GF,19.0,140.29,154.34998759035483,14.059987590354837,temprana_0_30h,g/L,5.0,False,LAB021,theta_full,viable_ponderada
+GF,22.0,136.52,152.6374575735359,16.117457573535887,temprana_0_30h,g/L,5.0,False,LAB021,theta_full,viable_ponderada
+GF,40.0,106.73,136.52272691644353,29.792726916443527,tardia_pre_pulso,g/L,5.0,False,LAB021,theta_full,viable_ponderada
+GF,43.0,100.06,132.62835224624672,32.56835224624672,tardia_pre_pulso,g/L,5.0,False,LAB021,theta_full,viable_ponderada
+GF,46.0,89.99,128.38017685682703,38.39017685682704,tardia_pre_pulso,g/L,5.0,False,LAB021,theta_full,viable_ponderada
+GF,67.5,40.37,92.73724638065464,52.36724638065464,post_pulso,g/L,5.0,False,LAB021,theta_full,viable_ponderada
+GF,70.5,37.15,88.02286628745713,50.872866287457136,post_pulso,g/L,5.0,False,LAB021,theta_full,viable_ponderada
+GF,166.0,0.12,2.1642550212428744,2.0442550212428743,post_pulso,g/L,5.0,False,LAB021,theta_full,viable_ponderada
+E,22.0,15.232332,14.90783646828407,-0.3244955317159288,temprana_0_30h,g/L,2.0,False,LAB021,theta_full,viable_ponderada
+E,46.0,33.621624,24.028124881329664,-9.593499118670334,tardia_pre_pulso,g/L,2.0,False,LAB021,theta_full,viable_ponderada
+E,70.5,57.377748,40.850794485077934,-16.526953514922063,post_pulso,g/L,2.0,False,LAB021,theta_full,viable_ponderada
+E,87.5,69.689892,50.331606524751685,-19.358285475248316,post_pulso,g/L,2.0,False,LAB021,theta_full,viable_ponderada
+E,166.0,78.86328923076924,83.09289247977624,4.229603249006999,post_pulso,g/L,2.0,False,LAB021,theta_full,viable_ponderada
+N,16.0,214.21099999999998,219.94131050897164,5.730310508971659,temprana_0_30h,mg N/L,17.13688,False,LAB021,theta_defaults,viable_ponderada
+N,19.0,204.096,208.11502179540201,4.019021795402006,temprana_0_30h,mg N/L,16.32768,False,LAB021,theta_defaults,viable_ponderada
+N,22.0,186.22,194.33650621684808,8.11650621684809,temprana_0_30h,mg N/L,14.8976,False,LAB021,theta_defaults,viable_ponderada
+N,40.0,47.991,57.320572841914306,9.329572841914304,tardia_pre_pulso,mg N/L,12.0,False,LAB021,theta_defaults,viable_ponderada
+N,43.0,45.637,23.988876773290393,-21.648123226709604,tardia_pre_pulso,mg N/L,12.0,False,LAB021,theta_defaults,viable_ponderada
+N,46.0,14.0,0.4375271138032256,-13.562472886196774,tardia_pre_pulso,mg N/L,12.0,False,LAB021,theta_defaults,viable_ponderada
+N,64.0,17.0,0.0,-17.0,post_pulso,mg N/L,12.0,False,LAB021,theta_defaults,viable_ponderada
+N,67.5,18.0,0.0,-18.0,post_pulso,mg N/L,12.0,False,LAB021,theta_defaults,viable_ponderada
+N,70.5,17.0,0.0,-17.0,post_pulso,mg N/L,12.0,False,LAB021,theta_defaults,viable_ponderada
+N,87.5,15.0,0.0,-15.0,post_pulso,mg N/L,12.0,False,LAB021,theta_defaults,viable_ponderada
+N,166.0,27.0,0.0,-27.0,post_pulso,mg N/L,12.0,False,LAB021,theta_defaults,viable_ponderada
+GF,16.0,143.02,156.8525532128087,13.832553212808676,temprana_0_30h,g/L,5.0,False,LAB021,theta_defaults,viable_ponderada
+GF,19.0,140.29,155.62049510284817,15.330495102848175,temprana_0_30h,g/L,5.0,False,LAB021,theta_defaults,viable_ponderada
+GF,22.0,136.52,154.20551781297695,17.68551781297694,temprana_0_30h,g/L,5.0,False,LAB021,theta_defaults,viable_ponderada
+GF,40.0,106.73,140.56377761937495,33.83377761937494,tardia_pre_pulso,g/L,5.0,False,LAB021,theta_defaults,viable_ponderada
+GF,43.0,100.06,137.20382050710379,37.14382050710378,tardia_pre_pulso,g/L,5.0,False,LAB021,theta_defaults,viable_ponderada
+GF,46.0,89.99,133.65509928629473,43.66509928629473,tardia_pre_pulso,g/L,5.0,False,LAB021,theta_defaults,viable_ponderada
+GF,67.5,40.37,105.98890160178797,65.61890160178797,post_pulso,g/L,5.0,False,LAB021,theta_defaults,viable_ponderada
+GF,70.5,37.15,102.47167617927849,65.32167617927848,post_pulso,g/L,5.0,False,LAB021,theta_defaults,viable_ponderada
+GF,166.0,0.12,32.713809682085,32.593809682085,post_pulso,g/L,5.0,False,LAB021,theta_defaults,viable_ponderada
+E,22.0,15.232332,13.908961376582695,-1.3233706234173042,temprana_0_30h,g/L,2.0,False,LAB021,theta_defaults,viable_ponderada
+E,46.0,33.621624,20.354397318317535,-13.267226681682462,tardia_pre_pulso,g/L,2.0,False,LAB021,theta_defaults,viable_ponderada
+E,70.5,57.377748,31.579468346784257,-25.79827965321574,post_pulso,g/L,2.0,False,LAB021,theta_defaults,viable_ponderada
+E,87.5,69.689892,38.08527101274725,-31.60462098725275,post_pulso,g/L,2.0,False,LAB021,theta_defaults,viable_ponderada
+E,166.0,78.86328923076924,63.3560112122347,-15.507278018534542,post_pulso,g/L,2.0,False,LAB021,theta_defaults,viable_ponderada

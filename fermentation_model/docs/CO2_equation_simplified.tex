@@ -1,0 +1,844 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[spanish,es-nodecimaldot,es-tabla]{babel}
+\usepackage[margin=2.5cm]{geometry}
+\usepackage{lmodern}
+\usepackage{microtype}
+\usepackage{mathtools,amssymb}
+\usepackage{booktabs,longtable,tabularx,array}
+\usepackage{xurl}
+\usepackage[hidelinks]{hyperref}
+\hypersetup{pdftitle={Ecuación simplificada de producción y liberación de CO2},
+  pdfsubject={Formulación, parámetros y fundamento bibliográfico}}
+\urlstyle{same}
+\newcolumntype{P}[1]{>{\raggedright\arraybackslash}p{#1}}
+\newcommand{\qbio}{q_{\mathrm{bio}}}
+\newcommand{\qprod}{q_{\mathrm{prod}}}
+\newcommand{\qout}{q_{\mathrm{out}}}
+\newcommand{\qpred}{q_{\mathrm{pred}}}
+\newcommand{\qresp}{q_{\mathrm{resp}}}
+\newcommand{\fferm}{f_{\mathrm{ferm}}}
+\newcommand{\pos}[1]{\left[#1\right]_+}
+\newcommand{\clip}{\operatorname{clip}}
+\newcommand{\code}[1]{\texttt{\detokenize{#1}}}
+\setlength{\parskip}{0.3em}
+\setlength{\emergencystretch}{2em}
+\renewcommand{\arraystretch}{1.15}
+\setlength{\LTpre}{0.6em}
+\setlength{\LTpost}{0.6em}
+\allowdisplaybreaks[2]
+\widowpenalty=10000
+\clubpenalty=10000
+
+\begin{document}
+\begin{center}
+  {\large\bfseries Ecuación simplificada de producción y liberación de CO\(_2\)}
+\end{center}
+
+\section{Alcance y notación}
+
+Se documenta la variante evaluada en la comparación final de LAB019--LAB021:
+el transitorio nutricional se incorpora dentro de la producción biológica
+efectiva, se conservan la rampa y el factor de actividad nutricional, y se omite
+el aporte aditivo de CO\(_2\) respiratorio. Se mantiene la modulación por oxígeno,
+la activación inicial y la dinámica del depósito disuelto. La variante pertenece
+al notebook de reformulación; no implica una sustitución de todos los modelos
+de CO\(_2\) del repositorio.
+
+La formulación combina un núcleo cinético con una capa fenomenológica de
+producción y liberación. Sus fundamentos y las diferencias respecto de los
+artículos revisados se explicitan en la sección~\ref{sec:bases}. No se atribuye
+la ecuación completa a un único artículo.
+
+\begin{longtable}{@{}P{2.0cm}P{12.5cm}@{}}
+\caption{Notación de las tasas de CO\(_2\).}\label{tab:q}\\
+\toprule Símbolo & Definición \\\midrule\endfirsthead
+\toprule Símbolo & Definición \\\midrule\endhead
+\bottomrule\endfoot
+$q_{\mathrm{bio},0}$ & Producción biológica de la trayectoria contrafactual sin pulsos posteriores de N, antes de rampa, gain, transitorio, O\(_2\) y activación.\\
+$q_{\mathrm{bio},N}$ & Producción biológica de la trayectoria cinética con los pulsos de N, antes de las correcciones de la capa de CO\(_2\).\\
+$\qbio$ & Producción biológica efectiva con rampa, gain y transitorio, antes de O\(_2\) y activación. Esta es su definición en la variante simplificada.\\
+$\qprod$ & Producción que ingresa al depósito disuelto, después de aplicar la activación y la modulación fermentativa por O\(_2\).\\
+$\qout$ & Flujo físico liberado desde el depósito disuelto.\\
+$\qpred$ & Flujo predicho que se compara con el sensor, después del factor de escala de matriz.\\
+$q_{\mathrm{obs}}$ & Flujo observado válido de CO\(_2\).\\
+\end{longtable}
+
+Todas estas tasas se expresan en $\mathrm{g\,CO_2\,L^{-1}\,h^{-1}}$.
+El tiempo $t$ se expresa en horas desde el origen temporal del experimento.
+Se utiliza $[v]_+=\max(v,0)$ y
+$\clip(v,0,1)=\min(\max(v,0),1)$. No es necesario introducir tasas adicionales
+como $q_T$ o $q_{\mathrm{base}}$ para escribir esta variante.
+
+\section{Ecuación principal}
+
+La producción que alimenta el depósito disuelto es
+\begin{equation}
+\boxed{\qprod(t)=a(t)\,\fferm(t)\,\qbio(t).}
+\label{eq:principal}
+\end{equation}
+La producción biológica efectiva se define por
+\begin{equation}
+\boxed{\begin{aligned}
+\qbio(t)={}&[1+T_N(t)]\Bigl[\,[1+(g-1)r(t)]q_{\mathrm{bio},0}(t)\\
+&\hspace{2.0cm}+r(t)\bigl(q_{\mathrm{bio},N}(t)-q_{\mathrm{bio},0}(t)\bigr)\,\Bigr]_+ .
+\end{aligned}}
+\label{eq:qbio}
+\end{equation}
+Aquí $a$ es la activación inicial, $\fferm$ la modulación fermentativa por
+oxígeno, $r$ la rampa nutricional, $g$ el factor de actividad
+\emph{gain}, y $T_N$ el incremento transitorio adimensional.
+El transitorio multiplica la expresión completa de rampa y gain y se aplica
+una sola vez dentro de $\qbio$.
+
+\section{Definición química de las producciones biológicas}
+
+\subsection{Trayectorias con y sin pulsos de nitrógeno}
+
+Para $k\in\{0,N\}$ se utiliza
+\begin{equation}
+\boxed{q_{\mathrm{bio},k}(t)=Y_{\mathrm{CO_2/E}}X_k(t)
+\bigl[\beta_{G0}\varphi_{G,k}(t)+\beta_{F0}\varphi_{F,k}(t)\bigr].}
+\label{eq:raw}
+\end{equation}
+Las dos trayectorias tienen las mismas condiciones iniciales, temperatura y
+theta. La trayectoria $0$ omite únicamente los pulsos posteriores de N; la
+trayectoria $N$ conserva dichos pulsos. El subíndice $0$ no representa el
+instante inicial ni implica una concentración inicial de N igual a cero.
+Otros eventos del experimento se conservan en ambas simulaciones.
+
+Los estados $X_k,G_k,F_k,E_k,N_k$ son, respectivamente, biomasa viable,
+glucosa, fructosa, etanol y nitrógeno asimilable. Se expresan en
+$\mathrm{g\,L^{-1}}$, equivalentes numéricamente a
+$\mathrm{kg\,m^{-3}}$ en las variables cinéticas del código. Las masas
+corresponden a la especie indicada por cada símbolo. La temperatura de entrada
+$T(t)$ se expresa en grados Celsius y $T_K=T+273.15$ en kelvin.
+
+\subsection{Glucosa, fructosa e inhibición por etanol}
+
+Los factores cinéticos son
+\begin{align}
+\varphi_{G,k}(t)&=a_\beta(T)
+\frac{G_k(t)}{G_k(t)+K_G(T)}
+\frac{1}{1+i_E(T)E_k(t)},\label{eq:phiG}\\
+\varphi_{F,k}(t)&=a_\beta(T)
+\frac{F_k(t)}{F_k(t)+K_F(T)}
+\frac{1}{1+i_G(T)G_k(t)}
+\frac{1}{1+i_E(T)E_k(t)}.\label{eq:phiF}
+\end{align}
+Las fracciones con $G_k$ y $F_k$ representan la saturación por azúcar. El etanol
+inhibe ambas contribuciones; la glucosa inhibe adicionalmente la contribución
+de fructosa. La biomasa viable $X_k$ transforma las velocidades específicas en
+tasas volumétricas.
+
+Esta estructura corresponde a las expresiones separadas de glucosa y
+fructosa de Zenteno et al.~\cite{zenteno2010}, ecuaciones (9)--(10), p.~41.
+El artículo expresa las inhibiciones como $K_{IE}/(E+K_{IE})$ y
+$K_{IG}/(G+K_{IG})$. Son equivalentes a las formas aquí utilizadas mediante
+$i_E=1/K_{IE}$ e $i_G=1/K_{IG}$ a la misma temperatura. La relación de la
+producción de etanol con $X$ y ambas contribuciones figura en su ecuación (12).
+
+\subsection{Correcciones de temperatura}
+
+Las funciones ejecutadas en el núcleo cinético son
+\begin{align}
+a_\beta(T)&=\exp\left[\frac{11000(T_K-296.15)}{296.15\,R\,T_K}\right],
+\label{eq:abeta}\\
+a_K(T)&=\exp\left[\frac{46055(T_K-293.15)}{293.15\,R\,T_K}\right],
+\qquad R=8.314\ \mathrm{J\,mol^{-1}\,K^{-1}}.\label{eq:ak}
+\end{align}
+Los cinco factores térmicos de las constantes de saturación e inhibición
+comparten actualmente la energía de activación y la temperatura de referencia,
+por lo que se agrupan en $a_K$. Las constantes efectivas son
+\begin{align}
+K_G(T)&=\frac{\beta_{G0}}{s_G}a_K(T),&
+K_F(T)&=\frac{\beta_{F0}}{s_F}a_K(T),\label{eq:sugarK}\\
+i_G(T)&=\frac{i_G}{a_K(T)},&
+i_E(T)&=\frac{i_E}{a_K(T)}.\label{eq:inhibition}
+\end{align}
+$i_G,i_E$ sin argumento son los parámetros de referencia de theta.
+$K_G,K_F$ tienen unidades de concentración de su azúcar;
+$i_G(T),i_E(T)$ tienen unidades de concentración inversa.
+$\beta_{G0},\beta_{F0}$ se expresan en
+$\mathrm{g\,E\,(g\,X)^{-1}\,h^{-1}}$. Las unidades de $s_G,s_F$ son las de
+su $\beta$ divididas por concentración del azúcar respectivo, de modo que
+los cocientes de la ecuación~\eqref{eq:sugarK} sean concentraciones.
+
+Las dependencias de Arrhenius y las energías utilizadas están relacionadas con
+Zenteno et al.~\cite{zenteno2010}, ecuaciones (5), (11), (13) y (21),
+y tabla 2. La implementación usa $293.15$ K en $a_K$; el artículo escribe
+$293.3$ K en su ecuación (21). Por ello se documenta una adaptación de la
+estructura, no una reproducción literal de todos sus coeficientes.
+
+\subsection{Coeficiente \texorpdfstring{CO\(_2\)}{CO2}/etanol y alcance estequiométrico}
+\label{sec:yield}
+
+El coeficiente conservado de la implementación es
+\begin{equation}
+Y_{\mathrm{CO_2/E}}=\frac{44.01}{2(46.07)}
+=0.4776427176\ \mathrm{g\,CO_2\,(g\,E)^{-1}}.
+\label{eq:yield}
+\end{equation}
+Es el factor que multiplica la producción de etanol en el código y se
+mantiene para preservar la comparación numérica.
+
+La reacción ideal de fermentación de una hexosa produce dos moles de etanol y
+dos moles de CO\(_2\). Su cociente másico CO\(_2\)/etanol sería
+$44.01/46.07\simeq0.955285$, el doble del valor de
+\eqref{eq:yield}. El rendimiento CO\(_2\)/azúcar, del orden de
+$2(44.01)/180.16\simeq0.489$, es otro cociente y no debe confundirse con
+CO\(_2\)/etanol. Stroia y Lodin~\cite{stroia2025}, ecuación (8), p.~7,
+emplean un rendimiento de CO\(_2\) por azúcar; David et al.~\cite{david2012},
+ecuaciones (1)--(2), p.~354, relacionan aproximadamente las masas de etanol
+y CO\(_2\), con una conversión empírica azúcar/CO\(_2\).
+Ninguno de esos resultados justifica el factor $1/2$ adicional de
+\eqref{eq:yield}. Se identifica, por tanto, como coeficiente operativo
+heredado cuya interpretación estequiométrica requiere revisión separada.
+No se modifica en esta simplificación ni se atribuye como tal a la bibliografía.
+
+\section{Representación del efecto nutricional}
+
+\subsection{Efecto cinético del nitrógeno añadido}
+
+El N modifica la trayectoria $N$, especialmente el crecimiento y las historias
+de consumo de azúcar y producción de etanol. La velocidad de crecimiento es
+\begin{align}
+\mu_k(t)&=\mu_0 a_\mu(T)\frac{N_k}{N_k+K_N(T)},\label{eq:mu}\\
+a_\mu(T)&=\exp\left[\frac{59453(T_K-300)}{300\,R\,T_K}\right],&
+K_N(T)&=\frac{\mu_0}{s_N}a_K(T).\label{eq:KN}
+\end{align}
+En cada evento nutricional de la trayectoria $N$ se aplica el salto exacto
+\begin{equation}
+N_N(t_j^+)=N_N(t_j^-)+\Delta N_j.
+\label{eq:Npulse}
+\end{equation}
+La trayectoria $0$ omite esos saltos. La producción
+$q_{\mathrm{bio},N}$ ya contiene el efecto cinético de la adición; no se
+introduce otra saturación explícita por N en la ecuación~\eqref{eq:raw}.
+El crecimiento limitado por N tiene respaldo en Zenteno et al.~\cite{zenteno2010},
+ecuación (2), y Coleman et al.~\cite{coleman2007}, ecuación (6).
+
+\subsection{Rampa de utilización y gain}
+
+Se define
+\begin{equation}
+r(t)=\clip\left(\frac{t-t_p}{t_{\mathrm{rise}}},0,1\right),
+\label{eq:ramp}
+\end{equation}
+donde $t_p$ es el primer evento nutricional y $t_{\mathrm{rise}}>0$ el tiempo
+de rampa. Si no hay pulsos, $r=0$. La combinación antes del transitorio es
+\begin{equation}
+\pos{[1+(g-1)r]q_{\mathrm{bio},0}
++r(q_{\mathrm{bio},N}-q_{\mathrm{bio},0})}.
+\label{eq:rampgain}
+\end{equation}
+Con $r=0$ se obtiene $q_{\mathrm{bio},0}$; con $r=1$ se obtiene
+$[q_{\mathrm{bio},N}+(g-1)q_{\mathrm{bio},0}]_+$.
+El gain modifica la actividad de la trayectoria contrafactual; no multiplica
+por sí solo toda la producción de la trayectoria $N$. Con $g=0.25$ su
+contribución basal se atenúa progresivamente. El operador de positividad es
+necesario porque la combinación no constituye siempre una media convexa.
+
+David et al.~\cite{david2012}, sección III-A, p.~356, distribuyen el N añadido
+uniformemente durante $[t_{\mathrm{add}},t_{\mathrm{add}}+t_{\mathrm{rise}}]$.
+Su utilización acumulada motiva una rampa lineal. Sin embargo, el artículo
+aplica entradas distribuidas en balances de N y transportadores; aquí el N
+cinético salta exactamente y la rampa combina dos trayectorias ya calculadas.
+La expresión~\eqref{eq:rampgain} y su gain son una adaptación propia.
+Además, el artículo hace depender el tiempo de respuesta y otros parámetros
+del progreso fermentativo; el presente diagnóstico congela esos parámetros.
+
+Con varios pulsos, la implementación mantiene una única rampa anclada al
+primero. Todos los pulsos se incluyen en la trayectoria $N$ y en el transitorio.
+
+\subsection{Transitorio nutricional}
+\label{sec:transient}
+
+Se conservan expresamente $A$ y la dosis de referencia $N_{\mathrm{ref}}$:
+\begin{equation}
+\boxed{T_N(t)=A\sum_j\frac{\Delta N_j}{N_{\mathrm{ref}}}K_j(t),
+\qquad N_{\mathrm{ref}}=0.14\ \mathrm{g\,N\,L^{-1}}.}
+\label{eq:TN}
+\end{equation}
+Para cada pulso,
+\begin{equation}
+K_j(t)=\frac{(1-e^{-u_j/\tau_r})e^{-u_j/\tau_d}}{\mathcal N_j},
+\qquad u_j(t)=\max(t-t_j,0).
+\label{eq:kernel}
+\end{equation}
+$A$ es adimensional; $\tau_r,\tau_d>0$ son tiempos en horas, y
+$\mathcal N_j$ normaliza el máximo del kernel. El incremento comienza en cero,
+sube y decae hasta cero. Para un pulso aislado con
+$\Delta N_j=N_{\mathrm{ref}}$ cuyo kernel alcanza uno, el multiplicador máximo
+es $1+A$.
+
+La normalización antigua es el máximo del numerador de
+\eqref{eq:kernel} en la grilla temporal del experimento. Depende, por tanto,
+de la grilla y del horizonte. La nueva utiliza el máximo analítico:
+\begin{equation}
+u^*=\tau_r\ln\left(1+\frac{\tau_d}{\tau_r}\right),
+\qquad \mathcal N_j=(1-e^{-u^*/\tau_r})e^{-u^*/\tau_d}.
+\label{eq:peak}
+\end{equation}
+El tiempo de rampa $t_{\mathrm{rise}}$ y el tiempo de subida del transitorio
+$\tau_r$ son parámetros diferentes.
+
+\paragraph{Procedencia de la dosis de referencia.}
+El valor $0.14\ \mathrm{g\,N\,L^{-1}}$ se tomó de la dosis considerada en el
+diagnóstico histórico LAB016--LAB018. El protocolo asumido es 1.0 g de
+SpringFerm Xtrem más 0.4 g de FDA en 2 L, usando la conversión del repositorio
+de $0.20\ \mathrm{g\,N\,(g\,producto)^{-1}}$:
+\begin{equation}
+\Delta N_{\mathrm{protocolo}}
+=\frac{(1.0+0.4)\,0.20}{2}
+=0.14\ \mathrm{g\,N\,L^{-1}}.
+\label{eq:doseprotocol}
+\end{equation}
+Es una dosis calculada bajo esos supuestos, no una medición directa de YAN,
+una constante fisiológica, una dosis óptima ni una concentración de
+semisaturación. No proviene de theta ni de los artículos revisados. Es una
+normalización fija que permite interpretar $A$ por dosis de referencia.
+Para otras fermentaciones se modifica $\Delta N_j$ y se conserva
+$N_{\mathrm{ref}}$. La dosis debe corresponder a N asimilable por volumen,
+no a la masa total del producto nutricional.
+
+La formulación supone una amplitud transitoria proporcional a la dosis y
+mantiene los tiempos característicos. Para $A=0.30$, dosis de 0.07, 0.08,
+0.14 y 0.28 g N/L producen incrementos máximos aislados de 15\%, 17.14\%,
+30\% y 60\%, respectivamente. Estos porcentajes describen el multiplicador
+en $\qbio$, no directamente el pico del flujo del sensor. La extrapolación
+lineal a otras dosis no ha sido validada con esta comparación.
+
+\paragraph{Fundamento y límites.}
+Malherbe et al.~\cite{malherbe2004} distinguen crecimiento y actividad
+metabólica vinculada al N. David et al.~\cite{david2012}, sección III,
+y Seguinot et al.~\cite{seguinot2018}, sección 3.1, muestran reactivación
+fermentativa tras adiciones tardías, incluso con poco o ningún crecimiento
+adicional. Esto respalda representar un efecto de actividad distinto del
+incremento de biomasa. No se encontró en los nueve artículos revisados el
+kernel exacto~\eqref{eq:kernel}, su normalización, el valor de
+$N_{\mathrm{ref}}$ ni la ley universal de amplitud lineal~\eqref{eq:TN}.
+Se documentan como hipótesis fenomenológicas propias.
+Agrupar los mecanismos dentro de $\qbio$ simplifica la notación, pero conserva
+su superposición y no prueba su identificabilidad independiente.
+
+\section{Modulación fermentativa por oxígeno}
+
+La función conservada es
+\begin{equation}
+\fferm(t)=f_{\min}+(1-f_{\min})
+\frac{K_{\mathrm{ana}}^n}{K_{\mathrm{ana}}^n+O(t)^n},
+\label{eq:fferm}
+\end{equation}
+con $f_{\min}=0.08$, $K_{\mathrm{ana}}=0.75\ \mathrm{mg\,O_2\,L^{-1}}$
+y $n=2$. Para $O\to0$, $\fferm\to1$; con O\(_2\) elevado respecto de
+$K_{\mathrm{ana}}$, $\fferm\to0.08$. Ese piso conserva actividad fermentativa
+bajo condiciones oxigenadas; no es una tasa respiratoria.
+
+El oxígeno disuelto $O$, en mg/L, satisface
+\begin{align}
+\frac{dO}{dt}&=-q_{O_2,\max}X_{\mathrm{eff}}
+\frac{O}{K_O+O},& K_O&=0.25\ \mathrm{mg\,O_2\,L^{-1}},\label{eq:oxygen}\\
+X_{\mathrm{eff}}&=\pos{X_0+r(X_N-X_0)},&
+O(0)&=\alpha_O O_{\mathrm{sat}}(0).\label{eq:Xeff}
+\end{align}
+$q_{O_2,\max}$ tiene unidades de
+$\mathrm{mg\,O_2\,(g\,X)^{-1}\,h^{-1}}$ y $\alpha_O$ es adimensional.
+La correlación de inicialización utilizada es
+\begin{equation}
+O_{\mathrm{sat}}(t)=8.6e^{-0.024(T-20)}e^{-0.002E_N}
+e^{-0.001(G_N+F_N)}\quad\mathrm{mg\,O_2\,L^{-1}}.
+\label{eq:Osat}
+\end{equation}
+Los coeficientes de los exponentes se aplican a $T$ en grados Celsius y a
+$E_N,G_N,F_N$ en g/L. No hay reposición de O\(_2\) en esta configuración.
+Ni $g$ ni $1+T_N$ multiplican $X_{\mathrm{eff}}$ ni el consumo de oxígeno.
+
+Stroia y Lodin~\cite{stroia2025}, ecuación (6), p.~6, presentan un modelo con
+O\(_2\) y saturación del tipo Michaelis--Menten, pero con balances y
+acoplamientos diferentes. Es un antecedente conceptual para incorporar O\(_2\),
+no la fuente de la ley~\eqref{eq:fferm}, de sus valores 0.08 y 0.75, ni de
+la correlación~\eqref{eq:Osat}. No se encontró respaldo directo para esas
+expresiones exactas en el conjunto revisado.
+
+\section{Activación inicial de la producción}
+
+Se conserva una activación suave y acotada:
+\begin{align}
+a(t)&=3z(t)^2-2z(t)^3,\label{eq:gate}\\
+z(t)&=\clip\left(\frac{t-t_{\mathrm{start}}}{D},0,1\right),\label{eq:z}\\
+t_{\mathrm{start}}&=L+s(U-L),&
+D&=\max\bigl(d(U-L),0.25\ \mathrm h\bigr).\label{eq:gateparams}
+\end{align}
+$s,d$ son las fracciones de comienzo y duración de la activación,
+respectivamente. El intervalo $[L,U]$ se obtiene de dos modos:
+\begin{enumerate}
+\item En modo predicho, se utiliza el primer cruce de la trayectoria simulada
+con pulsos en que $G_N+F_N$ disminuye 5 g/L o $E_N$ aumenta 2 g/L respecto
+de sus valores iniciales. $U$ es el tiempo del cruce y $L$ el punto anterior
+de la grilla. Si no hay cruce, el helper fija $L=U=t_0$.
+\item En modo manual, se establece $[L,U]=[0,t_{\mathrm{onset}}]$.
+Así, $t_{\mathrm{start}}=s\,t_{\mathrm{onset}}$ y
+$D=\max(d\,t_{\mathrm{onset}},0.25\ \mathrm h)$.
+\end{enumerate}
+Si $U\le L+10^{-9}$ h, el código usa un escalón en $U$.
+El onset manual condiciona un intervalo de activación; no desplaza directamente
+toda la curva. Los valores efectivos dependen también de $s,d$.
+La forma polinómica, los umbrales químicos y su parametrización son decisiones
+del modelo del repositorio. No se identificó esta construcción exacta en
+los artículos revisados. Las comparaciones con onset manual son diagnósticos
+condicionados, no validaciones predictivas independientes del inicio.
+
+\section{Depósito disuelto, liberación y predicción del sensor}
+
+La concentración disuelta $C$, en g CO\(_2\)/L, se integra según
+\begin{equation}
+\frac{dC}{dt}=\qprod-\qout,\qquad C(0)=0.
+\label{eq:pool}
+\end{equation}
+La ley de liberación continua es
+\begin{equation}
+\boxed{\qout=k_{\mathrm{release}}C
+\left(\varepsilon_{\mathrm{release}}+
+(1-\varepsilon_{\mathrm{release}})\frac{C}{C+C_{\mathrm{sat}}}\right),}
+\label{eq:out}
+\end{equation}
+con $\varepsilon_{\mathrm{release}}=0.05$ y
+$k_{\mathrm{release}}$ en h$^{-1}$. La solubilidad aparente es
+\begin{equation}
+C_{\mathrm{sat}}(t)=s_{\mathrm{CO_2}}\,
+1.69e^{-0.032(T-20)}e^{0.0016E_N}e^{-0.0012(G_N+F_N)}
+\quad\mathrm{g\,CO_2\,L^{-1}}.
+\label{eq:Csat}
+\end{equation}
+$s_{\mathrm{CO_2}}$ es adimensional. La correlación se evalúa con $T$ en
+grados Celsius y los estados químicos en g/L. En esta ley,
+$C_{\mathrm{sat}}$ modula la fracción de liberación; no impone una cota rígida
+a $C$. Finalmente,
+\begin{equation}
+\boxed{\qpred(t)=g_{\mathrm{matrix}}\qout(t).}
+\label{eq:pred}
+\end{equation}
+El factor adimensional $g_{\mathrm{matrix}}$ escala la comparación con el
+sensor. Es distinto de $g$, que interviene en la expresión nutricional
+\eqref{eq:qbio}. El balance físico del depósito utiliza $\qout$, no
+$\qpred$.
+
+Zenteno et al.~\cite{zenteno2010}, sección 2.7, ecuaciones (14)--(16), p.~42,
+distinguen CO\(_2\) producido, acumulación disuelta y flujo liberado. Ese es
+el fundamento conceptual de separar producción y emisión. Su modelo utiliza
+otra ley de transferencia, un cambio de régimen al saturarse y un aporte de
+CO\(_2\) asociado al crecimiento que aquí no se incorpora explícitamente.
+No se encontraron en los artículos revisados la ley racional continua
+\eqref{eq:out}, su piso de 0.05, la correlación exacta~\eqref{eq:Csat}
+ni el factor $g_{\mathrm{matrix}}$. Son cierres efectivos de la implementación,
+y no una reproducción literal del modelo de Zenteno.
+
+\section{Parámetros y procedencia}
+\label{sec:params}
+
+\subsection{Juegos de parámetros de la capa de \texorpdfstring{CO\(_2\)}{CO2}}
+
+Las denominaciones \emph{antiguos} y \emph{nuevos} se refieren a la capa
+de CO\(_2\), no a theta. Ambos juegos se pueden cruzar con ambos vectores
+cinéticos. Los valores se presentan redondeados; el notebook conserva
+la precisión original.
+
+\begin{longtable}{@{}P{5.6cm}rrP{2.4cm}@{}}
+\caption{Parámetros CO\(_2\) congelados.}\label{tab:co2params}\\
+\toprule Parámetro & Antiguos & Nuevos & Unidad \\\midrule\endfirsthead
+\toprule Parámetro & Antiguos & Nuevos & Unidad \\\midrule\endhead
+\bottomrule\endfoot
+$k_{\mathrm{release}}$ & 0.424588271353 & 0.096957891648 & h$^{-1}$\\
+$s_{\mathrm{CO_2}}$ & 0.351389541107 & 2.50000000000 & Adimensional\\
+$g_{\mathrm{matrix}}$ & 3.11575694438 & 1.44671770928 & Adimensional\\
+$q_{O_2,\max}$ & 0.150000000000 & 0.253137377347 & mg O\(_2\)/(g X h)\\
+$\alpha_O$ & 0.195399665651 & 0.179605552367 & Adimensional\\
+$t_{\mathrm{rise}}$ & 64.6587037463 & 56.7418471260 & h\\
+$g$ & 0.250000000000 & 0.250010532263 & Adimensional\\
+$s$ & 0.735056695859 & 0.741574639341 & Adimensional\\
+$d$ & 1.06390986814 & 0.457773307394 & Adimensional\\
+$A$ & 0.30 & 1.50 & Adimensional\\
+$\tau_r$ & 4.00 & 0.540335260310 & h\\
+$\tau_d$ & 12.00 & 4.39925061955 & h\\
+\end{longtable}
+
+La normalización del kernel es máximo de grilla en el juego antiguo y máximo
+analítico en el nuevo. Es una convención de cálculo, no un parámetro ajustado.
+Las constantes restantes se mantienen: $N_{\mathrm{ref}}=0.14$ g N/L,
+$K_O=0.25$ mg O\(_2\)/L, $K_{\mathrm{ana}}=0.75$ mg O\(_2\)/L,
+$n=2$, $f_{\min}=0.08$ y $\varepsilon_{\mathrm{release}}=0.05$.
+
+La correspondencia entre símbolos y nombres de configuración es
+\begin{center}\small
+\begin{tabular}{@{}ll@{}}
+\toprule Símbolo & Nombre en el código\\\midrule
+$k_{\mathrm{release}}$ & \code{kCO2_release_h}\\
+$s_{\mathrm{CO_2}}$ & \code{CO2sat_scale}\\
+$g_{\mathrm{matrix}}$ & \code{matrix_gain}\\
+$q_{O_2,\max}$ & \code{O2_qmax_mg_gdw_h}\\
+$\alpha_O$ & \code{O2_initial_scale}\\
+$t_{\mathrm{rise}}$ & \code{pulse_t_rise_h}\\
+$g$ & \code{pulse_activity_gain}\\
+$s$ & \code{chem_activation_start_fraction}\\
+$d$ & \code{chem_activation_duration_fraction}\\
+$\tau_r$, $\tau_d$ & \code{tau_rise_h}, \code{tau_decay_h}\\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\paragraph{Juego antiguo.}
+Los nueve parámetros de O\(_2\), activación, rampa, solubilidad, liberación y
+matriz provienen de la calibración natural histórica en
+\path{laboratory_2026/results/co2_matrix_cross_validation_2026/fit_parameters.csv}.
+Se añaden los valores manuales $A=0.30$, $\tau_r=4$ h y $\tau_d=12$ h
+del diagnóstico histórico LAB016--LAB018. Esos tres valores no provienen
+de theta ni de una calibración automática del transitorio.
+
+\paragraph{Juego nuevo.}
+Los seis parámetros de O\(_2\), activación y rampa se heredan del estado
+\code{C_full_theta_refit}, matriz natural, en
+\path{laboratory_2026/results/co2_matrix_cross_validation_2026_full_theta_sccm_corrected_no_lab010/three_state_co2_parameters.csv}.
+Sobre ese estado se sustituyen $k_{\mathrm{release}},s_{\mathrm{CO_2}},
+g_{\mathrm{matrix}},A,\tau_r,\tau_d$ por el snapshot de la curva azul
+\emph{Actual con O2}, conservado como \code{BLUE_POOL_SNAPSHOT} en el notebook.
+Esos seis valores proceden de un ajuste conjunto con theta\_full fijo,
+LAB005/007/008 con peso 1 y LAB019/020/021 con peso 2. No corresponden al
+ajuste diagnóstico marrón realizado sobre LAB016--LAB018. Leer solamente
+el CSV del estado indicado no recupera el juego nuevo completo: se requieren
+los seis reemplazos del snapshot.
+
+\subsection{Theta antiguo y theta\_full}
+
+Theta contiene 17 parámetros cinéticos. El theta antiguo efectivo conserva
+once estimaciones naturales y completa seis con valores por defecto.
+Theta\_full conserva esas once estimaciones y recupera los otros seis
+del vector cinético conjunto. Los parámetros CO\(_2\) de la
+tabla~\ref{tab:co2params}, incluido $A$, no forman parte de theta.
+
+\begin{longtable}{@{}P{1.9cm}rrP{5.9cm}@{}}
+\caption{Los seis parámetros cinéticos que cambian.}\label{tab:changedtheta}\\
+\toprule Parámetro & Antiguo & Full & Función \\\midrule\endfirsthead
+\toprule Parámetro & Antiguo & Full & Función \\\midrule\endhead
+\bottomrule\endfoot
+$s_N$ & 18 & 8.75144587094 & Determina $K_N=\mu_0a_K/s_N$.\\
+$q_{XG}$ & 0.1125 & 0.081490986405 & Consumo de glucosa asociado al crecimiento.\\
+$q_{XF}$ & 0.1125 & 0.070932706502 & Consumo de fructosa asociado al crecimiento.\\
+$s_G$ & 0.03 & 0.097455098739 & Determina $K_G=\beta_{G0}a_K/s_G$.\\
+$s_F$ & 0.03 & 0.178295205518 & Determina $K_F=\beta_{F0}a_K/s_F$.\\
+$m_0$ & 0.01 & 0.018338579393 & Consumo específico de azúcar por mantenimiento.\\
+\end{longtable}
+
+\begin{longtable}{@{}P{1.9cm}rP{8.5cm}@{}}
+\caption{Los once parámetros cinéticos comunes.}\label{tab:commontheta}\\
+\toprule Parámetro & Valor común & Función \\\midrule\endfirsthead
+\toprule Parámetro & Valor común & Función \\\midrule\endhead
+\bottomrule\endfoot
+$\mu_0$ & 0.0787279167845 & Escala de crecimiento.\\
+$q_N$ & 0.0210803824285 & Consumo de N asociado al crecimiento; no es una tasa de CO\(_2\).\\
+$\beta_{G0}$ & 0.428878002997 & Producción específica de etanol asociada a glucosa.\\
+$\beta_{F0}$ & 3.44039917477 & Producción específica de etanol asociada a fructosa.\\
+$q_{EG}$ & 1.71280679377 & Consumo fermentativo específico de glucosa.\\
+$q_{EF}$ & 5.02301675017 & Consumo fermentativo específico de fructosa.\\
+$i_G$ & 0.056037437270 & Inhibición de fructosa por glucosa.\\
+$i_E$ & 0.040167940980 & Inhibición por etanol.\\
+$K_{d0}$ & 0.000150249548 & Escala de muerte celular.\\
+$\gamma_{G0}$ & 0.115558791368 & Producción específica de glicerol asociada a glucosa.\\
+$\gamma_{F0}$ & 0.000100001622 & Producción específica de glicerol asociada a fructosa.\\
+\end{longtable}
+
+$\mu_0,K_{d0}$ tienen unidades h$^{-1}$; $s_N$ tiene unidades
+$\mathrm{L\,(g\,N)^{-1}\,h^{-1}}$. Los parámetros $q_N$, $q_{XG}$, $q_{XF}$,
+$q_{EG}$, $q_{EF}$ y $m_0$ son velocidades específicas de consumo de la especie
+correspondiente por masa de biomasa y hora. Los $\gamma$ son velocidades
+específicas de producción de glicerol por masa de biomasa y hora.
+Las unidades de $s_G,s_F,i_G,i_E$ se indican en las ecuaciones
+\eqref{eq:sugarK}--\eqref{eq:inhibition}.
+
+Las fuentes son
+\path{laboratory_2026/results/estimability_historical_natural/theta.csv}
+para las once estimaciones naturales,
+\path{laboratory_2026/results/estimability_historical_natural/theta_natural_full.csv}
+para el vector full consolidado, y
+\path{shared/results/new_must_glycerol_overnight_validation/theta_multistart_07.csv}
+para los seis valores recuperados. Los seis valores antiguos proceden de
+\code{DEFAULT_THETA} del módulo cinético.
+
+Con iguales $\beta_{G0},\beta_{F0}$, el aumento de $s_G,s_F$ reduce
+$K_G,K_F$, aumentando las fracciones de saturación a igual concentración de
+azúcar. Esto puede elevar la producción y acelerar el consumo, contribuyendo
+a picos mayores y colas más cortas. Los cambios en crecimiento y mantenimiento
+también modifican las trayectorias; el efecto final no depende de un único
+parámetro.
+
+\section{Generación de las trayectorias cinéticas}
+\label{sec:kinetics}
+
+Para definir completamente los estados utilizados en $q_{\mathrm{bio},k}$,
+se presenta el sistema cinético que permanece congelado. Con
+$\psi_k=a_\mu N_k/(N_k+K_N)$ y las $\varphi$ de
+\eqref{eq:phiG}--\eqref{eq:phiF}, entre eventos se integra
+\begin{align}
+\dot X_k&=(\mu_0\psi_k-k_{d,k})X_k,&
+\dot X_{d,k}&=k_{d,k}X_k,\label{eq:biomass}\\
+\dot N_k&=-q_N\psi_kX_k,\label{eq:N}\\
+\dot G_k&=-X_k\left[q_{XG}\psi_k+q_{EG}\varphi_{G,k}
++m(T)\chi_k\frac{G_k}{G_k+F_k}\right],\label{eq:G}\\
+\dot F_k&=-X_k\left[q_{XF}\psi_k+q_{EF}\varphi_{F,k}
++m(T)\chi_k\frac{F_k}{G_k+F_k}\right],\label{eq:F}\\
+\dot E_k&=X_k[\beta_{G0}\varphi_{G,k}+\beta_{F0}\varphi_{F,k}],\label{eq:E}\\
+\dot{Gly}_k&=X_k[\gamma_{G0}\varphi_{G,k}+\gamma_{F0}\varphi_{F,k}].\label{eq:Gly}
+\end{align}
+$X_d$ es biomasa muerta y $Gly$ glicerol, ambos en g/L. No aparecen
+directamente en la producción instantánea de CO\(_2\). El mantenimiento es
+\begin{equation}
+m(T)=m_0\exp\left[\frac{37681(T_K-293.3)}{293.3\,R\,T_K}\right],
+\qquad \chi_k=\frac{G_k+F_k}{G_k+F_k+S_m},\quad S_m=1\ \mathrm{g\,L^{-1}}.
+\label{eq:maint}
+\end{equation}
+El consumo de azúcares incluye crecimiento, fermentación y mantenimiento.
+La estructura tiene una relación directa con Zenteno et al.~\cite{zenteno2010},
+ecuaciones (6)--(13); la parametrización mediante velocidades $q$ y pendientes
+$s$, el factor de disponibilidad $\chi_k$ y las ecuaciones de glicerol son
+adaptaciones de la implementación. La dependencia del crecimiento y la
+actividad respecto de N y temperatura también está respaldada conceptualmente
+por Coleman et al.~\cite{coleman2007}, sin reproducir sus regresiones térmicas.
+
+La muerte celular conserva la ecuación de Zenteno et al.~\cite{zenteno2010},
+ecuaciones (3)--(4), p.~41:
+\begin{align}
+T_d(E_k)&=-0.0001E_k^3+0.0049E_k^2-0.1279E_k+315.89,\label{eq:Td}\\
+k_{d,k}&=\begin{cases}
+0,&T_K<T_d(E_k),\\[1mm]
+K_{d0}\exp\!\left[C_{de}E_k+
+\dfrac{E_{td}(T_K-305.65)}{305.65\,R\,T_K}\right],&T_K\ge T_d(E_k).
+\end{cases}\label{eq:death}
+\end{align}
+$C_{de}=0.0415\ \mathrm{L\,(g\,E)^{-1}}$,
+$E_{td}=130000\ \mathrm{J\,mol^{-1}}$ y $T_d$ se expresa en kelvin.
+El término $C_{de}E_k$ está fuera de la fracción térmica, como en el código
+y en el artículo.
+
+El núcleo cinético genera primero los estados. La capa CO\(_2\) usa esas
+trayectorias sin retroalimentarlas: activación, modulación por O\(_2\),
+rampa, gain y transitorio no modifican las ecuaciones cinéticas de esta
+sección. En particular, $\qprod$ no representa aquí una reconstrucción
+estequiométrica completa de todos los balances metabólicos.
+
+\section{Implementación numérica y alcance de la simplificación}
+
+\subsection{Convenciones de integración}
+
+Las expresiones analíticas omiten regularizaciones pequeñas para facilitar
+la lectura. La implementación evalúa estados no negativos, añade
+$\epsilon=10^{-8}$ a los denominadores cinéticos pertinentes y utiliza
+$i_G/(a_K+\epsilon)$, $i_E/(a_K+\epsilon)$. En mantenimiento emplea
+$G+F+\epsilon$ tanto para las proporciones como para la disponibilidad.
+Los pulsos se integran como saltos exactos en sus tiempos registrados.
+
+En la capa CO\(_2\) se utiliza una grilla de 0.25 h. El O\(_2\) se actualiza
+con Euler y se restringe a valores no negativos. Para el depósito se aplica
+un límite de CO\(_2\) disponible:
+\begin{align}
+q_{\mathrm{out},i}=\min\Biggl\{&k_{\mathrm{release}}C_{i-1}
+\left(0.05+0.95\frac{C_{i-1}}
+{\max(C_{i-1}+C_{\mathrm{sat},i},10^{-12})}\right),\nonumber\\
+&\frac{C_{i-1}}{\Delta t_i}+q_{\mathrm{prod},i-1}\Biggr\},\label{eq:Eulerq}\\
+C_i&=\max\bigl[C_{i-1}+\Delta t_i(q_{\mathrm{prod},i-1}-q_{\mathrm{out},i}),0\bigr].\label{eq:EulerC}
+\end{align}
+Se inicializan $C_0=0$ y $q_{\mathrm{out},0}=0$. Estas convenciones se conservan para
+las tres variantes comparadas; el depósito se reintegra para cada producción.
+Las condiciones iniciales, temperatura, tiempos y dosis de nutrición y onset
+manual son entradas separadas de theta y de los juegos CO\(_2\).
+
+\subsection{Diferencia respecto de la referencia original}
+
+Denótese por $\mathcal R$ únicamente la expresión común de rampa y gain
+de~\eqref{eq:rampgain}; es una abreviatura algebraica, no una tasa adicional.
+La referencia original y la variante simplificada son
+\begin{align}
+\qprod^{\mathrm{original}}&=a(1+T_N)[\fferm\mathcal R+\qresp],\label{eq:original}\\
+\qbio^{\mathrm{simplificada}}&=(1+T_N)\mathcal R,&
+\qprod^{\mathrm{simplificada}}&=a\fferm\qbio^{\mathrm{simplificada}}.\label{eq:simplified}
+\end{align}
+En la referencia,
+\begin{equation}
+\qresp=\frac{44.01}{32000}\,
+q_{O_2,\max}X_{\mathrm{eff}}\frac{O}{K_O+O}.
+\label{eq:oldresp}
+\end{equation}
+Mover el transitorio a $\qbio$ conservando respiración retira solamente
+$aT_N\qresp$. Omitir además respiración retira de la referencia
+$a(1+T_N)\qresp$. La parte fermentativa se conserva algebraicamente.
+Retirar $\qresp$ no elimina $O$ ni $\fferm$.
+
+En LAB019--LAB021, con todos los parámetros CO\(_2\) antiguos, onset manual
+28/32/24 h y ambos theta, se verificaron por separado las producciones,
+integraciones del depósito y curvas graficadas. Mover el transitorio produjo
+diferencias máximas en $\qpred$ de hasta
+$6.7\times10^{-16}\ \mathrm{g\,L^{-1}\,h^{-1}}$; omitir también respiración
+produjo una diferencia máxima de
+$3.52\times10^{-6}\ \mathrm{g\,L^{-1}\,h^{-1}}$.
+La diferencia máxima de cada curva relativa a su pico fue inferior a
+0.00042\%. Esto explica la superposición visual en esa configuración.
+El resultado respalda la simplificación en los casos evaluados, no una
+equivalencia universal con respiración distinta de cero.
+
+\section{Fundamento bibliográfico y decisiones propias}
+\label{sec:bases}
+
+Se revisaron los nueve PDF disponibles en
+\path{context/modeling}, dentro de \path{fermentation_model}.
+Las referencias se asignan a componentes concretos; el respaldo conceptual
+no se considera validación de todos los coeficientes ni de la ecuación completa.
+
+\begin{longtable}{@{}P{3.2cm}P{11.3cm}@{}}
+\caption{Correspondencia entre componentes y bibliografía revisada.}\\
+\toprule Referencia & Relación con la formulación \\\midrule\endfirsthead
+\toprule Referencia & Relación con la formulación \\\midrule\endhead
+\bottomrule\endfoot
+Zenteno et al. (2010)\newline\cite{zenteno2010} &
+Respaldo directo de saturación separada de G/F, inhibición por E y G,
+crecimiento limitado por N, mantenimiento y muerte térmica.
+Respaldo conceptual del depósito disuelto y la distinción producción/emisión.
+Su ley de liberación y su producción de CO\(_2\) difieren de las actuales.\\
+Malherbe et al. (2004)\newline\cite{malherbe2004} &
+Respaldo de la distinción entre crecimiento y actividad metabólica asociada
+al N; transporte de azúcar e influencia de temperatura y etanol.
+No contiene nuestra combinación de trayectorias ni el kernel exacto.\\
+David et al. (2012)\newline\cite{david2012} &
+Respaldo del tiempo finito de utilización del N y de la reactivación mediante
+transportadores, particularmente con adición tardía.
+Nuestra rampa se inspira en esa utilización distribuida, pero su ubicación
+algebraica y el transitorio son diferentes.\\
+Seguinot et al. (2018)\newline\cite{seguinot2018} &
+Evidencia experimental de aumento de actividad tras N en fase estacionaria
+sin incremento de población, sección 3.1, figura 1 y tabla 2.
+No identifica nuestra ley de dosis ni los tiempos del kernel.\\
+Coleman et al. (2007)\newline\cite{coleman2007} &
+Respaldo del crecimiento limitado por N y de la dependencia de actividad,
+temperatura e inactivación. Usa otras variables y dependencias térmicas;
+no se le atribuyen los coeficientes Arrhenius presentes.\\
+Stroia y Lodin (2025)\newline\cite{stroia2025} &
+Antecedentes para usar la tasa CO\(_2\) como variable de seguimiento/control,
+para modelos con O\(_2\) y para conversiones azúcar/CO\(_2\).
+No respalda exactamente nuestro factor Hill, depósito, kernel ni conversión
+operativa CO\(_2\)/etanol.\\
+Colombié et al. (2007)\newline\cite{colombie2007} &
+Relaciona tasa CO\(_2\) y potencia de fermentación, sección 2.2,
+ecuación (6), y trata propiedades térmicas del mosto.
+Contexto físico; no es fuente de la ecuación nutricional ni de las correlaciones
+de solubilidad presentes. El PDF se llama \code{Colombie_2006.pdf}, pero
+la publicación en volumen es de 2007.\\
+Martínez et al. (1999)\newline\cite{martinez1999} &
+Antecedente de seguimiento y control de fermentación mediante CO\(_2\) y
+temperatura, secciones 1--2 y 4.
+No proporciona los bloques específicos de la variante simplificada.\\
+Fernández-Fernández y Pérez-Correa (2007)\newline\cite{fernandez2007} &
+Trata producción de CO\(_2\), consumo de O\(_2\) y mantenimiento en un
+biorreactor de fermentación en sustrato sólido, sección 2.2.1,
+ecuaciones (4)--(5). Es un sistema diferente; no se usa como fundamento
+directo para omitir respiración ni para parametrizar fermentación de mosto.\\
+\end{longtable}
+
+Se consideran decisiones propias de esta implementación: la combinación
+contrafactual de rampa y gain; el kernel normalizado de subida y caída; la
+referencia de dosis y su escalamiento lineal; el factor fermentativo Hill y
+sus constantes; la activación polinómica y sus umbrales; las correlaciones
+efectivas de O\(_2\) y CO\(_2\); la liberación racional continua y la escala de
+matriz. Su elección puede ser compatible con los fenómenos descritos en la
+literatura, pero las expresiones y valores exactos no se verificaron en esos
+artículos. La omisión de CO\(_2\) respiratorio se fundamenta en la comparación
+numérica indicada, no en una afirmación bibliográfica de ausencia de respiración.
+
+\appendix
+\section{Trazabilidad de la implementación}
+
+Las rutas siguientes son relativas a \path{fermentation_model}. El artefacto
+de comparación es
+\path{laboratory_2026/notebooks/co2_reformulation/02_nutrition_structure_comparison.source.ipynb},
+con su versión ejecutada
+\path{laboratory_2026/notebooks/co2_reformulation/02_nutrition_structure_comparison.executed.ipynb}.
+La figura final evalúa las tres ubicaciones/omisiones del transitorio y la
+respiración mediante el helper
+\path{laboratory_2026/notebooks/co2_reformulation/_nutrition_structure_comparison.py},
+funciones \code{compare_transient_location} y \code{pool_from_production}.
+
+El núcleo cinético es
+\path{shared/run_new_must_glycerol_estimability_doe.py}, funciones
+\code{kinetic_terms}, \code{rhs} y \code{simulate}.
+La capa original de CO\(_2\) es
+\path{laboratory_2026/run_co2_matrix_cross_validation_2026.py}; las funciones
+\code{effective_qprod_grid} y \code{_bounded_smoothstep_activation} definen
+O\(_2\), rampa/gain y activación. El cálculo de la producción biológica y las
+correlaciones efectivas se encuentran en
+\path{pilot_2025/run_pilot_2025_co2_solubility_integrated_doe.py}.
+El factor de conversión~\eqref{eq:yield} se define como
+\code{CO2_G_PER_G_ETHANOL} en
+\path{shared/run_secondary_joint_campaign_doe.py}.
+El diagnóstico histórico que fija el protocolo de la dosis de referencia es
+\path{laboratory_2026/notebooks/lab016_018_natural_must_holdout.ipynb}.
+La redacción de este documento no cambia esos módulos, notebooks ni parámetros.
+
+\begin{thebibliography}{9}
+\small
+\setlength{\itemsep}{0.2em}
+\setlength{\parskip}{0pt}
+\bibitem{zenteno2010}
+Zenteno, M.~I., Pérez-Correa, J.~R., Gelmi, C.~A., y Agosin, E. (2010).
+Modeling temperature gradients in wine fermentation tanks.
+\emph{Journal of Food Engineering}, 99, 40--48.
+\url{https://doi.org/10.1016/j.jfoodeng.2010.01.033}.
+
+\bibitem{malherbe2004}
+Malherbe, S., Fromion, V., Hilgert, N., y Sablayrolles, J.-M. (2004).
+Modeling the effects of assimilable nitrogen and temperature on fermentation
+kinetics in enological conditions.
+\emph{Biotechnology and Bioengineering}, 86(3), 261--272.
+\url{https://doi.org/10.1002/bit.20075}.
+
+\bibitem{david2012}
+David, R., Dochain, D., Mouret, J.-R., Vande Wouwer, A., y Sablayrolles, J.-M.
+(2012). Modeling of the boost effect originated by nitrogen addition during
+wine-making fermentation. En \emph{2012 20th Mediterranean Conference on
+Control \& Automation (MED)}, Barcelona, 3--6 de julio, pp.~353--358. IEEE.
+
+\bibitem{seguinot2018}
+Seguinot, P., Rollero, S., Sanchez, I., Sablayrolles, J.-M., Ortiz-Julien, A.,
+Camarasa, C., y Mouret, J.-R. (2018). Impact of the timing and the nature of
+nitrogen additions on the production kinetics of fermentative aromas by
+\emph{Saccharomyces cerevisiae} during winemaking fermentation in synthetic
+media. \emph{Food Microbiology}, 76, 29--39.
+\url{https://doi.org/10.1016/j.fm.2018.04.005}.
+
+\bibitem{coleman2007}
+Coleman, M.~C., Fish, R., y Block, D.~E. (2007).
+Temperature-dependent kinetic model for nitrogen-limited wine fermentations.
+\emph{Applied and Environmental Microbiology}, 73(18), 5875--5884.
+\url{https://doi.org/10.1128/AEM.00670-07}.
+
+\bibitem{stroia2025}
+Stroia, N., y Lodin, A. (2025). Modeling of must fermentation processes for
+enabling CO\(_2\) rate-based control. \emph{Mathematics}, 13, 1653.
+\url{https://doi.org/10.3390/math13101653}.
+
+\bibitem{colombie2007}
+Colombié, S., Malherbe, S., y Sablayrolles, J.-M. (2007).
+Modeling of heat transfer in tanks during wine-making fermentation.
+\emph{Food Control}, 18, 953--960.
+\url{https://doi.org/10.1016/j.foodcont.2006.05.016}.
+
+\bibitem{martinez1999}
+Martínez, G., López, A., Esnoz, A., Vírseda, P., e Ibarrola, J. (1999).
+A new fuzzy control system for white wine fermentation.
+\emph{Food Control}, 10, 175--180.
+
+\bibitem{fernandez2007}
+Fernández-Fernández, M., y Pérez-Correa, J.~R. (2007).
+Realistic model of a solid substrate fermentation packed-bed pilot bioreactor.
+\emph{Process Biochemistry}, 42, 224--234.
+\url{https://doi.org/10.1016/j.procbio.2006.08.003}.
+\end{thebibliography}
+
+\end{document}

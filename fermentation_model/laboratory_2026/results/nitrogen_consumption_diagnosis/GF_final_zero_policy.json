@@ -1,0 +1,11 @@
+{
+  "lab": "LAB019",
+  "sample": "12",
+  "time_h": 166.0,
+  "working_GF_g_l": 0.0,
+  "raw_GLUC_FRU_320_g_l": -1.85,
+  "raw_GLUCOSE_FRUCTOSE_g_l": -0.03,
+  "status": "User-authorized zero approximation from negative final assay; not an exact measured zero",
+  "scope": "GF only in this notebook; raw G/F and original files preserved",
+  "included_in_metrics_balances_and_grids": true
+}

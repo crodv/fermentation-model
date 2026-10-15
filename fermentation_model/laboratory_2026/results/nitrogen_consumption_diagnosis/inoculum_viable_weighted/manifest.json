@@ -1,0 +1,584 @@
+{
+  "observation_policy": {
+    "lab": "LAB019",
+    "sample": "12",
+    "time_h": 166.0,
+    "working_GF_g_l": 0.0,
+    "raw_GLUC_FRU_320_g_l": -1.85,
+    "raw_GLUCOSE_FRUCTOSE_g_l": -0.03,
+    "status": "User-authorized zero approximation from negative final assay; not an exact measured zero",
+    "scope": "GF only in this notebook; raw G/F and original files preserved",
+    "included_in_metrics_balances_and_grids": true
+  },
+  "created_at": "2026-10-15T16:32:45.251478-03:00",
+  "source_code_sha256": "588640839bbf0756ae1e7f3dd4a420c80be4b03b9ad0c71cb8ce6411de4883f1",
+  "arrays": [
+    {
+      "array": "case_0",
+      "key": [
+        "LAB019",
+        "theta_full",
+        "referencia_anterior"
+      ],
+      "columns": [
+        "t_h",
+        "X",
+        "Xd",
+        "N",
+        "G",
+        "F",
+        "E",
+        "Gly",
+        "GF",
+        "N_pred",
+        "T_C",
+        "uptake_mg_l_h",
+        "mu_h",
+        "n_lim",
+        "KN_mg_l"
+      ]
+    },
+    {
+      "array": "case_1",
+      "key": [
+        "LAB019",
+        "theta_defaults",
+        "referencia_anterior"
+      ],
+      "columns": [
+        "t_h",
+        "X",
+        "Xd",
+        "N",
+        "G",
+        "F",
+        "E",
+        "Gly",
+        "GF",
+        "N_pred",
+        "T_C",
+        "uptake_mg_l_h",
+        "mu_h",
+        "n_lim",
+        "KN_mg_l"
+      ]
+    },
+    {
+      "array": "case_2",
+      "key": [
+        "LAB019",
+        "theta_full",
+        "viable_comun_volumen"
+      ],
+      "columns": [
+        "t_h",
+        "X",
+        "Xd",
+        "N",
+        "G",
+        "F",
+        "E",
+        "Gly",
+        "GF",
+        "N_pred",
+        "T_C",
+        "uptake_mg_l_h",
+        "mu_h",
+        "n_lim",
+        "KN_mg_l"
+      ]
+    },
+    {
+      "array": "case_3",
+      "key": [
+        "LAB019",
+        "theta_defaults",
+        "viable_comun_volumen"
+      ],
+      "columns": [
+        "t_h",
+        "X",
+        "Xd",
+        "N",
+        "G",
+        "F",
+        "E",
+        "Gly",
+        "GF",
+        "N_pred",
+        "T_C",
+        "uptake_mg_l_h",
+        "mu_h",
+        "n_lim",
+        "KN_mg_l"
+      ]
+    },
+    {
+      "array": "case_4",
+      "key": [
+        "LAB019",
+        "theta_full",
+        "viable_ponderada"
+      ],
+      "columns": [
+        "t_h",
+        "X",
+        "Xd",
+        "N",
+        "G",
+        "F",
+        "E",
+        "Gly",
+        "GF",
+        "N_pred",
+        "T_C",
+        "uptake_mg_l_h",
+        "mu_h",
+        "n_lim",
+        "KN_mg_l"
+      ]
+    },
+    {
+      "array": "case_5",
+      "key": [
+        "LAB019",
+        "theta_defaults",
+        "viable_ponderada"
+      ],
+      "columns": [
+        "t_h",
+        "X",
+        "Xd",
+        "N",
+        "G",
+        "F",
+        "E",
+        "Gly",
+        "GF",
+        "N_pred",
+        "T_C",
+        "uptake_mg_l_h",
+        "mu_h",
+        "n_lim",
+        "KN_mg_l"
+      ]
+    },
+    {
+      "array": "case_6",
+      "key": [
+        "LAB020",
+        "theta_full",
+        "referencia_anterior"
+      ],
+      "columns": [
+        "t_h",
+        "X",
+        "Xd",
+        "N",
+        "G",
+        "F",
+        "E",
+        "Gly",
+        "GF",
+        "N_pred",
+        "T_C",
+        "uptake_mg_l_h",
+        "mu_h",
+        "n_lim",
+        "KN_mg_l"
+      ]
+    },
+    {
+      "array": "case_7",
+      "key": [
+        "LAB020",
+        "theta_defaults",
+        "referencia_anterior"
+      ],
+      "columns": [
+        "t_h",
+        "X",
+        "Xd",
+        "N",
+        "G",
+        "F",
+        "E",
+        "Gly",
+        "GF",
+        "N_pred",
+        "T_C",
+        "uptake_mg_l_h",
+        "mu_h",
+        "n_lim",
+        "KN_mg_l"
+      ]
+    },
+    {
+      "array": "case_8",
+      "key": [
+        "LAB020",
+        "theta_full",
+        "viable_comun_volumen"
+      ],
+      "columns": [
+        "t_h",
+        "X",
+        "Xd",
+        "N",
+        "G",
+        "F",
+        "E",
+        "Gly",
+        "GF",
+        "N_pred",
+        "T_C",
+        "uptake_mg_l_h",
+        "mu_h",
+        "n_lim",
+        "KN_mg_l"
+      ]
+    },
+    {
+      "array": "case_9",
+      "key": [
+        "LAB020",
+        "theta_defaults",
+        "viable_comun_volumen"
+      ],
+      "columns": [
+        "t_h",
+        "X",
+        "Xd",
+        "N",
+        "G",
+        "F",
+        "E",
+        "Gly",
+        "GF",
+        "N_pred",
+        "T_C",
+        "uptake_mg_l_h",
+        "mu_h",
+        "n_lim",
+        "KN_mg_l"
+      ]
+    },
+    {
+      "array": "case_10",
+      "key": [
+        "LAB020",
+        "theta_full",
+        "viable_ponderada"
+      ],
+      "columns": [
+        "t_h",
+        "X",
+        "Xd",
+        "N",
+        "G",
+        "F",
+        "E",
+        "Gly",
+        "GF",
+        "N_pred",
+        "T_C",
+        "uptake_mg_l_h",
+        "mu_h",
+        "n_lim",
+        "KN_mg_l"
+      ]
+    },
+    {
+      "array": "case_11",
+      "key": [
+        "LAB020",
+        "theta_defaults",
+        "viable_ponderada"
+      ],
+      "columns": [
+        "t_h",
+        "X",
+        "Xd",
+        "N",
+        "G",
+        "F",
+        "E",
+        "Gly",
+        "GF",
+        "N_pred",
+        "T_C",
+        "uptake_mg_l_h",
+        "mu_h",
+        "n_lim",
+        "KN_mg_l"
+      ]
+    },
+    {
+      "array": "case_12",
+      "key": [
+        "LAB021",
+        "theta_full",
+        "referencia_anterior"
+      ],
+      "columns": [
+        "t_h",
+        "X",
+        "Xd",
+        "N",
+        "G",
+        "F",
+        "E",
+        "Gly",
+        "GF",
+        "N_pred",
+        "T_C",
+        "uptake_mg_l_h",
+        "mu_h",
+        "n_lim",
+        "KN_mg_l"
+      ]
+    },
+    {
+      "array": "case_13",
+      "key": [
+        "LAB021",
+        "theta_defaults",
+        "referencia_anterior"
+      ],
+      "columns": [
+        "t_h",
+        "X",
+        "Xd",
+        "N",
+        "G",
+        "F",
+        "E",
+        "Gly",
+        "GF",
+        "N_pred",
+        "T_C",
+        "uptake_mg_l_h",
+        "mu_h",
+        "n_lim",
+        "KN_mg_l"
+      ]
+    },
+    {
+      "array": "case_14",
+      "key": [
+        "LAB021",
+        "theta_full",
+        "viable_comun_volumen"
+      ],
+      "columns": [
+        "t_h",
+        "X",
+        "Xd",
+        "N",
+        "G",
+        "F",
+        "E",
+        "Gly",
+        "GF",
+        "N_pred",
+        "T_C",
+        "uptake_mg_l_h",
+        "mu_h",
+        "n_lim",
+        "KN_mg_l"
+      ]
+    },
+    {
+      "array": "case_15",
+      "key": [
+        "LAB021",
+        "theta_defaults",
+        "viable_comun_volumen"
+      ],
+      "columns": [
+        "t_h",
+        "X",
+        "Xd",
+        "N",
+        "G",
+        "F",
+        "E",
+        "Gly",
+        "GF",
+        "N_pred",
+        "T_C",
+        "uptake_mg_l_h",
+        "mu_h",
+        "n_lim",
+        "KN_mg_l"
+      ]
+    },
+    {
+      "array": "case_16",
+      "key": [
+        "LAB021",
+        "theta_full",
+        "viable_ponderada"
+      ],
+      "columns": [
+        "t_h",
+        "X",
+        "Xd",
+        "N",
+        "G",
+        "F",
+        "E",
+        "Gly",
+        "GF",
+        "N_pred",
+        "T_C",
+        "uptake_mg_l_h",
+        "mu_h",
+        "n_lim",
+        "KN_mg_l"
+      ]
+    },
+    {
+      "array": "case_17",
+      "key": [
+        "LAB021",
+        "theta_defaults",
+        "viable_ponderada"
+      ],
+      "columns": [
+        "t_h",
+        "X",
+        "Xd",
+        "N",
+        "G",
+        "F",
+        "E",
+        "Gly",
+        "GF",
+        "N_pred",
+        "T_C",
+        "uptake_mg_l_h",
+        "mu_h",
+        "n_lim",
+        "KN_mg_l"
+      ]
+    }
+  ],
+  "figures": [
+    {
+      "name": "01_quimica_theta_full",
+      "path": "fermentation_model\\laboratory_2026\\results\\nitrogen_consumption_diagnosis\\inoculum_viable_weighted\\01_quimica_theta_full.png"
+    },
+    {
+      "name": "01_quimica_theta_defaults",
+      "path": "fermentation_model\\laboratory_2026\\results\\nitrogen_consumption_diagnosis\\inoculum_viable_weighted\\01_quimica_theta_defaults.png"
+    },
+    {
+      "name": "02_residuos_N_ambos_theta",
+      "path": "fermentation_model\\laboratory_2026\\results\\nitrogen_consumption_diagnosis\\inoculum_viable_weighted\\02_residuos_N_ambos_theta.png"
+    }
+  ],
+  "provenance": {
+    "user_viable_million_cells_ml": {
+      "LAB019": 25.04,
+      "LAB020": 13.56,
+      "LAB021": 12.04
+    },
+    "mean_viable": 16.88,
+    "viable_inoculum_million_cells_ml": 424.19,
+    "total_inoculum_million_cells_ml": 496.77,
+    "inoculum_volume_ml_per_reactor": 30.0,
+    "assumed_final_volume_ml": 2000.0,
+    "common_viable_million_cells_ml": 6.362850000000001,
+    "scale": 0.37694609004739343,
+    "weighted_viable_million_cells_ml": {
+      "LAB019": 9.438730094786731,
+      "LAB020": 5.111388981042655,
+      "LAB021": 4.538430924170616
+    },
+    "mass_factor_g_l_per_million_cells_ml": 0.03,
+    "common_Xd_g_l": 0.032660999999999996,
+    "source": "User-provided viable lab counts and inoculum volumes; normalization hypothesis",
+    "no_second_viability_correction": true,
+    "old_data_changed": false,
+    "assumptions": [
+      "2 L is final volume",
+      "Relative viable lab ratios meaningful",
+      "Equal cell mass conversion",
+      "Nonviable inoculum contribution common"
+    ]
+  },
+  "theta": {
+    "theta_full": {
+      "mu0": 0.0787279167844739,
+      "sN": 8.751445870938538,
+      "qN": 0.0210803824284854,
+      "qXG": 0.0814909864046577,
+      "qXF": 0.0709327065015376,
+      "betaG0": 0.4288780029973869,
+      "sG": 0.0974550987386739,
+      "betaF0": 3.440399174765835,
+      "sF": 0.1782952055176543,
+      "qEG": 1.712806793770099,
+      "qEF": 5.023016750172416,
+      "iG": 0.0560374372695645,
+      "iE": 0.0401679409799797,
+      "Kd0": 0.0001502495478967,
+      "m0": 0.0183385793928771,
+      "gammaG0": 0.1155587913675031,
+      "gammaF0": 0.000100001621599
+    },
+    "theta_defaults": {
+      "mu0": 0.0787279167844739,
+      "sN": 18.0,
+      "qN": 0.0210803824284854,
+      "qXG": 0.11249999999999999,
+      "qXF": 0.11249999999999999,
+      "betaG0": 0.4288780029973869,
+      "sG": 0.030000000000000002,
+      "betaF0": 3.440399174765835,
+      "sF": 0.030000000000000002,
+      "qEG": 1.712806793770099,
+      "qEF": 5.023016750172416,
+      "iG": 0.0560374372695645,
+      "iE": 0.0401679409799797,
+      "Kd0": 0.0001502495478967,
+      "m0": 0.01,
+      "gammaG0": 0.1155587913675031,
+      "gammaF0": 0.000100001621599
+    }
+  },
+  "new_simulations": 12,
+  "reused_references": 6,
+  "horizon_h": 166.0,
+  "gas_data_loaded": false,
+  "optimizer_calls": 0,
+  "kalman_updates": 0,
+  "original_input_hashes": {
+    "fermentation_model\\shared\\results\\secondary_metabolite_data_review\\secondary_metabolite_long.csv": "d9a61fc152782c1b0b5d0ea5bac9d32d2a60b8737b7b58c0e0382d3ead8a975e",
+    "fermentation_model\\laboratory_2026\\results\\estimability_historical_natural\\process_temperature_30min.csv": "22b8b0154946445bddc95ee3bd5a2a115dda6d01056f907e8f8592b7403c1b4f",
+    "fermentation_model\\laboratory_2026\\results\\estimability_historical_natural\\theta_natural_full.csv": "3876c53d0b4dc6f4126ffb4f8e0999a8455c90f283c345a110be33e86504b46e",
+    "fermentation_model\\laboratory_2026\\results\\estimability_historical_natural\\theta.csv": "05b0d87fde52c751568c894639a1cd10c6d27ca13bc5d1e0a525591eb3d5a188",
+    "fermentation_model\\laboratory_2026\\results\\estimability_historical_natural\\core_fit_summary.csv": "89e4d48efb789a472e26d801ff35da97b702dc17854b55a45832b5d4b8ae76bc",
+    "fermentation_model\\laboratory_2026\\results\\estimability_historical_natural\\core_fit_metrics_by_batch_state.csv": "537ba62e4e1a3efbb0b4476de4199f452ebc2ea9881c9141501e717f9b491cf7",
+    "fermentation_model\\shared\\results\\new_must_glycerol_overnight_validation\\theta_multistart_07.csv": "146185f5d070c58b309a4b8ab492848a3326e243509c2849552ccdee0f54d396",
+    "fermentation_model\\shared\\run_new_must_glycerol_estimability_doe.py": "1571a1d5eddb4daba1a27374529daf9b4d56d6a6de0fcd4ead82d9064d481905",
+    "fermentation_model\\laboratory_2026\\run_estimability_historical_by_medium.py": "4246d59b85d313366890c6179eba60d82d0fc0527bea890f74f6ebc5aae12b7f",
+    "fermentation_model\\laboratory_2026\\nut_sample_audit.py": "1164ce66c3b75086d5ff81bd267c1f6ecaca0394303e653151d1d848395c905f",
+    "fermentation_model\\laboratory_2026\\notebooks\\theta_full_vs_incomplete_defaults_natural_review.ipynb": "fea28ed233c9e4b119b093a0dc31e5aa5d3e932e64d1dacdf22a192ca8bad073",
+    "fermentation_model\\laboratory_2026\\notebooks\\EKF\\post_activity_prediction_comparison.source.ipynb": "5bba2a1c7ede7e425438d49a9e4a862fa2b3bb0e3bb14b44ebc4612c239c1650",
+    "fermentation_model\\laboratory_2026\\notebooks\\diagnostics\\_nitrogen_diagnosis.py": "c5e6ba9349130362307699522b52c1f6a5dbdd2d67987a027b8369d975f57df3",
+    "fermentation_model\\data\\mem2026\\LAB019-021\\Mediciones-Offline-LAB019-021.xlsx": "9b05f6c0ffc55929da5124df340296bda0ea3bb22d9dfb9cea2f31c847bda76d",
+    "fermentation_model\\data\\mem2026\\LAB019-021\\backup_global_temperatura.csv": "572eec34915897e8f9440c8ee99e7bcb1fb842ecdc8a09efeb870e9f828ac635",
+    "fermentation_model\\data\\mem2026\\LAB019-021\\EXPAuto(2026-09-21 12-49).txt": "97395acaf3e85a43d80b6106325825e9be634c9fbb27b49f57737ccc0152be68",
+    "fermentation_model\\data\\mem2026\\LAB019-021\\EXPAuto(2026-09-22 09-33).txt": "2428e4a472b9276515d211c6cae6eac14247b2c193ea7d7e9c8b16afd7e86ec8",
+    "fermentation_model\\data\\mem2026\\LAB019-021\\EXPAuto(2026-09-22 15-23).txt": "956bebae13cfd7eb4ef883384b4036043455f3b2d41c988124d4a489ae750e17",
+    "fermentation_model\\data\\mem2026\\LAB019-021\\EXPAuto(2026-09-23 09-09).txt": "70085b1aecc772f9094b021d5b3dfd04a1fdeb8bbb3b7ff7187ae80aeec94a3c",
+    "fermentation_model\\data\\mem2026\\LAB019-021\\EXPAuto(2026-09-24 09-14).txt": "c07c653523c33a40a8caef4fd3250bb18bf658f36fbcefd0562c4e6a81bbae43",
+    "fermentation_model\\data\\mem2026\\LAB019-021\\ONLINE(26-09-25 09-12)_1.txt": "407af4cf423fe483156af647f8eaa5e068737d5d2bd7db58d0195df8e8e2f678",
+    "fermentation_model\\data\\mem2026\\LAB019-021\\ONLINE(26-09-28 15-33)_1.txt": "a36a2e73be3794993329eb16722ee501ddbae1a477181b174e2019ccc29da8cf",
+    "fermentation_model\\data\\mem2026\\LAB019-021\\Oculyze_report_LAB019.csv": "01fa515e4a6d2f9466a63e35ce22e1464ceb7805194333f9d3633907279fa765",
+    "fermentation_model\\data\\mem2026\\LAB019-021\\Oculyze_report_LAB020.csv": "82527072e9cfa2ba91ad202f5c49f5bdb78313a85cc14b445dfd58d2abc71813",
+    "fermentation_model\\data\\mem2026\\LAB019-021\\Oculyze_report_LAB021.csv": "631fa7d8134b9cd0afd8ce07adde642889202c98c8b772a774d25ad468459f42"
+  }
+}

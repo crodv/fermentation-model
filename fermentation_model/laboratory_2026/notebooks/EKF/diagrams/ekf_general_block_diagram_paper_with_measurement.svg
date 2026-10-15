@@ -1,0 +1,423 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="604.8pt" height="482.4pt" viewBox="0 0 604.8 482.4" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:date>2026-10-13T10:15:58.158029</dc:date>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.9.2, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 482.4 
+L 604.8 482.4 
+L 604.8 0 
+L 0 0 
+z
+" style="fill: #ffffff"/>
+  </g>
+  <g id="axes_1">
+   <g id="line2d_1">
+    <path d="M 158.004 355.620395 
+L 158.004 402.858957 
+L 198.85824 402.858957 
+" clip-path="url(#pb0d8e87555)" style="fill: none; stroke: #000000; stroke-width: 0.9; stroke-linecap: square"/>
+   </g>
+   <g id="line2d_2">
+    <path d="M 455.65632 355.620395 
+L 455.65632 402.858957 
+L 423.55656 402.858957 
+" clip-path="url(#pb0d8e87555)" style="fill: none; stroke: #000000; stroke-width: 0.9; stroke-linecap: square"/>
+   </g>
+   <g id="line2d_3">
+    <path d="M 311.2074 423.525828 
+L 311.2074 438.287878 
+L 20.85048 438.287878 
+L 20.85048 86.951073 
+L 35.44128 86.951073 
+" clip-path="url(#pb0d8e87555)" style="fill: none; stroke: #000000; stroke-width: 0.9; stroke-linecap: square"/>
+   </g>
+   <g id="patch_2">
+    <path d="M 35.44128 54.474562 
+L 280.56672 54.474562 
+L 280.56672 16.09323 
+L 35.44128 16.09323 
+z
+" clip-path="url(#pb0d8e87555)" style="fill: #ffffff; stroke: #000000; stroke-width: 0.9; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_3">
+    <path d="M 35.44128 207.999889 
+L 280.56672 207.999889 
+L 280.56672 69.236613 
+L 35.44128 69.236613 
+z
+" clip-path="url(#pb0d8e87555)" style="fill: #ffffff; stroke: #000000; stroke-width: 0.9; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_4">
+    <path d="M 87.96816 255.238451 
+L 158.004 225.714349 
+L 228.03984 255.238451 
+L 158.004 284.762552 
+z
+" clip-path="url(#pb0d8e87555)" style="fill: #ffffff; stroke: #000000; stroke-width: 0.9; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_5">
+    <path d="M 333.0936 355.620395 
+L 578.21904 355.620395 
+L 578.21904 169.618557 
+L 333.0936 169.618557 
+z
+" clip-path="url(#pb0d8e87555)" style="fill: #ffffff; stroke: #000000; stroke-width: 0.9; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_6">
+    <path d="M 35.44128 355.620395 
+L 280.56672 355.620395 
+L 280.56672 296.572192 
+L 35.44128 296.572192 
+z
+" clip-path="url(#pb0d8e87555)" style="fill: #ffffff; stroke: #000000; stroke-width: 0.9; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_7">
+    <path d="M 198.85824 423.525828 
+L 423.55656 423.525828 
+L 423.55656 379.239676 
+L 198.85824 379.239676 
+z
+" clip-path="url(#pb0d8e87555)" style="fill: #ffffff; stroke: #000000; stroke-width: 0.9; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_8">
+    <path d="M 158.004 54.474562 
+Q 158.004 61.855587 158.004 68.230382 
+" clip-path="url(#pb0d8e87555)" style="fill: none; stroke: #000000; stroke-width: 0.9; stroke-linecap: round"/>
+    <path d="M 160.204 63.830382 
+L 158.004 68.230382 
+L 155.804 63.830382 
+z
+" clip-path="url(#pb0d8e87555)" style="stroke: #000000; stroke-width: 0.9; stroke-linecap: round"/>
+   </g>
+   <g id="line2d_4">
+    <path d="M 35.44128 95.808304 
+L 280.56672 95.808304 
+" clip-path="url(#pb0d8e87555)" style="fill: none; stroke: #000000; stroke-width: 0.65; stroke-linecap: square"/>
+   </g>
+   <g id="patch_9">
+    <path d="M 158.004 207.999889 
+Q 158.004 216.857119 158.004 224.708119 
+" clip-path="url(#pb0d8e87555)" style="fill: none; stroke: #000000; stroke-width: 0.9; stroke-linecap: round"/>
+    <path d="M 160.204 220.308119 
+L 158.004 224.708119 
+L 155.804 220.308119 
+z
+" clip-path="url(#pb0d8e87555)" style="stroke: #000000; stroke-width: 0.9; stroke-linecap: round"/>
+   </g>
+   <g id="patch_10">
+    <path d="M 228.03984 255.238451 
+Q 280.56672 255.238451 332.087369 255.238451 
+" clip-path="url(#pb0d8e87555)" style="fill: none; stroke: #000000; stroke-width: 0.9; stroke-linecap: round"/>
+    <path d="M 327.687369 253.038451 
+L 332.087369 255.238451 
+L 327.687369 257.438451 
+z
+" clip-path="url(#pb0d8e87555)" style="stroke: #000000; stroke-width: 0.9; stroke-linecap: round"/>
+   </g>
+   <g id="patch_11">
+    <path d="M 455.65632 154.856506 
+Q 455.65632 162.237532 455.65632 168.612326 
+" clip-path="url(#pb0d8e87555)" style="fill: none; stroke: #000000; stroke-width: 0.9; stroke-linecap: round"/>
+    <path d="M 457.85632 164.212326 
+L 455.65632 168.612326 
+L 453.45632 164.212326 
+z
+" clip-path="url(#pb0d8e87555)" style="stroke: #000000; stroke-width: 0.9; stroke-linecap: round"/>
+   </g>
+   <g id="line2d_5">
+    <path d="M 333.0936 194.714043 
+L 578.21904 194.714043 
+" clip-path="url(#pb0d8e87555)" style="fill: none; stroke: #000000; stroke-width: 0.65; stroke-linecap: square"/>
+   </g>
+   <g id="patch_12">
+    <path d="M 158.004 284.762552 
+Q 158.004 290.667372 158.004 295.565962 
+" clip-path="url(#pb0d8e87555)" style="fill: none; stroke: #000000; stroke-width: 0.9; stroke-linecap: round"/>
+    <path d="M 160.204 291.165962 
+L 158.004 295.565962 
+L 155.804 291.165962 
+z
+" clip-path="url(#pb0d8e87555)" style="stroke: #000000; stroke-width: 0.9; stroke-linecap: round"/>
+   </g>
+   <g id="patch_13">
+    <path d="M 158.004 402.858957 
+Q 178.43112 402.858957 197.852009 402.858957 
+" clip-path="url(#pb0d8e87555)" style="fill: none; stroke: #000000; stroke-width: 0.9; stroke-linecap: round"/>
+    <path d="M 193.452009 400.658957 
+L 197.852009 402.858957 
+L 193.452009 405.058957 
+z
+" clip-path="url(#pb0d8e87555)" style="stroke: #000000; stroke-width: 0.9; stroke-linecap: round"/>
+   </g>
+   <g id="patch_14">
+    <path d="M 455.65632 402.858957 
+Q 439.60644 402.858957 424.562791 402.858957 
+" clip-path="url(#pb0d8e87555)" style="fill: none; stroke: #000000; stroke-width: 0.9; stroke-linecap: round"/>
+    <path d="M 428.962791 405.058957 
+L 424.562791 402.858957 
+L 428.962791 400.658957 
+z
+" clip-path="url(#pb0d8e87555)" style="stroke: #000000; stroke-width: 0.9; stroke-linecap: round"/>
+   </g>
+   <g id="patch_15">
+    <path d="M 20.85048 86.951073 
+Q 28.14588 86.951073 34.435049 86.951073 
+" clip-path="url(#pb0d8e87555)" style="fill: none; stroke: #000000; stroke-width: 0.9; stroke-linecap: round"/>
+    <path d="M 30.035049 84.751073 
+L 34.435049 86.951073 
+L 30.035049 89.151073 
+z
+" clip-path="url(#pb0d8e87555)" style="stroke: #000000; stroke-width: 0.9; stroke-linecap: round"/>
+   </g>
+   <g id="text_1">
+    <!-- Inicialización: $\hat{\mathbf{x}}_0^+,\ \mathbf{P}_0^+$ -->
+    <g transform="translate(102.804 38.163896)">
+     <text>
+      <tspan style="font: 12px 'STIXGeneral'" x="0 3.995987 9.995972 13.33197 18.659958 21.995956 27.323944 30.659943 33.995941 39.323929 44.651917 49.979904 53.315903 59.315887 65.315872 68.651871 77.792477 86.546825" y="-0.953125 -0.953125 -0.953125 -0.953125 -0.953125 -0.953125 -0.953125 -0.953125 -0.953125 -0.953125 -0.953125 -0.953125 -0.953125 -0.953125 -0.953125 -0.953125 -1.90625 -0.953125">Inicialización: ̂,</tspan>
+      <tspan style="font: 700 12px 'STIXGeneral'" x="71.651855 94.167573" y="-0.953125">xP</tspan>
+      <tspan style="font: 8.4px 'STIXGeneral'" x="77.837231 79.050189 101.684949 102.897907" y="2.224999999999998 -5.290625 2.224999999999998 -5.290625">0+0+</tspan>
+     </text>
+    </g>
+   </g>
+   <g id="text_2">
+    <text style="font: 700 13px 'STIXGeneral'; text-anchor: middle" x="158.004" y="86.174034" transform="rotate(-0 158.004 86.174034)">Predicción</text>
+   </g>
+   <g id="text_3">
+    <!-- Entradas: $\mathbf{u}_k,\ \mathbf{Q}_k$ -->
+    <g transform="translate(47.11392 111.540321)">
+     <text>
+      <tspan style="font: 10.5px 'STIXGeneral'" x="0 6.415497 11.665497 14.584488 18.080978 22.742981 27.992981 32.654984 36.739487 39.658478 52.009252" y="-0.75">Entradas: ,</tspan>
+      <tspan style="font: 700 10.5px 'STIXGeneral'" x="42.283478 58.677431" y="-0.75">uQ</tspan>
+      <tspan style="font: italic 7.35px 'STIXGeneral'" x="48.28335 67.008313" y="0.6374999999999993">kk</tspan>
+     </text>
+    </g>
+   </g>
+   <g id="text_4">
+    <!-- (1) $\hat{\mathbf{x}}_{k+1}^{-}=\mathbf{f}(\hat{\mathbf{x}}_k^+,\mathbf{u}_k)$ -->
+    <g transform="translate(47.11392 133.997225)">
+     <text>
+      <tspan style="font: 12px 'STIXGeneral'" x="0 3.995987 9.995972 13.991959 23.132565 41.54929 55.498061 65.634669 74.389017 90.238465" y="-0.953125 -0.953125 -0.953125 -0.953125 -1.90625 -0.953125 -0.953125 -1.90625 -0.953125 -0.953125">(1) ̂=(̂,)</tspan>
+      <tspan style="font: 700 12px 'STIXGeneral'" x="16.991943 51.502074 59.494048 79.121799" y="-0.953125">xfxu</tspan>
+      <tspan style="font: 8.4px 'STIXGeneral'" x="23.177319 28.119868 35.086816 66.892381" y="-5.190625000000001 2.2249999999999996 2.2249999999999996 -5.356250000000001">−+1+</tspan>
+      <tspan style="font: italic 8.4px 'STIXGeneral'" x="23.177319 65.679423 85.979186" y="2.2249999999999996 2.224999999999998 0.6359375000000007">kkk</tspan>
+     </text>
+    </g>
+   </g>
+   <g id="text_5">
+    <!-- (2) $\mathbf{F}_k=\left.\frac{\partial\mathbf{f}}{\partial\mathbf{x}}\right|_{\hat{\mathbf{x}}_k^+,\mathbf{u}_k}$ -->
+    <g transform="translate(47.11392 163.521327)">
+     <text>
+      <tspan style="font: 12px 'STIXGeneral'" x="0 3.995987 9.995972 13.991959 30.501396" y="-0.5734375000000007">(2) =</tspan>
+      <tspan style="font: 700 12px 'STIXGeneral'" x="16.991943" y="-0.5734375000000007">F</tspan>
+      <tspan style="font: italic 8.4px 'STIXGeneral'" x="24.509319" y="1.015625">k</tspan>
+      <tspan style="font: 8.4px 'STIXGeneral'" x="40.454179 41.454179 59.024067 65.166173" y="4.25625 -5.1921875 0.34375 1.015625">∂∂̂,</tspan>
+      <tspan style="font: 700 8.4px 'STIXGeneral'" x="44.410574 45.410574 54.739695 68.47912" y="4.25625 -5.1921875 1.015625 1.015625">xfxu</tspan>
+      <tspan style="font: 22.233962px 'STIXGeneral'" x="50.110563" y="4.03125">|</tspan>
+      <tspan style="font: 5.88px 'STIXGeneral'" x="59.918528" y="-2.0665625">+</tspan>
+      <tspan style="font: italic 5.88px 'STIXGeneral'" x="59.069457 73.279292" y="3.240312499999998 2.127968749999999">kk</tspan>
+     </text>
+     <rect x="40.454179" y="-3.104688" width="8.156384" height="0.75"/>
+    </g>
+   </g>
+   <g id="text_6">
+    <!-- (3) $\mathbf{P}_{k+1}^{-}=\mathbf{F}_k\mathbf{P}_k^+\mathbf{F}_k^\top+\mathbf{Q}_k$ -->
+    <g transform="translate(47.11392 196.357838)">
+     <text>
+      <tspan style="font: 12px 'STIXGeneral'" x="0 3.995987 9.995972 13.991959 42.881291 98.797466" y="-0.2062500000000007">(3) =+</tspan>
+      <tspan style="font: 700 12px 'STIXGeneral'" x="16.991943 52.834074 64.610729 80.837699 108.75025" y="-0.2062500000000007">PFPFQ</tspan>
+      <tspan style="font: 8.4px 'STIXGeneral'" x="24.509319 29.451869 36.418817 73.341064 89.568033" y="-4.443750000000001 2.971874999999999 2.971874999999999 -4.609375000000002 -4.4437500000000005">−+1+⊤</tspan>
+      <tspan style="font: italic 8.4px 'STIXGeneral'" x="24.509319 60.351451 72.128105 88.355075 118.271624" y="2.971874999999999 1.3828125 2.971874999999997 2.971874999999999 1.3828125">kkkkk</tspan>
+     </text>
+    </g>
+   </g>
+   <g id="text_7">
+    <text style="font: 11px 'STIXGeneral'; text-anchor: middle" x="158.004" y="248.93872" transform="rotate(-0 158.004 248.93872)">¿Hay medición</text>
+   </g>
+   <g id="text_8">
+    <!-- $\mathbf{z}_{k+1}$ en $t_{k+1}$? -->
+    <g transform="translate(128.304 266.658337)">
+     <text>
+      <tspan style="font: 700 11px 'STIXGeneral'" x="0" y="-0.5625">z</tspan>
+      <tspan style="font: italic 7.7px 'STIXGeneral'" x="5.053534 39.246975" y="0.890625">kk</tspan>
+      <tspan style="font: 7.7px 'STIXGeneral'" x="9.584216 15.970599 43.777657 50.16404" y="0.890625">+1+1</tspan>
+      <tspan style="font: 11px 'STIXGeneral'" x="20.304974 23.054974 27.938976 33.438976 54.498415" y="-0.5625"> en ?</tspan>
+      <tspan style="font: italic 11px 'STIXGeneral'" x="36.188976" y="-0.5625">t</tspan>
+     </text>
+    </g>
+   </g>
+   <g id="text_9">
+    <text style="font: 11px 'STIXGeneral'; text-anchor: middle" x="277.64856" y="247.467671" transform="rotate(-0 277.64856 247.467671)">Sí</text>
+   </g>
+   <g id="text_10">
+    <!-- $\mathbf{z}_{k+1},\ \mathbf{R}_{k+1}$ -->
+    <g transform="translate(427.99632 142.890081)">
+     <text>
+      <tspan style="font: 700 12px 'STIXGeneral'" x="0 29.773301" y="-0.890625">zR</tspan>
+      <tspan style="font: italic 8.4px 'STIXGeneral'" x="5.513378 38.622678" y="0.6984375000000007">kk</tspan>
+      <tspan style="font: 8.4px 'STIXGeneral'" x="10.455928 17.422876 43.565228 50.532176" y="0.6984375000000007">+1+1</tspan>
+      <tspan style="font: 12px 'STIXGeneral'" x="22.152553" y="-0.890625">,</tspan>
+     </text>
+    </g>
+   </g>
+   <g id="text_11">
+    <text style="font: 700 13px 'STIXGeneral'; text-anchor: middle" x="455.65632" y="185.965496" transform="rotate(-0 455.65632 185.965496)">Corrección</text>
+   </g>
+   <g id="text_12">
+    <!-- (1) $\mathbf{H}_{k+1}=\left.\frac{\partial\mathbf{h}}{\partial\mathbf{x}}\right|_{\hat{\mathbf{x}}_{k+1}^{-}}$ -->
+    <g transform="translate(344.76624 214.993504)">
+     <text>
+      <tspan style="font: 11.4px 'STIXGeneral'" x="0 3.793076 9.488388 13.281464 42.604391" y="-0.2078124999999993">(1) =</tspan>
+      <tspan style="font: 700 11.4px 'STIXGeneral'" x="16.12912" y="-0.2078124999999993">H</tspan>
+      <tspan style="font: italic 7.98px 'STIXGeneral'" x="25.166575" y="1.296875">k</tspan>
+      <tspan style="font: 7.98px 'STIXGeneral'" x="29.858143 36.471303 52.051763 52.051763 70.106433" y="1.296875 1.296875 -4.595312499999998 4.381250000000001 0.6712500000000006">+1∂∂̂</tspan>
+      <tspan style="font: 700 7.98px 'STIXGeneral'" x="55.807245 55.807245 66.031628" y="-4.595312499999998 4.381250000000001 1.296875">hxx</tspan>
+      <tspan style="font: 20.968748px 'STIXGeneral'" x="61.665468" y="4.171875">|</tspan>
+      <tspan style="font: 5.586px 'STIXGeneral'" x="70.14123 73.425327 78.05454" y="-1.5118749999999999 3.403437499999999 3.403437499999999">−+1</tspan>
+      <tspan style="font: italic 5.586px 'STIXGeneral'" x="70.14123" y="3.403437499999999">k</tspan>
+     </text>
+     <rect x="52.051763" y="-2.657812" width="8.188705" height="0.7125"/>
+    </g>
+   </g>
+   <g id="text_13">
+    <!-- (2) $\mathbf{y}_{k+1}=\mathbf{z}_{k+1}-\mathbf{h}(\hat{\mathbf{x}}_{k+1}^-)$ -->
+    <g transform="translate(344.76624 241.622195)">
+     <text>
+      <tspan style="font: 11.4px 'STIXGeneral'" x="0 3.793076 9.488388 13.281464 39.437795 71.555964 87.336512 96.944041 112.793457" y="-0.4343749999999993 -0.4343749999999993 -0.4343749999999993 -0.4343749999999993 -0.4343749999999993 -0.4343749999999993 -0.4343749999999993 -1.328125 -0.4343749999999993">(2) =−(̂)</tspan>
+      <tspan style="font: 700 11.4px 'STIXGeneral'" x="16.12912 48.885168 81.003337 91.129588" y="-0.4343749999999993">yzhx</tspan>
+      <tspan style="font: italic 7.98px 'STIXGeneral'" x="21.999979 54.118148 97.000447" y="1.0703125 1.0703125 2.575000000000001">kkk</tspan>
+      <tspan style="font: 7.98px 'STIXGeneral'" x="26.691547 33.304708 58.809716 65.422877 98.151812 101.692015 108.305176" y="1.0703125 1.0703125 1.0703125 1.0703125 -4.446874999999999 2.575000000000001 2.575000000000001">+1+1−+1</tspan>
+     </text>
+    </g>
+   </g>
+   <g id="text_14">
+    <!-- (3) $\mathbf{S}_{k+1}=\mathbf{H}_{k+1}\mathbf{P}_{k+1}^{-}\mathbf{H}_{k+1}^{\top}+\mathbf{R}_{k+1}$ -->
+    <g transform="translate(344.76624 268.535886)">
+     <text>
+      <tspan style="font: 11.4px 'STIXGeneral'" x="0 3.793076 9.488388 13.281464 40.075658 123.756994" y="-0.7046875000000004">(3) =+</tspan>
+      <tspan style="font: 700 11.4px 'STIXGeneral'" x="16.12912 49.523031 74.353495 97.281723 133.204366" y="-0.7046875000000004">SHPHR</tspan>
+      <tspan style="font: italic 7.98px 'STIXGeneral'" x="22.637842 58.560486 81.488713 106.319178 141.603943" y="0.7999999999999989 0.7999999999999989 2.3046875 2.3046875 0.7999999999999989">kkkkk</tspan>
+      <tspan style="font: 7.98px 'STIXGeneral'" x="27.32941 33.942571 63.252054 69.865214 81.488713 86.180281 92.793442 107.470542 111.010746 117.623907 146.295511 152.908672" y="0.7999999999999989 0.7999999999999989 0.7999999999999989 0.7999999999999989 -4.7171875 2.3046875 2.3046875 -4.7171875000000005 2.3046875 2.3046875 0.7999999999999989 0.7999999999999989">+1+1−+1⊤+1+1</tspan>
+     </text>
+    </g>
+   </g>
+   <g id="text_15">
+    <!-- (4) $\mathbf{K}_{k+1}=\mathbf{P}_{k+1}^{-}\mathbf{H}_{k+1}^{\top}\mathbf{S}_{k+1}^{-1}$ -->
+    <g transform="translate(344.76624 295.164577)">
+     <text>
+      <tspan style="font: 11.4px 'STIXGeneral'" x="0 3.793076 9.488388 13.281464 42.604391" y="-0.5953125000000004">(4) =</tspan>
+      <tspan style="font: 700 11.4px 'STIXGeneral'" x="16.12912 52.051763 74.979991 99.810456" y="-0.5953125000000004">KPHS</tspan>
+      <tspan style="font: italic 7.98px 'STIXGeneral'" x="25.166575 59.186981 84.017446 106.319178" y="0.9093749999999989 2.4140625 2.4140625 2.4140625">kkkk</tspan>
+      <tspan style="font: 7.98px 'STIXGeneral'" x="29.858143 36.471303 59.186981 63.878549 70.49171 85.16881 88.709014 95.322174 106.319178 111.010746 111.780975 117.623907" y="0.9093749999999989 0.9093749999999989 -4.6078125 2.4140625 2.4140625 -4.6078125000000005 2.4140625 2.4140625 -4.6078125000000005 2.4140625 -4.6078125000000005 2.4140625">+1−+1⊤+1−+11</tspan>
+     </text>
+    </g>
+   </g>
+   <g id="text_16">
+    <!-- (5) $\hat{\mathbf{x}}_{k+1}^{+}=\hat{\mathbf{x}}_{k+1}^{-}+\mathbf{K}_{k+1}\mathbf{y}_{k+1}$ -->
+    <g transform="translate(344.76624 321.337268)">
+     <text>
+      <tspan style="font: 11.4px 'STIXGeneral'" x="0 3.793076 9.488388 13.281464 21.943573 39.437795 54.699621 72.193843" y="-0.4343749999999993 -0.4343749999999993 -0.4343749999999993 -0.4343749999999993 -1.328125 -0.4343749999999993 -1.328125 -0.4343749999999993">(5) ̂=̂+</tspan>
+      <tspan style="font: 700 11.4px 'STIXGeneral'" x="16.12912 48.885168 81.641215 106.47168" y="-0.4343749999999993">xxKy</tspan>
+      <tspan style="font: 7.98px 'STIXGeneral'" x="21.999979 26.691547 33.304708 54.756027 59.447595 66.060756 95.370238 101.983399 117.034107 123.647268" y="-4.624999999999998 2.575000000000001 2.575000000000001 -4.446874999999999 2.575000000000001 2.575000000000001 1.0703125 1.0703125 1.0703125 1.0703125">++1−+1+1+1</tspan>
+      <tspan style="font: italic 7.98px 'STIXGeneral'" x="21.999979 54.756027 90.67867 112.342539" y="2.575000000000001 2.575000000000001 1.0703125 1.0703125">kkkk</tspan>
+     </text>
+    </g>
+   </g>
+   <g id="text_17">
+    <!-- (6) $\mathbf{P}_{k+1}^{+}=\mathbf{P}_{k+1}^{-}-\mathbf{K}_{k+1}\mathbf{S}_{k+1}\mathbf{K}_{k+1}^{\top}$ -->
+    <g transform="translate(344.76624 348.250959)">
+     <text>
+      <tspan style="font: 11.4px 'STIXGeneral'" x="0 3.793076 9.488388 13.281464 40.702154 74.72256" y="-0.7046875000000004">(6) =−</tspan>
+      <tspan style="font: 700 11.4px 'STIXGeneral'" x="16.12912 50.149526 84.169932 109.000397 131.30213" y="-0.7046875000000004">PPKSK</tspan>
+      <tspan style="font: 7.98px 'STIXGeneral'" x="23.264338 27.955906 34.569066 57.284744 61.976312 68.589473 97.898955 104.512116 120.200688 126.813848 141.490948 145.031152 151.644313" y="-4.895312499999999 2.3046875 2.3046875 -4.7171875 2.3046875 2.3046875 0.7999999999999989 0.7999999999999989 0.7999999999999989 0.7999999999999989 -4.7171875000000005 2.3046875 2.3046875">++1−+1+1+1⊤+1</tspan>
+      <tspan style="font: italic 7.98px 'STIXGeneral'" x="23.264338 57.284744 93.207387 115.50912 140.339584" y="2.3046875 2.3046875 0.7999999999999989 0.7999999999999989 2.3046875">kkkkk</tspan>
+     </text>
+    </g>
+   </g>
+   <g id="text_18">
+    <text style="font: 11px 'STIXGeneral'; text-anchor: start" x="169.67664" y="293.230028" transform="rotate(-0 169.67664 293.230028)">No</text>
+   </g>
+   <g id="text_19">
+    <text style="font: 700 11.5px 'STIXGeneral'; text-anchor: middle" x="158.004" y="311.089724" transform="rotate(-0 158.004 311.089724)">Sin corrección</text>
+   </g>
+   <g id="text_20">
+    <!-- $\hat{\mathbf{x}}_{k+1}^{+}=\hat{\mathbf{x}}_{k+1}^{-}$ -->
+    <g transform="translate(129.324 327.380089)">
+     <text>
+      <tspan style="font: 12px 'STIXGeneral'" x="6.140621 24.557347 40.650751" y="-1.90625 -0.953125 -1.90625">̂=̂</tspan>
+      <tspan style="font: 700 12px 'STIXGeneral'" x="0 34.51013" y="-0.953125">xx</tspan>
+      <tspan style="font: 8.4px 'STIXGeneral'" x="6.185375 11.127925 18.094873 40.695506 45.638055 52.605003" y="-5.356250000000001 2.224999999999998 2.224999999999998 -5.190625000000001 2.2249999999999996 2.2249999999999996">++1−+1</tspan>
+      <tspan style="font: italic 8.4px 'STIXGeneral'" x="6.185375 40.695506" y="2.224999999999998 2.2249999999999996">kk</tspan>
+     </text>
+    </g>
+   </g>
+   <g id="text_21">
+    <!-- $\mathbf{P}_{k+1}^{+}=\mathbf{P}_{k+1}^{-}$ -->
+    <g transform="translate(128.004 345.38979)">
+     <text>
+      <tspan style="font: 700 12px 'STIXGeneral'" x="0 35.842131" y="-0.003124999999998934">PP</tspan>
+      <tspan style="font: 8.4px 'STIXGeneral'" x="7.517376 12.459926 19.426874 43.359507 48.302057 55.269005" y="-4.40625 3.174999999999999 3.174999999999999 -4.240625 3.1750000000000007 3.1750000000000007">++1−+1</tspan>
+      <tspan style="font: italic 8.4px 'STIXGeneral'" x="7.517376 43.359507" y="3.174999999999999 3.1750000000000007">kk</tspan>
+      <tspan style="font: 12px 'STIXGeneral'" x="25.889348" y="-0.003124999999998934">=</tspan>
+     </text>
+    </g>
+   </g>
+   <g id="text_22">
+    <!-- Salida en $t_{k+1}$ -->
+    <g transform="translate(281.7549 393.495488)">
+     <text>
+      <tspan style="font: 10.5px 'STIXGeneral'" x="0 5.837997 10.5 13.418991 16.337982 21.587982 26.249985 28.874985 33.536987 38.786987" y="-0.828125">Salida en </tspan>
+      <tspan style="font: italic 10.5px 'STIXGeneral'" x="41.411987" y="-0.828125">t</tspan>
+      <tspan style="font: italic 7.35px 'STIXGeneral'" x="44.330978" y="0.5593749999999993">k</tspan>
+      <tspan style="font: 7.35px 'STIXGeneral'" x="48.655721 54.751816" y="0.5593749999999993">+1</tspan>
+     </text>
+    </g>
+   </g>
+   <g id="text_23">
+    <!-- $\hat{\mathbf{x}}_{k+1}^{+},\ \mathbf{P}_{k+1}^{+}$ -->
+    <g transform="translate(281.5674 412.344259)">
+     <text>
+      <tspan style="font: 13px 'STIXGeneral'" x="6.640625 24.726122" y="-1.234375 -0.203125">̂,</tspan>
+      <tspan style="font: 700 13px 'STIXGeneral'" x="0 32.981959" y="-0.203125">xP</tspan>
+      <tspan style="font: 9.1px 'STIXGeneral'" x="6.700703 12.055146 19.602685 41.125655 46.480097 54.027637" y="-4.971875000000001 3.237499999999999 3.237499999999999 -4.971875000000001 3.237499999999999 3.237499999999999">++1++1</tspan>
+      <tspan style="font: italic 9.1px 'STIXGeneral'" x="6.700703 41.125655" y="3.237499999999999">kk</tspan>
+     </text>
+    </g>
+   </g>
+   <g id="text_24">
+    <!-- $k\leftarrow k+1$ -->
+    <g transform="translate(110.0274 431.87682)">
+     <text>
+      <tspan style="font: italic 10.5px 'STIXGeneral'" x="0 17.417413" y="-0.828125">kk</tspan>
+      <tspan style="font: 10.5px 'STIXGeneral'" x="6.178204 23.595618 32.304324" y="-0.828125">←+1</tspan>
+     </text>
+    </g>
+   </g>
+   <g id="text_25">
+    <text style="font: 10.5px 'STIXGeneral'; text-anchor: middle" x="303.912" y="463.762849" transform="rotate(-0 303.912 463.762849)">EKF discreto de primer orden con ruido aditivo independiente.</text>
+   </g>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="pb0d8e87555">
+   <rect x="12.096" y="7.236" width="583.632" height="466.4808"/>
+  </clipPath>
+ </defs>
+</svg>

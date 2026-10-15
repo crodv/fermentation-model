@@ -1,0 +1,25 @@
+lab,theta,case,t_h,X0_g_l,label
+LAB019,theta_full,inoculo_total_convencion,0.0,0.2232,"Inicial nuevo · 7,44 · convención anterior"
+LAB019,theta_full,inoculo_viable_consistente,0.0,0.19059048,"Inicial nuevo · 7,44 · separar viabilidad"
+LAB020,theta_full,inoculo_total_convencion,0.0,0.2232,"Inicial nuevo · 7,44 · convención anterior"
+LAB020,theta_full,inoculo_viable_consistente,0.0,0.19059048,"Inicial nuevo · 7,44 · separar viabilidad"
+LAB021,theta_full,inoculo_total_convencion,0.0,0.2232,"Inicial nuevo · 7,44 · convención anterior"
+LAB021,theta_full,inoculo_viable_consistente,0.0,0.19059048,"Inicial nuevo · 7,44 · separar viabilidad"
+LAB019,theta_defaults,inoculo_total_convencion,0.0,0.2232,"Inicial nuevo · 7,44 · convención anterior"
+LAB019,theta_defaults,inoculo_viable_consistente,0.0,0.19059048,"Inicial nuevo · 7,44 · separar viabilidad"
+LAB020,theta_defaults,inoculo_total_convencion,0.0,0.2232,"Inicial nuevo · 7,44 · convención anterior"
+LAB020,theta_defaults,inoculo_viable_consistente,0.0,0.19059048,"Inicial nuevo · 7,44 · separar viabilidad"
+LAB021,theta_defaults,inoculo_total_convencion,0.0,0.2232,"Inicial nuevo · 7,44 · convención anterior"
+LAB021,theta_defaults,inoculo_viable_consistente,0.0,0.19059048,"Inicial nuevo · 7,44 · separar viabilidad"
+LAB019,theta_full,viable_comun_volumen,0.0,0.1908855,Inicial nuevo · Viable común · volumen
+LAB019,theta_full,viable_ponderada,0.0,0.28316190284360193,Inicial nuevo · Viable ponderada
+LAB020,theta_full,viable_comun_volumen,0.0,0.1908855,Inicial nuevo · Viable común · volumen
+LAB020,theta_full,viable_ponderada,0.0,0.15334166943127964,Inicial nuevo · Viable ponderada
+LAB021,theta_full,viable_comun_volumen,0.0,0.1908855,Inicial nuevo · Viable común · volumen
+LAB021,theta_full,viable_ponderada,0.0,0.1361529277251185,Inicial nuevo · Viable ponderada
+LAB019,theta_defaults,viable_comun_volumen,0.0,0.1908855,Inicial nuevo · Viable común · volumen
+LAB019,theta_defaults,viable_ponderada,0.0,0.28316190284360193,Inicial nuevo · Viable ponderada
+LAB020,theta_defaults,viable_comun_volumen,0.0,0.1908855,Inicial nuevo · Viable común · volumen
+LAB020,theta_defaults,viable_ponderada,0.0,0.15334166943127964,Inicial nuevo · Viable ponderada
+LAB021,theta_defaults,viable_comun_volumen,0.0,0.1908855,Inicial nuevo · Viable común · volumen
+LAB021,theta_defaults,viable_ponderada,0.0,0.1361529277251185,Inicial nuevo · Viable ponderada

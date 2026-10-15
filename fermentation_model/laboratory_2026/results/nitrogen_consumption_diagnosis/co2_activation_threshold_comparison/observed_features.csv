@@ -1,0 +1,4 @@
+lab,onset_confirmation_h,n,peak_h,peak_g_l_h,fall_confirmation_h,fall_not_confirmed,last_bin_end_h
+LAB019,30.0,157,71.5,0.6675297568832782,132.0,False,160.0
+LAB020,34.0,157,81.5,0.5163223576069121,151.0,False,160.0
+LAB021,21.0,157,53.5,0.9628543517482201,101.0,False,160.0

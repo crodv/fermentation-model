@@ -1,0 +1,337 @@
+lab,theta,scenario,first_available_N_le_5_h,first_predicted_YAN_le_5_h,background_mg_l,n_YAN_below_background,final_YAN_pred_mg_l,observed_status,obs_lower_h,obs_upper_h
+LAB004,theta_full,referencia,33.0,33.0,0.0,0,0.0,cruce acotado por muestras,50.0,67.0
+LAB004,theta_full,X0_x0.5,47.25,47.25,0.0,0,1.6331057921320463e-65,cruce acotado por muestras,50.0,67.0
+LAB004,theta_full,X0_x2,21.0,21.0,0.0,0,0.0,cruce acotado por muestras,50.0,67.0
+LAB004,theta_full,qN_x0.5,47.25,47.25,0.0,0,2.160415381765528e-67,cruce acotado por muestras,50.0,67.0
+LAB004,theta_full,qN_x2,21.0,21.0,0.0,0,0.0,cruce acotado por muestras,50.0,67.0
+LAB004,theta_full,crecimiento_x0.8,41.0,41.0,0.0,0,1.7089295538467692e-62,cruce acotado por muestras,50.0,67.0
+LAB004,theta_full,crecimiento_x1.2,27.25,27.25,0.0,0,0.0,cruce acotado por muestras,50.0,67.0
+LAB004,theta_full,sN_x0.5,36.0,36.0,0.0,0,2.6318307458545074e-39,cruce acotado por muestras,50.0,67.0
+LAB004,theta_full,sN_x2,31.25,31.25,0.0,0,0.0,cruce acotado por muestras,50.0,67.0
+LAB004,theta_full,T_menos2C,38.5,38.5,0.0,0,0.0,cruce acotado por muestras,50.0,67.0
+LAB004,theta_full,T_mas2C,28.25,28.25,0.0,0,0.0,cruce acotado por muestras,50.0,67.0
+LAB004,theta_full,remanente_10,32.25,,10.0,3,10.0,cruce acotado por muestras,50.0,67.0
+LAB004,theta_full,remanente_20,31.25,,20.0,5,20.0,cruce acotado por muestras,50.0,67.0
+LAB004,theta_full,remanente_30,30.5,,30.0,7,30.0,cruce acotado por muestras,50.0,67.0
+LAB005,theta_full,referencia,28.0,28.0,0.0,0,0.0,no cruce observado antes del pulso,,
+LAB005,theta_full,X0_x0.5,41.5,41.5,0.0,0,1.6005460765410046e-67,no cruce observado antes del pulso,,
+LAB005,theta_full,X0_x2,17.5,17.5,0.0,0,0.0,no cruce observado antes del pulso,,
+LAB005,theta_full,qN_x0.5,41.5,41.5,0.0,0,0.0,no cruce observado antes del pulso,,
+LAB005,theta_full,qN_x2,17.5,17.5,0.0,0,0.0,no cruce observado antes del pulso,,
+LAB005,theta_full,crecimiento_x0.8,35.0,35.0,0.0,0,1.659726745946839e-63,no cruce observado antes del pulso,,
+LAB005,theta_full,crecimiento_x1.2,23.5,23.5,0.0,0,0.0,no cruce observado antes del pulso,,
+LAB005,theta_full,sN_x0.5,30.75,30.75,0.0,0,3.1314195832991184e-41,no cruce observado antes del pulso,,
+LAB005,theta_full,sN_x2,26.75,26.75,0.0,0,0.0,no cruce observado antes del pulso,,
+LAB005,theta_full,T_menos2C,32.75,32.75,0.0,0,0.0,no cruce observado antes del pulso,,
+LAB005,theta_full,T_mas2C,24.0,24.0,0.0,0,0.0,no cruce observado antes del pulso,,
+LAB005,theta_full,remanente_10,27.5,,10.0,0,10.0,no cruce observado antes del pulso,,
+LAB005,theta_full,remanente_20,26.75,,20.0,5,20.0,no cruce observado antes del pulso,,
+LAB005,theta_full,remanente_30,26.0,,30.0,6,30.0,no cruce observado antes del pulso,,
+LAB006,theta_full,referencia,73.25,73.25,0.0,0,9.688390436272522e-71,cruce acotado por muestras,74.0,98.0
+LAB006,theta_full,X0_x0.5,93.5,93.5,0.0,0,4.228826703638423e-67,cruce acotado por muestras,74.0,98.0
+LAB006,theta_full,X0_x2,54.5,54.5,0.0,0,8.974506006162036e-76,cruce acotado por muestras,74.0,98.0
+LAB006,theta_full,qN_x0.5,93.5,93.5,0.0,0,2.5034048221551196e-68,cruce acotado por muestras,74.0,98.0
+LAB006,theta_full,qN_x2,54.5,54.5,0.0,0,1.6888301679290986e-75,cruce acotado por muestras,74.0,98.0
+LAB006,theta_full,crecimiento_x0.8,91.75,91.75,0.0,0,1.578541407818978e-55,cruce acotado por muestras,74.0,98.0
+LAB006,theta_full,crecimiento_x1.2,61.0,61.0,0.0,0,7.097527511900116e-83,cruce acotado por muestras,74.0,98.0
+LAB006,theta_full,sN_x0.5,78.5,78.5,0.0,0,4.6024613863875527e-35,cruce acotado por muestras,74.0,98.0
+LAB006,theta_full,sN_x2,70.75,70.75,0.0,0,0.0,cruce acotado por muestras,74.0,98.0
+LAB006,theta_full,T_menos2C,86.25,86.25,0.0,0,8.473806300819298e-67,cruce acotado por muestras,74.0,98.0
+LAB006,theta_full,T_mas2C,62.5,62.5,0.0,0,4.5008767893276504e-73,cruce acotado por muestras,74.0,98.0
+LAB006,theta_full,remanente_10,72.25,,10.0,1,10.0,cruce acotado por muestras,74.0,98.0
+LAB006,theta_full,remanente_20,71.0,,20.0,1,20.0,cruce acotado por muestras,74.0,98.0
+LAB006,theta_full,remanente_30,70.0,,30.0,3,30.0,cruce acotado por muestras,74.0,98.0
+LAB007,theta_full,referencia,39.75,39.75,0.0,0,8.276319969692235e-73,cruce acotado por muestras,48.0,64.0
+LAB007,theta_full,X0_x0.5,55.25,55.25,0.0,0,0.0,cruce acotado por muestras,48.0,64.0
+LAB007,theta_full,X0_x2,26.75,26.75,0.0,0,0.0,cruce acotado por muestras,48.0,64.0
+LAB007,theta_full,qN_x0.5,55.25,55.25,0.0,0,4.2577314458028094e-67,cruce acotado por muestras,48.0,64.0
+LAB007,theta_full,qN_x2,26.75,26.75,0.0,0,0.0,cruce acotado por muestras,48.0,64.0
+LAB007,theta_full,crecimiento_x0.8,49.75,49.75,0.0,0,1.7600312881142283e-58,cruce acotado por muestras,48.0,64.0
+LAB007,theta_full,crecimiento_x1.2,33.25,33.25,0.0,0,3.34646895286864e-87,cruce acotado por muestras,48.0,64.0
+LAB007,theta_full,sN_x0.5,43.25,43.25,0.0,0,2.6081020417899877e-37,cruce acotado por muestras,48.0,64.0
+LAB007,theta_full,sN_x2,38.0,38.0,0.0,0,0.0,cruce acotado por muestras,48.0,64.0
+LAB007,theta_full,T_menos2C,46.75,46.75,0.0,0,0.0,cruce acotado por muestras,48.0,64.0
+LAB007,theta_full,T_mas2C,34.0,34.0,0.0,0,0.0,cruce acotado por muestras,48.0,64.0
+LAB007,theta_full,remanente_10,39.0,,10.0,3,10.0,cruce acotado por muestras,48.0,64.0
+LAB007,theta_full,remanente_20,38.0,,20.0,5,20.0,cruce acotado por muestras,48.0,64.0
+LAB007,theta_full,remanente_30,37.25,,30.0,6,30.0,cruce acotado por muestras,48.0,64.0
+LAB008,theta_full,referencia,42.75,42.75,0.0,0,0.0,no cruce observado antes del pulso,,
+LAB008,theta_full,X0_x0.5,58.75,58.75,0.0,0,0.0,no cruce observado antes del pulso,,
+LAB008,theta_full,X0_x2,29.0,29.0,0.0,0,0.0,no cruce observado antes del pulso,,
+LAB008,theta_full,qN_x0.5,58.75,58.75,0.0,0,0.0,no cruce observado antes del pulso,,
+LAB008,theta_full,qN_x2,29.0,29.0,0.0,0,0.0,no cruce observado antes del pulso,,
+LAB008,theta_full,crecimiento_x0.8,53.5,53.5,0.0,0,0.0,no cruce observado antes del pulso,,
+LAB008,theta_full,crecimiento_x1.2,35.75,35.75,0.0,0,0.0,no cruce observado antes del pulso,,
+LAB008,theta_full,sN_x0.5,46.5,46.5,0.0,0,2.583262676055302e-36,no cruce observado antes del pulso,,
+LAB008,theta_full,sN_x2,41.0,41.0,0.0,0,0.0,no cruce observado antes del pulso,,
+LAB008,theta_full,T_menos2C,50.25,50.25,0.0,0,0.0,no cruce observado antes del pulso,,
+LAB008,theta_full,T_mas2C,36.5,36.5,0.0,0,0.0,no cruce observado antes del pulso,,
+LAB008,theta_full,remanente_10,42.0,,10.0,2,10.0,no cruce observado antes del pulso,,
+LAB008,theta_full,remanente_20,41.25,,20.0,5,20.0,no cruce observado antes del pulso,,
+LAB008,theta_full,remanente_30,40.25,,30.0,7,30.0,no cruce observado antes del pulso,,
+LAB009,theta_full,referencia,29.75,29.75,0.0,0,0.0,no cruce observado antes del pulso,,
+LAB009,theta_full,X0_x0.5,,,0.0,0,1.1001281122530652e-81,no cruce observado antes del pulso,,
+LAB009,theta_full,X0_x2,19.0,19.0,0.0,0,0.0,no cruce observado antes del pulso,,
+LAB009,theta_full,qN_x0.5,,,0.0,0,0.0,no cruce observado antes del pulso,,
+LAB009,theta_full,qN_x2,19.0,19.0,0.0,0,0.0,no cruce observado antes del pulso,,
+LAB009,theta_full,crecimiento_x0.8,37.0,37.0,0.0,0,9.637178851324897e-78,no cruce observado antes del pulso,,
+LAB009,theta_full,crecimiento_x1.2,25.0,25.0,0.0,0,0.0,no cruce observado antes del pulso,,
+LAB009,theta_full,sN_x0.5,32.75,32.75,0.0,0,7.842410701987922e-49,no cruce observado antes del pulso,,
+LAB009,theta_full,sN_x2,28.25,28.25,0.0,0,0.0,no cruce observado antes del pulso,,
+LAB009,theta_full,T_menos2C,34.75,34.75,0.0,0,2.9247243120225433e-92,no cruce observado antes del pulso,,
+LAB009,theta_full,T_mas2C,25.75,25.75,0.0,0,0.0,no cruce observado antes del pulso,,
+LAB009,theta_full,remanente_10,29.25,,10.0,2,10.0,no cruce observado antes del pulso,,
+LAB009,theta_full,remanente_20,28.5,,20.0,6,20.0,no cruce observado antes del pulso,,
+LAB009,theta_full,remanente_30,28.0,,30.0,8,30.0,no cruce observado antes del pulso,,
+LAB010,theta_full,referencia,22.5,22.5,0.0,0,0.0,no cruce observado antes del pulso,,
+LAB010,theta_full,X0_x0.5,36.0,36.0,0.0,0,0.0,no cruce observado antes del pulso,,
+LAB010,theta_full,X0_x2,13.25,13.25,0.0,0,0.0,no cruce observado antes del pulso,,
+LAB010,theta_full,qN_x0.5,36.0,36.0,0.0,0,0.0,no cruce observado antes del pulso,,
+LAB010,theta_full,qN_x2,13.25,13.25,0.0,0,0.0,no cruce observado antes del pulso,,
+LAB010,theta_full,crecimiento_x0.8,28.0,28.0,0.0,0,0.0,no cruce observado antes del pulso,,
+LAB010,theta_full,crecimiento_x1.2,18.999999999941792,18.999999999941792,0.0,0,0.0,no cruce observado antes del pulso,,
+LAB010,theta_full,sN_x0.5,24.5,24.5,0.0,0,1.9933120835255776e-56,no cruce observado antes del pulso,,
+LAB010,theta_full,sN_x2,21.5,21.5,0.0,0,0.0,no cruce observado antes del pulso,,
+LAB010,theta_full,T_menos2C,26.25,26.25,0.0,0,0.0,no cruce observado antes del pulso,,
+LAB010,theta_full,T_mas2C,19.25,19.25,0.0,0,0.0,no cruce observado antes del pulso,,
+LAB010,theta_full,remanente_10,22.0,,10.0,0,10.0,no cruce observado antes del pulso,,
+LAB010,theta_full,remanente_20,21.25,,20.0,1,20.0,no cruce observado antes del pulso,,
+LAB010,theta_full,remanente_30,20.5,,30.0,2,30.0,no cruce observado antes del pulso,,
+LAB011,theta_full,referencia,16.25,16.25,0.0,0,0.0,no cruce observado antes del pulso,,
+LAB011,theta_full,X0_x0.5,27.0,27.0,0.0,0,0.0,no cruce observado antes del pulso,,
+LAB011,theta_full,X0_x2,9.5,9.5,0.0,0,0.0,no cruce observado antes del pulso,,
+LAB011,theta_full,qN_x0.5,27.0,27.0,0.0,0,0.0,no cruce observado antes del pulso,,
+LAB011,theta_full,qN_x2,9.5,9.5,0.0,0,0.0,no cruce observado antes del pulso,,
+LAB011,theta_full,crecimiento_x0.8,20.5,20.5,0.0,0,0.0,no cruce observado antes del pulso,,
+LAB011,theta_full,crecimiento_x1.2,13.5,13.5,0.0,0,0.0,no cruce observado antes del pulso,,
+LAB011,theta_full,sN_x0.5,18.0,18.0,0.0,0,3.8964595746752986e-54,no cruce observado antes del pulso,,
+LAB011,theta_full,sN_x2,15.5,15.5,0.0,0,0.0,no cruce observado antes del pulso,,
+LAB011,theta_full,T_menos2C,18.999999999941792,18.999999999941792,0.0,0,0.0,no cruce observado antes del pulso,,
+LAB011,theta_full,T_mas2C,14.0,14.0,0.0,0,0.0,no cruce observado antes del pulso,,
+LAB011,theta_full,remanente_10,15.75,,10.0,0,10.0,no cruce observado antes del pulso,,
+LAB011,theta_full,remanente_20,15.25,,20.0,0,20.0,no cruce observado antes del pulso,,
+LAB011,theta_full,remanente_30,14.75,,30.0,1,30.0,no cruce observado antes del pulso,,
+LAB012,theta_full,referencia,24.0,24.0,0.0,0,0.0,no cruce observado antes del pulso,,
+LAB012,theta_full,X0_x0.5,37.75,37.75,0.0,0,0.0,no cruce observado antes del pulso,,
+LAB012,theta_full,X0_x2,14.25,14.25,0.0,0,0.0,no cruce observado antes del pulso,,
+LAB012,theta_full,qN_x0.5,37.75,37.75,0.0,0,0.0,no cruce observado antes del pulso,,
+LAB012,theta_full,qN_x2,14.25,14.25,0.0,0,0.0,no cruce observado antes del pulso,,
+LAB012,theta_full,crecimiento_x0.8,29.75,29.75,0.0,0,0.0,no cruce observado antes del pulso,,
+LAB012,theta_full,crecimiento_x1.2,20.25,20.25,0.0,0,0.0,no cruce observado antes del pulso,,
+LAB012,theta_full,sN_x0.5,26.0,26.0,0.0,0,1.314183205082668e-45,no cruce observado antes del pulso,,
+LAB012,theta_full,sN_x2,23.0,23.0,0.0,0,0.0,no cruce observado antes del pulso,,
+LAB012,theta_full,T_menos2C,28.0,28.0,0.0,0,0.0,no cruce observado antes del pulso,,
+LAB012,theta_full,T_mas2C,20.75,20.75,0.0,0,0.0,no cruce observado antes del pulso,,
+LAB012,theta_full,remanente_10,23.25,,10.0,0,10.0,no cruce observado antes del pulso,,
+LAB012,theta_full,remanente_20,22.75,,20.0,0,20.0,no cruce observado antes del pulso,,
+LAB012,theta_full,remanente_30,22.0,,30.0,0,30.0,no cruce observado antes del pulso,,
+LAB019,theta_full,referencia,21.75,21.75,0.0,0,0.0,no cruce observado antes del pulso,,
+LAB019,theta_full,X0_x0.5,33.5,33.5,0.0,0,0.0,no cruce observado antes del pulso,,
+LAB019,theta_full,X0_x2,13.0,13.0,0.0,0,0.0,no cruce observado antes del pulso,,
+LAB019,theta_full,qN_x0.5,33.5,33.5,0.0,0,0.0,no cruce observado antes del pulso,,
+LAB019,theta_full,qN_x2,13.0,13.0,0.0,0,0.0,no cruce observado antes del pulso,,
+LAB019,theta_full,crecimiento_x0.8,27.25,27.25,0.0,0,3.8178102774428773e-91,no cruce observado antes del pulso,,
+LAB019,theta_full,crecimiento_x1.2,18.25,18.25,0.0,0,0.0,no cruce observado antes del pulso,,
+LAB019,theta_full,sN_x0.5,23.75,23.75,0.0,0,3.772416295273543e-58,no cruce observado antes del pulso,,
+LAB019,theta_full,sN_x2,20.75,20.75,0.0,0,0.0,no cruce observado antes del pulso,,
+LAB019,theta_full,T_menos2C,25.5,25.5,0.0,0,0.0,no cruce observado antes del pulso,,
+LAB019,theta_full,T_mas2C,18.75,18.75,0.0,0,0.0,no cruce observado antes del pulso,,
+LAB019,theta_full,remanente_10,21.25,,10.0,0,10.0,no cruce observado antes del pulso,,
+LAB019,theta_full,remanente_20,20.75,,20.0,0,20.0,no cruce observado antes del pulso,,
+LAB019,theta_full,remanente_30,20.25,,30.0,1,30.0,no cruce observado antes del pulso,,
+LAB020,theta_full,referencia,40.0,40.0,0.0,0,0.0,no cruce observado antes del pulso,,
+LAB020,theta_full,X0_x0.5,57.25,57.25,0.0,0,1.0086979075176794e-68,no cruce observado antes del pulso,,
+LAB020,theta_full,X0_x2,26.0,26.0,0.0,0,0.0,no cruce observado antes del pulso,,
+LAB020,theta_full,qN_x0.5,57.25,57.25,0.0,0,1.2136003709498039e-67,no cruce observado antes del pulso,,
+LAB020,theta_full,qN_x2,26.0,26.0,0.0,0,0.0,no cruce observado antes del pulso,,
+LAB020,theta_full,crecimiento_x0.8,50.0,50.0,0.0,0,3.14037037531042e-61,no cruce observado antes del pulso,,
+LAB020,theta_full,crecimiento_x1.2,33.5,33.5,0.0,0,0.0,no cruce observado antes del pulso,,
+LAB020,theta_full,sN_x0.5,43.25,43.25,0.0,0,3.9470510811382045e-39,no cruce observado antes del pulso,,
+LAB020,theta_full,sN_x2,38.5,38.5,0.0,0,0.0,no cruce observado antes del pulso,,
+LAB020,theta_full,T_menos2C,47.25,47.25,0.0,0,2.4064008838360064e-74,no cruce observado antes del pulso,,
+LAB020,theta_full,T_mas2C,34.25,34.25,0.0,0,0.0,no cruce observado antes del pulso,,
+LAB020,theta_full,remanente_10,39.25,,10.0,0,10.0,no cruce observado antes del pulso,,
+LAB020,theta_full,remanente_20,38.5,,20.0,0,20.0,no cruce observado antes del pulso,,
+LAB020,theta_full,remanente_30,37.5,,30.0,0,30.0,no cruce observado antes del pulso,,
+LAB021,theta_full,referencia,28.0,28.0,0.0,0,0.0,no cruce observado antes del pulso,,
+LAB021,theta_full,X0_x0.5,40.0,40.0,0.0,0,0.0,no cruce observado antes del pulso,,
+LAB021,theta_full,X0_x2,18.5,18.5,0.0,0,0.0,no cruce observado antes del pulso,,
+LAB021,theta_full,qN_x0.5,40.0,40.0,0.0,0,1.006670834158813e-92,no cruce observado antes del pulso,,
+LAB021,theta_full,qN_x2,18.5,18.5,0.0,0,0.0,no cruce observado antes del pulso,,
+LAB021,theta_full,crecimiento_x0.8,35.0,35.0,0.0,0,0.0,no cruce observado antes del pulso,,
+LAB021,theta_full,crecimiento_x1.2,23.5,23.5,0.0,0,0.0,no cruce observado antes del pulso,,
+LAB021,theta_full,sN_x0.5,30.75,30.75,0.0,0,4.045152583284413e-53,no cruce observado antes del pulso,,
+LAB021,theta_full,sN_x2,26.75,26.75,0.0,0,0.0,no cruce observado antes del pulso,,
+LAB021,theta_full,T_menos2C,32.75,32.75,0.0,0,0.0,no cruce observado antes del pulso,,
+LAB021,theta_full,T_mas2C,24.25,24.25,0.0,0,0.0,no cruce observado antes del pulso,,
+LAB021,theta_full,remanente_10,27.5,,10.0,0,10.0,no cruce observado antes del pulso,,
+LAB021,theta_full,remanente_20,27.0,,20.0,5,20.0,no cruce observado antes del pulso,,
+LAB021,theta_full,remanente_30,26.5,,30.0,6,30.0,no cruce observado antes del pulso,,
+LAB004,theta_defaults,referencia,31.25,31.25,0.0,0,0.0,cruce acotado por muestras,50.0,67.0
+LAB004,theta_defaults,X0_x0.5,45.25,45.25,0.0,0,0.0,cruce acotado por muestras,50.0,67.0
+LAB004,theta_defaults,X0_x2,20.0,20.0,0.0,0,0.0,cruce acotado por muestras,50.0,67.0
+LAB004,theta_defaults,qN_x0.5,45.25,45.25,0.0,0,0.0,cruce acotado por muestras,50.0,67.0
+LAB004,theta_defaults,qN_x2,20.0,20.0,0.0,0,0.0,cruce acotado por muestras,50.0,67.0
+LAB004,theta_defaults,crecimiento_x0.8,39.25,39.25,0.0,0,0.0,cruce acotado por muestras,50.0,67.0
+LAB004,theta_defaults,crecimiento_x1.2,26.0,26.0,0.0,0,0.0,cruce acotado por muestras,50.0,67.0
+LAB004,theta_defaults,sN_x0.5,32.75,32.75,0.0,0,0.0,cruce acotado por muestras,50.0,67.0
+LAB004,theta_defaults,sN_x2,30.5,30.5,0.0,0,0.0,cruce acotado por muestras,50.0,67.0
+LAB004,theta_defaults,T_menos2C,36.75,36.75,0.0,0,0.0,cruce acotado por muestras,50.0,67.0
+LAB004,theta_defaults,T_mas2C,26.5,26.5,0.0,0,0.0,cruce acotado por muestras,50.0,67.0
+LAB004,theta_defaults,remanente_10,30.5,,10.0,3,10.0,cruce acotado por muestras,50.0,67.0
+LAB004,theta_defaults,remanente_20,29.75,,20.0,5,20.0,cruce acotado por muestras,50.0,67.0
+LAB004,theta_defaults,remanente_30,29.0,,30.0,7,30.0,cruce acotado por muestras,50.0,67.0
+LAB005,theta_defaults,referencia,26.75,26.75,0.0,0,0.0,no cruce observado antes del pulso,,
+LAB005,theta_defaults,X0_x0.5,39.5,39.5,0.0,0,0.0,no cruce observado antes del pulso,,
+LAB005,theta_defaults,X0_x2,16.5,16.5,0.0,0,0.0,no cruce observado antes del pulso,,
+LAB005,theta_defaults,qN_x0.5,39.5,39.5,0.0,0,0.0,no cruce observado antes del pulso,,
+LAB005,theta_defaults,qN_x2,16.5,16.5,0.0,0,0.0,no cruce observado antes del pulso,,
+LAB005,theta_defaults,crecimiento_x0.8,33.25,33.25,0.0,0,0.0,no cruce observado antes del pulso,,
+LAB005,theta_defaults,crecimiento_x1.2,22.25,22.25,0.0,0,0.0,no cruce observado antes del pulso,,
+LAB005,theta_defaults,sN_x0.5,28.0,28.0,0.0,0,0.0,no cruce observado antes del pulso,,
+LAB005,theta_defaults,sN_x2,26.0,26.0,0.0,0,0.0,no cruce observado antes del pulso,,
+LAB005,theta_defaults,T_menos2C,31.25,31.25,0.0,0,0.0,no cruce observado antes del pulso,,
+LAB005,theta_defaults,T_mas2C,22.75,22.75,0.0,0,0.0,no cruce observado antes del pulso,,
+LAB005,theta_defaults,remanente_10,26.0,,10.0,0,10.0,no cruce observado antes del pulso,,
+LAB005,theta_defaults,remanente_20,25.25,,20.0,5,20.0,no cruce observado antes del pulso,,
+LAB005,theta_defaults,remanente_30,24.5,,30.0,6,30.0,no cruce observado antes del pulso,,
+LAB006,theta_defaults,referencia,70.75,70.75,0.0,0,0.0,cruce acotado por muestras,74.0,98.0
+LAB006,theta_defaults,X0_x0.5,90.5,90.5,0.0,0,0.0,cruce acotado por muestras,74.0,98.0
+LAB006,theta_defaults,X0_x2,52.25,52.25,0.0,0,0.0,cruce acotado por muestras,74.0,98.0
+LAB006,theta_defaults,qN_x0.5,90.5,90.5,0.0,0,0.0,cruce acotado por muestras,74.0,98.0
+LAB006,theta_defaults,qN_x2,52.25,52.25,0.0,0,0.0,cruce acotado por muestras,74.0,98.0
+LAB006,theta_defaults,crecimiento_x0.8,88.5,88.5,0.0,0,0.0,cruce acotado por muestras,74.0,98.0
+LAB006,theta_defaults,crecimiento_x1.2,59.0,59.0,0.0,0,0.0,cruce acotado por muestras,74.0,98.0
+LAB006,theta_defaults,sN_x0.5,73.25,73.25,0.0,0,0.0,cruce acotado por muestras,74.0,98.0
+LAB006,theta_defaults,sN_x2,69.5,69.5,0.0,0,0.0,cruce acotado por muestras,74.0,98.0
+LAB006,theta_defaults,T_menos2C,83.5,83.5,0.0,0,0.0,cruce acotado por muestras,74.0,98.0
+LAB006,theta_defaults,T_mas2C,60.0,60.0,0.0,0,0.0,cruce acotado por muestras,74.0,98.0
+LAB006,theta_defaults,remanente_10,69.5,,10.0,1,10.0,cruce acotado por muestras,74.0,98.0
+LAB006,theta_defaults,remanente_20,68.25,,20.0,1,20.0,cruce acotado por muestras,74.0,98.0
+LAB006,theta_defaults,remanente_30,67.0,,30.0,3,30.0,cruce acotado por muestras,74.0,98.0
+LAB007,theta_defaults,referencia,38.0,38.0,0.0,0,0.0,cruce acotado por muestras,48.0,64.0
+LAB007,theta_defaults,X0_x0.5,53.0,53.0,0.0,0,0.0,cruce acotado por muestras,48.0,64.0
+LAB007,theta_defaults,X0_x2,25.5,25.5,0.0,0,0.0,cruce acotado por muestras,48.0,64.0
+LAB007,theta_defaults,qN_x0.5,53.0,53.0,0.0,0,0.0,cruce acotado por muestras,48.0,64.0
+LAB007,theta_defaults,qN_x2,25.5,25.5,0.0,0,0.0,cruce acotado por muestras,48.0,64.0
+LAB007,theta_defaults,crecimiento_x0.8,47.5,47.5,0.0,0,0.0,cruce acotado por muestras,48.0,64.0
+LAB007,theta_defaults,crecimiento_x1.2,31.75,31.75,0.0,0,0.0,cruce acotado por muestras,48.0,64.0
+LAB007,theta_defaults,sN_x0.5,39.5,39.5,0.0,0,5.4062656233913364e-76,cruce acotado por muestras,48.0,64.0
+LAB007,theta_defaults,sN_x2,37.0,37.0,0.0,0,0.0,cruce acotado por muestras,48.0,64.0
+LAB007,theta_defaults,T_menos2C,44.75,44.75,0.0,0,0.0,cruce acotado por muestras,48.0,64.0
+LAB007,theta_defaults,T_mas2C,32.25,32.25,0.0,0,0.0,cruce acotado por muestras,48.0,64.0
+LAB007,theta_defaults,remanente_10,37.25,,10.0,3,10.0,cruce acotado por muestras,48.0,64.0
+LAB007,theta_defaults,remanente_20,36.25,,20.0,5,20.0,cruce acotado por muestras,48.0,64.0
+LAB007,theta_defaults,remanente_30,35.5,,30.0,6,30.0,cruce acotado por muestras,48.0,64.0
+LAB008,theta_defaults,referencia,41.0,41.0,0.0,0,0.0,no cruce observado antes del pulso,,
+LAB008,theta_defaults,X0_x0.5,56.5,56.5,0.0,0,0.0,no cruce observado antes del pulso,,
+LAB008,theta_defaults,X0_x2,27.75,27.75,0.0,0,0.0,no cruce observado antes del pulso,,
+LAB008,theta_defaults,qN_x0.5,56.5,56.5,0.0,0,0.0,no cruce observado antes del pulso,,
+LAB008,theta_defaults,qN_x2,27.75,27.75,0.0,0,0.0,no cruce observado antes del pulso,,
+LAB008,theta_defaults,crecimiento_x0.8,51.25,51.25,0.0,0,0.0,no cruce observado antes del pulso,,
+LAB008,theta_defaults,crecimiento_x1.2,34.0,34.0,0.0,0,0.0,no cruce observado antes del pulso,,
+LAB008,theta_defaults,sN_x0.5,42.75,42.75,0.0,0,0.0,no cruce observado antes del pulso,,
+LAB008,theta_defaults,sN_x2,40.0,40.0,0.0,0,0.0,no cruce observado antes del pulso,,
+LAB008,theta_defaults,T_menos2C,48.25,48.25,0.0,0,0.0,no cruce observado antes del pulso,,
+LAB008,theta_defaults,T_mas2C,34.75,34.75,0.0,0,0.0,no cruce observado antes del pulso,,
+LAB008,theta_defaults,remanente_10,40.0,,10.0,2,10.0,no cruce observado antes del pulso,,
+LAB008,theta_defaults,remanente_20,39.25,,20.0,5,20.0,no cruce observado antes del pulso,,
+LAB008,theta_defaults,remanente_30,38.25,,30.0,7,30.0,no cruce observado antes del pulso,,
+LAB009,theta_defaults,referencia,28.25,28.25,0.0,0,0.0,no cruce observado antes del pulso,,
+LAB009,theta_defaults,X0_x0.5,40.0,40.0,0.0,0,0.0,no cruce observado antes del pulso,,
+LAB009,theta_defaults,X0_x2,17.75,17.75,0.0,0,0.0,no cruce observado antes del pulso,,
+LAB009,theta_defaults,qN_x0.5,40.0,40.0,0.0,0,0.0,no cruce observado antes del pulso,,
+LAB009,theta_defaults,qN_x2,17.75,17.75,0.0,0,0.0,no cruce observado antes del pulso,,
+LAB009,theta_defaults,crecimiento_x0.8,35.0,35.0,0.0,0,0.0,no cruce observado antes del pulso,,
+LAB009,theta_defaults,crecimiento_x1.2,23.5,23.5,0.0,0,0.0,no cruce observado antes del pulso,,
+LAB009,theta_defaults,sN_x0.5,29.75,29.75,0.0,0,0.0,no cruce observado antes del pulso,,
+LAB009,theta_defaults,sN_x2,27.5,27.5,0.0,0,0.0,no cruce observado antes del pulso,,
+LAB009,theta_defaults,T_menos2C,33.0,33.0,0.0,0,0.0,no cruce observado antes del pulso,,
+LAB009,theta_defaults,T_mas2C,24.25,24.25,0.0,0,0.0,no cruce observado antes del pulso,,
+LAB009,theta_defaults,remanente_10,27.75,,10.0,2,10.0,no cruce observado antes del pulso,,
+LAB009,theta_defaults,remanente_20,27.0,,20.0,6,20.0,no cruce observado antes del pulso,,
+LAB009,theta_defaults,remanente_30,26.25,,30.0,8,30.0,no cruce observado antes del pulso,,
+LAB010,theta_defaults,referencia,21.5,21.5,0.0,0,0.0,no cruce observado antes del pulso,,
+LAB010,theta_defaults,X0_x0.5,34.25,34.25,0.0,0,0.0,no cruce observado antes del pulso,,
+LAB010,theta_defaults,X0_x2,12.5,12.5,0.0,0,0.0,no cruce observado antes del pulso,,
+LAB010,theta_defaults,qN_x0.5,34.25,34.25,0.0,0,0.0,no cruce observado antes del pulso,,
+LAB010,theta_defaults,qN_x2,12.5,12.5,0.0,0,0.0,no cruce observado antes del pulso,,
+LAB010,theta_defaults,crecimiento_x0.8,26.75,26.75,0.0,0,0.0,no cruce observado antes del pulso,,
+LAB010,theta_defaults,crecimiento_x1.2,18.0,18.0,0.0,0,0.0,no cruce observado antes del pulso,,
+LAB010,theta_defaults,sN_x0.5,22.5,22.5,0.0,0,0.0,no cruce observado antes del pulso,,
+LAB010,theta_defaults,sN_x2,21.0,21.0,0.0,0,0.0,no cruce observado antes del pulso,,
+LAB010,theta_defaults,T_menos2C,25.25,25.25,0.0,0,0.0,no cruce observado antes del pulso,,
+LAB010,theta_defaults,T_mas2C,18.25,18.25,0.0,0,0.0,no cruce observado antes del pulso,,
+LAB010,theta_defaults,remanente_10,21.0,,10.0,0,10.0,no cruce observado antes del pulso,,
+LAB010,theta_defaults,remanente_20,20.25,,20.0,1,20.0,no cruce observado antes del pulso,,
+LAB010,theta_defaults,remanente_30,19.5,,30.0,2,30.0,no cruce observado antes del pulso,,
+LAB011,theta_defaults,referencia,15.5,15.5,0.0,0,0.0,no cruce observado antes del pulso,,
+LAB011,theta_defaults,X0_x0.5,25.5,25.5,0.0,0,0.0,no cruce observado antes del pulso,,
+LAB011,theta_defaults,X0_x2,8.75,8.75,0.0,0,0.0,no cruce observado antes del pulso,,
+LAB011,theta_defaults,qN_x0.5,25.5,25.5,0.0,0,0.0,no cruce observado antes del pulso,,
+LAB011,theta_defaults,qN_x2,8.75,8.75,0.0,0,0.0,no cruce observado antes del pulso,,
+LAB011,theta_defaults,crecimiento_x0.8,19.25,19.25,0.0,0,0.0,no cruce observado antes del pulso,,
+LAB011,theta_defaults,crecimiento_x1.2,12.75,12.75,0.0,0,0.0,no cruce observado antes del pulso,,
+LAB011,theta_defaults,sN_x0.5,16.25,16.25,0.0,0,0.0,no cruce observado antes del pulso,,
+LAB011,theta_defaults,sN_x2,15.0,15.0,0.0,0,0.0,no cruce observado antes del pulso,,
+LAB011,theta_defaults,T_menos2C,18.0,18.0,0.0,0,0.0,no cruce observado antes del pulso,,
+LAB011,theta_defaults,T_mas2C,13.25,13.25,0.0,0,0.0,no cruce observado antes del pulso,,
+LAB011,theta_defaults,remanente_10,14.75,,10.0,0,10.0,no cruce observado antes del pulso,,
+LAB011,theta_defaults,remanente_20,14.25,,20.0,0,20.0,no cruce observado antes del pulso,,
+LAB011,theta_defaults,remanente_30,13.75,,30.0,1,30.0,no cruce observado antes del pulso,,
+LAB012,theta_defaults,referencia,23.0,23.0,0.0,0,0.0,no cruce observado antes del pulso,,
+LAB012,theta_defaults,X0_x0.5,36.25,36.25,0.0,0,0.0,no cruce observado antes del pulso,,
+LAB012,theta_defaults,X0_x2,13.5,13.5,0.0,0,0.0,no cruce observado antes del pulso,,
+LAB012,theta_defaults,qN_x0.5,36.25,36.25,0.0,0,0.0,no cruce observado antes del pulso,,
+LAB012,theta_defaults,qN_x2,13.5,13.5,0.0,0,0.0,no cruce observado antes del pulso,,
+LAB012,theta_defaults,crecimiento_x0.8,28.25,28.25,0.0,0,0.0,no cruce observado antes del pulso,,
+LAB012,theta_defaults,crecimiento_x1.2,19.25,19.25,0.0,0,0.0,no cruce observado antes del pulso,,
+LAB012,theta_defaults,sN_x0.5,24.0,24.0,0.0,0,0.0,no cruce observado antes del pulso,,
+LAB012,theta_defaults,sN_x2,22.5,22.5,0.0,0,0.0,no cruce observado antes del pulso,,
+LAB012,theta_defaults,T_menos2C,26.75,26.75,0.0,0,0.0,no cruce observado antes del pulso,,
+LAB012,theta_defaults,T_mas2C,19.75,19.75,0.0,0,0.0,no cruce observado antes del pulso,,
+LAB012,theta_defaults,remanente_10,22.25,,10.0,0,10.0,no cruce observado antes del pulso,,
+LAB012,theta_defaults,remanente_20,21.5,,20.0,0,20.0,no cruce observado antes del pulso,,
+LAB012,theta_defaults,remanente_30,20.75,,30.0,0,30.0,no cruce observado antes del pulso,,
+LAB019,theta_defaults,referencia,20.75,20.75,0.0,0,0.0,no cruce observado antes del pulso,,
+LAB019,theta_defaults,X0_x0.5,32.25,32.25,0.0,0,0.0,no cruce observado antes del pulso,,
+LAB019,theta_defaults,X0_x2,12.25,12.25,0.0,0,0.0,no cruce observado antes del pulso,,
+LAB019,theta_defaults,qN_x0.5,32.25,32.25,0.0,0,0.0,no cruce observado antes del pulso,,
+LAB019,theta_defaults,qN_x2,12.25,12.25,0.0,0,0.0,no cruce observado antes del pulso,,
+LAB019,theta_defaults,crecimiento_x0.8,26.0,26.0,0.0,0,0.0,no cruce observado antes del pulso,,
+LAB019,theta_defaults,crecimiento_x1.2,17.25,17.25,0.0,0,0.0,no cruce observado antes del pulso,,
+LAB019,theta_defaults,sN_x0.5,21.75,21.75,0.0,0,0.0,no cruce observado antes del pulso,,
+LAB019,theta_defaults,sN_x2,20.25,20.25,0.0,0,0.0,no cruce observado antes del pulso,,
+LAB019,theta_defaults,T_menos2C,24.5,24.5,0.0,0,0.0,no cruce observado antes del pulso,,
+LAB019,theta_defaults,T_mas2C,17.75,17.75,0.0,0,0.0,no cruce observado antes del pulso,,
+LAB019,theta_defaults,remanente_10,20.25,,10.0,0,10.0,no cruce observado antes del pulso,,
+LAB019,theta_defaults,remanente_20,19.75,,20.0,0,20.0,no cruce observado antes del pulso,,
+LAB019,theta_defaults,remanente_30,19.0,,30.0,1,30.0,no cruce observado antes del pulso,,
+LAB020,theta_defaults,referencia,38.5,38.5,0.0,0,0.0,no cruce observado antes del pulso,,
+LAB020,theta_defaults,X0_x0.5,55.25,55.25,0.0,0,0.0,no cruce observado antes del pulso,,
+LAB020,theta_defaults,X0_x2,25.0,25.0,0.0,0,0.0,no cruce observado antes del pulso,,
+LAB020,theta_defaults,qN_x0.5,55.25,55.25,0.0,0,0.0,no cruce observado antes del pulso,,
+LAB020,theta_defaults,qN_x2,25.0,25.0,0.0,0,0.0,no cruce observado antes del pulso,,
+LAB020,theta_defaults,crecimiento_x0.8,48.25,48.25,0.0,0,0.0,no cruce observado antes del pulso,,
+LAB020,theta_defaults,crecimiento_x1.2,32.25,32.25,0.0,0,0.0,no cruce observado antes del pulso,,
+LAB020,theta_defaults,sN_x0.5,40.0,40.0,0.0,0,0.0,no cruce observado antes del pulso,,
+LAB020,theta_defaults,sN_x2,37.75,37.75,0.0,0,0.0,no cruce observado antes del pulso,,
+LAB020,theta_defaults,T_menos2C,45.5,45.5,0.0,0,0.0,no cruce observado antes del pulso,,
+LAB020,theta_defaults,T_mas2C,32.75,32.75,0.0,0,0.0,no cruce observado antes del pulso,,
+LAB020,theta_defaults,remanente_10,37.75,,10.0,0,10.0,no cruce observado antes del pulso,,
+LAB020,theta_defaults,remanente_20,36.75,,20.0,0,20.0,no cruce observado antes del pulso,,
+LAB020,theta_defaults,remanente_30,36.0,,30.0,0,30.0,no cruce observado antes del pulso,,
+LAB021,theta_defaults,referencia,26.5,26.5,0.0,0,0.0,no cruce observado antes del pulso,,
+LAB021,theta_defaults,X0_x0.5,38.0,38.0,0.0,0,0.0,no cruce observado antes del pulso,,
+LAB021,theta_defaults,X0_x2,17.5,17.5,0.0,0,0.0,no cruce observado antes del pulso,,
+LAB021,theta_defaults,qN_x0.5,38.0,38.0,0.0,0,0.0,no cruce observado antes del pulso,,
+LAB021,theta_defaults,qN_x2,17.5,17.5,0.0,0,0.0,no cruce observado antes del pulso,,
+LAB021,theta_defaults,crecimiento_x0.8,33.25,33.25,0.0,0,0.0,no cruce observado antes del pulso,,
+LAB021,theta_defaults,crecimiento_x1.2,22.25,22.25,0.0,0,0.0,no cruce observado antes del pulso,,
+LAB021,theta_defaults,sN_x0.5,28.0,28.0,0.0,0,0.0,no cruce observado antes del pulso,,
+LAB021,theta_defaults,sN_x2,26.0,26.0,0.0,0,0.0,no cruce observado antes del pulso,,
+LAB021,theta_defaults,T_menos2C,31.25,31.25,0.0,0,0.0,no cruce observado antes del pulso,,
+LAB021,theta_defaults,T_mas2C,22.75,22.75,0.0,0,0.0,no cruce observado antes del pulso,,
+LAB021,theta_defaults,remanente_10,26.0,,10.0,0,10.0,no cruce observado antes del pulso,,
+LAB021,theta_defaults,remanente_20,25.5,,20.0,5,20.0,no cruce observado antes del pulso,,
+LAB021,theta_defaults,remanente_30,25.0,,30.0,6,30.0,no cruce observado antes del pulso,,

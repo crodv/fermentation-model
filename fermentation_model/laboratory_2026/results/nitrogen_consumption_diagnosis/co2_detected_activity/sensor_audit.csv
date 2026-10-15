@@ -1,0 +1,4 @@
+lab,mask_end_h,sensor_zero_sccm,zero_support_first_h,zero_support_last_h,zero_support_n,conversion_g_l_h_per_sccm,logger_status_counts
+LAB019,2.2475,0.3005,2.2491666666666665,11.997777777777777,3427,0.0404391928807947,"{""OK"": 54695, ""Bajo rango"": 2503, ""Alto rango"": 4}"
+LAB020,2.187777777777778,0.12798,2.1894444444444443,11.997777777777777,3448,0.0404391928807947,"{""OK"": 55746, ""Bajo rango"": 1449, ""Alto rango"": 8}"
+LAB021,2.187777777777778,0.14357,2.1894444444444443,11.997777777777777,3448,0.0404391928807947,"{""OK"": 56897, ""Bajo rango"": 300, ""Alto rango"": 6}"

@@ -1,0 +1,2515 @@
+{
+  "config": {
+    "fd_fraction": 0.01,
+    "fd_check_fraction": 0.005,
+    "primary_cadence_h": 3.0,
+    "sigma_floor": 0.04,
+    "sigma_relative_peak": 0.1,
+    "rank_rtol": 1e-08,
+    "rank_atol": 1e-06,
+    "primary_grid_h": 0.25,
+    "rtol": 2e-09,
+    "atol": 2e-11,
+    "max_step_h": 0.5
+  },
+  "state_scales": {
+    "X": 0.05,
+    "N": 0.025,
+    "G": 5.0,
+    "F": 5.0,
+    "E": 2.0,
+    "Cd": 0.1,
+    "O2": 0.2,
+    "Xd": 0.05,
+    "Gly": 0.5
+  },
+  "nuisance_scales": {
+    "matrix_gain": 0.3115756944378268,
+    "kCO2_release_h": 0.08491765427064643,
+    "CO2sat_scale": 0.07027790822131501,
+    "bio_scale": 0.2
+  },
+  "sigma_by_lab": {
+    "LAB019": 0.06675297568832782,
+    "LAB020": 0.05163223576069122,
+    "LAB021": 0.09628543517482202
+  },
+  "theta": {
+    "mu0": 0.0787279167844739,
+    "sN": 8.751445870938538,
+    "qN": 0.0210803824284854,
+    "qXG": 0.0814909864046577,
+    "qXF": 0.0709327065015376,
+    "betaG0": 0.4288780029973869,
+    "sG": 0.0974550987386739,
+    "betaF0": 3.440399174765835,
+    "sF": 0.1782952055176543,
+    "qEG": 1.712806793770099,
+    "qEF": 5.023016750172416,
+    "iG": 0.0560374372695645,
+    "iE": 0.0401679409799797,
+    "Kd0": 0.0001502495478967,
+    "m0": 0.0183385793928771,
+    "gammaG0": 0.1155587913675031,
+    "gammaF0": 0.000100001621599
+  },
+  "co2_parameters": {
+    "kCO2_release_h": 0.4245882713532321,
+    "CO2sat_scale": 0.351389541106575,
+    "O2_qmax_mg_gdw_h": 0.15,
+    "O2_initial_scale": 0.1953996656508908,
+    "pulse_t_rise_h": 64.65870374633818,
+    "pulse_activity_gain": 0.25,
+    "chem_activation_start_fraction": 0.735056695858678,
+    "chem_activation_duration_fraction": 1.063909868135744,
+    "matrix_gain": 3.115756944378268,
+    "A": 0.3,
+    "tau_rise_h": 4.0,
+    "tau_decay_h": 12.0,
+    "N_ref_g_l": 0.14,
+    "kernel_normalization": "grid_max",
+    "bio_scale": 1.0
+  },
+  "input_sha256": {
+    "fermentation_model\\data\\mem2026\\LAB019-021\\backup_global_co2.csv": "72dd80fba0ad08c895ec207a96ff6fec7167330fe10e616552f323a7e2a1e573",
+    "fermentation_model\\data\\mem2026\\LAB019-021\\backup_global_temperatura.csv": "572eec34915897e8f9440c8ee99e7bcb1fb842ecdc8a09efeb870e9f828ac635",
+    "fermentation_model\\data\\mem2026\\LAB019-021\\EXPAuto(2026-09-21 12-49).txt": "97395acaf3e85a43d80b6106325825e9be634c9fbb27b49f57737ccc0152be68",
+    "fermentation_model\\data\\mem2026\\LAB019-021\\EXPAuto(2026-09-22 09-33).txt": "2428e4a472b9276515d211c6cae6eac14247b2c193ea7d7e9c8b16afd7e86ec8",
+    "fermentation_model\\data\\mem2026\\LAB019-021\\EXPAuto(2026-09-22 15-23).txt": "956bebae13cfd7eb4ef883384b4036043455f3b2d41c988124d4a489ae750e17",
+    "fermentation_model\\data\\mem2026\\LAB019-021\\EXPAuto(2026-09-23 09-09).txt": "70085b1aecc772f9094b021d5b3dfd04a1fdeb8bbb3b7ff7187ae80aeec94a3c",
+    "fermentation_model\\data\\mem2026\\LAB019-021\\EXPAuto(2026-09-24 09-14).txt": "c07c653523c33a40a8caef4fd3250bb18bf658f36fbcefd0562c4e6a81bbae43",
+    "fermentation_model\\data\\mem2026\\LAB019-021\\Mediciones-Offline-LAB019-021.xlsx": "9b05f6c0ffc55929da5124df340296bda0ea3bb22d9dfb9cea2f31c847bda76d",
+    "fermentation_model\\data\\mem2026\\LAB019-021\\Oculyze_report_LAB019.csv": "01fa515e4a6d2f9466a63e35ce22e1464ceb7805194333f9d3633907279fa765",
+    "fermentation_model\\data\\mem2026\\LAB019-021\\Oculyze_report_LAB020.csv": "82527072e9cfa2ba91ad202f5c49f5bdb78313a85cc14b445dfd58d2abc71813",
+    "fermentation_model\\data\\mem2026\\LAB019-021\\Oculyze_report_LAB021.csv": "631fa7d8134b9cd0afd8ce07adde642889202c98c8b772a774d25ad468459f42",
+    "fermentation_model\\data\\mem2026\\LAB019-021\\ONLINE(26-09-25 09-12)_1.txt": "407af4cf423fe483156af647f8eaa5e068737d5d2bd7db58d0195df8e8e2f678",
+    "fermentation_model\\data\\mem2026\\LAB019-021\\ONLINE(26-09-28 15-33)_1.txt": "a36a2e73be3794993329eb16722ee501ddbae1a477181b174e2019ccc29da8cf",
+    "fermentation_model\\laboratory_2026\\results\\estimability_historical_natural\\theta_natural_full.csv": "3876c53d0b4dc6f4126ffb4f8e0999a8455c90f283c345a110be33e86504b46e",
+    "fermentation_model\\laboratory_2026\\results\\estimability_historical_natural\\theta.csv": "05b0d87fde52c751568c894639a1cd10c6d27ca13bc5d1e0a525591eb3d5a188",
+    "fermentation_model\\laboratory_2026\\results\\co2_matrix_cross_validation_2026\\fit_parameters.csv": "fd7bb0a8ec56e1cfacc9db90083fac0c7ff6b44fe4b2633dc35d02c2061dbbb4",
+    "fermentation_model\\laboratory_2026\\notebooks\\diagnostics\\lab019_021_co2_temperature_shape_audit.ipynb": "ef34cd6cabed6e36351a37a843501fc1b2140a1179be1545c79134bbdc754ca3",
+    "fermentation_model\\laboratory_2026\\notebooks\\co2_reformulation\\02_nutrition_structure_comparison.source.ipynb": "b772a1513054654bebbd9ea6a83b44fe4d0dc6bab91ca7b17e92fb556a19c636",
+    "fermentation_model\\shared\\run_new_must_glycerol_estimability_doe.py": "1571a1d5eddb4daba1a27374529daf9b4d56d6a6de0fcd4ead82d9064d481905",
+    "fermentation_model\\shared\\run_secondary_joint_campaign_doe.py": "b96f39864bb2fae42dd99e848cfc0b58066a364093d88b5457823f11495b021b",
+    "fermentation_model\\laboratory_2026\\run_co2_matrix_cross_validation_2026.py": "bf95c4bfec8d5f3ec1bf5764e7886401bf8e43c2fca3e47239c672b3167e3a43",
+    "fermentation_model\\pilot_2025\\run_pilot_2025_co2_solubility_integrated_doe.py": "f3e3950be6e9c496de90ac4f6e9998c22796e024d4ed1dc847ac907110849965"
+  },
+  "matrix_index": {
+    "0": {
+      "key": [
+        "x0",
+        "LAB019",
+        "early",
+        1.0,
+        "with_negative_controls"
+      ],
+      "states": [
+        "X",
+        "N",
+        "G",
+        "F",
+        "E",
+        "Cd",
+        "O2",
+        "Xd",
+        "Gly"
+      ]
+    },
+    "1": {
+      "key": [
+        "x0",
+        "LAB019",
+        "early",
+        1.0,
+        "states_fixed_parameters"
+      ],
+      "states": [
+        "X",
+        "N",
+        "G",
+        "F",
+        "E",
+        "Cd",
+        "O2"
+      ]
+    },
+    "2": {
+      "key": [
+        "x0",
+        "LAB019",
+        "early",
+        3.0,
+        "with_negative_controls"
+      ],
+      "states": [
+        "X",
+        "N",
+        "G",
+        "F",
+        "E",
+        "Cd",
+        "O2",
+        "Xd",
+        "Gly"
+      ]
+    },
+    "3": {
+      "key": [
+        "x0",
+        "LAB019",
+        "early",
+        3.0,
+        "states_fixed_parameters"
+      ],
+      "states": [
+        "X",
+        "N",
+        "G",
+        "F",
+        "E",
+        "Cd",
+        "O2"
+      ]
+    },
+    "4": {
+      "key": [
+        "x0",
+        "LAB019",
+        "early",
+        6.0,
+        "with_negative_controls"
+      ],
+      "states": [
+        "X",
+        "N",
+        "G",
+        "F",
+        "E",
+        "Cd",
+        "O2",
+        "Xd",
+        "Gly"
+      ]
+    },
+    "5": {
+      "key": [
+        "x0",
+        "LAB019",
+        "early",
+        6.0,
+        "states_fixed_parameters"
+      ],
+      "states": [
+        "X",
+        "N",
+        "G",
+        "F",
+        "E",
+        "Cd",
+        "O2"
+      ]
+    },
+    "6": {
+      "key": [
+        "x0",
+        "LAB019",
+        "pre_nutrition",
+        1.0,
+        "with_negative_controls"
+      ],
+      "states": [
+        "X",
+        "N",
+        "G",
+        "F",
+        "E",
+        "Cd",
+        "O2",
+        "Xd",
+        "Gly"
+      ]
+    },
+    "7": {
+      "key": [
+        "x0",
+        "LAB019",
+        "pre_nutrition",
+        1.0,
+        "states_fixed_parameters"
+      ],
+      "states": [
+        "X",
+        "N",
+        "G",
+        "F",
+        "E",
+        "Cd",
+        "O2"
+      ]
+    },
+    "8": {
+      "key": [
+        "x0",
+        "LAB019",
+        "pre_nutrition",
+        3.0,
+        "with_negative_controls"
+      ],
+      "states": [
+        "X",
+        "N",
+        "G",
+        "F",
+        "E",
+        "Cd",
+        "O2",
+        "Xd",
+        "Gly"
+      ]
+    },
+    "9": {
+      "key": [
+        "x0",
+        "LAB019",
+        "pre_nutrition",
+        3.0,
+        "states_fixed_parameters"
+      ],
+      "states": [
+        "X",
+        "N",
+        "G",
+        "F",
+        "E",
+        "Cd",
+        "O2"
+      ]
+    },
+    "10": {
+      "key": [
+        "x0",
+        "LAB019",
+        "pre_nutrition",
+        6.0,
+        "with_negative_controls"
+      ],
+      "states": [
+        "X",
+        "N",
+        "G",
+        "F",
+        "E",
+        "Cd",
+        "O2",
+        "Xd",
+        "Gly"
+      ]
+    },
+    "11": {
+      "key": [
+        "x0",
+        "LAB019",
+        "pre_nutrition",
+        6.0,
+        "states_fixed_parameters"
+      ],
+      "states": [
+        "X",
+        "N",
+        "G",
+        "F",
+        "E",
+        "Cd",
+        "O2"
+      ]
+    },
+    "12": {
+      "key": [
+        "x0",
+        "LAB019",
+        "post_nutrition_history",
+        1.0,
+        "with_negative_controls"
+      ],
+      "states": [
+        "X",
+        "N",
+        "G",
+        "F",
+        "E",
+        "Cd",
+        "O2",
+        "Xd",
+        "Gly"
+      ]
+    },
+    "13": {
+      "key": [
+        "x0",
+        "LAB019",
+        "post_nutrition_history",
+        1.0,
+        "states_fixed_parameters"
+      ],
+      "states": [
+        "X",
+        "N",
+        "G",
+        "F",
+        "E",
+        "Cd",
+        "O2"
+      ]
+    },
+    "14": {
+      "key": [
+        "x0",
+        "LAB019",
+        "post_nutrition_history",
+        3.0,
+        "with_negative_controls"
+      ],
+      "states": [
+        "X",
+        "N",
+        "G",
+        "F",
+        "E",
+        "Cd",
+        "O2",
+        "Xd",
+        "Gly"
+      ]
+    },
+    "15": {
+      "key": [
+        "x0",
+        "LAB019",
+        "post_nutrition_history",
+        3.0,
+        "states_fixed_parameters"
+      ],
+      "states": [
+        "X",
+        "N",
+        "G",
+        "F",
+        "E",
+        "Cd",
+        "O2"
+      ]
+    },
+    "16": {
+      "key": [
+        "x0",
+        "LAB019",
+        "post_nutrition_history",
+        6.0,
+        "with_negative_controls"
+      ],
+      "states": [
+        "X",
+        "N",
+        "G",
+        "F",
+        "E",
+        "Cd",
+        "O2",
+        "Xd",
+        "Gly"
+      ]
+    },
+    "17": {
+      "key": [
+        "x0",
+        "LAB019",
+        "post_nutrition_history",
+        6.0,
+        "states_fixed_parameters"
+      ],
+      "states": [
+        "X",
+        "N",
+        "G",
+        "F",
+        "E",
+        "Cd",
+        "O2"
+      ]
+    },
+    "18": {
+      "key": [
+        "x0",
+        "LAB019",
+        "full_history",
+        1.0,
+        "with_negative_controls"
+      ],
+      "states": [
+        "X",
+        "N",
+        "G",
+        "F",
+        "E",
+        "Cd",
+        "O2",
+        "Xd",
+        "Gly"
+      ]
+    },
+    "19": {
+      "key": [
+        "x0",
+        "LAB019",
+        "full_history",
+        1.0,
+        "states_fixed_parameters"
+      ],
+      "states": [
+        "X",
+        "N",
+        "G",
+        "F",
+        "E",
+        "Cd",
+        "O2"
+      ]
+    },
+    "20": {
+      "key": [
+        "x0",
+        "LAB019",
+        "full_history",
+        3.0,
+        "with_negative_controls"
+      ],
+      "states": [
+        "X",
+        "N",
+        "G",
+        "F",
+        "E",
+        "Cd",
+        "O2",
+        "Xd",
+        "Gly"
+      ]
+    },
+    "21": {
+      "key": [
+        "x0",
+        "LAB019",
+        "full_history",
+        3.0,
+        "states_fixed_parameters"
+      ],
+      "states": [
+        "X",
+        "N",
+        "G",
+        "F",
+        "E",
+        "Cd",
+        "O2"
+      ]
+    },
+    "22": {
+      "key": [
+        "x0",
+        "LAB019",
+        "full_history",
+        6.0,
+        "with_negative_controls"
+      ],
+      "states": [
+        "X",
+        "N",
+        "G",
+        "F",
+        "E",
+        "Cd",
+        "O2",
+        "Xd",
+        "Gly"
+      ]
+    },
+    "23": {
+      "key": [
+        "x0",
+        "LAB019",
+        "full_history",
+        6.0,
+        "states_fixed_parameters"
+      ],
+      "states": [
+        "X",
+        "N",
+        "G",
+        "F",
+        "E",
+        "Cd",
+        "O2"
+      ]
+    },
+    "24": {
+      "key": [
+        "x0",
+        "LAB020",
+        "early",
+        1.0,
+        "with_negative_controls"
+      ],
+      "states": [
+        "X",
+        "N",
+        "G",
+        "F",
+        "E",
+        "Cd",
+        "O2",
+        "Xd",
+        "Gly"
+      ]
+    },
+    "25": {
+      "key": [
+        "x0",
+        "LAB020",
+        "early",
+        1.0,
+        "states_fixed_parameters"
+      ],
+      "states": [
+        "X",
+        "N",
+        "G",
+        "F",
+        "E",
+        "Cd",
+        "O2"
+      ]
+    },
+    "26": {
+      "key": [
+        "x0",
+        "LAB020",
+        "early",
+        3.0,
+        "with_negative_controls"
+      ],
+      "states": [
+        "X",
+        "N",
+        "G",
+        "F",
+        "E",
+        "Cd",
+        "O2",
+        "Xd",
+        "Gly"
+      ]
+    },
+    "27": {
+      "key": [
+        "x0",
+        "LAB020",
+        "early",
+        3.0,
+        "states_fixed_parameters"
+      ],
+      "states": [
+        "X",
+        "N",
+        "G",
+        "F",
+        "E",
+        "Cd",
+        "O2"
+      ]
+    },
+    "28": {
+      "key": [
+        "x0",
+        "LAB020",
+        "early",
+        6.0,
+        "with_negative_controls"
+      ],
+      "states": [
+        "X",
+        "N",
+        "G",
+        "F",
+        "E",
+        "Cd",
+        "O2",
+        "Xd",
+        "Gly"
+      ]
+    },
+    "29": {
+      "key": [
+        "x0",
+        "LAB020",
+        "early",
+        6.0,
+        "states_fixed_parameters"
+      ],
+      "states": [
+        "X",
+        "N",
+        "G",
+        "F",
+        "E",
+        "Cd",
+        "O2"
+      ]
+    },
+    "30": {
+      "key": [
+        "x0",
+        "LAB020",
+        "pre_nutrition",
+        1.0,
+        "with_negative_controls"
+      ],
+      "states": [
+        "X",
+        "N",
+        "G",
+        "F",
+        "E",
+        "Cd",
+        "O2",
+        "Xd",
+        "Gly"
+      ]
+    },
+    "31": {
+      "key": [
+        "x0",
+        "LAB020",
+        "pre_nutrition",
+        1.0,
+        "states_fixed_parameters"
+      ],
+      "states": [
+        "X",
+        "N",
+        "G",
+        "F",
+        "E",
+        "Cd",
+        "O2"
+      ]
+    },
+    "32": {
+      "key": [
+        "x0",
+        "LAB020",
+        "pre_nutrition",
+        3.0,
+        "with_negative_controls"
+      ],
+      "states": [
+        "X",
+        "N",
+        "G",
+        "F",
+        "E",
+        "Cd",
+        "O2",
+        "Xd",
+        "Gly"
+      ]
+    },
+    "33": {
+      "key": [
+        "x0",
+        "LAB020",
+        "pre_nutrition",
+        3.0,
+        "states_fixed_parameters"
+      ],
+      "states": [
+        "X",
+        "N",
+        "G",
+        "F",
+        "E",
+        "Cd",
+        "O2"
+      ]
+    },
+    "34": {
+      "key": [
+        "x0",
+        "LAB020",
+        "pre_nutrition",
+        6.0,
+        "with_negative_controls"
+      ],
+      "states": [
+        "X",
+        "N",
+        "G",
+        "F",
+        "E",
+        "Cd",
+        "O2",
+        "Xd",
+        "Gly"
+      ]
+    },
+    "35": {
+      "key": [
+        "x0",
+        "LAB020",
+        "pre_nutrition",
+        6.0,
+        "states_fixed_parameters"
+      ],
+      "states": [
+        "X",
+        "N",
+        "G",
+        "F",
+        "E",
+        "Cd",
+        "O2"
+      ]
+    },
+    "36": {
+      "key": [
+        "x0",
+        "LAB020",
+        "post_nutrition_history",
+        1.0,
+        "with_negative_controls"
+      ],
+      "states": [
+        "X",
+        "N",
+        "G",
+        "F",
+        "E",
+        "Cd",
+        "O2",
+        "Xd",
+        "Gly"
+      ]
+    },
+    "37": {
+      "key": [
+        "x0",
+        "LAB020",
+        "post_nutrition_history",
+        1.0,
+        "states_fixed_parameters"
+      ],
+      "states": [
+        "X",
+        "N",
+        "G",
+        "F",
+        "E",
+        "Cd",
+        "O2"
+      ]
+    },
+    "38": {
+      "key": [
+        "x0",
+        "LAB020",
+        "post_nutrition_history",
+        3.0,
+        "with_negative_controls"
+      ],
+      "states": [
+        "X",
+        "N",
+        "G",
+        "F",
+        "E",
+        "Cd",
+        "O2",
+        "Xd",
+        "Gly"
+      ]
+    },
+    "39": {
+      "key": [
+        "x0",
+        "LAB020",
+        "post_nutrition_history",
+        3.0,
+        "states_fixed_parameters"
+      ],
+      "states": [
+        "X",
+        "N",
+        "G",
+        "F",
+        "E",
+        "Cd",
+        "O2"
+      ]
+    },
+    "40": {
+      "key": [
+        "x0",
+        "LAB020",
+        "post_nutrition_history",
+        6.0,
+        "with_negative_controls"
+      ],
+      "states": [
+        "X",
+        "N",
+        "G",
+        "F",
+        "E",
+        "Cd",
+        "O2",
+        "Xd",
+        "Gly"
+      ]
+    },
+    "41": {
+      "key": [
+        "x0",
+        "LAB020",
+        "post_nutrition_history",
+        6.0,
+        "states_fixed_parameters"
+      ],
+      "states": [
+        "X",
+        "N",
+        "G",
+        "F",
+        "E",
+        "Cd",
+        "O2"
+      ]
+    },
+    "42": {
+      "key": [
+        "x0",
+        "LAB020",
+        "full_history",
+        1.0,
+        "with_negative_controls"
+      ],
+      "states": [
+        "X",
+        "N",
+        "G",
+        "F",
+        "E",
+        "Cd",
+        "O2",
+        "Xd",
+        "Gly"
+      ]
+    },
+    "43": {
+      "key": [
+        "x0",
+        "LAB020",
+        "full_history",
+        1.0,
+        "states_fixed_parameters"
+      ],
+      "states": [
+        "X",
+        "N",
+        "G",
+        "F",
+        "E",
+        "Cd",
+        "O2"
+      ]
+    },
+    "44": {
+      "key": [
+        "x0",
+        "LAB020",
+        "full_history",
+        3.0,
+        "with_negative_controls"
+      ],
+      "states": [
+        "X",
+        "N",
+        "G",
+        "F",
+        "E",
+        "Cd",
+        "O2",
+        "Xd",
+        "Gly"
+      ]
+    },
+    "45": {
+      "key": [
+        "x0",
+        "LAB020",
+        "full_history",
+        3.0,
+        "states_fixed_parameters"
+      ],
+      "states": [
+        "X",
+        "N",
+        "G",
+        "F",
+        "E",
+        "Cd",
+        "O2"
+      ]
+    },
+    "46": {
+      "key": [
+        "x0",
+        "LAB020",
+        "full_history",
+        6.0,
+        "with_negative_controls"
+      ],
+      "states": [
+        "X",
+        "N",
+        "G",
+        "F",
+        "E",
+        "Cd",
+        "O2",
+        "Xd",
+        "Gly"
+      ]
+    },
+    "47": {
+      "key": [
+        "x0",
+        "LAB020",
+        "full_history",
+        6.0,
+        "states_fixed_parameters"
+      ],
+      "states": [
+        "X",
+        "N",
+        "G",
+        "F",
+        "E",
+        "Cd",
+        "O2"
+      ]
+    },
+    "48": {
+      "key": [
+        "x0",
+        "LAB021",
+        "early",
+        1.0,
+        "with_negative_controls"
+      ],
+      "states": [
+        "X",
+        "N",
+        "G",
+        "F",
+        "E",
+        "Cd",
+        "O2",
+        "Xd",
+        "Gly"
+      ]
+    },
+    "49": {
+      "key": [
+        "x0",
+        "LAB021",
+        "early",
+        1.0,
+        "states_fixed_parameters"
+      ],
+      "states": [
+        "X",
+        "N",
+        "G",
+        "F",
+        "E",
+        "Cd",
+        "O2"
+      ]
+    },
+    "50": {
+      "key": [
+        "x0",
+        "LAB021",
+        "early",
+        3.0,
+        "with_negative_controls"
+      ],
+      "states": [
+        "X",
+        "N",
+        "G",
+        "F",
+        "E",
+        "Cd",
+        "O2",
+        "Xd",
+        "Gly"
+      ]
+    },
+    "51": {
+      "key": [
+        "x0",
+        "LAB021",
+        "early",
+        3.0,
+        "states_fixed_parameters"
+      ],
+      "states": [
+        "X",
+        "N",
+        "G",
+        "F",
+        "E",
+        "Cd",
+        "O2"
+      ]
+    },
+    "52": {
+      "key": [
+        "x0",
+        "LAB021",
+        "early",
+        6.0,
+        "with_negative_controls"
+      ],
+      "states": [
+        "X",
+        "N",
+        "G",
+        "F",
+        "E",
+        "Cd",
+        "O2",
+        "Xd",
+        "Gly"
+      ]
+    },
+    "53": {
+      "key": [
+        "x0",
+        "LAB021",
+        "early",
+        6.0,
+        "states_fixed_parameters"
+      ],
+      "states": [
+        "X",
+        "N",
+        "G",
+        "F",
+        "E",
+        "Cd",
+        "O2"
+      ]
+    },
+    "54": {
+      "key": [
+        "x0",
+        "LAB021",
+        "pre_nutrition",
+        1.0,
+        "with_negative_controls"
+      ],
+      "states": [
+        "X",
+        "N",
+        "G",
+        "F",
+        "E",
+        "Cd",
+        "O2",
+        "Xd",
+        "Gly"
+      ]
+    },
+    "55": {
+      "key": [
+        "x0",
+        "LAB021",
+        "pre_nutrition",
+        1.0,
+        "states_fixed_parameters"
+      ],
+      "states": [
+        "X",
+        "N",
+        "G",
+        "F",
+        "E",
+        "Cd",
+        "O2"
+      ]
+    },
+    "56": {
+      "key": [
+        "x0",
+        "LAB021",
+        "pre_nutrition",
+        3.0,
+        "with_negative_controls"
+      ],
+      "states": [
+        "X",
+        "N",
+        "G",
+        "F",
+        "E",
+        "Cd",
+        "O2",
+        "Xd",
+        "Gly"
+      ]
+    },
+    "57": {
+      "key": [
+        "x0",
+        "LAB021",
+        "pre_nutrition",
+        3.0,
+        "states_fixed_parameters"
+      ],
+      "states": [
+        "X",
+        "N",
+        "G",
+        "F",
+        "E",
+        "Cd",
+        "O2"
+      ]
+    },
+    "58": {
+      "key": [
+        "x0",
+        "LAB021",
+        "pre_nutrition",
+        6.0,
+        "with_negative_controls"
+      ],
+      "states": [
+        "X",
+        "N",
+        "G",
+        "F",
+        "E",
+        "Cd",
+        "O2",
+        "Xd",
+        "Gly"
+      ]
+    },
+    "59": {
+      "key": [
+        "x0",
+        "LAB021",
+        "pre_nutrition",
+        6.0,
+        "states_fixed_parameters"
+      ],
+      "states": [
+        "X",
+        "N",
+        "G",
+        "F",
+        "E",
+        "Cd",
+        "O2"
+      ]
+    },
+    "60": {
+      "key": [
+        "x0",
+        "LAB021",
+        "post_nutrition_history",
+        1.0,
+        "with_negative_controls"
+      ],
+      "states": [
+        "X",
+        "N",
+        "G",
+        "F",
+        "E",
+        "Cd",
+        "O2",
+        "Xd",
+        "Gly"
+      ]
+    },
+    "61": {
+      "key": [
+        "x0",
+        "LAB021",
+        "post_nutrition_history",
+        1.0,
+        "states_fixed_parameters"
+      ],
+      "states": [
+        "X",
+        "N",
+        "G",
+        "F",
+        "E",
+        "Cd",
+        "O2"
+      ]
+    },
+    "62": {
+      "key": [
+        "x0",
+        "LAB021",
+        "post_nutrition_history",
+        3.0,
+        "with_negative_controls"
+      ],
+      "states": [
+        "X",
+        "N",
+        "G",
+        "F",
+        "E",
+        "Cd",
+        "O2",
+        "Xd",
+        "Gly"
+      ]
+    },
+    "63": {
+      "key": [
+        "x0",
+        "LAB021",
+        "post_nutrition_history",
+        3.0,
+        "states_fixed_parameters"
+      ],
+      "states": [
+        "X",
+        "N",
+        "G",
+        "F",
+        "E",
+        "Cd",
+        "O2"
+      ]
+    },
+    "64": {
+      "key": [
+        "x0",
+        "LAB021",
+        "post_nutrition_history",
+        6.0,
+        "with_negative_controls"
+      ],
+      "states": [
+        "X",
+        "N",
+        "G",
+        "F",
+        "E",
+        "Cd",
+        "O2",
+        "Xd",
+        "Gly"
+      ]
+    },
+    "65": {
+      "key": [
+        "x0",
+        "LAB021",
+        "post_nutrition_history",
+        6.0,
+        "states_fixed_parameters"
+      ],
+      "states": [
+        "X",
+        "N",
+        "G",
+        "F",
+        "E",
+        "Cd",
+        "O2"
+      ]
+    },
+    "66": {
+      "key": [
+        "x0",
+        "LAB021",
+        "full_history",
+        1.0,
+        "with_negative_controls"
+      ],
+      "states": [
+        "X",
+        "N",
+        "G",
+        "F",
+        "E",
+        "Cd",
+        "O2",
+        "Xd",
+        "Gly"
+      ]
+    },
+    "67": {
+      "key": [
+        "x0",
+        "LAB021",
+        "full_history",
+        1.0,
+        "states_fixed_parameters"
+      ],
+      "states": [
+        "X",
+        "N",
+        "G",
+        "F",
+        "E",
+        "Cd",
+        "O2"
+      ]
+    },
+    "68": {
+      "key": [
+        "x0",
+        "LAB021",
+        "full_history",
+        3.0,
+        "with_negative_controls"
+      ],
+      "states": [
+        "X",
+        "N",
+        "G",
+        "F",
+        "E",
+        "Cd",
+        "O2",
+        "Xd",
+        "Gly"
+      ]
+    },
+    "69": {
+      "key": [
+        "x0",
+        "LAB021",
+        "full_history",
+        3.0,
+        "states_fixed_parameters"
+      ],
+      "states": [
+        "X",
+        "N",
+        "G",
+        "F",
+        "E",
+        "Cd",
+        "O2"
+      ]
+    },
+    "70": {
+      "key": [
+        "x0",
+        "LAB021",
+        "full_history",
+        6.0,
+        "with_negative_controls"
+      ],
+      "states": [
+        "X",
+        "N",
+        "G",
+        "F",
+        "E",
+        "Cd",
+        "O2",
+        "Xd",
+        "Gly"
+      ]
+    },
+    "71": {
+      "key": [
+        "x0",
+        "LAB021",
+        "full_history",
+        6.0,
+        "states_fixed_parameters"
+      ],
+      "states": [
+        "X",
+        "N",
+        "G",
+        "F",
+        "E",
+        "Cd",
+        "O2"
+      ]
+    },
+    "72": {
+      "key": [
+        "local",
+        "LAB019",
+        "after_gate",
+        1.0,
+        "states_fixed_parameters"
+      ],
+      "states": [
+        "X",
+        "N",
+        "G",
+        "F",
+        "E",
+        "Cd",
+        "O2"
+      ]
+    },
+    "73": {
+      "key": [
+        "local",
+        "LAB019",
+        "after_gate",
+        3.0,
+        "states_fixed_parameters"
+      ],
+      "states": [
+        "X",
+        "N",
+        "G",
+        "F",
+        "E",
+        "Cd",
+        "O2"
+      ]
+    },
+    "74": {
+      "key": [
+        "local",
+        "LAB019",
+        "after_gate",
+        6.0,
+        "states_fixed_parameters"
+      ],
+      "states": [
+        "X",
+        "N",
+        "G",
+        "F",
+        "E",
+        "Cd",
+        "O2"
+      ]
+    },
+    "75": {
+      "key": [
+        "local",
+        "LAB019",
+        "late_pre_nutrition",
+        1.0,
+        "states_fixed_parameters"
+      ],
+      "states": [
+        "X",
+        "N",
+        "G",
+        "F",
+        "E",
+        "Cd",
+        "O2"
+      ]
+    },
+    "76": {
+      "key": [
+        "local",
+        "LAB019",
+        "late_pre_nutrition",
+        3.0,
+        "states_fixed_parameters"
+      ],
+      "states": [
+        "X",
+        "N",
+        "G",
+        "F",
+        "E",
+        "Cd",
+        "O2"
+      ]
+    },
+    "77": {
+      "key": [
+        "local",
+        "LAB019",
+        "late_pre_nutrition",
+        6.0,
+        "states_fixed_parameters"
+      ],
+      "states": [
+        "X",
+        "N",
+        "G",
+        "F",
+        "E",
+        "Cd",
+        "O2"
+      ]
+    },
+    "78": {
+      "key": [
+        "local",
+        "LAB020",
+        "after_gate",
+        1.0,
+        "states_fixed_parameters"
+      ],
+      "states": [
+        "X",
+        "N",
+        "G",
+        "F",
+        "E",
+        "Cd",
+        "O2"
+      ]
+    },
+    "79": {
+      "key": [
+        "local",
+        "LAB020",
+        "after_gate",
+        3.0,
+        "states_fixed_parameters"
+      ],
+      "states": [
+        "X",
+        "N",
+        "G",
+        "F",
+        "E",
+        "Cd",
+        "O2"
+      ]
+    },
+    "80": {
+      "key": [
+        "local",
+        "LAB020",
+        "after_gate",
+        6.0,
+        "states_fixed_parameters"
+      ],
+      "states": [
+        "X",
+        "N",
+        "G",
+        "F",
+        "E",
+        "Cd",
+        "O2"
+      ]
+    },
+    "81": {
+      "key": [
+        "local",
+        "LAB020",
+        "late_pre_nutrition",
+        1.0,
+        "states_fixed_parameters"
+      ],
+      "states": [
+        "X",
+        "N",
+        "G",
+        "F",
+        "E",
+        "Cd",
+        "O2"
+      ]
+    },
+    "82": {
+      "key": [
+        "local",
+        "LAB020",
+        "late_pre_nutrition",
+        3.0,
+        "states_fixed_parameters"
+      ],
+      "states": [
+        "X",
+        "N",
+        "G",
+        "F",
+        "E",
+        "Cd",
+        "O2"
+      ]
+    },
+    "83": {
+      "key": [
+        "local",
+        "LAB020",
+        "late_pre_nutrition",
+        6.0,
+        "states_fixed_parameters"
+      ],
+      "states": [
+        "X",
+        "N",
+        "G",
+        "F",
+        "E",
+        "Cd",
+        "O2"
+      ]
+    },
+    "84": {
+      "key": [
+        "local",
+        "LAB021",
+        "after_gate",
+        1.0,
+        "states_fixed_parameters"
+      ],
+      "states": [
+        "X",
+        "N",
+        "G",
+        "F",
+        "E",
+        "Cd",
+        "O2"
+      ]
+    },
+    "85": {
+      "key": [
+        "local",
+        "LAB021",
+        "after_gate",
+        3.0,
+        "states_fixed_parameters"
+      ],
+      "states": [
+        "X",
+        "N",
+        "G",
+        "F",
+        "E",
+        "Cd",
+        "O2"
+      ]
+    },
+    "86": {
+      "key": [
+        "local",
+        "LAB021",
+        "after_gate",
+        6.0,
+        "states_fixed_parameters"
+      ],
+      "states": [
+        "X",
+        "N",
+        "G",
+        "F",
+        "E",
+        "Cd",
+        "O2"
+      ]
+    },
+    "87": {
+      "key": [
+        "local",
+        "LAB021",
+        "late_pre_nutrition",
+        1.0,
+        "states_fixed_parameters"
+      ],
+      "states": [
+        "X",
+        "N",
+        "G",
+        "F",
+        "E",
+        "Cd",
+        "O2"
+      ]
+    },
+    "88": {
+      "key": [
+        "local",
+        "LAB021",
+        "late_pre_nutrition",
+        3.0,
+        "states_fixed_parameters"
+      ],
+      "states": [
+        "X",
+        "N",
+        "G",
+        "F",
+        "E",
+        "Cd",
+        "O2"
+      ]
+    },
+    "89": {
+      "key": [
+        "local",
+        "LAB021",
+        "late_pre_nutrition",
+        6.0,
+        "states_fixed_parameters"
+      ],
+      "states": [
+        "X",
+        "N",
+        "G",
+        "F",
+        "E",
+        "Cd",
+        "O2"
+      ]
+    },
+    "90": {
+      "key": [
+        "local",
+        "LAB019",
+        "after_gate",
+        1.0,
+        "states_nuisance_projected"
+      ],
+      "states": [
+        "X",
+        "N",
+        "G",
+        "F",
+        "E",
+        "Cd",
+        "O2"
+      ]
+    },
+    "91": {
+      "key": [
+        "local",
+        "LAB019",
+        "after_gate",
+        1.0,
+        "states_and_nuisance"
+      ],
+      "states": [
+        "X",
+        "N",
+        "G",
+        "F",
+        "E",
+        "Cd",
+        "O2",
+        "matrix_gain",
+        "kCO2_release_h",
+        "CO2sat_scale",
+        "bio_scale"
+      ]
+    },
+    "92": {
+      "key": [
+        "local",
+        "LAB019",
+        "after_gate",
+        3.0,
+        "states_nuisance_projected"
+      ],
+      "states": [
+        "X",
+        "N",
+        "G",
+        "F",
+        "E",
+        "Cd",
+        "O2"
+      ]
+    },
+    "93": {
+      "key": [
+        "local",
+        "LAB019",
+        "after_gate",
+        3.0,
+        "states_and_nuisance"
+      ],
+      "states": [
+        "X",
+        "N",
+        "G",
+        "F",
+        "E",
+        "Cd",
+        "O2",
+        "matrix_gain",
+        "kCO2_release_h",
+        "CO2sat_scale",
+        "bio_scale"
+      ]
+    },
+    "94": {
+      "key": [
+        "local",
+        "LAB019",
+        "after_gate",
+        6.0,
+        "states_nuisance_projected"
+      ],
+      "states": [
+        "X",
+        "N",
+        "G",
+        "F",
+        "E",
+        "Cd",
+        "O2"
+      ]
+    },
+    "95": {
+      "key": [
+        "local",
+        "LAB019",
+        "after_gate",
+        6.0,
+        "states_and_nuisance"
+      ],
+      "states": [
+        "X",
+        "N",
+        "G",
+        "F",
+        "E",
+        "Cd",
+        "O2",
+        "matrix_gain",
+        "kCO2_release_h",
+        "CO2sat_scale",
+        "bio_scale"
+      ]
+    },
+    "96": {
+      "key": [
+        "local",
+        "LAB019",
+        "late_pre_nutrition",
+        1.0,
+        "states_nuisance_projected"
+      ],
+      "states": [
+        "X",
+        "N",
+        "G",
+        "F",
+        "E",
+        "Cd",
+        "O2"
+      ]
+    },
+    "97": {
+      "key": [
+        "local",
+        "LAB019",
+        "late_pre_nutrition",
+        1.0,
+        "states_and_nuisance"
+      ],
+      "states": [
+        "X",
+        "N",
+        "G",
+        "F",
+        "E",
+        "Cd",
+        "O2",
+        "matrix_gain",
+        "kCO2_release_h",
+        "CO2sat_scale",
+        "bio_scale"
+      ]
+    },
+    "98": {
+      "key": [
+        "local",
+        "LAB019",
+        "late_pre_nutrition",
+        3.0,
+        "states_nuisance_projected"
+      ],
+      "states": [
+        "X",
+        "N",
+        "G",
+        "F",
+        "E",
+        "Cd",
+        "O2"
+      ]
+    },
+    "99": {
+      "key": [
+        "local",
+        "LAB019",
+        "late_pre_nutrition",
+        3.0,
+        "states_and_nuisance"
+      ],
+      "states": [
+        "X",
+        "N",
+        "G",
+        "F",
+        "E",
+        "Cd",
+        "O2",
+        "matrix_gain",
+        "kCO2_release_h",
+        "CO2sat_scale",
+        "bio_scale"
+      ]
+    },
+    "100": {
+      "key": [
+        "local",
+        "LAB019",
+        "late_pre_nutrition",
+        6.0,
+        "states_nuisance_projected"
+      ],
+      "states": [
+        "X",
+        "N",
+        "G",
+        "F",
+        "E",
+        "Cd",
+        "O2"
+      ]
+    },
+    "101": {
+      "key": [
+        "local",
+        "LAB019",
+        "late_pre_nutrition",
+        6.0,
+        "states_and_nuisance"
+      ],
+      "states": [
+        "X",
+        "N",
+        "G",
+        "F",
+        "E",
+        "Cd",
+        "O2",
+        "matrix_gain",
+        "kCO2_release_h",
+        "CO2sat_scale",
+        "bio_scale"
+      ]
+    },
+    "102": {
+      "key": [
+        "local",
+        "LAB020",
+        "after_gate",
+        1.0,
+        "states_nuisance_projected"
+      ],
+      "states": [
+        "X",
+        "N",
+        "G",
+        "F",
+        "E",
+        "Cd",
+        "O2"
+      ]
+    },
+    "103": {
+      "key": [
+        "local",
+        "LAB020",
+        "after_gate",
+        1.0,
+        "states_and_nuisance"
+      ],
+      "states": [
+        "X",
+        "N",
+        "G",
+        "F",
+        "E",
+        "Cd",
+        "O2",
+        "matrix_gain",
+        "kCO2_release_h",
+        "CO2sat_scale",
+        "bio_scale"
+      ]
+    },
+    "104": {
+      "key": [
+        "local",
+        "LAB020",
+        "after_gate",
+        3.0,
+        "states_nuisance_projected"
+      ],
+      "states": [
+        "X",
+        "N",
+        "G",
+        "F",
+        "E",
+        "Cd",
+        "O2"
+      ]
+    },
+    "105": {
+      "key": [
+        "local",
+        "LAB020",
+        "after_gate",
+        3.0,
+        "states_and_nuisance"
+      ],
+      "states": [
+        "X",
+        "N",
+        "G",
+        "F",
+        "E",
+        "Cd",
+        "O2",
+        "matrix_gain",
+        "kCO2_release_h",
+        "CO2sat_scale",
+        "bio_scale"
+      ]
+    },
+    "106": {
+      "key": [
+        "local",
+        "LAB020",
+        "after_gate",
+        6.0,
+        "states_nuisance_projected"
+      ],
+      "states": [
+        "X",
+        "N",
+        "G",
+        "F",
+        "E",
+        "Cd",
+        "O2"
+      ]
+    },
+    "107": {
+      "key": [
+        "local",
+        "LAB020",
+        "after_gate",
+        6.0,
+        "states_and_nuisance"
+      ],
+      "states": [
+        "X",
+        "N",
+        "G",
+        "F",
+        "E",
+        "Cd",
+        "O2",
+        "matrix_gain",
+        "kCO2_release_h",
+        "CO2sat_scale",
+        "bio_scale"
+      ]
+    },
+    "108": {
+      "key": [
+        "local",
+        "LAB020",
+        "late_pre_nutrition",
+        1.0,
+        "states_nuisance_projected"
+      ],
+      "states": [
+        "X",
+        "N",
+        "G",
+        "F",
+        "E",
+        "Cd",
+        "O2"
+      ]
+    },
+    "109": {
+      "key": [
+        "local",
+        "LAB020",
+        "late_pre_nutrition",
+        1.0,
+        "states_and_nuisance"
+      ],
+      "states": [
+        "X",
+        "N",
+        "G",
+        "F",
+        "E",
+        "Cd",
+        "O2",
+        "matrix_gain",
+        "kCO2_release_h",
+        "CO2sat_scale",
+        "bio_scale"
+      ]
+    },
+    "110": {
+      "key": [
+        "local",
+        "LAB020",
+        "late_pre_nutrition",
+        3.0,
+        "states_nuisance_projected"
+      ],
+      "states": [
+        "X",
+        "N",
+        "G",
+        "F",
+        "E",
+        "Cd",
+        "O2"
+      ]
+    },
+    "111": {
+      "key": [
+        "local",
+        "LAB020",
+        "late_pre_nutrition",
+        3.0,
+        "states_and_nuisance"
+      ],
+      "states": [
+        "X",
+        "N",
+        "G",
+        "F",
+        "E",
+        "Cd",
+        "O2",
+        "matrix_gain",
+        "kCO2_release_h",
+        "CO2sat_scale",
+        "bio_scale"
+      ]
+    },
+    "112": {
+      "key": [
+        "local",
+        "LAB020",
+        "late_pre_nutrition",
+        6.0,
+        "states_nuisance_projected"
+      ],
+      "states": [
+        "X",
+        "N",
+        "G",
+        "F",
+        "E",
+        "Cd",
+        "O2"
+      ]
+    },
+    "113": {
+      "key": [
+        "local",
+        "LAB020",
+        "late_pre_nutrition",
+        6.0,
+        "states_and_nuisance"
+      ],
+      "states": [
+        "X",
+        "N",
+        "G",
+        "F",
+        "E",
+        "Cd",
+        "O2",
+        "matrix_gain",
+        "kCO2_release_h",
+        "CO2sat_scale",
+        "bio_scale"
+      ]
+    },
+    "114": {
+      "key": [
+        "local",
+        "LAB021",
+        "after_gate",
+        1.0,
+        "states_nuisance_projected"
+      ],
+      "states": [
+        "X",
+        "N",
+        "G",
+        "F",
+        "E",
+        "Cd",
+        "O2"
+      ]
+    },
+    "115": {
+      "key": [
+        "local",
+        "LAB021",
+        "after_gate",
+        1.0,
+        "states_and_nuisance"
+      ],
+      "states": [
+        "X",
+        "N",
+        "G",
+        "F",
+        "E",
+        "Cd",
+        "O2",
+        "matrix_gain",
+        "kCO2_release_h",
+        "CO2sat_scale",
+        "bio_scale"
+      ]
+    },
+    "116": {
+      "key": [
+        "local",
+        "LAB021",
+        "after_gate",
+        3.0,
+        "states_nuisance_projected"
+      ],
+      "states": [
+        "X",
+        "N",
+        "G",
+        "F",
+        "E",
+        "Cd",
+        "O2"
+      ]
+    },
+    "117": {
+      "key": [
+        "local",
+        "LAB021",
+        "after_gate",
+        3.0,
+        "states_and_nuisance"
+      ],
+      "states": [
+        "X",
+        "N",
+        "G",
+        "F",
+        "E",
+        "Cd",
+        "O2",
+        "matrix_gain",
+        "kCO2_release_h",
+        "CO2sat_scale",
+        "bio_scale"
+      ]
+    },
+    "118": {
+      "key": [
+        "local",
+        "LAB021",
+        "after_gate",
+        6.0,
+        "states_nuisance_projected"
+      ],
+      "states": [
+        "X",
+        "N",
+        "G",
+        "F",
+        "E",
+        "Cd",
+        "O2"
+      ]
+    },
+    "119": {
+      "key": [
+        "local",
+        "LAB021",
+        "after_gate",
+        6.0,
+        "states_and_nuisance"
+      ],
+      "states": [
+        "X",
+        "N",
+        "G",
+        "F",
+        "E",
+        "Cd",
+        "O2",
+        "matrix_gain",
+        "kCO2_release_h",
+        "CO2sat_scale",
+        "bio_scale"
+      ]
+    },
+    "120": {
+      "key": [
+        "local",
+        "LAB021",
+        "late_pre_nutrition",
+        1.0,
+        "states_nuisance_projected"
+      ],
+      "states": [
+        "X",
+        "N",
+        "G",
+        "F",
+        "E",
+        "Cd",
+        "O2"
+      ]
+    },
+    "121": {
+      "key": [
+        "local",
+        "LAB021",
+        "late_pre_nutrition",
+        1.0,
+        "states_and_nuisance"
+      ],
+      "states": [
+        "X",
+        "N",
+        "G",
+        "F",
+        "E",
+        "Cd",
+        "O2",
+        "matrix_gain",
+        "kCO2_release_h",
+        "CO2sat_scale",
+        "bio_scale"
+      ]
+    },
+    "122": {
+      "key": [
+        "local",
+        "LAB021",
+        "late_pre_nutrition",
+        3.0,
+        "states_nuisance_projected"
+      ],
+      "states": [
+        "X",
+        "N",
+        "G",
+        "F",
+        "E",
+        "Cd",
+        "O2"
+      ]
+    },
+    "123": {
+      "key": [
+        "local",
+        "LAB021",
+        "late_pre_nutrition",
+        3.0,
+        "states_and_nuisance"
+      ],
+      "states": [
+        "X",
+        "N",
+        "G",
+        "F",
+        "E",
+        "Cd",
+        "O2",
+        "matrix_gain",
+        "kCO2_release_h",
+        "CO2sat_scale",
+        "bio_scale"
+      ]
+    },
+    "124": {
+      "key": [
+        "local",
+        "LAB021",
+        "late_pre_nutrition",
+        6.0,
+        "states_nuisance_projected"
+      ],
+      "states": [
+        "X",
+        "N",
+        "G",
+        "F",
+        "E",
+        "Cd",
+        "O2"
+      ]
+    },
+    "125": {
+      "key": [
+        "local",
+        "LAB021",
+        "late_pre_nutrition",
+        6.0,
+        "states_and_nuisance"
+      ],
+      "states": [
+        "X",
+        "N",
+        "G",
+        "F",
+        "E",
+        "Cd",
+        "O2",
+        "matrix_gain",
+        "kCO2_release_h",
+        "CO2sat_scale",
+        "bio_scale"
+      ]
+    }
+  },
+  "scientific_scope": "offline local sensitivity, not formal nonlinear/global observability or EKF validation",
+  "python": "D:\\anaconda3\\envs\\fermentation\\python.exe",
+  "protected_files": 22,
+  "optimizer_calls": 0
+}

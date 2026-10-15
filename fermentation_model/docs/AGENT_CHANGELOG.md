@@ -2,6 +2,26 @@
 
 Registro breve de cambios implementados por agentes en el repositorio.
 
+### 2026-10-07 17:20 HSP
+
+- Archivos: `laboratory_2026/notebooks/EKF/ekf_general_block_diagram.ipynb` (+ `.executed.ipynb` y `ekf_general_block_diagram.png`, regenerados)
+- Cambio: se rehízo por completo el diagrama de bloques del EKF en el mismo notebook: flujo desde INICIO con bloque de inicialización explícito (x̂₀, P₀, Q, R), predicción dividida en dos bloques (estado por f / incertidumbre por el Jacobiano F), actualización con los 7 pasos numerados (h, H, innovación, S, ganancia, corrección, Joseph), by-pass sin medición, lazo k→k+1 y un panel "mapa de matrices" al pie con todas las cantidades por familia (declaradas / fabricadas / calculadas / fuera del algoritmo). Aceptado visualmente tras dos rondas de corrección de colisiones de texto.
+
+### 2026-10-06 19:26 HSP
+
+- Archivos: `laboratory_2026/notebooks/lab013_015_natural_must_co2_model_analysis.ipynb`
+- Cambio: figura diagnóstica de la sección 6 rehecha como grilla 2x3 (CO2 gaseoso arriba, temperatura del logger filtrada abajo, una columna por lote, rango completo 0–192 h), sin leyendas, sin línea de corte y sin texto de exclusión. La temperatura (`Temp_{F1,F2,F3}_{LAB}.csv`) se filtra con el mismo esquema de `lab019_021_theta_full_holdout` (mediana 1min -> mediana móvil centrada 20min -> media móvil centrada 45min), parámetros documentados en markdown y código. `gas_reference` sigue truncado a la ventana offline; celda 14 re-ejecutada en kernel limpio y markdown 13 actualizado.
+
+### 2026-10-06 18:37 HSP
+
+- Archivos: `laboratory_2026/notebooks/lab013_015_natural_must_co2_model_analysis.ipynb`
+- Cambio: la figura diagnóstica de CO2 gaseoso (sección 6) ahora muestra el rango completo de adquisición de los sensores (0–192 h) en vez de cortarse en la ventana offline (~143.5 h); se marca con línea punteada el fin de la ventana offline. `gas_reference` sigue truncado a la ventana offline, por lo que la capa de diagnóstico (sección 16) y los checks finales quedan sin cambio. Celda 14 re-ejecutada en kernel limpio y markdown 13 documentado.
+
+### 2026-10-06 09:48 HSP
+
+- Archivos: `laboratory_2026/notebooks/EKF/ekf_general_block_diagram.ipynb` (+ `.executed.ipynb` y `ekf_general_block_diagram.png`)
+- Cambio: nuevo folder `laboratory_2026/notebooks/EKF/` con notebook standalone (SOURCE + EXECUTED) que genera con matplotlib un diagrama de bloques general del ciclo EKF (predicción/actualización, Jacobianos F y H por linealización, by-pass sin medición, lazo k→k+1 e inicialización), sin referencia al caso de fermentación; la figura se guarda como PNG para reutilizar en la memoria.
+
 ### 2026-09-19 01:07 HSP
 
 - Archivos: `docs/current_model_equations_audit_2026/`, `docs/modelo_fermentacion_CO2_EKF_2026/`, `docs/natural_must_model_calibration_and_estimator_readiness_2026/`, `docs/planning/proximos_lotes_mosto_natural_2026/`
@@ -298,3 +318,198 @@ Registro breve de cambios implementados por agentes en el repositorio.
 
 - Archivos: `laboratory_2026/notebooks/co2_reformulation/02_nutrition_structure_comparison.source.ipynb`, `laboratory_2026/notebooks/co2_reformulation/02_nutrition_structure_comparison.executed.ipynb`, `laboratory_2026/notebooks/co2_reformulation/_nutrition_structure_comparison.py`
 - Cambio: estandarizada la notación de tasas de CO2 por etapa, con tabla de definiciones, equivalencias anteriores y correspondencia con columnas internas. Ecuaciones de las figuras distinguen q_bio, q_base, q_prod, q_out y q_pred, y separan T_N de M_N. EXECUTED regenerado en fermentation; las once figuras permanecen idénticas y las referencias numéricas se conservan, sin cambios al modelo ni parámetros.
+
+### 2026-10-06 09:30 -03:00
+
+- Archivos: `laboratory_2026/notebooks/co2_reformulation/02_nutrition_structure_comparison.source.ipynb`, `laboratory_2026/notebooks/co2_reformulation/02_nutrition_structure_comparison.executed.ipynb`, `laboratory_2026/notebooks/co2_reformulation/_nutrition_structure_comparison.py`
+- Cambio: añadida una figura final LAB019–021 con tres curvas por panel: modelo actual, transitorio dentro de q_bio y esa modificación sin CO2 respiratorio, conservando O2, parámetros antiguos, onset manual y ambos theta. Incluye explicación, ecuaciones, parámetros, diferencias y métricas; pool reintegrado por variante, balance y referencia verificados. EXECUTED regenerado en fermentation con doce figuras; las once anteriores permanecen idénticas. La procedencia azul ausente se trata como referencia archivada opcional, manteniendo obligatorios los inputs científicos y el snapshot congelado.
+
+### 2026-10-06 09:38 -03:00
+
+- Archivos: `laboratory_2026/notebooks/co2_reformulation/02_nutrition_structure_comparison.source.ipynb`, `laboratory_2026/notebooks/co2_reformulation/02_nutrition_structure_comparison.executed.ipynb`
+- Cambio: ampliada la referencia permanente de parámetros antiguos/nuevos con valores, procedencia histórica y snapshot azul, normalización del transitorio y separación respecto de theta, onset e ICs. SOURCE y EXECUTED sincronizados; código, parámetros efectivos y figuras conservados sin reejecución de celdas científicas.
+
+### 2026-10-06 09:44 -03:00
+
+- Archivos: `laboratory_2026/notebooks/co2_reformulation/02_nutrition_structure_comparison.source.ipynb`, `laboratory_2026/notebooks/co2_reformulation/02_nutrition_structure_comparison.executed.ipynb`, `laboratory_2026/notebooks/co2_reformulation/_nutrition_structure_comparison.py`
+- Cambio: incorporado CO2 observado válido en negro a la figura final de tres modelos, distinguido el modelo original en gris y cambiado el pulso nutricional a morado con leyenda. Explicación actualizada y EXECUTED regenerado en fermentation; figura inspeccionada, referencias numéricas verificadas y once figuras anteriores conservadas.
+
+### 2026-10-06 11:26 -03:00
+
+- Archivos: `docs/CO2_equation_simplified.tex`, `docs/CO2_equation_simplified.pdf`
+- Cambio: documentada la variante CO2 con rampa/gain/transitorio dentro de q_bio y sin aporte respiratorio, conservando A y N_ref. Incluye definiciones químicas, unidades, parámetros antiguos/nuevos y theta, convenciones numéricas y procedencia; revisados nueve papers de context/modeling con bibliografía y distinción entre respaldo directo y cierres propios. PDF de 12 páginas compilado y revisado visualmente, valores theta verificados y discrepancia del coeficiente CO2/etanol explicitada, sin cambios al modelo ni notebooks.
+
+### 2026-10-06 12:47 -03:00
+
+- Archivos: `laboratory_2026/notebooks/diagnostics/lab019_021_co2_temperature_shape_audit.ipynb`, `laboratory_2026/notebooks/diagnostics/lab019_021_co2_temperature_shape_audit.executed.ipynb`, `laboratory_2026/notebooks/diagnostics/_co2_temperature_shape_audit.py`
+- Cambio: reconstruida la auditoría térmica con la ecuación simplificada (transitorio en q_bio, O2 conservado y sin aporte respiratorio), capa CO2 antigua y comparación theta_full/theta_defaults con seis defaults explícitos. Recalculados los ajustes térmicos posteriores y la grilla del reloj cinético por theta; conservadas particiones, ICs, dosis y máscaras, con ventanas térmicas, química y exploradores manuales. SOURCE limpio y EXECUTED regenerado en fermentation con 14 figuras inline revisadas; referencia, pulsos, balance y 36 inputs protegidos verificados, sin modificar datos ni parámetros históricos.
+
+### 2026-10-06 13:57 -03:00
+
+- Archivos: `laboratory_2026/notebooks/diagnostics/lab019_021_co2_temperature_shape_audit.ipynb`, `laboratory_2026/notebooks/diagnostics/lab019_021_co2_temperature_shape_audit.executed.ipynb`, `laboratory_2026/notebooks/diagnostics/_co2_temperature_shape_audit.py` (eliminado)
+- Cambio: integradas las funciones de la auditoría en el SOURCE y eliminado su auxiliar Python. Aumentado a 6 g/L el umbral local de G+F predicho consumido, conservando etanol generado de 2 g/L y la condición «o». EXECUTED regenerado en fermentation con 14 figuras y sin errores; verificados referencia simplificada con el nuevo gate, pulsos, balance, parámetros congelados e inputs protegidos.
+
+### 2026-10-06 14:10 -03:00
+
+- Archivos: `laboratory_2026/notebooks/diagnostics/lab019_021_co2_temperature_shape_audit.ipynb`, `laboratory_2026/notebooks/diagnostics/lab019_021_co2_temperature_shape_audit.executed.ipynb`
+- Cambio: incorporadas las 33 mediciones Oculyze de LAB019–LAB021, vinculadas al tiempo de muestreo y convertidas a biomasa viable con 30 pg/célula y viabilidad porcentual. Añadidos puntos X al diagnóstico de estados, comparación de biomasa con cinco relojes cinéticos y ambos theta, y métricas X excluyendo m1. EXECUTED regenerado sin errores con 15 figuras; ajustes y 13 figuras anteriores conservados, inputs protegidos verificados y sin nuevos auxiliares Python.
+
+### 2026-10-07 09:56 -03:00
+
+- Archivos: `laboratory_2026/notebooks/co2_reformulation/03_co2_reformulation_summary.tex`, `laboratory_2026/notebooks/co2_reformulation/03_co2_reformulation_summary.pdf`
+- Cambio: creado resumen académico de cinco páginas con evolución de la ecuación CO2, transitorio y N_ref, tablas de parámetros históricos/snapshot azul y theta, análisis cuantitativo del notebook 02 y expresiones químicas con bibliografía. PDF compilado y revisado visualmente; notebooks y auxiliar conservados sin cambios ni reejecución.
+
+### 2026-10-07 10:14 -03:00
+
+- Archivos: `laboratory_2026/notebooks/co2_reformulation/03_co2_reformulation_summary.tex`, `laboratory_2026/notebooks/co2_reformulation/03_co2_reformulation_summary.pdf`
+- Cambio: sustituidas referencias a colores y snapshots por una explicación autónoma de las dos etapas de calibración, sus LAB y parámetros heredados/reajustados. Explicitados los tres valores previos del ajuste sin LAB010 y la procedencia posterior del transitorio; PDF de cinco páginas recompilado y revisado visualmente, sin modificar notebooks ni parámetros.
+
+### 2026-10-07 10:42 -03:00
+
+- Archivos: `laboratory_2026/notebooks/co2_reformulation/03_co2_reformulation_summary.tex`, `laboratory_2026/notebooks/co2_reformulation/03_co2_reformulation_summary.pdf`
+- Cambio: añadida tabla de notación con las siete tasas CO2, definiciones y unidades, aclarando que q_bio,0 conserva el N inicial. Renumerada tabla de métricas; PDF recompilado y revisado visualmente manteniendo cinco páginas.
+
+### 2026-10-07 11:17 -03:00
+
+- Archivos: `laboratory_2026/notebooks/co2_reformulation/03_co2_reformulation_summary_v2.tex`, `laboratory_2026/notebooks/co2_reformulation/03_co2_reformulation_summary_v2.pdf`, `laboratory_2026/notebooks/co2_reformulation/03_co2_reformulation_summary_v2_figures/`
+- Cambio: creada copia v2 de cinco páginas con dos figuras vectoriales monocromáticas del notebook 02: cruce theta/capa CO2 en LAB017/LAB019 y comparación de ubicación del transitorio/retiro de respiración en LAB021. Curvas reproducidas sin reajuste en fermentation, métricas y diferencias numéricas verificadas; incluidos script y procedencia, PDF compilado y revisado visualmente. Documento original y notebooks conservados.
+
+### 2026-10-07 11:26 -03:00
+
+- Archivos: `laboratory_2026/notebooks/co2_reformulation/03_co2_reformulation_summary_v2.tex`, `laboratory_2026/notebooks/co2_reformulation/03_co2_reformulation_summary_v2.pdf`
+- Cambio: restaurado íntegramente el análisis de resultados del documento original, incluidos picos individuales, errores de área y cantidades de curvas diagnósticas, conservando ambas figuras de v2. PDF ampliado a seis páginas, recompilado y revisado visualmente; verificada conservación del original, notebooks y figuras.
+
+### 2026-10-07 12:05 -03:00
+
+- Archivos: `laboratory_2026/notebooks/co2_reformulation/03_co2_reformulation_summary.tex`, `laboratory_2026/notebooks/co2_reformulation/03_co2_reformulation_summary.pdf`, `laboratory_2026/notebooks/co2_reformulation/03_co2_reformulation_summary_v2.tex`, `laboratory_2026/notebooks/co2_reformulation/03_co2_reformulation_summary_v2.pdf`, sus carpetas de figuras, `laboratory_2026/notebooks/diagnostics/lab019_021_co2_temperature_shape_audit.ipynb`, `laboratory_2026/notebooks/diagnostics/lab019_021_co2_temperature_shape_audit.executed.ipynb`
+- Cambio: unificada nomenclatura theta_defaults, distinguidos umbrales históricos de 5 g/L y térmicos de 6 g/L de G+F (o 2 g/L de etanol), y corregida explicación/metadatos del notebook sin alterar código ni salidas. Añadida evidencia térmica, límites de interpretación y comparaciones vectoriales de CO2/temperatura y biomasa de LAB019–021; actualizadas etiquetas de figuras históricas. Curvas y métricas verificadas sin nuevos ajustes; PDF de ocho y nueve páginas compilados sin advertencias y revisados visualmente, sin nuevos auxiliares Python en el proyecto.
+
+### 2026-10-07 12:32 -03:00
+
+- Archivos: `<repo>/entrega_CO2_LAB013-021_2026-10-07.zip`
+- Cambio: creada entrega incremental con siete análisis principales (SOURCE/EXECUTED disponibles), auditoría de condiciones iniciales requerida, datos originales completos de LAB013–021, documentación y dependencias/artefactos congelados. Incluidos README, manifiesto SHA-256 e informe de verificación; excluidos los notebooks ya compartidos de la imagen y los datos originales anteriores. Integridad ZIP, 504 copias del proyecto e importación/lectura de entradas de los siete análisis verificadas sin repetir optimizaciones; fuentes y datos sin modificaciones.
+
+### 2026-10-07 12:51 -03:00
+
+- Archivos: `<repo>/entrega_CO2_LAB013-021_SOLO_NOTEBOOKS_Y_DATOS_2026-10-07.zip`
+- Cambio: creado ZIP separado limitado a los siete análisis seleccionados y sus EXECUTED disponibles (13 archivos de notebook), más los 51 archivos de datos de LAB013–021. Sin módulos, documentación, resultados auxiliares, manifiestos ni notebooks de apoyo. Verificadas las 64 copias con SHA-256 y conservación íntegra del ZIP anterior; notebooks y datos originales sin cambios.
+
+### 2026-10-07 12:57 -03:00
+
+- Archivos: `<repo>/co2_reformulation.zip`
+- Cambio: añadidos únicamente 03_co2_reformulation_summary_v2.pdf y 03_co2_reformulation_summary_v2.tex en la carpeta co2_reformulation del ZIP. Verificadas por SHA-256 las dos copias y la conservación íntegra de las 64 entradas anteriores; documentos fuente sin cambios.
+
+### 2026-10-07 21:02 -03:00
+
+- Archivos: `laboratory_2026/notebooks/EKF/ekf_general_block_diagram_v2.ipynb`, `laboratory_2026/notebooks/EKF/ekf_general_block_diagram_v2.executed.ipynb`, `laboratory_2026/notebooks/EKF/ekf_general_block_diagram_v2.png`
+- Cambio: creada segunda versión del diagrama EKF con modelo y supuestos de ruido aditivo, transición discreta frente a dinámica continua, notación y dimensiones, interpretación de covarianzas y actualización agrupada en tres etapas. Notebook ejecutado en fermentation y figura revisada visualmente; comprobadas la coincidencia SOURCE/EXECUTED, ausencia de errores y conservación de la imagen y ambos notebooks originales mediante SHA-256.
+
+### 2026-10-07 21:15 -03:00
+
+- Archivos: `laboratory_2026/notebooks/EKF/ekf_general_block_diagram_v2.ipynb`, `laboratory_2026/notebooks/EKF/ekf_general_block_diagram_v2.executed.ipynb`, `laboratory_2026/notebooks/EKF/ekf_general_block_diagram_v2.png`, `laboratory_2026/notebooks/EKF/ekf_general_block_diagram_v2.svg`, `laboratory_2026/notebooks/EKF/ekf_general_block_diagram_paper.png`, `laboratory_2026/notebooks/EKF/ekf_general_block_diagram_paper.svg`
+- Cambio: rehecha la guía v2 en monocromo con un único bloque de predicción y tres pasos numerados; añadida figura compacta formal de dos bloques con tipografía serif, ecuaciones y pie sugerido. Ambas figuras exportadas a PNG y SVG, notebook ejecutado en fermentation y maquetación revisada visualmente. Verificadas las salidas SOURCE/EXECUTED, ausencia de color y conservación de los tres archivos de la primera versión mediante SHA-256.
+
+### 2026-10-08 15:52 -03:00
+
+- Archivos: `laboratory_2026/notebooks/EKF/ekf_general_block_diagram_v2.ipynb`, `laboratory_2026/notebooks/EKF/ekf_general_block_diagram_v2.executed.ipynb`, `laboratory_2026/notebooks/EKF/ekf_general_block_diagram_paper_with_measurement.png`, `laboratory_2026/notebooks/EKF/ekf_general_block_diagram_paper_with_measurement.svg`
+- Cambio: añadida tercera figura simplificada monocromática con decisión explícita de disponibilidad de medición, ramas de corrección y paso directo, salida común y avance del índice temporal. Nueva celda ejecutada en fermentation; verificados SOURCE/EXECUTED, tres figuras sin errores, exportaciones PNG/SVG y maquetación. Conservados los diagramas anteriores mediante SHA-256 y las salidas previas del notebook.
+
+### 2026-10-13 10:28 -03:00
+
+- Archivos: `laboratory_2026/notebooks/EKF/co2_local_observability.source.ipynb`, `laboratory_2026/notebooks/EKF/co2_local_observability.executed.ipynb`, `laboratory_2026/notebooks/EKF/observability_results/`, `laboratory_2026/notebooks/EKF/diagrams/`.
+- Cambio: creado y ejecutado en fermentation el diagnóstico local de CO2 para LAB019–021, con sensibilidad de condiciones iniciales y estados pre-pulso, SVD escalada, parámetros inciertos, información offline hipotética y verificaciones numéricas y de integridad. Conservados datos, calibraciones y ecuaciones originales; SOURCE limpio y EXECUTED con explicación, tablas y cinco figuras revisadas. Reubicados los once archivos de diagramas, ajustadas sus rutas y regenerados ambos EXECUTED. Sin commit ni push.
+
+### 2026-10-13 13:40 -03:00
+
+- Archivos: `laboratory_2026/notebooks/EKF/co2_local_observability.source.ipynb`, `laboratory_2026/notebooks/EKF/co2_local_observability.executed.ipynb`, `laboratory_2026/notebooks/EKF/observability_results/`.
+- Cambio: ampliado el diagnóstico con theta_full frente a theta incompleto con defaults, conservando los parámetros antiguos del notebook 02. Añadidos priors exploratorios, propagación desde t0, información secuencial de CO2 y muestras Y15, simulaciones no lineales y controles de admisibilidad, ESS y estabilidad numérica. Biomasa reciente excluida de validación; SOURCE limpio, EXECUTED y figuras revisados, datos y calibraciones intactos. Sin commit ni push.
+
+### 2026-10-13 16:01 -03:00
+
+- Archivos: `laboratory_2026/notebooks/theta_full_vs_incomplete_defaults_natural_review.ipynb`, `laboratory_2026/notebooks/theta_full_vs_incomplete_defaults_natural_review.executed.ipynb`, `laboratory_2026/results/theta_full_vs_incomplete_defaults_natural_review/nitrogen_diagnostic/`.
+- Cambio: ampliado el notebook existente con diagnóstico químico de N para LAB004–012 y comparación externa LAB013–015, sin usar CO2. Añadidos balances, trazabilidad YAN/PAN/amonio, tasas iniciales, comparación full/defaults y escenarios de biomasa, captación, crecimiento, saturación y temperatura. SOURCE limpio y EXECUTED regenerado en fermentation; verificadas tablas, figuras, reproducción histórica y conservación de datos, parámetros y ecuaciones. Sin commit ni push.
+
+### 2026-10-13 16:16 -03:00
+
+- Archivos: `laboratory_2026/notebooks/theta_full_vs_incomplete_defaults_natural_review.ipynb`, `laboratory_2026/notebooks/theta_full_vs_incomplete_defaults_natural_review.executed.ipynb`.
+- Cambio: corregida la etiqueta del lote sin cruce de N antes del pulso al reducir X0: corresponde a LAB009, no LAB006. Sin cambios de simulaciones ni tablas; verificada la correspondencia SOURCE/EXECUTED y la conservación de resultados e insumos.
+
+### 2026-10-13 17:12 -03:00
+
+- Archivos: `laboratory_2026/nut_sample_audit.py`, `laboratory_2026/notebooks/diagnostics/lab019_021_replica_vs_originals_data_comparison.ipynb`, `laboratory_2026/notebooks/diagnostics/lab019_021_replica_vs_originals_data_comparison.executed.ipynb`, `laboratory_2026/notebooks/EKF/co2_local_observability.source.ipynb`, `laboratory_2026/notebooks/EKF/co2_local_observability.executed.ipynb`, resultados asociados de comparación y observabilidad.
+- Cambio: incorporadas las tres muestras NUT con PAN, amonio, YAN y procedencia, símbolos propios y tiempos provisionales explícitos entre pulso y primer análisis. Añadido contraste reservado de N sobre ese intervalo y reutilización de simulaciones con controles de integridad y código. SOURCE limpios y EXECUTED regenerados en fermentation; verificadas figuras, muestras únicas, canales ausentes y conservación de datos, parámetros y trayectorias. Sin commit ni push.
+
+### 2026-10-14 10:09 -03:00
+
+- Archivos: `laboratory_2026/notebooks/EKF/post_activity_prediction_comparison.source.ipynb`, `laboratory_2026/notebooks/EKF/post_activity_prediction_comparison.executed.ipynb`, `laboratory_2026/notebooks/EKF/_post_activity_prediction.py`, `laboratory_2026/notebooks/EKF/post_activity_prediction_results/`.
+- Cambio: creado y ejecutado en fermentation el diagnóstico de reinicio desde química medida a las 46 y 70,5 h para LAB019–021, con parámetros antiguos y ambos theta, hasta las 166 h y conservando pulsos e historia nutricional. Incluidos reparto G/F explícito cuando falta, sensibilidad de biomasa/CO2 disuelto/O2, contraste reservado de química y NUT, cinco figuras y conclusiones. Verificados 108 escenarios, controles de reloj, continuación y balances, SOURCE limpio, EXECUTED completo e integridad de 25 inputs; sin EKF, reajustes, commit ni push.
+
+### 2026-10-14 11:41 -03:00
+
+- Archivos: `laboratory_2026/notebooks/diagnostics/nitrogen_consumption_diagnosis.source.ipynb`, `laboratory_2026/notebooks/diagnostics/nitrogen_consumption_diagnosis.executed.ipynb`, `laboratory_2026/notebooks/diagnostics/_nitrogen_diagnosis.py`, `laboratory_2026/results/nitrogen_consumption_diagnosis/`.
+- Cambio: creado y ejecutado en fermentation el diagnóstico de consumo de nitrógeno para LAB004–012 y LAB019–021, con parámetros antiguos, ambos theta, horizontes completos y pulsos registrados. Incluidos 336 escenarios, 24 figuras con subfiguras, componentes PAN/amonio, muestras NUT, balances, sensibilidad y contraste con otras variables; reproducida la calibración original y señalados escenarios con recorte de glucosa negativa. Verificados SOURCE limpio, EXECUTED completo, balances e integridad de 25 inputs; sin reajustes, uso de CO2, EKF, commit ni push.
+
+### 2026-10-14 12:51 -03:00
+
+- Archivos: `laboratory_2026/notebooks/diagnostics/nitrogen_consumption_diagnosis.source.ipynb`, `laboratory_2026/notebooks/diagnostics/nitrogen_consumption_diagnosis.executed.ipynb`, `laboratory_2026/results/nitrogen_consumption_diagnosis/`.
+- Cambio: añadida sección final con inóculo común de 7,44 millones de células/mL para LAB019–021, comparación con la inicialización anterior y variante con 85,39 % de viabilidad. Ejecutadas 12 simulaciones nuevas con ambos theta hasta 166 h, conservando pulsos y NUT; incluidas tres figuras, métricas por variable y límites específicos por lab. Verificados balances, condiciones iniciales, SOURCE/EXECUTED e integridad de 25 inputs; sin reajustes, CO2, EKF, commit ni push.
+
+### 2026-10-14 15:07 -03:00
+
+- Archivos: `laboratory_2026/notebooks/diagnostics/nitrogen_consumption_diagnosis.source.ipynb`, `laboratory_2026/notebooks/diagnostics/nitrogen_consumption_diagnosis.executed.ipynb`, `laboratory_2026/results/nitrogen_consumption_diagnosis/`.
+- Cambio: añadida sección 16.2 con biomasa viable ponderada para LAB019–021, cálculo exacto del promedio y aporte del inóculo, hipótesis explícitas y comparación con aporte viable común y referencia anterior. Ejecutadas 12 simulaciones nuevas con ambos theta hasta 166 h; incluidas tres figuras, métricas por lab y contraste NUT, conservando pulsos. Verificadas normalización, balances, métricas, SOURCE/EXECUTED e integridad de 25 inputs; sin nuevos módulos Python, reajustes, CO2, EKF, commit ni push.
+
+### 2026-10-14 15:26 -03:00
+
+- Archivos: `laboratory_2026/notebooks/diagnostics/nitrogen_consumption_diagnosis.source.ipynb`, `laboratory_2026/notebooks/diagnostics/nitrogen_consumption_diagnosis.executed.ipynb`, `laboratory_2026/results/nitrogen_consumption_diagnosis/`.
+- Cambio: añadidos marcadores rellenos y valores de X₀ para las nuevas condiciones iniciales en los paneles de biomasa de 16.1 y 16.2, sustituyendo el punto inicial del proxy anterior y conservando las mediciones posteriores y la curva de referencia. Regeneradas las figuras en fermentation y verificados 24 marcadores, correspondencia SOURCE/EXECUTED e integridad de inputs, trayectorias y métricas; sin nuevos módulos Python, commit ni push.
+
+### 2026-10-14 16:15 -03:00
+
+- Archivos: `laboratory_2026/notebooks/diagnostics/nitrogen_consumption_diagnosis.source.ipynb`, `laboratory_2026/notebooks/diagnostics/nitrogen_consumption_diagnosis.executed.ipynb`, `laboratory_2026/results/nitrogen_consumption_diagnosis/`.
+- Cambio: añadidas secciones 17–21 con residuos y errores por tramo, balances sobre química simultánea, tasas medias, barrido de X₀ y malla de captación/capacidad fermentativa para LAB019–021 y ambos theta. Ejecutadas 450 simulaciones nuevas hasta 166 h con pulsos completos y generadas 12 figuras; distinguidas mejoras estrictas y mejoras que conservan otras variables. Verificados 492 trayectorias, balances, métricas, escalado cinético, SOURCE/EXECUTED e integridad de 25 inputs; sin nuevos módulos Python, adopción de parámetros ajustados, CO2, EKF, commit ni push.
+
+### 2026-10-14 16:56 -03:00
+
+- Archivos: `laboratory_2026/notebooks/diagnostics/nitrogen_consumption_diagnosis.source.ipynb`, `laboratory_2026/notebooks/diagnostics/nitrogen_consumption_diagnosis.executed.ipynb`, `laboratory_2026/results/nitrogen_consumption_diagnosis/`.
+- Cambio: incorporado GF final de LAB019-12 a 166 h como 0 g/L por solicitud del usuario, conservando ambos resultados negativos originales, flag y auditoría explícita. Regenerado todo el notebook en fermentation con el punto marcado y actualizado en figuras, métricas, balances, tasas y barridos. Verificadas 57 celdas, inclusión de una sola observación, métricas recalculadas y conservación exacta de 864 trayectorias y 25 inputs; sin nuevos módulos Python, commit ni push.
+
+### 2026-10-14 17:06 -03:00
+
+- Archivos: `laboratory_2026/notebooks/diagnostics/nitrogen_consumption_diagnosis.source.ipynb`, `laboratory_2026/notebooks/diagnostics/nitrogen_consumption_diagnosis.executed.ipynb`, `laboratory_2026/results/nitrogen_consumption_diagnosis/`.
+- Cambio: simplificadas las figuras por solicitud del usuario: puntos normales para GF final e inicializaciones, NUT como punto y leyenda simple, sin marcadores especiales, leyendas adicionales ni recuadros de X₀. Conservada la explicación en el texto y regeneradas 32 figuras en fermentation con resultados guardados. Verificados SOURCE/EXECUTED y conservación exacta de CSV y trayectorias; sin nuevos módulos Python, commit ni push.
+
+### 2026-10-15 08:59 -03:00
+
+- Archivos: `laboratory_2026/notebooks/diagnostics/nitrogen_consumption_diagnosis.source.ipynb`, `laboratory_2026/notebooks/diagnostics/nitrogen_consumption_diagnosis.executed.ipynb`, `laboratory_2026/results/nitrogen_consumption_diagnosis/separated_N_fermentation_temperature/`.
+- Cambio: añadida sección 22 para separar captación de N, actividad fermentativa y temperatura en LAB019–021, con biomasa viable común/ponderada y ambos parámetros antiguos. Incorporadas rutas térmicas aisladas de crecimiento/fermentación, 13 figuras y errores antes/después del pulso hasta 166 h. Verificadas 204 curvas, 74 simulaciones nuevas, paridad con el RHS oficial, balances, pulsos y métricas recalculadas independientemente; SOURCE limpio y EXECUTED concordante. Datos, calibraciones y resultados anteriores intactos; sin nuevos módulos Python del proyecto, commit ni push.
+
+### 2026-10-15 10:28 -03:00
+
+- Archivos: `laboratory_2026/notebooks/diagnostics/nitrogen_consumption_diagnosis.source.ipynb`, `laboratory_2026/notebooks/diagnostics/nitrogen_consumption_diagnosis.executed.ipynb`, `laboratory_2026/results/nitrogen_consumption_diagnosis/co2_detected_activity/`.
+- Cambio: añadida sección 23 y figura 1×3 de CO₂ para LAB019–021 con referencia anterior, viable común y ponderada, sólo theta_full y parámetros antiguos. Inicio detectado a 30/34/21 h mediante tres bins horarios completos sobre 0,05 g/L/h; Cd inicial estimado con caudal previo, O₂ propagado y gate=1 posterior. Conservadas exactamente la química y las nutriciones hasta 166 h; documentado soporte gaseoso válido hasta 160 h. Verificadas nueve curvas, balances del pool, pulsos, parámetros, métricas independientes, integridad de resultados previos y 77 celdas SOURCE/EXECUTED concordantes; figura revisada visualmente. Sin nuevos módulos Python del proyecto, reajuste, EKF, commit ni push.
+
+### 2026-10-15 10:52 -03:00
+
+- Archivos: `laboratory_2026/notebooks/diagnostics/nitrogen_consumption_diagnosis.source.ipynb`, `laboratory_2026/notebooks/diagnostics/nitrogen_consumption_diagnosis.executed.ipynb`, `laboratory_2026/results/nitrogen_consumption_diagnosis/co2_detected_activity/`.
+- Cambio: añadida sección 23.4 con figura adicional 1×3 de CO₂ usando theta_defaults para referencia anterior, viable común y ponderada; conservada exactamente la figura theta_full. Mismos inicios detectados, parámetros antiguos, mediciones futuras y pulsos hasta 166 h. Exportadas nueve curvas y comparación de errores defaults/full para la misma biomasa; verificados balances, química original, métricas independientes, integridad de resultados previos y 80 celdas SOURCE/EXECUTED concordantes. Figura revisada visualmente; sin nuevos módulos Python del proyecto, commit ni push.
+
+### 2026-10-15 11:18 -03:00
+
+- Archivos: `laboratory_2026/notebooks/diagnostics/nitrogen_consumption_diagnosis.source.ipynb`, `laboratory_2026/notebooks/diagnostics/nitrogen_consumption_diagnosis.executed.ipynb`, `laboratory_2026/results/nitrogen_consumption_diagnosis/co2_causal_sugar_activation/`.
+- Cambio: añadida sección 24 con activación suave basada en consumo predicho de G+F entre 2 y 6 g/L, comparando ambos theta y biomasas viable común/ponderada desde inoculación hasta 166 h. Incorporados control a=1, kernel normalizado por pico analítico con parámetros numéricos antiguos y auditoría separada grid_max. Generadas tres figuras 1×3, errores por soporte e inicio predicho; documentado que la química permanece intacta y queda pendiente la consistencia estequiométrica de la capa. Verificadas 36 curvas, 48 controles por prefijos, balances, pulsos, métricas independientes y 88 celdas SOURCE/EXECUTED concordantes; figuras y resultados previos conservados y revisión visual completa. Sin nuevos módulos Python del proyecto, reajuste, EKF, commit ni push.
+
+### 2026-10-15 11:35 -03:00
+
+- Archivos: `laboratory_2026/notebooks/diagnostics/nitrogen_consumption_diagnosis.source.ipynb`, `laboratory_2026/notebooks/diagnostics/nitrogen_consumption_diagnosis.executed.ipynb`, `laboratory_2026/results/nitrogen_consumption_diagnosis/co2_activation_threshold_comparison/`.
+- Cambio: añadida sección 25 debajo de las figuras anteriores para comparar umbrales causales 2–6, 5–10 y 8–15 g/L en LAB019–021 con ambos theta y biomasas viable común/ponderada. Incorporadas cuatro figuras 3×3 de inicio, máximo y caída hasta 166 h, métricas sobre soporte observado y conclusiones por LAB. Verificadas 36 curvas, 144 prefijos, balances, reproducción del caso 2–6, métricas y tiempos recalculados independientemente; SOURCE limpio y EXECUTED concordante con 96 celdas. Conservadas las 88 celdas previas y sus resultados; cuatro figuras revisadas visualmente. Sin nuevos módulos Python del proyecto, reajuste, EKF, commit ni push.
+
+### 2026-10-15 12:05 -03:00
+
+- Archivos: `laboratory_2026/notebooks/diagnostics/nitrogen_consumption_diagnosis.source.ipynb`, `laboratory_2026/notebooks/diagnostics/nitrogen_consumption_diagnosis.executed.ipynb`, `laboratory_2026/results/nitrogen_consumption_diagnosis/co2_causal_sugar_activation/`.
+- Cambio: añadidas curvas predichas de G+F y etanol como fondo tenue en las dos figuras 1×3 de CO₂ de sección 24, para ambas biomasas, con eje derecho en g/L y explicación en el notebook. Regeneradas y revisadas visualmente ambas figuras; conservados todos los resultados numéricos, las demás celdas y sus salidas. SOURCE/EXECUTED concordantes y SOURCE limpio; sin commit ni push.
+
+### 2026-10-15 12:42 -03:00
+
+- Archivos: `laboratory_2026/notebooks/diagnostics/nitrogen_consumption_diagnosis.source.ipynb`, `laboratory_2026/notebooks/diagnostics/nitrogen_consumption_diagnosis.executed.ipynb`, `laboratory_2026/results/nitrogen_consumption_diagnosis/co2_hard_sugar_activation/`.
+- Cambio: añadida comparación de encendido completo a 2 frente a 6 g/L inmediatamente debajo de la figura de activación suave, con figura 4×3 de activación y caudal para LAB019–021, ambos theta y biomasas. Conservados parámetros antiguos, química y pulsos hasta 166 h; documentado el encendido en el primer nodo que alcanza cada umbral. Verificadas 24 curvas, 96 prefijos, balances, métricas y cruces de umbral; SOURCE limpio y EXECUTED concordante con 99 celdas. Resultados y figuras previos conservados; figura nueva revisada visualmente. Sin nuevos módulos Python del proyecto, commit ni push.

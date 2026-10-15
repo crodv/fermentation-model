@@ -1,0 +1,7 @@
+lab,theta,past_pulse,max_CO2_change_if_history_erased_g_l_h,past_events,future_events
+LAB019,theta_full,True,0.16574871275018754,"[(64.33333333333333, 0.08)]",()
+LAB020,theta_full,False,0.0,[],"((71.66666666666667, 0.08),)"
+LAB021,theta_full,True,0.07649028491307541,"[(47.5, 0.08)]",()
+LAB019,theta_defaults,True,0.08195965950002226,"[(64.33333333333333, 0.08)]",()
+LAB020,theta_defaults,False,0.0,[],"((71.66666666666667, 0.08),)"
+LAB021,theta_defaults,True,0.02486205414466546,"[(47.5, 0.08)]",()

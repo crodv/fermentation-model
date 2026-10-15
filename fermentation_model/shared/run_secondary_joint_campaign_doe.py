@@ -163,7 +163,7 @@ SIGMA = {
 
 O2_HALF_MG_L = 0.5
 N_PHASE_HALF_KG_M3 = 0.035
-CO2_G_PER_G_ETHANOL = 44.01 / (2.0 * 46.07)
+CO2_G_PER_G_ETHANOL = (2*44.01) / (2.0 * 46.07) 
 PARTITION_MODE = "water_ethanol_total_sugar_as_glucose"
 
 

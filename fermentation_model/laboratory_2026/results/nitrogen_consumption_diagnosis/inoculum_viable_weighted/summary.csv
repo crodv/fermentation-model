@@ -1,0 +1,7 @@
+theta,case,median_N_ratio_previous,median_other_ratio_previous,median_N_ratio_common,median_other_ratio_common
+theta_defaults,referencia_anterior,1.0,1.0,2.222530463519408,0.7504067074055002
+theta_defaults,viable_comun_volumen,0.4499375897941511,1.332610689818403,1.0,1.0
+theta_defaults,viable_ponderada,0.36572416689182263,1.5576840995430608,0.8080423342046289,1.1486881869083396
+theta_full,referencia_anterior,1.0,1.0,2.2687917571834064,2.1575950384463622
+theta_full,viable_comun_volumen,0.4407632374517487,0.4634790042528456,1.0,1.0
+theta_full,viable_ponderada,0.3459061274643262,0.6463539238291975,0.784125785088627,1.2937417133026727

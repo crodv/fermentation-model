@@ -1,0 +1,381 @@
+{
+  "source_notebook": "fermentation_model\\laboratory_2026\\notebooks\\co2_reformulation\\02_nutrition_structure_comparison.source.ipynb",
+  "source_sha256": "b772a1513054654bebbd9ea6a83b44fe4d0dc6bab91ca7b17e92fb556a19c636",
+  "source_cells": [
+    17,
+    26,
+    40
+  ],
+  "reproduction_cells": [
+    1,
+    3,
+    8,
+    9,
+    10,
+    11,
+    13,
+    15,
+    19
+  ],
+  "selection": {
+    "figure_1": [
+      "LAB017",
+      "LAB019"
+    ],
+    "figure_2": [
+      "LAB021"
+    ]
+  },
+  "no_refitting": true,
+  "co2_param_sets": {
+    "antiguos": {
+      "kCO2_release_h": 0.4245882713532321,
+      "CO2sat_scale": 0.351389541106575,
+      "O2_qmax_mg_gdw_h": 0.15,
+      "O2_initial_scale": 0.1953996656508908,
+      "pulse_t_rise_h": 64.65870374633818,
+      "pulse_activity_gain": 0.25,
+      "chem_activation_start_fraction": 0.735056695858678,
+      "chem_activation_duration_fraction": 1.063909868135744,
+      "matrix_gain": 3.115756944378268,
+      "A": 0.3,
+      "tau_rise_h": 4.0,
+      "tau_decay_h": 12.0,
+      "kernel_normalization": "grid_max"
+    },
+    "nuevos": {
+      "kCO2_release_h": 0.09695789164781926,
+      "CO2sat_scale": 2.499999999987385,
+      "O2_qmax_mg_gdw_h": 0.253137377347088,
+      "O2_initial_scale": 0.1796055523674549,
+      "pulse_t_rise_h": 56.741847126013056,
+      "pulse_activity_gain": 0.2500105322628576,
+      "chem_activation_start_fraction": 0.7415746393413655,
+      "chem_activation_duration_fraction": 0.4577733073937537,
+      "matrix_gain": 1.4467177092750363,
+      "A": 1.4999999999999942,
+      "tau_rise_h": 0.5403352603100472,
+      "tau_decay_h": 4.399250619548479,
+      "kernel_normalization": "analytic_peak"
+    }
+  },
+  "theta_sets": {
+    "theta_full": {
+      "mu0": 0.0787279167844739,
+      "sN": 8.751445870938538,
+      "qN": 0.0210803824284854,
+      "qXG": 0.0814909864046577,
+      "qXF": 0.0709327065015376,
+      "betaG0": 0.4288780029973869,
+      "sG": 0.0974550987386739,
+      "betaF0": 3.440399174765835,
+      "sF": 0.1782952055176543,
+      "qEG": 1.712806793770099,
+      "qEF": 5.023016750172416,
+      "iG": 0.0560374372695645,
+      "iE": 0.0401679409799797,
+      "Kd0": 0.0001502495478967,
+      "m0": 0.0183385793928771,
+      "gammaG0": 0.1155587913675031,
+      "gammaF0": 0.000100001621599
+    },
+    "theta_antiguo": {
+      "mu0": 0.0787279167844739,
+      "sN": 18.0,
+      "qN": 0.0210803824284854,
+      "qXG": 0.11249999999999999,
+      "qXF": 0.11249999999999999,
+      "betaG0": 0.4288780029973869,
+      "sG": 0.030000000000000002,
+      "betaF0": 3.440399174765835,
+      "sF": 0.030000000000000002,
+      "qEG": 1.712806793770099,
+      "qEF": 5.023016750172416,
+      "iG": 0.0560374372695645,
+      "iE": 0.0401679409799797,
+      "Kd0": 0.0001502495478967,
+      "m0": 0.01,
+      "gammaG0": 0.1155587913675031,
+      "gammaF0": 0.000100001621599
+    }
+  },
+  "onset_manual_h": {
+    "LAB019": 28.0,
+    "LAB020": 32.0,
+    "LAB021": 24.0
+  },
+  "input_initials": {
+    "LAB016": {
+      "X": 0.45,
+      "Xd": 0.0,
+      "N": 0.24433000000000002,
+      "G": 74.05,
+      "F": 77.73,
+      "E": 0.0,
+      "Gly": 1.14
+    },
+    "LAB017": {
+      "X": 0.45,
+      "Xd": 0.0,
+      "N": 0.24433000000000002,
+      "G": 74.05,
+      "F": 77.73,
+      "E": 0.0,
+      "Gly": 1.14
+    },
+    "LAB018": {
+      "X": 0.45,
+      "Xd": 0.0,
+      "N": 0.24433000000000002,
+      "G": 74.05,
+      "F": 77.73,
+      "E": 0.0,
+      "Gly": 1.14
+    },
+    "LAB019": {
+      "X": 0.8594999999999999,
+      "Xd": 0.029996549999999938,
+      "N": 0.26002499999999995,
+      "G": 79.19,
+      "F": 78.97,
+      "E": 12.075372000000002,
+      "Gly": 1.22
+    },
+    "LAB020": {
+      "X": 0.4113,
+      "Xd": 0.004606560000000041,
+      "N": 0.255556,
+      "G": 77.94,
+      "F": 79.52000000000001,
+      "E": 11.917524,
+      "Gly": 1.38
+    },
+    "LAB021": {
+      "X": 0.3999,
+      "Xd": 0.01843539000000001,
+      "N": 0.261202,
+      "G": 80.19,
+      "F": 81.03999999999999,
+      "E": 11.759676,
+      "Gly": 1.28
+    }
+  },
+  "input_pulses_N": {
+    "LAB016": [
+      [
+        56.93555555555555,
+        0.14
+      ]
+    ],
+    "LAB017": [
+      [
+        56.93361111111111,
+        0.14
+      ],
+      [
+        57.13388888888889,
+        0.14
+      ]
+    ],
+    "LAB018": [
+      [
+        56.931666666666665,
+        0.14
+      ]
+    ],
+    "LAB019": [
+      [
+        64.33333333333333,
+        0.08
+      ]
+    ],
+    "LAB020": [
+      [
+        71.66666666666667,
+        0.08
+      ]
+    ],
+    "LAB021": [
+      [
+        47.5,
+        0.08
+      ]
+    ]
+  },
+  "verified_rmse_medians": {
+    "external/vigente/antiguos/theta_full": 0.42718288051316805,
+    "external/vigente/antiguos/theta_antiguo": 0.2046183478130517,
+    "external/vigente/nuevos/theta_full": 0.10944992116850592,
+    "external/vigente/nuevos/theta_antiguo": 0.1931023724026977,
+    "recent/vigente/antiguos/theta_full": 0.3245222154363962,
+    "recent/vigente/antiguos/theta_antiguo": 0.20468876120981286,
+    "recent/vigente/nuevos/theta_full": 0.13701398943699306,
+    "recent/vigente/nuevos/theta_antiguo": 0.13912155887701835
+  },
+  "transient_location_max_difference_g_l_h": 6.661338147750939e-16,
+  "respiration_removal_max_difference_g_l_h": 3.51533797077197e-06,
+  "transient_location_differences": [
+    {
+      "lab": "LAB019",
+      "theta": "theta_full",
+      "variant": "actual",
+      "max_delta_qprod_g_l_h": 0.0,
+      "max_delta_qpred_g_l_h": 0.0,
+      "delta_production_g_l": 0.0,
+      "mass_error": 1.1102230246251565e-16
+    },
+    {
+      "lab": "LAB019",
+      "theta": "theta_full",
+      "variant": "transitorio_bio",
+      "max_delta_qprod_g_l_h": 5.9813532519007236e-65,
+      "max_delta_qpred_g_l_h": 0.0,
+      "delta_production_g_l": -4.673802704521284e-65,
+      "mass_error": 1.1102230246251565e-16
+    },
+    {
+      "lab": "LAB019",
+      "theta": "theta_full",
+      "variant": "sin_respiracion",
+      "max_delta_qprod_g_l_h": 5.291949127170237e-11,
+      "max_delta_qpred_g_l_h": 5.0809897955694794e-11,
+      "delta_production_g_l": -1.503212358649114e-10,
+      "mass_error": 1.1102230246251565e-16
+    },
+    {
+      "lab": "LAB019",
+      "theta": "theta_antiguo",
+      "variant": "actual",
+      "max_delta_qprod_g_l_h": 0.0,
+      "max_delta_qpred_g_l_h": 0.0,
+      "delta_production_g_l": 0.0,
+      "mass_error": 5.551115123125783e-17
+    },
+    {
+      "lab": "LAB019",
+      "theta": "theta_antiguo",
+      "variant": "transitorio_bio",
+      "max_delta_qprod_g_l_h": 0.0,
+      "max_delta_qpred_g_l_h": 0.0,
+      "delta_production_g_l": 0.0,
+      "mass_error": 5.551115123125783e-17
+    },
+    {
+      "lab": "LAB019",
+      "theta": "theta_antiguo",
+      "variant": "sin_respiracion",
+      "max_delta_qprod_g_l_h": 4.235993847356845e-11,
+      "max_delta_qpred_g_l_h": 3.740616150160747e-11,
+      "delta_production_g_l": -1.2028980772089737e-10,
+      "mass_error": 5.551115123125783e-17
+    },
+    {
+      "lab": "LAB020",
+      "theta": "theta_full",
+      "variant": "actual",
+      "max_delta_qprod_g_l_h": 0.0,
+      "max_delta_qpred_g_l_h": 0.0,
+      "delta_production_g_l": 0.0,
+      "mass_error": 5.551115123125783e-17
+    },
+    {
+      "lab": "LAB020",
+      "theta": "theta_full",
+      "variant": "transitorio_bio",
+      "max_delta_qprod_g_l_h": 1.0735732446999309e-55,
+      "max_delta_qpred_g_l_h": 0.0,
+      "delta_production_g_l": -1.0148136800008053e-55,
+      "mass_error": 5.551115123125783e-17
+    },
+    {
+      "lab": "LAB020",
+      "theta": "theta_full",
+      "variant": "sin_respiracion",
+      "max_delta_qprod_g_l_h": 4.051912377784142e-07,
+      "max_delta_qpred_g_l_h": 6.988449327560708e-07,
+      "delta_production_g_l": -2.2940493388970964e-06,
+      "mass_error": 5.551115123125783e-17
+    },
+    {
+      "lab": "LAB020",
+      "theta": "theta_antiguo",
+      "variant": "actual",
+      "max_delta_qprod_g_l_h": 0.0,
+      "max_delta_qpred_g_l_h": 0.0,
+      "delta_production_g_l": 0.0,
+      "mass_error": 5.551115123125783e-17
+    },
+    {
+      "lab": "LAB020",
+      "theta": "theta_antiguo",
+      "variant": "transitorio_bio",
+      "max_delta_qprod_g_l_h": 0.0,
+      "max_delta_qpred_g_l_h": 0.0,
+      "delta_production_g_l": 0.0,
+      "mass_error": 5.551115123125783e-17
+    },
+    {
+      "lab": "LAB020",
+      "theta": "theta_antiguo",
+      "variant": "sin_respiracion",
+      "max_delta_qprod_g_l_h": 3.7980942654489147e-07,
+      "max_delta_qpred_g_l_h": 6.019198642084889e-07,
+      "delta_production_g_l": -2.1156205841361917e-06,
+      "mass_error": 5.551115123125783e-17
+    },
+    {
+      "lab": "LAB021",
+      "theta": "theta_full",
+      "variant": "actual",
+      "max_delta_qprod_g_l_h": 0.0,
+      "max_delta_qpred_g_l_h": 0.0,
+      "delta_production_g_l": 0.0,
+      "mass_error": 1.1102230246251565e-16
+    },
+    {
+      "lab": "LAB021",
+      "theta": "theta_full",
+      "variant": "transitorio_bio",
+      "max_delta_qprod_g_l_h": 1.1102230246251565e-16,
+      "max_delta_qpred_g_l_h": 6.661338147750939e-16,
+      "delta_production_g_l": -3.191891195797325e-16,
+      "mass_error": 1.1102230246251565e-16
+    },
+    {
+      "lab": "LAB021",
+      "theta": "theta_full",
+      "variant": "sin_respiracion",
+      "max_delta_qprod_g_l_h": 1.7520591748358683e-06,
+      "max_delta_qpred_g_l_h": 3.51533797077197e-06,
+      "delta_production_g_l": -8.990150798985224e-06,
+      "mass_error": 1.1102230246251565e-16
+    },
+    {
+      "lab": "LAB021",
+      "theta": "theta_antiguo",
+      "variant": "actual",
+      "max_delta_qprod_g_l_h": 0.0,
+      "max_delta_qpred_g_l_h": 0.0,
+      "delta_production_g_l": 0.0,
+      "mass_error": 5.551115123125783e-17
+    },
+    {
+      "lab": "LAB021",
+      "theta": "theta_antiguo",
+      "variant": "transitorio_bio",
+      "max_delta_qprod_g_l_h": 8.326672684688674e-17,
+      "max_delta_qpred_g_l_h": 3.3306690738754696e-16,
+      "delta_production_g_l": -2.0816681711721685e-16,
+      "mass_error": 5.551115123125783e-17
+    },
+    {
+      "lab": "LAB021",
+      "theta": "theta_antiguo",
+      "variant": "sin_respiracion",
+      "max_delta_qprod_g_l_h": 1.6319192497719903e-06,
+      "max_delta_qpred_g_l_h": 2.956946558149709e-06,
+      "delta_production_g_l": -8.150738878985985e-06,
+      "mass_error": 5.551115123125783e-17
+    }
+  ]
+}

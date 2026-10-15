@@ -1,0 +1,13 @@
+{
+  "total_inoculum_million_cells_ml": 496.77,
+  "viable_inoculum_million_cells_ml": 424.19,
+  "viability_fraction": 0.8539,
+  "reactor_total_million_cells_ml": 7.44,
+  "reactor_concentration_source": "User-calculated dilution; volumes not supplied",
+  "mass_factor_g_l_per_million_cells_ml": 0.03,
+  "screenshot": "inoculum_report.png",
+  "screenshot_sha256": "a46d6c6c53054e7e5904b6cf9d53b030086fc63691095bf26d66a7af7e299d46",
+  "measurement_created": "2026-09-21 17:08; report creation time, not assumed sampling time",
+  "no_second_analytical_dilution": true,
+  "old_raw_data_changed": false
+}

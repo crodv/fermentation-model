@@ -1,0 +1,73 @@
+{
+  "CO2_measurements_loaded_or_needed": false,
+  "fitting_executed": false,
+  "historical_scope": [
+    "LAB004",
+    "LAB005",
+    "LAB006",
+    "LAB007",
+    "LAB008",
+    "LAB009",
+    "LAB010",
+    "LAB011",
+    "LAB012"
+  ],
+  "external_proxy_scope": [
+    "LAB013",
+    "LAB014",
+    "LAB015"
+  ],
+  "historical_is_validation_holdout": false,
+  "reference_parameter_vector": "fermentation_model\\laboratory_2026\\results\\estimability_historical_natural\\theta_natural_full.csv",
+  "pulse_source": "upstream historical calibration; sample_before_action; 80 mg/L",
+  "N_threshold_mg_L": 5,
+  "large_remaining_observation_threshold_mg_L": 20,
+  "historical_labs_with_pred_le_5_obs_gt_20_before_pulse_full": [
+    "LAB004",
+    "LAB005",
+    "LAB006",
+    "LAB007",
+    "LAB008",
+    "LAB009",
+    "LAB010",
+    "LAB011",
+    "LAB012"
+  ],
+  "historical_labs_with_pred_le_5_obs_gt_20_before_pulse_defaults": [
+    "LAB004",
+    "LAB005",
+    "LAB006",
+    "LAB007",
+    "LAB008",
+    "LAB009",
+    "LAB010",
+    "LAB011",
+    "LAB012"
+  ],
+  "max_observed_increase_beyond_declared_N_inputs": {
+    "scope": "replay_calibracion",
+    "batch": "LAB012",
+    "t_a_h": 0.0,
+    "t_b_h": 48.0,
+    "N_a_mg_L": 222.06,
+    "N_b_mg_L": 277.52,
+    "declared_added_N_mg_L": 0.0,
+    "excess_over_no_consumption_bound_mg_L": 55.45999999999998,
+    "excess_gt_5_mg_L": true,
+    "excess_gt_10_mg_L": true,
+    "excess_gt_20_mg_L": true
+  },
+  "max_numerical_invariant_drift_mg_L": 5.156755578106242e-07,
+  "max_prepulse_N_difference_half_X0_vs_half_qN_mg_L": 0.00042218408526084605,
+  "max_reported_YAN_minus_PAN_plus_082NH4_mg_L": 2.842170943040401e-14,
+  "sensitivity_scenarios_per_batch": 11,
+  "uncertainty_or_significance_claim": false,
+  "recent_LAB019_021_biomass_used": false,
+  "limitations": [
+    "pulse ledger unresolved",
+    "external proxy clock and PI/sample-1 alignment",
+    "external E0=0 inherited assumption",
+    "cell-count to biomass conversion",
+    "historical weighting sigmas are not certified assay uncertainties"
+  ]
+}

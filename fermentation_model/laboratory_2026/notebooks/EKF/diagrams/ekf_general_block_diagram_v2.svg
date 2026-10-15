@@ -1,0 +1,979 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="1296pt" height="1476pt" viewBox="0 0 1296 1476" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:date>2026-10-13T10:15:52.758674</dc:date>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.9.2, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 1476 
+L 1296 1476 
+L 1296 0 
+L 0 0 
+z
+" style="fill: #ffffff"/>
+  </g>
+  <g id="axes_1">
+   <g id="line2d_1">
+    <path d="M 557.712 850.6656 
+L 896.4 850.6656 
+L 896.4 1329.67872 
+L 737.424 1329.67872 
+" clip-path="url(#p880a382e1d)" style="fill: none; stroke: #111111; stroke-width: 1.6; stroke-linecap: square"/>
+   </g>
+   <g id="line2d_2">
+    <path d="M 198.288 1329.67872 
+L 73.872 1329.67872 
+L 73.872 460.7712 
+L 239.76 460.7712 
+" clip-path="url(#p880a382e1d)" style="fill: none; stroke: #111111; stroke-width: 1.6; stroke-linecap: square"/>
+   </g>
+   <g id="patch_2">
+    <path d="M 138.8448 279.7488 
+L 789.9552 279.7488 
+Q 799.632 279.7488 799.632 270.00144 
+L 799.632 150.24816 
+Q 799.632 140.5008 789.9552 140.5008 
+L 138.8448 140.5008 
+Q 129.168 140.5008 129.168 150.24816 
+L 129.168 270.00144 
+Q 129.168 279.7488 138.8448 279.7488 
+z
+" clip-path="url(#p880a382e1d)" style="fill: #ffffff; stroke: #111111; stroke-width: 1.5; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_3">
+    <path d="M 138.8448 405.072 
+L 789.9552 405.072 
+Q 799.632 405.072 799.632 395.32464 
+L 799.632 317.34576 
+Q 799.632 307.5984 789.9552 307.5984 
+L 138.8448 307.5984 
+Q 129.168 307.5984 129.168 317.34576 
+L 129.168 395.32464 
+Q 129.168 405.072 138.8448 405.072 
+z
+" clip-path="url(#p880a382e1d)" style="fill: #ffffff; stroke: #111111; stroke-width: 1.5; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_4">
+    <path d="M 249.4368 495.5832 
+L 679.3632 495.5832 
+Q 689.04 495.5832 689.04 485.83584 
+L 689.04 442.66896 
+Q 689.04 432.9216 679.3632 432.9216 
+L 249.4368 432.9216 
+Q 239.76 432.9216 239.76 442.66896 
+L 239.76 485.83584 
+Q 239.76 495.5832 249.4368 495.5832 
+z
+" clip-path="url(#p880a382e1d)" style="fill: #ffffff; stroke: #111111; stroke-width: 1.5; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_5">
+    <path d="M 138.8448 711.4176 
+L 789.9552 711.4176 
+Q 799.632 711.4176 799.632 701.67024 
+L 799.632 554.06736 
+Q 799.632 544.32 789.9552 544.32 
+L 138.8448 544.32 
+Q 129.168 544.32 129.168 554.06736 
+L 129.168 701.67024 
+Q 129.168 711.4176 138.8448 711.4176 
+z
+" clip-path="url(#p880a382e1d)" style="fill: #ffffff; stroke: #111111; stroke-width: 1.5; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_6">
+    <path d="M 290.9088 788.004 
+L 637.8912 788.004 
+Q 647.568 788.004 647.568 778.25664 
+L 647.568 742.05216 
+Q 647.568 732.3048 637.8912 732.3048 
+L 290.9088 732.3048 
+Q 281.232 732.3048 281.232 742.05216 
+L 281.232 778.25664 
+Q 281.232 788.004 290.9088 788.004 
+z
+" clip-path="url(#p880a382e1d)" style="fill: #ffffff; stroke: #111111; stroke-width: 1.5; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_7">
+    <path d="M 371.088 850.6656 
+L 464.4 808.8912 
+L 557.712 850.6656 
+L 464.4 892.44 
+z
+" clip-path="url(#p880a382e1d)" style="fill: #ffffff; stroke: #111111; stroke-width: 1.5; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_8">
+    <path d="M 664.1568 892.44 
+L 886.7232 892.44 
+Q 896.4 892.44 896.4 882.69264 
+L 896.4 811.67616 
+Q 896.4 801.9288 886.7232 801.9288 
+L 664.1568 801.9288 
+Q 654.48 801.9288 654.48 811.67616 
+L 654.48 882.69264 
+Q 654.48 892.44 664.1568 892.44 
+z
+" clip-path="url(#p880a382e1d)" style="fill: #ffffff; stroke: #111111; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_9">
+    <path d="M 138.8448 1268.4096 
+L 789.9552 1268.4096 
+Q 799.632 1268.4096 799.632 1258.66224 
+L 799.632 930.03696 
+Q 799.632 920.2896 789.9552 920.2896 
+L 138.8448 920.2896 
+Q 129.168 920.2896 129.168 930.03696 
+L 129.168 1258.66224 
+Q 129.168 1268.4096 138.8448 1268.4096 
+z
+" clip-path="url(#p880a382e1d)" style="fill: #ffffff; stroke: #111111; stroke-width: 1.5; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_10">
+    <path d="M 207.9648 1365.8832 
+L 727.7472 1365.8832 
+Q 737.424 1365.8832 737.424 1356.13584 
+L 737.424 1306.00656 
+Q 737.424 1296.2592 727.7472 1296.2592 
+L 207.9648 1296.2592 
+Q 198.288 1296.2592 198.288 1306.00656 
+L 198.288 1356.13584 
+Q 198.288 1365.8832 207.9648 1365.8832 
+z
+" clip-path="url(#p880a382e1d)" style="fill: #ffffff; stroke: #111111; stroke-width: 1.5; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_11">
+    <path d="M 926.8128 335.448 
+L 1246.1472 335.448 
+Q 1255.824 335.448 1255.824 325.70064 
+L 1255.824 150.24816 
+Q 1255.824 140.5008 1246.1472 140.5008 
+L 926.8128 140.5008 
+Q 917.136 140.5008 917.136 150.24816 
+L 917.136 325.70064 
+Q 917.136 335.448 926.8128 335.448 
+z
+" clip-path="url(#p880a382e1d)" style="fill: #ffffff; stroke: #111111; stroke-width: 1.5; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_12">
+    <path d="M 926.8128 634.8312 
+L 1246.1472 634.8312 
+Q 1255.824 634.8312 1255.824 625.08384 
+L 1255.824 373.04496 
+Q 1255.824 363.2976 1246.1472 363.2976 
+L 926.8128 363.2976 
+Q 917.136 363.2976 917.136 373.04496 
+L 917.136 625.08384 
+Q 917.136 634.8312 926.8128 634.8312 
+z
+" clip-path="url(#p880a382e1d)" style="fill: #ffffff; stroke: #111111; stroke-width: 1.5; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_13">
+    <path d="M 926.8128 941.1768 
+L 1246.1472 941.1768 
+Q 1255.824 941.1768 1255.824 931.42944 
+L 1255.824 672.42816 
+Q 1255.824 662.6808 1246.1472 662.6808 
+L 926.8128 662.6808 
+Q 917.136 662.6808 917.136 672.42816 
+L 917.136 931.42944 
+Q 917.136 941.1768 926.8128 941.1768 
+z
+" clip-path="url(#p880a382e1d)" style="fill: #ffffff; stroke: #111111; stroke-width: 1.5; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_14">
+    <path d="M 926.8128 1365.8832 
+L 1246.1472 1365.8832 
+Q 1255.824 1365.8832 1255.824 1356.13584 
+L 1255.824 978.77376 
+Q 1255.824 969.0264 1246.1472 969.0264 
+L 926.8128 969.0264 
+Q 917.136 969.0264 917.136 978.77376 
+L 917.136 1356.13584 
+Q 917.136 1365.8832 926.8128 1365.8832 
+z
+" clip-path="url(#p880a382e1d)" style="fill: #ffffff; stroke: #111111; stroke-width: 1.5; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_15">
+    <path d="M 464.4 279.7488 
+Q 464.4 293.6736 464.4 305.809546 
+" clip-path="url(#p880a382e1d)" style="fill: none; stroke: #111111; stroke-width: 1.6; stroke-linecap: round"/>
+    <path d="M 467.4 299.809546 
+L 464.4 305.809546 
+L 461.4 299.809546 
+z
+" clip-path="url(#p880a382e1d)" style="fill: #111111; stroke: #111111; stroke-width: 1.6; stroke-linecap: round"/>
+   </g>
+   <g id="patch_16">
+    <path d="M 464.4 405.072 
+Q 464.4 418.9968 464.4 431.132746 
+" clip-path="url(#p880a382e1d)" style="fill: none; stroke: #111111; stroke-width: 1.6; stroke-linecap: round"/>
+    <path d="M 467.4 425.132746 
+L 464.4 431.132746 
+L 461.4 425.132746 
+z
+" clip-path="url(#p880a382e1d)" style="fill: #111111; stroke: #111111; stroke-width: 1.6; stroke-linecap: round"/>
+   </g>
+   <g id="patch_17">
+    <path d="M 464.4 495.5832 
+Q 464.4 519.9516 464.4 542.531146 
+" clip-path="url(#p880a382e1d)" style="fill: none; stroke: #111111; stroke-width: 1.6; stroke-linecap: round"/>
+    <path d="M 467.4 536.531146 
+L 464.4 542.531146 
+L 461.4 536.531146 
+z
+" clip-path="url(#p880a382e1d)" style="fill: #111111; stroke: #111111; stroke-width: 1.6; stroke-linecap: round"/>
+   </g>
+   <g id="patch_18">
+    <path d="M 464.4 711.4176 
+Q 464.4 721.8612 464.4 730.515946 
+" clip-path="url(#p880a382e1d)" style="fill: none; stroke: #111111; stroke-width: 1.6; stroke-linecap: round"/>
+    <path d="M 467.4 724.515946 
+L 464.4 730.515946 
+L 461.4 724.515946 
+z
+" clip-path="url(#p880a382e1d)" style="fill: #111111; stroke: #111111; stroke-width: 1.6; stroke-linecap: round"/>
+   </g>
+   <g id="patch_19">
+    <path d="M 464.4 788.004 
+Q 464.4 798.4476 464.4 807.102346 
+" clip-path="url(#p880a382e1d)" style="fill: none; stroke: #111111; stroke-width: 1.6; stroke-linecap: round"/>
+    <path d="M 467.4 801.102346 
+L 464.4 807.102346 
+L 461.4 801.102346 
+z
+" clip-path="url(#p880a382e1d)" style="fill: #111111; stroke: #111111; stroke-width: 1.6; stroke-linecap: round"/>
+   </g>
+   <g id="patch_20">
+    <path d="M 464.4 892.44 
+Q 464.4 906.3648 464.4 918.500746 
+" clip-path="url(#p880a382e1d)" style="fill: none; stroke: #111111; stroke-width: 1.6; stroke-linecap: round"/>
+    <path d="M 467.4 912.500746 
+L 464.4 918.500746 
+L 461.4 912.500746 
+z
+" clip-path="url(#p880a382e1d)" style="fill: #111111; stroke: #111111; stroke-width: 1.6; stroke-linecap: round"/>
+   </g>
+   <g id="patch_21">
+    <path d="M 896.4 1329.67872 
+Q 816.912 1329.67872 739.212854 1329.67872 
+" clip-path="url(#p880a382e1d)" style="fill: none; stroke: #111111; stroke-width: 1.6; stroke-linecap: round"/>
+    <path d="M 745.212854 1332.67872 
+L 739.212854 1329.67872 
+L 745.212854 1326.67872 
+z
+" clip-path="url(#p880a382e1d)" style="fill: #111111; stroke: #111111; stroke-width: 1.6; stroke-linecap: round"/>
+   </g>
+   <g id="patch_22">
+    <path d="M 557.712 850.6656 
+Q 606.096 850.6656 652.691146 850.6656 
+" clip-path="url(#p880a382e1d)" style="fill: none; stroke: #111111; stroke-width: 1.6; stroke-linecap: round"/>
+    <path d="M 646.691146 847.6656 
+L 652.691146 850.6656 
+L 646.691146 853.6656 
+z
+" clip-path="url(#p880a382e1d)" style="fill: #111111; stroke: #111111; stroke-width: 1.6; stroke-linecap: round"/>
+   </g>
+   <g id="patch_23">
+    <path d="M 751.248 911.93472 
+Q 751.248 916.11216 751.248 918.500746 
+" clip-path="url(#p880a382e1d)" style="fill: none; stroke: #111111; stroke-width: 1.6; stroke-linecap: round"/>
+    <path d="M 754.248 912.500746 
+L 751.248 918.500746 
+L 748.248 912.500746 
+z
+" clip-path="url(#p880a382e1d)" style="fill: #111111; stroke: #111111; stroke-width: 1.6; stroke-linecap: round"/>
+   </g>
+   <g id="line2d_3">
+    <path d="M 146.448 1085.99472 
+L 782.352 1085.99472 
+" clip-path="url(#p880a382e1d)" style="fill: none; stroke: #b0b0b0; stroke-width: 0.9; stroke-linecap: square"/>
+   </g>
+   <g id="line2d_4">
+    <path d="M 146.448 1174.4172 
+L 782.352 1174.4172 
+" clip-path="url(#p880a382e1d)" style="fill: none; stroke: #b0b0b0; stroke-width: 0.9; stroke-linecap: square"/>
+   </g>
+   <g id="patch_24">
+    <path d="M 464.4 1268.4096 
+Q 464.4 1282.3344 464.4 1294.470346 
+" clip-path="url(#p880a382e1d)" style="fill: none; stroke: #111111; stroke-width: 1.6; stroke-linecap: round"/>
+    <path d="M 467.4 1288.470346 
+L 464.4 1294.470346 
+L 461.4 1288.470346 
+z
+" clip-path="url(#p880a382e1d)" style="fill: #111111; stroke: #111111; stroke-width: 1.6; stroke-linecap: round"/>
+   </g>
+   <g id="patch_25">
+    <path d="M 73.872 460.7712 
+Q 156.816 460.7712 237.971146 460.7712 
+" clip-path="url(#p880a382e1d)" style="fill: none; stroke: #111111; stroke-width: 1.6; stroke-linecap: round"/>
+    <path d="M 231.971146 457.7712 
+L 237.971146 460.7712 
+L 231.971146 463.7712 
+z
+" clip-path="url(#p880a382e1d)" style="fill: #111111; stroke: #111111; stroke-width: 1.6; stroke-linecap: round"/>
+   </g>
+   <g id="text_1">
+    <text style="fill: #111111; font: 700 23px 'DejaVu Sans'; text-anchor: middle" x="654.48" y="63.668719" transform="rotate(-0 654.48 63.668719)">Filtro de Kalman extendido · guía de memoria</text>
+   </g>
+   <g id="text_2">
+    <text style="fill: #444444; font: 13px 'DejaVu Sans'; text-anchor: middle" x="654.48" y="97.519126" transform="rotate(-0 654.48 97.519126)">Versión 2   |   secuencia de cálculo · tiempo discreto · ruido aditivo</text>
+   </g>
+   <g id="text_3">
+    <text style="fill: #111111; font: 700 13px 'DejaVu Sans'; text-anchor: start" x="149.904" y="167.063908" transform="rotate(-0 149.904 167.063908)">MODELO Y SUPUESTOS</text>
+   </g>
+   <g id="text_4">
+    <!-- $\mathbf{x}_{k+1}=\mathbf{f}(\mathbf{x}_k,\mathbf{u}_k)+\mathbf{w}_k$ -->
+    <g style="fill: #111111" transform="translate(149.904 201.731542)">
+     <text>
+      <tspan style="font: 700 15px 'DejaVu Sans'" x="0 54.292236 66.670166 90.670166 132.248291" y="-0.609375">xfxuw</tspan>
+      <tspan style="font: oblique 10.5px 'DejaVu Sans'" x="9.818848 76.489014 101.492432 146.249268" y="1.8515625">kkkk</tspan>
+      <tspan style="font: 10.5px 'DejaVu Sans'" x="17.945068 28.788574" y="1.8515625">+1</tspan>
+      <tspan style="font: 15px 'DejaVu Sans'" x="38.801514 60.818115 82.979736 107.983154 116.757568" y="-0.609375">=(,)+</tspan>
+     </text>
+    </g>
+   </g>
+   <g id="text_5">
+    <!-- $\mathbf{z}_{k+1}=\mathbf{h}(\mathbf{x}_{k+1})+\mathbf{v}_{k+1}$ -->
+    <g style="fill: #111111" transform="translate(467.856 201.731542)">
+     <text>
+      <tspan style="font: 700 15px 'DejaVu Sans'" x="0 53.347412 69.878174 130.022461" y="-0.609375">zhxv</tspan>
+      <tspan style="font: oblique 10.5px 'DejaVu Sans'" x="8.874023 79.697021 139.943848" y="1.8515625">kkk</tspan>
+      <tspan style="font: 10.5px 'DejaVu Sans'" x="17.000244 27.84375 87.823242 98.666748 148.070068 158.913574" y="1.8515625">+1+1+1</tspan>
+      <tspan style="font: 15px 'DejaVu Sans'" x="37.856689 64.026123 105.757324 114.531738" y="-0.609375">=()+</tspan>
+     </text>
+    </g>
+   </g>
+   <g id="text_6">
+    <!-- $\mathbf{w}_k\sim\mathcal{N}(\mathbf{0},\mathbf{Q}_k)$ -->
+    <g style="fill: #111111" transform="translate(149.904 236.005886)">
+     <text>
+      <tspan style="font: 700 13px 'DejaVu Sans'" x="0 51.230267 66.940717" y="-0.671875">w0Q</tspan>
+      <tspan style="font: oblique 9.1px 'DejaVu Sans'" x="12.13418 78.1164" y="1.4609375">kk</tspan>
+      <tspan style="font: 13px 'DejaVu Sans'" x="20.292188 46.15849 60.275677 83.741693" y="-0.671875">∼(,)</tspan>
+      <tspan style="font: italic 13px 'STIXNonUnicode'" x="33.71748" y="-0.671875"></tspan>
+     </text>
+    </g>
+   </g>
+   <g id="text_7">
+    <!-- $\mathbf{v}_{k+1}\sim\mathcal{N}(\mathbf{0},\mathbf{R}_{k+1})$ -->
+    <g style="fill: #111111" transform="translate(467.856 236.005886)">
+     <text>
+      <tspan style="font: 700 13px 'DejaVu Sans'" x="0 64.654926 80.365375" y="-0.671875">v0R</tspan>
+      <tspan style="font: oblique 9.1px 'DejaVu Sans'" x="8.598535 90.500043" y="1.4609375">kk</tspan>
+      <tspan style="font: 9.1px 'DejaVu Sans'" x="15.64126 25.038965 97.542767 106.940472" y="1.4609375">+1+1</tspan>
+      <tspan style="font: 13px 'DejaVu Sans'" x="33.716846 59.583148 73.700336 113.085638" y="-0.671875">∼(,)</tspan>
+      <tspan style="font: italic 13px 'STIXNonUnicode'" x="47.142139" y="-0.671875"></tspan>
+     </text>
+    </g>
+   </g>
+   <g id="text_8">
+    <text style="fill: #444444; font: 11.5px 'DejaVu Sans'; text-anchor: start" x="149.904" y="265.049841" transform="rotate(-0 149.904 265.049841)">Ruidos blancos, independientes entre sí y del error inicial.</text>
+   </g>
+   <g id="text_9">
+    <text style="fill: #111111; font: 700 13px 'DejaVu Sans'; text-anchor: start" x="149.904" y="335.553988" transform="rotate(-0 149.904 335.553988)">0 · INICIALIZAR UNA VEZ</text>
+   </g>
+   <g id="text_10">
+    <!-- $\hat{\mathbf{x}}_0^+$: estimación inicial -->
+    <g style="fill: #111111" transform="translate(149.904 369.41832)">
+     <text>
+      <tspan style="font: 12.8px 'DejaVu Sans'" x="8.251057 19.722789 24.034236 28.101985 35.975063 42.642177 47.659694 51.215068 63.680767 71.522594 78.558376 82.11375 89.94308 98.0536 102.121349 105.676723 113.787242 117.342617 124.378398 127.933773 135.7756" y="-1.765625 -0.33750000000000036 -0.33750000000000036 -0.33750000000000036 -0.33750000000000036 -0.33750000000000036 -0.33750000000000036 -0.33750000000000036 -0.33750000000000036 -0.33750000000000036 -0.33750000000000036 -0.33750000000000036 -0.33750000000000036 -0.33750000000000036 -0.33750000000000036 -0.33750000000000036 -0.33750000000000036 -0.33750000000000036 -0.33750000000000036 -0.33750000000000036 -0.33750000000000036">̂: estimación inicial</tspan>
+      <tspan style="font: 700 12.8px 'DejaVu Sans'" x="0" y="-0.33750000000000036">x</tspan>
+      <tspan style="font: 8.96px 'DejaVu Sans'" x="8.376727 10.121924" y="3.1624999999999996 -5.2375">0+</tspan>
+     </text>
+    </g>
+   </g>
+   <g id="text_11">
+    <!-- $\mathbf{P}_0^+$: covarianza inicial del error -->
+    <g style="fill: #111111" transform="translate(481.68 368.62632)">
+     <text>
+      <tspan style="font: 700 12px 'DejaVu Sans'" x="0" y="-0.13437500000000036">P</tspan>
+      <tspan style="font: 8.4px 'DejaVu Sans'" x="8.909766 10.546289" y="3.1468749999999996 -4.728125">0+</tspan>
+      <tspan style="font: 12px 'DejaVu Sans'" x="19.549219 23.592188 27.406641 34.004297 41.346094 48.447656 55.801172 60.734766 64.06875 71.422266 79.027734 85.326562 92.680078 96.494531 99.828516 107.433984 110.767969 117.365625 120.699609 128.053125 131.387109 135.201562 142.81875 150.201562 153.535547 157.35 164.732812 169.666406 174.6 181.941797" y="-0.13437500000000036">: covarianza inicial del error</tspan>
+     </text>
+    </g>
+   </g>
+   <g id="text_12">
+    <text style="fill: #444444; font: 11.3px 'DejaVu Sans'; text-anchor: start" x="149.904" y="394.265294" transform="rotate(-0 149.904 394.265294)">Especificar los modelos f, h y las covarianzas Q, R (constantes o variables).</text>
+   </g>
+   <g id="text_13">
+    <!-- $\hat{\mathbf{x}}_k^+,\ \mathbf{P}_k^+$ -->
+    <g style="fill: #111111" transform="translate(432.32 462.41)">
+     <text>
+      <tspan style="font: 16px 'DejaVu Sans'" x="10.080078 24.659375" y="-2.203125 -0.421875">̂,</tspan>
+      <tspan style="font: 700 16px 'DejaVu Sans'" x="0 38.057761" y="-0.421875">xP</tspan>
+      <tspan style="font: 11.2px 'DejaVu Sans'" x="12.655469 52.119479" y="-6.55625">++</tspan>
+      <tspan style="font: oblique 11.2px 'DejaVu Sans'" x="10.473437 49.937448" y="3.953125">kk</tspan>
+     </text>
+    </g>
+   </g>
+   <g id="text_14">
+    <!-- Creencia disponible en $t_k$ -->
+    <g style="fill: #444444" transform="translate(395.265 485.37964)">
+     <text>
+      <tspan style="font: 11px 'DejaVu Sans'" x="0 7.680664 12.203125 18.970703 25.738281 32.709961 38.757812 41.813965 48.554688 52.05127 59.033691 62.089844 67.820801 74.803223 81.533203 88.504883 91.561035 98.543457 101.599609 108.367188 111.86377 118.631348 125.603027" y="-0.640625">Creencia disponible en </tspan>
+      <tspan style="font: oblique 11px 'DejaVu Sans'" x="129.099609" y="-0.640625">t</tspan>
+      <tspan style="font: oblique 7.7px 'DejaVu Sans'" x="133.412598" y="1.1640625">k</tspan>
+     </text>
+    </g>
+   </g>
+   <g id="text_15">
+    <text style="fill: #111111; font: 700 13px 'DejaVu Sans'; text-anchor: start" x="149.904" y="570.883108" transform="rotate(-0 149.904 570.883108)">1 · PREDICCIÓN</text>
+   </g>
+   <g id="text_16">
+    <!-- Entradas: $\mathbf{u}_k,\ \mathbf{Q}_k$ -->
+    <g style="fill: #111111" transform="translate(689.323 570.469201)">
+     <text>
+      <tspan style="font: 11.5px 'DejaVu Sans'" x="0 7.266113 14.554688 19.063721 23.791748 30.838867 38.138672 45.185791 51.177246 55.051758 71.981094" y="-0.265625">Entradas: ,</tspan>
+      <tspan style="font: 700 11.5px 'DejaVu Sans'" x="58.707275 81.611183" y="-0.265625">uQ</tspan>
+      <tspan style="font: oblique 8.05px 'DejaVu Sans'" x="67.004482 91.497502" y="1.6234374999999996">kk</tspan>
+     </text>
+    </g>
+   </g>
+   <g id="text_17">
+    <!-- ①  $\hat{\mathbf{x}}_{k+1}^{-}=\mathbf{f}(\hat{\mathbf{x}}_k^+,\mathbf{u}_k)$ -->
+    <g style="fill: #111111" transform="translate(156.816 608.3004)">
+     <text>
+      <tspan style="font: 15px 'DejaVu Sans'" x="0 13.447266 18.215332 32.495972 61.784912 83.801514 99.166138 112.771729 137.775146" y="-0.328125 -0.328125 -0.328125 -2.0 -0.328125 -0.328125 -2.0 -0.328125 -0.328125">①  ̂=(̂,)</tspan>
+      <tspan style="font: 700 15px 'DejaVu Sans'" x="22.983398 77.275635 89.653564 120.462158" y="-0.328125">xfxu</tspan>
+      <tspan style="font: 10.5px 'DejaVu Sans'" x="32.802246 40.928467 51.771973 101.518066" y="-6.075 3.7734375 3.7734375 -6.0749999999999975">−+1+</tspan>
+      <tspan style="font: oblique 10.5px 'DejaVu Sans'" x="32.802246 99.472412 131.284424" y="3.7734375 3.7734375 2.1328125">kkk</tspan>
+     </text>
+    </g>
+   </g>
+   <g id="text_18">
+    <text style="fill: #111111; font: 11.5px 'DejaVu Sans'; text-anchor: start" x="516.24" y="606.673681" transform="rotate(-0 516.24 606.673681)">Predecir el estado.</text>
+   </g>
+   <g id="text_19">
+    <!-- ②  $\mathbf{F}_k=\left.\frac{\partial\mathbf{f}}{\partial\mathbf{x}}\right|_{\hat{\mathbf{x}}_k^+,\mathbf{u}_k}$ -->
+    <g style="fill: #111111" transform="translate(156.816 652.70976)">
+     <text>
+      <tspan style="font: 15px 'DejaVu Sans'" x="0 13.447266 18.215332 42.786621" y="-0.3031250000000014">②  =</tspan>
+      <tspan style="font: 700 15px 'DejaVu Sans'" x="22.983398" y="-0.3031250000000014">F</tspan>
+      <tspan style="font: oblique 10.5px 'DejaVu Sans'" x="33.373535" y="2.1578124999999986">k</tspan>
+      <tspan style="font: 10.5px 'DejaVu Sans'" x="58.277344 59.277344 86.168808 95.392722" y="4.770312499999999 -7.026562500000001 0.9781249999999986 2.1578124999999986">∂∂̂,</tspan>
+      <tspan style="font: 700 10.5px 'DejaVu Sans'" x="63.706787 64.706787 79.210007 100.776022" y="4.770312499999999 -7.026562500000001 2.1578124999999986 2.1578124999999986">xfxu</tspan>
+      <tspan style="font: 19.923437px 'DejaVu Sans'" x="72.354492" y="0.22031249999999858">|</tspan>
+      <tspan style="font: 7.35px 'DejaVu Sans'" x="87.515158" y="-1.8649999999999984">+</tspan>
+      <tspan style="font: oblique 7.35px 'DejaVu Sans'" x="86.0832 108.351608" y="5.028906249999999 3.8804687499999986">kk</tspan>
+     </text>
+     <rect x="58.277344" y="-4.123438" width="12.202148" height="0.9375"/>
+    </g>
+   </g>
+   <g id="text_20">
+    <text style="fill: #111111; font: 13px 'DejaVu Sans'; text-anchor: end" x="148.5216" y="651.646948" transform="rotate(-0 148.5216 651.646948)">★</text>
+   </g>
+   <g id="text_21">
+    <text style="fill: #111111; font: 11.5px 'DejaVu Sans'; text-anchor: start" x="516.24" y="651.418119" transform="rotate(-0 516.24 651.418119)">Evaluar el Jacobiano de la transición.</text>
+   </g>
+   <g id="text_22">
+    <!-- ③  $\mathbf{P}_{k+1}^{-}=\mathbf{F}_k\mathbf{P}_k^+\mathbf{F}_k^\top+\mathbf{Q}_k$ -->
+    <g style="fill: #111111" transform="translate(156.816 692.24544)">
+     <text>
+      <tspan style="font: 15px 'DejaVu Sans'" x="0 13.447266 18.215332 63.103271 146.871826" y="-0.9031250000000028">③  =+</tspan>
+      <tspan style="font: 700 15px 'DejaVu Sans'" x="22.983398 78.593994 95.474854 119.911377 162.362549" y="-0.9031250000000028">PFPFQ</tspan>
+      <tspan style="font: 10.5px 'DejaVu Sans'" x="34.120605 42.246826 53.090332 108.657715 132.347168" y="-6.650000000000003 3.198437499999997 3.198437499999997 -6.65 -6.65">−+1+⊤</tspan>
+      <tspan style="font: oblique 10.5px 'DejaVu Sans'" x="34.120605 88.984131 106.612061 130.301514 175.257568" y="3.198437499999997 1.5578124999999972 3.198437499999997 3.198437499999997 1.5578124999999972">kkkkk</tspan>
+     </text>
+    </g>
+   </g>
+   <g id="text_23">
+    <text style="fill: #111111; font: 11.5px 'DejaVu Sans'; text-anchor: start" x="516.24" y="690.918721" transform="rotate(-0 516.24 690.918721)">Predecir la covarianza del error.</text>
+   </g>
+   <g id="text_24">
+    <!-- $\hat{\mathbf{x}}_{k+1}^-,\ \mathbf{P}_{k+1}^-$ -->
+    <g style="fill: #111111" transform="translate(421.575 757.29576)">
+     <text>
+      <tspan style="font: 15px 'DejaVu Sans'" x="9.512573 35.87915" y="-2.0 -0.328125">̂,</tspan>
+      <tspan style="font: 700 15px 'DejaVu Sans'" x="0 48.440137" y="-0.328125">xP</tspan>
+      <tspan style="font: 10.5px 'DejaVu Sans'" x="11.864502 17.945068 28.788574 61.622998 67.703565 78.54707" y="-6.075 3.7734375 3.7734375 -6.075 3.7734375 3.7734375">−+1−+1</tspan>
+      <tspan style="font: oblique 10.5px 'DejaVu Sans'" x="9.818848 59.577344" y="3.7734375">kk</tspan>
+     </text>
+    </g>
+   </g>
+   <g id="text_25">
+    <text style="fill: #444444; font: 10.6px 'DejaVu Sans'; text-anchor: middle" x="464.4" y="779.304858" transform="rotate(-0 464.4 779.304858)">A priori · antes de usar la nueva medición</text>
+   </g>
+   <g id="text_26">
+    <text style="fill: #111111; font: 11.5px 'DejaVu Sans'; text-anchor: middle" x="464.4" y="840.144081" transform="rotate(-0 464.4 840.144081)">¿Hay medición</text>
+   </g>
+   <g id="text_27">
+    <!-- en $t_{k+1}$? -->
+    <g style="fill: #111111" transform="translate(440.0775 863.586241)">
+     <text>
+      <tspan style="font: 11.5px 'DejaVu Sans'" x="0 7.075195 14.36377 42.508276" y="-0.46875">en ?</tspan>
+      <tspan style="font: oblique 11.5px 'DejaVu Sans'" x="18.019287" y="-0.46875">t</tspan>
+      <tspan style="font: oblique 8.05px 'DejaVu Sans'" x="22.52832" y="1.4203124999999996">k</tspan>
+      <tspan style="font: 8.05px 'DejaVu Sans'" x="28.758423 37.071777" y="1.4203124999999996">+1</tspan>
+     </text>
+    </g>
+   </g>
+   <g id="text_28">
+    <text style="fill: #111111; font: 700 11px 'DejaVu Sans'; text-anchor: start" x="481.68" y="908.007632" transform="rotate(-0 481.68 908.007632)">SÍ</text>
+   </g>
+   <g id="text_29">
+    <text style="fill: #111111; font: 700 11px 'DejaVu Sans'; text-anchor: start" x="585.36" y="837.687393" transform="rotate(-0 585.36 837.687393)">NO</text>
+   </g>
+   <g id="text_30">
+    <text style="fill: #111111; font: 700 10px 'DejaVu Sans'; text-anchor: middle" x="775.44" y="824.182895" transform="rotate(-0 775.44 824.182895)">SIN MEDICIÓN</text>
+   </g>
+   <g id="text_31">
+    <!-- $\hat{\mathbf{x}}_{k+1}^{+}=\hat{\mathbf{x}}_{k+1}^{-}$ -->
+    <g style="fill: #111111" transform="translate(739.32 852.41688)">
+     <text>
+      <tspan style="font: 12px 'DejaVu Sans'" x="7.810059 31.041211 51.243848" y="-1.40625 -0.0625 -1.40625">̂=̂</tspan>
+      <tspan style="font: 700 12px 'DejaVu Sans'" x="0 43.433789" y="-0.0625">xx</tspan>
+      <tspan style="font: 8.4px 'DejaVu Sans'" x="7.855078 14.356055 23.030859 51.288867 57.789844 66.464648" y="-4.668749999999999 3.21875 3.21875 -4.668749999999999 3.21875 3.21875">++1−+1</tspan>
+      <tspan style="font: oblique 8.4px 'DejaVu Sans'" x="7.855078 51.288867" y="3.21875">kk</tspan>
+     </text>
+    </g>
+   </g>
+   <g id="text_32">
+    <!-- $\mathbf{P}_{k+1}^{+}=\mathbf{P}_{k+1}^{-}$ -->
+    <g style="fill: #111111" transform="translate(738.3 879.72648)">
+     <text>
+      <tspan style="font: 700 12px 'DejaVu Sans'" x="0 44.488477" y="-0.12187500000000107">PP</tspan>
+      <tspan style="font: 8.4px 'DejaVu Sans'" x="8.909766 15.410742 24.085547 53.398242 59.899219 68.574023" y="-4.728125 3.159374999999999 3.159374999999999 -4.728125 3.159374999999999 3.159374999999999">++1−+1</tspan>
+      <tspan style="font: oblique 8.4px 'DejaVu Sans'" x="8.909766 53.398242" y="3.159374999999999">kk</tspan>
+      <tspan style="font: 12px 'DejaVu Sans'" x="32.095898" y="-0.12187500000000107">=</tspan>
+     </text>
+    </g>
+   </g>
+   <g id="text_33">
+    <text style="fill: #111111; font: 700 13px 'DejaVu Sans'; text-anchor: start" x="149.904" y="948.245188" transform="rotate(-0 149.904 948.245188)">2 · ACTUALIZACIÓN CON LA MEDICIÓN</text>
+   </g>
+   <g id="text_34">
+    <!-- Entradas: $\mathbf{z}_{k+1},\ \mathbf{R}_{k+1}$ -->
+    <g style="fill: #111111" transform="translate(661.723 907.449361)">
+     <text>
+      <tspan style="font: 11.5px 'DejaVu Sans'" x="0 7.266113 14.554688 19.063721 23.791748 30.838867 38.138672 45.185791 51.177246 55.051758 85.490786" y="-0.265625">Entradas: ,</tspan>
+      <tspan style="font: 700 11.5px 'DejaVu Sans'" x="58.707275 95.120876" y="-0.265625">zR</tspan>
+      <tspan style="font: oblique 8.05px 'DejaVu Sans'" x="65.51083 104.086296" y="1.6234374999999996">kk</tspan>
+      <tspan style="font: 8.05px 'DejaVu Sans'" x="71.740933 80.054287 110.316398 118.629753" y="1.6234374999999996">+1+1</tspan>
+     </text>
+    </g>
+   </g>
+   <g id="text_35">
+    <text style="fill: #111111; font: 700 10.8px 'DejaVu Sans'; text-anchor: start" x="149.904" y="981.057645" transform="rotate(-0 149.904 981.057645)">A · Comparar lo medido con lo esperado</text>
+   </g>
+   <g id="text_36">
+    <!-- ①  $\hat{\mathbf{z}}_{k+1}=\mathbf{h}(\hat{\mathbf{x}}_{k+1}^{-})$ -->
+    <g style="fill: #111111" transform="translate(156.816 1010.40712)">
+     <text>
+      <tspan style="font: 14px 'DejaVu Sans'" x="0 12.550781 17.000977 30.175781 56.784082 81.208887 95.615869 120.158008" y="-0.234375 -0.234375 -0.234375 -1.796875 -0.234375 -0.234375 -1.796875 -0.234375">①  ̂=(̂)</tspan>
+      <tspan style="font: 700 14px 'DejaVu Sans'" x="21.451172 71.24209 86.670801" y="-0.234375">zhx</tspan>
+      <tspan style="font: oblique 9.8px 'DejaVu Sans'" x="29.733594 95.835059" y="2.0625 3.59375">kk</tspan>
+      <tspan style="font: 9.8px 'DejaVu Sans'" x="37.318066 47.438672 95.835059 103.419531 113.540137" y="2.0625 2.0625 -5.604687499999999 3.59375 3.59375">+1−+1</tspan>
+     </text>
+    </g>
+   </g>
+   <g id="text_37">
+    <!-- ②  $\mathbf{H}_{k+1}=\left.\frac{\partial\mathbf{h}}{\partial\mathbf{x}}\right|_{\hat{\mathbf{x}}_{k+1}^{-}}$ -->
+    <g style="fill: #111111" transform="translate(156.816 1039.5092)">
+     <text>
+      <tspan style="font: 14px 'DejaVu Sans'" x="0 12.550781 17.000977 60.352441" y="-0.2765625000000007">②  =</tspan>
+      <tspan style="font: 700 14px 'DejaVu Sans'" x="21.451172" y="-0.2765625000000007">H</tspan>
+      <tspan style="font: oblique 9.8px 'DejaVu Sans'" x="33.301953" y="2.0203124999999993">k</tspan>
+      <tspan style="font: 9.8px 'DejaVu Sans'" x="40.886426 51.007031 74.810449 74.810449 101.552216" y="2.0203124999999993 2.0203124999999993 -6.5515625 4.451562500000001 0.9203124999999996">+1∂∂̂</tspan>
+      <tspan style="font: 700 9.8px 'DejaVu Sans'" x="79.87793 79.87793 95.003168" y="-6.5515625 4.451562500000001 2.0203124999999993">hxx</tspan>
+      <tspan style="font: 18.59375px 'DejaVu Sans'" x="88.604687" y="0.203125">|</tspan>
+      <tspan style="font: 6.86px 'DejaVu Sans'" x="101.418148 106.727279 113.811703" y="-1.7389062499999994 4.699999999999999 4.699999999999999">−+1</tspan>
+      <tspan style="font: oblique 6.86px 'DejaVu Sans'" x="101.418148" y="4.699999999999999">k</tspan>
+     </text>
+     <rect x="74.810449" y="-3.909375" width="12.044238" height="0.875"/>
+    </g>
+   </g>
+   <g id="text_38">
+    <!-- ③  $\mathbf{y}_{k+1}=\mathbf{z}_{k+1}-\hat{\mathbf{z}}_{k+1}$   · innovación -->
+    <g style="fill: #111111" transform="translate(156.816 1070.00752)">
+     <text>
+      <tspan style="font: 14px 'DejaVu Sans'" x="0 12.550781 17.000977 57.761621 107.552539 130.735156 154.615918 159.066113 163.516309 167.966504 172.416699 176.866895 180.756543 189.62959 198.502637 207.068066 215.353223 223.932324 231.62959 235.519238 244.084668" y="-0.234375 -0.234375 -0.234375 -0.234375 -0.234375 -1.796875 -0.234375 -0.234375 -0.234375 -0.234375 -0.234375 -0.234375 -0.234375 -0.234375 -0.234375 -0.234375 -0.234375 -0.234375 -0.234375 -0.234375 -0.234375">③  =−̂   · innovación</tspan>
+      <tspan style="font: 700 14px 'DejaVu Sans'" x="21.451172 72.219629 122.010547" y="-0.234375">yzz</tspan>
+      <tspan style="font: oblique 9.8px 'DejaVu Sans'" x="30.711133 80.502051 130.292969" y="2.0625">kkk</tspan>
+      <tspan style="font: 9.8px 'DejaVu Sans'" x="38.295605 48.416211 88.086523 98.207129 137.877441 147.998047" y="2.0625">+1+1+1</tspan>
+     </text>
+    </g>
+   </g>
+   <g id="text_39">
+    <!-- ④  $\mathbf{S}_{k+1}=\mathbf{H}_{k+1}\mathbf{P}_{k+1}^{-}\mathbf{H}_{k+1}^{\top}+\mathbf{R}_{k+1}$ -->
+    <g style="fill: #111111" transform="translate(156.816 1129.8804)">
+     <text>
+      <tspan style="font: 14px 'DejaVu Sans'" x="0 12.550781 17.000977 58.718652 182.969336" y="-0.7718750000000014">④  =+</tspan>
+      <tspan style="font: 700 14px 'DejaVu Sans'" x="21.451172 73.17666 109.350391 144.068066 197.427344" y="-0.7718750000000014">SHPHR</tspan>
+      <tspan style="font: oblique 9.8px 'DejaVu Sans'" x="31.668164 85.027441 119.745117 155.918848 208.341602" y="1.5249999999999986 1.5249999999999986 3.0562499999999986 3.0562499999999986 1.5249999999999986">kkkkk</tspan>
+      <tspan style="font: 9.8px 'DejaVu Sans'" x="39.252637 49.373242 92.611914 102.73252 119.745117 127.32959 137.450195 157.828125 163.50332 173.623926 215.926074 226.04668" y="1.5249999999999986 1.5249999999999986 1.5249999999999986 1.5249999999999986 -6.1421875 3.0562499999999986 3.0562499999999986 -6.1421875 3.0562499999999986 3.0562499999999986 1.5249999999999986 1.5249999999999986">+1+1−+1⊤+1+1</tspan>
+     </text>
+    </g>
+   </g>
+   <g id="text_40">
+    <!-- ⑤  $\mathbf{K}_{k+1}=\mathbf{P}_{k+1}^{-}\mathbf{H}_{k+1}^{\top}\mathbf{S}_{k+1}^{-1}$ -->
+    <g style="fill: #111111" transform="translate(156.816 1159.26248)">
+     <text>
+      <tspan style="font: 14px 'DejaVu Sans'" x="0 12.550781 17.000977 59.484277" y="-0.4875000000000007">⑤  =</tspan>
+      <tspan style="font: 700 14px 'DejaVu Sans'" x="21.451172 73.942285 108.659961 144.833691" y="-0.4875000000000007">KPHS</tspan>
+      <tspan style="font: oblique 9.8px 'DejaVu Sans'" x="32.433789 84.337012 120.510742 155.050684" y="1.8093749999999993 3.3406249999999993 3.3406249999999993 3.3406249999999993">kkkk</tspan>
+      <tspan style="font: 9.8px 'DejaVu Sans'" x="40.018262 50.138867 84.337012 91.921484 102.04209 122.42002 128.095215 138.21582 155.050684 162.635156 163.262012 172.755762" y="1.8093749999999993 1.8093749999999993 -5.8578125 3.3406249999999993 3.3406249999999993 -5.8578125 3.3406249999999993 3.3406249999999993 -5.8578125000000005 3.3406249999999993 -5.8578125000000005 3.3406249999999993">+1−+1⊤+1−+11</tspan>
+     </text>
+    </g>
+   </g>
+   <g id="text_41">
+    <!-- ⑥  $\hat{\mathbf{x}}_{k+1}^{+}=\hat{\mathbf{x}}_{k+1}^{-}+\mathbf{K}_{k+1}\mathbf{y}_{k+1}$ -->
+    <g style="fill: #111111" transform="translate(156.816 1219.27912)">
+     <text>
+      <tspan style="font: 14px 'DejaVu Sans'" x="0 12.550781 17.000977 30.39624 57.665918 81.068994 108.338672" y="-0.234375 -0.234375 -0.234375 -1.796875 -0.234375 -1.796875 -0.234375">⑥  ̂=̂+</tspan>
+      <tspan style="font: 700 14px 'DejaVu Sans'" x="21.451172 72.123926 122.79668 158.102246" y="-0.234375">xxKy</tspan>
+      <tspan style="font: 9.8px 'DejaVu Sans'" x="30.61543 38.199902 48.320508 81.288184 88.872656 98.993262 141.36377 151.484375 174.94668 185.067285" y="-5.604687499999999 3.59375 3.59375 -5.604687499999999 3.59375 3.59375 2.0625 2.0625 2.0625 2.0625">++1−+1+1+1</tspan>
+      <tspan style="font: oblique 9.8px 'DejaVu Sans'" x="30.61543 81.288184 133.779297 167.362207" y="3.59375 3.59375 2.0625 2.0625">kkkk</tspan>
+     </text>
+    </g>
+   </g>
+   <g id="text_42">
+    <!-- ⑦  $\mathbf{P}_{k+1}^{+}=(\mathbf{I}-\mathbf{K}_{k+1}\mathbf{H}_{k+1})\mathbf{P}_{k+1}^{-}(\mathbf{I}-\mathbf{K}_{k+1}\mathbf{H}_{k+1})^{\top}+\mathbf{K}_{k+1}\mathbf{R}_{k+1}\mathbf{K}_{k+1}^{\top}$ -->
+    <g style="fill: #111111" transform="translate(156.816 1251.1224)">
+     <text>
+      <tspan style="font: 12px 'DejaVu Sans'" x="0 10.757812 14.572266 50.482617 62.875195 74.35957 148.020117 182.459766 193.944141 267.604688 285.657422" y="-0.5093750000000021">⑦  =(−)(−)+</tspan>
+      <tspan style="font: 700 12px 'DejaVu Sans'" x="18.386719 67.556836 86.752148 117.014062 152.701758 187.141406 206.336719 236.598633 298.05 328.311914 358.515234" y="-0.5093750000000021">PIKHPIKHKRK</tspan>
+      <tspan style="font: 8.4px 'DejaVu Sans'" x="27.296484 33.797461 42.472266 102.666797 111.341602 133.672852 142.347656 161.611523 168.1125 176.787305 222.251367 230.926172 253.257422 261.932227 274.037695 313.964648 322.639453 344.167969 352.842773 369.56543 374.429883 383.104688" y="-5.115625000000001 2.771874999999998 2.771874999999998 1.4593749999999979 1.4593749999999979 1.4593749999999979 1.4593749999999979 -5.115625000000001 2.771874999999998 2.771874999999998 1.4593749999999979 1.4593749999999979 1.4593749999999979 1.4593749999999979 -5.103125000000002 1.4593749999999979 1.4593749999999979 1.4593749999999979 1.4593749999999979 -5.1156250000000005 2.771874999999998 2.771874999999998">++1+1+1−+1+1+1⊤+1+1⊤+1</tspan>
+      <tspan style="font: oblique 8.4px 'DejaVu Sans'" x="27.296484 96.16582 127.171875 161.611523 215.750391 246.756445 307.463672 337.666992 367.928906" y="2.771874999999998 1.4593749999999979 1.4593749999999979 2.771874999999998 1.4593749999999979 1.4593749999999979 1.4593749999999979 1.4593749999999979 2.771874999999998">kkkkkkkkk</tspan>
+     </text>
+    </g>
+   </g>
+   <g id="text_43">
+    <text style="fill: #111111; font: 13px 'DejaVu Sans'; text-anchor: end" x="148.5216" y="1038.756388" transform="rotate(-0 148.5216 1038.756388)">★</text>
+   </g>
+   <g id="text_44">
+    <text style="fill: #111111; font: 700 10.8px 'DejaVu Sans'; text-anchor: start" x="149.904" y="1104.465937" transform="rotate(-0 149.904 1104.465937)">B · S: covarianza de la innovación  /  K: ganancia de Kalman</text>
+   </g>
+   <g id="text_45">
+    <text style="fill: #111111; font: 700 10.8px 'DejaVu Sans'; text-anchor: start" x="149.904" y="1192.672417" transform="rotate(-0 149.904 1192.672417)">C · Corregir el estado y su covarianza (forma de Joseph)</text>
+   </g>
+   <g id="text_46">
+    <!-- $\hat{\mathbf{x}}_{k+1}^+,\ \mathbf{P}_{k+1}^+$ -->
+    <g style="fill: #111111" transform="translate(422.176 1328.53256)">
+     <text>
+      <tspan style="font: 16px 'DejaVu Sans'" x="10.080078 38.271094" y="-2.203125 -0.421875">̂,</tspan>
+      <tspan style="font: 700 16px 'DejaVu Sans'" x="0 51.669479" y="-0.421875">xP</tspan>
+      <tspan style="font: 11.2px 'DejaVu Sans'" x="12.655469 19.141406 30.707812 65.731198 72.217136 83.783542" y="-6.55625 3.953125 3.953125 -6.55625 3.953125 3.953125">++1++1</tspan>
+      <tspan style="font: oblique 11.2px 'DejaVu Sans'" x="10.473437 63.549167" y="3.953125">kk</tspan>
+     </text>
+    </g>
+   </g>
+   <g id="text_47">
+    <text style="fill: #444444; font: 11px 'DejaVu Sans'; text-anchor: middle" x="467.856" y="1353.601232" transform="rotate(-0 467.856 1353.601232)">Salida del filtro · actualizada si hubo medición</text>
+   </g>
+   <g id="text_48">
+    <!-- Siguiente intervalo: $k\leftarrow k+1$ -->
+    <g style="fill: #111111" transform="translate(129.168 1396.27656)">
+     <text>
+      <tspan style="font: 700 12px 'DejaVu Sans'" x="0 8.642578 12.755859 21.345703 29.888672 34.001953 42.140625 50.683594 56.419922 64.558594 68.736328 72.849609 81.392578 87.128906 95.267578 101.185547 109.007812 117.105469 121.21875 129.462891 134.261719" y="-0.875">Siguiente intervalo: </tspan>
+      <tspan style="font: oblique 12px 'DejaVu Sans'" x="138.439453 160.119141" y="-0.875">kk</tspan>
+      <tspan style="font: 12px 'DejaVu Sans'" x="147.726562 169.40625 181.798828" y="-0.875">←+1</tspan>
+     </text>
+    </g>
+   </g>
+   <g id="text_49">
+    <text style="fill: #111111; font: 700 12.5px 'DejaVu Sans'; text-anchor: start" x="937.872" y="166.925939" transform="rotate(-0 937.872 166.925939)">CÓMO LEER LA FIGURA</text>
+   </g>
+   <g id="text_50">
+    <!-- $\hat{\mathbf{x}}$: estimación del estado -->
+    <g style="fill: #444444" transform="translate(937.872 199.98674)">
+     <text>
+      <tspan style="font: 11.2px 'DejaVu Sans'" x="7.216156 7.350914 10.985382 14.541565 21.4245 27.253143 31.639648 34.747894 45.645874 52.501495 58.652435 61.760681 68.605377 75.695892 79.252075 86.353516 93.23645 96.344696 99.900879 106.783813 112.612457 116.998962 123.854584 130.956024" y="-0.7874999999999996 -2.046875 -0.7874999999999996 -0.7874999999999996 -0.7874999999999996 -0.7874999999999996 -0.7874999999999996 -0.7874999999999996 -0.7874999999999996 -0.7874999999999996 -0.7874999999999996 -0.7874999999999996 -0.7874999999999996 -0.7874999999999996 -0.7874999999999996 -0.7874999999999996 -0.7874999999999996 -0.7874999999999996 -0.7874999999999996 -0.7874999999999996 -0.7874999999999996 -0.7874999999999996 -0.7874999999999996 -0.7874999999999996">:̂ estimación del estado</tspan>
+      <tspan style="font: 700 11.2px 'DejaVu Sans'" x="0" y="-0.7874999999999996">x</tspan>
+     </text>
+    </g>
+   </g>
+   <g id="text_51">
+    <!-- $-$: antes de incorporar la medición -->
+    <g style="fill: #444444" transform="translate(937.872 230.8348)">
+     <text>
+      <tspan style="font: 11.2px 'DejaVu Sans'" x="0 9.373901 13.143127 16.69931 23.554932 30.645447 35.031952 41.914886 47.74353 51.299713 58.401154 65.284088 68.840271 71.948517 79.039032 85.189972 92.034668 96.634216 103.735657 110.580353 115.179901 122.035522 126.635071 130.191254 133.2995 140.155121 143.711304 154.609283 161.492218 168.593658 171.701904 177.852844 180.96109 187.805786" y="-0.046875">−: antes de incorporar la medición</tspan>
+     </text>
+    </g>
+   </g>
+   <g id="text_52">
+    <!-- $+$: después de incorporarla / salida -->
+    <g style="fill: #444444" transform="translate(937.872 261.46936)">
+     <text>
+      <tspan style="font: 11.2px 'DejaVu Sans'" x="0 9.373901 13.143127 16.69931 23.800751 30.683685 36.512329 43.61377 50.704285 57.587219 63.415863 66.972046 74.073486 80.956421 84.512604 87.62085 94.711365 100.862305 107.707001 112.306549 119.40799 126.252686 130.852234 137.707855 142.307404 145.415649 152.271271 155.827454 159.59668 163.152863 168.981506 175.837128 178.945374 182.053619 189.15506" y="-0.046875">+: después de incorporarla / salida</tspan>
+     </text>
+    </g>
+   </g>
+   <g id="text_53">
+    <text style="fill: #444444; font: 11.2px 'DejaVu Sans'; text-anchor: start" x="937.872" y="292.07067" transform="rotate(-0 937.872 292.07067)">★ Jacobiano: linealización local</text>
+   </g>
+   <g id="text_54">
+    <text style="fill: #444444; font: 11.2px 'DejaVu Sans'; text-anchor: start" x="937.872" y="321.1325" transform="rotate(-0 937.872 321.1325)">I: identidad · f, h pueden depender de t y u.</text>
+   </g>
+   <g id="text_55">
+    <text style="fill: #111111; font: 700 11.8px 'DejaVu Sans'; text-anchor: start" x="937.872" y="391.544328" transform="rotate(-0 937.872 391.544328)">QUÉ SIGNIFICAN LAS COVARIANZAS</text>
+   </g>
+   <g id="text_56">
+    <text style="fill: #111111; font: 11.5px 'DejaVu Sans'; text-anchor: start" x="937.872" y="424.258801" transform="rotate(-0 937.872 424.258801)">P: covarianza aproximada del error.</text>
+   </g>
+   <g id="text_57">
+    <!-- $P_{ii}=\sigma_i^2$; $P_{ij}$: covarianza cruzada. -->
+    <g style="fill: #111111" transform="translate(937.872 455.92632)">
+     <text>
+      <tspan style="font: oblique 11.7px 'DejaVu Sans'" x="0 26.260303 47.367107" y="-0.45000000000000107">PσP</tspan>
+      <tspan style="font: oblique 8.19px 'DejaVu Sans'" x="7.047882 9.320895 33.667712 54.414989 56.688002" y="1.4671874999999979 1.4671874999999979 2.745312499999999 1.4671874999999979 1.4671874999999979">iiiij</tspan>
+      <tspan style="font: 11.7px 'DejaVu Sans'" x="14.190448 39.714305 43.651988 59.280547 63.21823 66.933348 73.35919 80.509795 87.426421 94.588439 99.393553 102.640715 109.802733 117.210143 123.344939 130.506957 134.222075 140.647917 145.453032 152.860442 158.995238 166.157256 173.576079 180.738097" y="-0.45000000000000107">=; : covarianza cruzada.</tspan>
+      <tspan style="font: 8.19px 'DejaVu Sans'" x="34.189613" y="-4.9296875">2</tspan>
+     </text>
+    </g>
+   </g>
+   <g id="text_58">
+    <text style="fill: #111111; font: 11.5px 'DejaVu Sans'; text-anchor: start" x="937.872" y="487.616641" transform="rotate(-0 937.872 487.616641)">Q: covarianza de proceso del intervalo.</text>
+   </g>
+   <g id="text_59">
+    <text style="fill: #111111; font: 11.5px 'DejaVu Sans'; text-anchor: start" x="937.872" y="518.251201" transform="rotate(-0 937.872 518.251201)">R: covarianza del ruido de medición.</text>
+   </g>
+   <g id="text_60">
+    <!-- $\mathbf{P}^{+}=\mathbf{P}^{-}-\mathbf{K}\mathbf{S}\mathbf{K}^{\top}\preceq\mathbf{P}^{-}$ -->
+    <g style="fill: #111111" transform="translate(937.872 550.427158)">
+     <text>
+      <tspan style="font: 700 14px 'DejaVu Sans'" x="0 36.174414 72.348828 83.197461 93.280469 134.186719" y="-0.7828125000000004">PPKSKP</tspan>
+      <tspan style="font: 9.8px 'DejaVu Sans'" x="10.394727 46.569141 106.172363 144.581445" y="-6.1421875">+−⊤−</tspan>
+      <tspan style="font: 14px 'DejaVu Sans'" x="21.716406 57.89082 119.728711" y="-0.7828125000000004">=−≼</tspan>
+     </text>
+    </g>
+   </g>
+   <g id="text_61">
+    <text style="fill: #111111; font: 10.8px 'DejaVu Sans'; text-anchor: start" x="937.872" y="584.200845" transform="rotate(-0 937.872 584.200845)">La actualización reduce la covarianza estimada.</text>
+   </g>
+   <g id="text_62">
+    <text style="fill: #444444; font: 10.8px 'DejaVu Sans'; text-anchor: start" x="937.872" y="613.442925" transform="rotate(-0 937.872 613.442925)">No garantiza reducir el error real en cada paso.</text>
+   </g>
+   <g id="text_63">
+    <text style="fill: #111111; font: 700 12.5px 'DejaVu Sans'; text-anchor: start" x="937.872" y="690.498419" transform="rotate(-0 937.872 690.498419)">SI TU MODELO ES CONTINUO</text>
+   </g>
+   <g id="text_64">
+    <!-- $\dot{\mathbf{x}}=\mathbf{g}(\mathbf{x},\mathbf{u})$ -->
+    <g style="fill: #111111" transform="translate(937.872 724.72248)">
+     <text>
+      <tspan style="font: 15px 'DejaVu Sans'" x="9.856323 12.597656 38.825684 54.353027 72.722168" y="-2.609375 -0.9375 -0.9375 -0.9375 -0.9375">̇=(,)</tspan>
+      <tspan style="font: 700 15px 'DejaVu Sans'" x="0 28.088379 44.677734 62.043457" y="-0.9375">xgxu</tspan>
+     </text>
+    </g>
+   </g>
+   <g id="text_65">
+    <text style="fill: #111111; font: 10.8px 'DejaVu Sans'; text-anchor: start" x="937.872" y="755.475885" transform="rotate(-0 937.872 755.475885)">f es el mapa obtenido al avanzar el intervalo.</text>
+   </g>
+   <g id="text_66">
+    <!-- Ejemplo Euler: $\mathbf{f}=\mathbf{x}+\Delta t_k\,\mathbf{g}$ -->
+    <g style="fill: #111111" transform="translate(937.872 787.8168)">
+     <text>
+      <tspan style="font: 12.2px 'DejaVu Sans'" x="0 7.7005 11.086578 18.584747 30.456848 38.193054 41.579132 49.035645 52.909698 60.610199 68.334503 71.720581 79.21875 84.229431 88.335571 99.886322 122.70813 135.294342" y="-0.734375">Ejemplo Euler: =+Δ</tspan>
+      <tspan style="font: 700 12.2px 'DejaVu Sans'" x="92.209625 112.472534 155.662964" y="-0.734375">fxg</tspan>
+      <tspan style="font: oblique 12.2px 'DejaVu Sans'" x="143.631592" y="-0.734375">t</tspan>
+      <tspan style="font: oblique 8.54px 'DejaVu Sans'" x="148.410187" y="1.2671875000000004">k</tspan>
+     </text>
+    </g>
+   </g>
+   <g id="text_67">
+    <!-- $\mathbf{F}_k=\mathbf{I}+\Delta t_k\left.\frac{\partial\mathbf{g}}{\partial\mathbf{x}}\right|_{\hat{\mathbf{x}}_k^+,\mathbf{u}_k}$ -->
+    <g style="fill: #111111" transform="translate(937.872 829.10848)">
+     <text>
+      <tspan style="font: 700 14px 'DejaVu Sans'" x="0 32.941016" y="-0.27031250000000284">FI</tspan>
+      <tspan style="font: oblique 9.8px 'DejaVu Sans'" x="9.697461 70.401953" y="2.026562499999997">kk</tspan>
+      <tspan style="font: 14px 'DejaVu Sans'" x="18.483008 40.877539 55.335547" y="-0.27031250000000284">=+Δ</tspan>
+      <tspan style="font: oblique 14px 'DejaVu Sans'" x="64.912695" y="-0.27031250000000284">t</tspan>
+      <tspan style="font: 9.8px 'DejaVu Sans'" x="76.459961 76.459961 103.576923 112.131742" y="-8.514062500000001 4.457812499999999 0.9265624999999975 2.026562499999997">∂∂̂,</tspan>
+      <tspan style="font: 700 9.8px 'DejaVu Sans'" x="81.527441 81.527441 97.027875 117.156156" y="-8.514062500000001 4.457812499999999 2.026562499999997 2.026562499999997">gxxu</tspan>
+      <tspan style="font: 19.6px 'DejaVu Sans'" x="90.29248" y="-0.02500000000000213">|</tspan>
+      <tspan style="font: 6.86px 'DejaVu Sans'" x="104.779349" y="-1.7326562500000016">+</tspan>
+      <tspan style="font: oblique 6.86px 'DejaVu Sans'" x="103.442855 124.226703" y="4.706249999999997 3.6343749999999986">kk</tspan>
+     </text>
+     <rect x="76.459961" y="-3.903125" width="12.08252" height="0.875"/>
+    </g>
+   </g>
+   <g id="text_68">
+    <text style="fill: #111111; font: 700 10.7px 'DejaVu Sans'; text-anchor: start" x="937.872" y="866.804894" transform="rotate(-0 937.872 866.804894)">F es el Jacobiano de f, no directamente de g.</text>
+   </g>
+   <g id="text_69">
+    <text style="fill: #111111; font: 10.7px 'DejaVu Sans'; text-anchor: start" x="937.872" y="898.873731" transform="rotate(-0 937.872 898.873731)">Q debe corresponder al intervalo y puede variar.</text>
+   </g>
+   <g id="text_70">
+    <text style="fill: #444444; font: 10.7px 'DejaVu Sans'; text-anchor: start" x="937.872" y="927.419571" transform="rotate(-0 937.872 927.419571)">Con otros integradores, derivar el mapa usado.</text>
+   </g>
+   <g id="text_71">
+    <text style="fill: #111111; font: 700 11.8px 'DejaVu Sans'; text-anchor: start" x="937.872" y="996.650862" transform="rotate(-0 937.872 996.650862)">MAPA DE DIMENSIONES Y ROLES</text>
+   </g>
+   <g id="text_72">
+    <text style="fill: #444444; font: 11px 'DejaVu Sans'; text-anchor: start" x="937.872" y="1028.457152" transform="rotate(-0 937.872 1028.457152)">n: estados  ·  m: mediciones  ·  p: entradas</text>
+   </g>
+   <g id="text_73">
+    <!-- $\hat{\mathbf{x}}$ -->
+    <g style="fill: #111111" transform="translate(937.872 1064.379299)">
+     <text>
+      <tspan style="font: 12.5px 'DejaVu Sans'" x="8.093811" y="-2.0">̂</tspan>
+      <tspan style="font: 700 12.5px 'DejaVu Sans'" x="0" y="-0.59375">x</tspan>
+     </text>
+    </g>
+   </g>
+   <g id="text_74">
+    <!-- $n\times1$ -->
+    <g style="fill: #111111" transform="translate(1041.552 1064.103361)">
+     <text>
+      <tspan style="font: oblique 11.5px 'DejaVu Sans'" x="0" y="-0.609375">n</tspan>
+      <tspan style="font: 11.5px 'DejaVu Sans'" x="9.529053 21.405273" y="-0.609375">×1</tspan>
+     </text>
+    </g>
+   </g>
+   <g id="text_75">
+    <text style="fill: #444444; font: 10.3px 'DejaVu Sans'; text-anchor: start" x="1110.672" y="1063.772236" transform="rotate(-0 1110.672 1063.772236)">estado estimado</text>
+   </g>
+   <g id="text_76">
+    <!-- $\mathbf{P},\mathbf{Q},\mathbf{F},\mathbf{I}$ -->
+    <g style="fill: #111111" transform="translate(937.872 1100.583779)">
+     <text>
+      <tspan style="font: 700 12.5px 'DejaVu Sans'" x="0 15.570068 32.60498 47.55249" y="-0.71875">PQFI</tspan>
+      <tspan style="font: 12.5px 'DejaVu Sans'" x="9.161377 26.196289 41.143799" y="-0.71875">,,,</tspan>
+     </text>
+    </g>
+   </g>
+   <g id="text_77">
+    <!-- $n\times n$ -->
+    <g style="fill: #111111" transform="translate(1041.552 1100.307841)">
+     <text>
+      <tspan style="font: oblique 11.5px 'DejaVu Sans'" x="0 21.405273" y="-0.140625">nn</tspan>
+      <tspan style="font: 11.5px 'DejaVu Sans'" x="9.529053" y="-0.140625">×</tspan>
+     </text>
+    </g>
+   </g>
+   <g id="text_78">
+    <text style="fill: #444444; font: 10.3px 'DejaVu Sans'; text-anchor: start" x="1110.672" y="1099.976716" transform="rotate(-0 1110.672 1099.976716)">espacio del estado</text>
+   </g>
+   <g id="text_79">
+    <!-- $\mathbf{z},\hat{\mathbf{z}},\mathbf{y}$ -->
+    <g style="fill: #111111" transform="translate(937.872 1137.71404)">
+     <text>
+      <tspan style="font: 700 12.5px 'DejaVu Sans'" x="0 13.684082 27.368164" y="-0.59375">zzy</tspan>
+      <tspan style="font: 12.5px 'DejaVu Sans'" x="7.275391 20.959473 21.581055" y="-0.59375 -0.59375 -2.0">,,̂</tspan>
+     </text>
+    </g>
+   </g>
+   <g id="text_80">
+    <!-- $m\times1$ -->
+    <g style="fill: #111111" transform="translate(1041.552 1136.512321)">
+     <text>
+      <tspan style="font: oblique 11.5px 'DejaVu Sans'" x="0" y="-0.609375">m</tspan>
+      <tspan style="font: 11.5px 'DejaVu Sans'" x="13.442871 25.319092" y="-0.609375">×1</tspan>
+     </text>
+    </g>
+   </g>
+   <g id="text_81">
+    <text style="fill: #444444; font: 10.3px 'DejaVu Sans'; text-anchor: start" x="1110.672" y="1136.387196" transform="rotate(-0 1110.672 1136.387196)">espacio de medición</text>
+   </g>
+   <g id="text_82">
+    <!-- $\mathbf{R},\mathbf{S}$ -->
+    <g style="fill: #111111" transform="translate(937.872 1172.992739)">
+     <text>
+      <tspan style="font: 700 12.5px 'DejaVu Sans'" x="0 16.033936" y="-0.71875">RS</tspan>
+      <tspan style="font: 12.5px 'DejaVu Sans'" x="9.625244" y="-0.71875">,</tspan>
+     </text>
+    </g>
+   </g>
+   <g id="text_83">
+    <!-- $m\times m$ -->
+    <g style="fill: #111111" transform="translate(1041.552 1172.716801)">
+     <text>
+      <tspan style="font: oblique 11.5px 'DejaVu Sans'" x="0 25.319092" y="-0.140625">mm</tspan>
+      <tspan style="font: 11.5px 'DejaVu Sans'" x="13.442871" y="-0.140625">×</tspan>
+     </text>
+    </g>
+   </g>
+   <g id="text_84">
+    <text style="fill: #444444; font: 10.3px 'DejaVu Sans'; text-anchor: start" x="1110.672" y="1172.385676" transform="rotate(-0 1110.672 1172.385676)">ruido / innovación</text>
+   </g>
+   <g id="text_85">
+    <!-- $\mathbf{H}$ -->
+    <g style="fill: #111111" transform="translate(937.872 1209.197219)">
+     <text>
+      <tspan style="font: 700 12.5px 'DejaVu Sans'" x="0" y="-0.890625">H</tspan>
+     </text>
+    </g>
+   </g>
+   <g id="text_86">
+    <!-- $m\times n$ -->
+    <g style="fill: #111111" transform="translate(1041.552 1208.921281)">
+     <text>
+      <tspan style="font: oblique 11.5px 'DejaVu Sans'" x="0 25.319092" y="-0.140625">mn</tspan>
+      <tspan style="font: 11.5px 'DejaVu Sans'" x="13.442871" y="-0.140625">×</tspan>
+     </text>
+    </g>
+   </g>
+   <g id="text_87">
+    <text style="fill: #444444; font: 10.3px 'DejaVu Sans'; text-anchor: start" x="1110.672" y="1208.590156" transform="rotate(-0 1110.672 1208.590156)">estado → medición</text>
+   </g>
+   <g id="text_88">
+    <!-- $\mathbf{K}$ -->
+    <g style="fill: #111111" transform="translate(937.872 1245.401699)">
+     <text>
+      <tspan style="font: 700 12.5px 'DejaVu Sans'" x="0" y="-0.890625">K</tspan>
+     </text>
+    </g>
+   </g>
+   <g id="text_89">
+    <!-- $n\times m$ -->
+    <g style="fill: #111111" transform="translate(1041.552 1245.125761)">
+     <text>
+      <tspan style="font: oblique 11.5px 'DejaVu Sans'" x="0 21.405273" y="-0.140625">nm</tspan>
+      <tspan style="font: 11.5px 'DejaVu Sans'" x="9.529053" y="-0.140625">×</tspan>
+     </text>
+    </g>
+   </g>
+   <g id="text_90">
+    <text style="fill: #444444; font: 10.3px 'DejaVu Sans'; text-anchor: start" x="1110.672" y="1244.794636" transform="rotate(-0 1110.672 1244.794636)">innovación → estado</text>
+   </g>
+   <g id="text_91">
+    <!-- $\mathbf{u}$ -->
+    <g style="fill: #111111" transform="translate(937.872 1281.606179)">
+     <text>
+      <tspan style="font: 700 12.5px 'DejaVu Sans'" x="0" y="-0.15625">u</tspan>
+     </text>
+    </g>
+   </g>
+   <g id="text_92">
+    <!-- $p\times1$ -->
+    <g style="fill: #111111" transform="translate(1041.552 1281.306882)">
+     <text>
+      <tspan style="font: oblique 11.5px 'DejaVu Sans'" x="0" y="-0.609375">p</tspan>
+      <tspan style="font: 11.5px 'DejaVu Sans'" x="9.540283 21.416504" y="-0.609375">×1</tspan>
+     </text>
+    </g>
+   </g>
+   <g id="text_93">
+    <text style="fill: #444444; font: 10.3px 'DejaVu Sans'; text-anchor: start" x="1110.672" y="1280.999116" transform="rotate(-0 1110.672 1280.999116)">entrada conocida</text>
+   </g>
+   <g id="text_94">
+    <text style="fill: #111111; font: 10.4px 'DejaVu Sans'; text-anchor: start" x="937.872" y="1316.53495" transform="rotate(-0 937.872 1316.53495)">f, h: modelos especificados; F, H: sus Jacobianos.</text>
+   </g>
+   <g id="text_95">
+    <text style="fill: #444444; font: 10.4px 'DejaVu Sans'; text-anchor: start" x="937.872" y="1346.47327" transform="rotate(-0 937.872 1346.47327)">x real, w y v: desconocidos; no se suministran.</text>
+   </g>
+   <g id="text_96">
+    <text style="fill: #444444; font: 12.5px 'DejaVu Sans'; text-anchor: middle" x="654.48" y="1427.120339" transform="rotate(-0 654.48 1427.120339)">La media usa las funciones no lineales; la covarianza usa sus Jacobianos locales.</text>
+   </g>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="p880a382e1d">
+   <rect x="32.4" y="22.14" width="1244.16" height="1427.292"/>
+  </clipPath>
+ </defs>
+</svg>

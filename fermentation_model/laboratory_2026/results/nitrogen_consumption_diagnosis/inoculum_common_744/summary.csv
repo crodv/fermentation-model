@@ -1,0 +1,7 @@
+theta,case,median_N_RMSE_ratio,median_other_RMSE_ratio
+theta_defaults,inoculo_total_convencion,0.5017425629216736,1.1863896670306502
+theta_defaults,inoculo_viable_consistente,0.44952117510161965,1.3341340842126228
+theta_defaults,referencia_anterior,1.0,1.0
+theta_full,inoculo_total_convencion,0.5137003897114226,0.41053253890564956
+theta_full,inoculo_viable_consistente,0.43985255484721786,0.46442919391605403
+theta_full,referencia_anterior,1.0,1.0

@@ -1,0 +1,15 @@
+parameter,value
+kCO2_release_h,0.4245882713532321
+CO2sat_scale,0.351389541106575
+O2_qmax_mg_gdw_h,0.15
+O2_initial_scale,0.1953996656508908
+pulse_t_rise_h,64.65870374633818
+pulse_activity_gain,0.25
+chem_activation_start_fraction,0.735056695858678
+chem_activation_duration_fraction,1.063909868135744
+matrix_gain,3.115756944378268
+A,0.3
+tau_rise_h,4.0
+tau_decay_h,12.0
+kernel_normalization,grid_max
+N_ref_g_l,0.14

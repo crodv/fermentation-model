@@ -1,0 +1,13 @@
+scope,batch,n_simultaneous_pairs,first_paired_time_h,max_abs_closure_relative_to_first_mg_L
+comparacion_externa_proxy,LAB013,6,2.5,35.39210194444456
+comparacion_externa_proxy,LAB014,6,2.5,48.36719147034927
+comparacion_externa_proxy,LAB015,6,2.5,161.07478147768092
+replay_calibracion,LAB004,12,0.0,183.5263905449678
+replay_calibracion,LAB005,12,0.0,146.91795821929156
+replay_calibracion,LAB006,14,0.0,376.157091353049
+replay_calibracion,LAB007,13,0.0,145.46321813457337
+replay_calibracion,LAB008,13,0.0,205.23390642880605
+replay_calibracion,LAB009,12,0.0,359.81357720430117
+replay_calibracion,LAB010,4,0.0,345.44294714809655
+replay_calibracion,LAB011,4,0.0,207.8544406989265
+replay_calibracion,LAB012,4,0.0,396.56559347100267

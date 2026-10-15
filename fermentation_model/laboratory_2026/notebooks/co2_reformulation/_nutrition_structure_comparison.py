@@ -101,6 +101,21 @@ def pulse_kernel(time, event, rise, decay, normalization):
     return raw / peak
 
 
+def pool_from_production(time, csat, qprod, k_release):
+    """Use the same dissolved-pool update for all production formulations."""
+    dissolved = np.zeros(len(time))
+    qout = np.zeros(len(time))
+    for j, dt in enumerate(np.diff(time), start=1):
+        previous = dissolved[j - 1]
+        release = .05 + .95 * previous / max(previous + csat[j], 1e-12)
+        qout[j] = min(k_release * previous * release, previous / dt + qprod[j - 1])
+        dissolved[j] = max(previous + dt * (qprod[j - 1] - qout[j]), 0.)
+    mass_error = float(np.max(np.abs(np.diff(dissolved) - np.diff(time) * (qprod[:-1] - qout[1:]))))
+    assert mass_error < 1e-10
+    assert (dissolved >= 0.).all() and (qout >= 0.).all()
+    return dissolved, qout, mass_error
+
+
 def predict(cache, params, family, schedule, manual_onset=None):
     assert family in FAMILIES
     if manual_onset is not None:
@@ -143,16 +158,7 @@ def predict(cache, params, family, schedule, manual_onset=None):
         assert np.array_equal(multiplier[time < schedule[0][0]], np.ones(np.sum(time < schedule[0][0])))
     qin = qbase * multiplier
     csat = params['CO2sat_scale'] * cache.csat_base_g_l
-    dissolved = np.zeros(len(time))
-    qout = np.zeros(len(time))
-    for j, dt in enumerate(np.diff(time), start=1):
-        previous = dissolved[j - 1]
-        release = .05 + .95 * previous / max(previous + csat[j], 1e-12)
-        qout[j] = min(params['kCO2_release_h'] * previous * release, previous / dt + qin[j - 1])
-        dissolved[j] = max(previous + dt * (qin[j - 1] - qout[j]), 0.)
-    mass_error = float(np.max(np.abs(np.diff(dissolved) - np.diff(time) * (qin[:-1] - qout[1:]))))
-    assert mass_error < 1e-10
-    assert (dissolved >= 0.).all() and (qout >= 0.).all()
+    dissolved, qout, mass_error = pool_from_production(time, csat, qin, params['kCO2_release_h'])
     if family == 'directa':
         assert np.allclose(qout, baseline_output, rtol=1e-11, atol=1e-12)
     return pd.DataFrame(dict(t_h=time, qbio=qbio, qbase=qbase, q_input=qin,
@@ -330,6 +336,115 @@ def show_comparison(result, batches, observed, theta_table, param_sets, family, 
     display(metrics.query('window == "completo"')[['lab','param_set','theta','role',
         'RMSE_g_l_h','NRMSE_peak','onset_error_h','peak_predicted_g_l_h','AUC_relative_error']].round(4))
     display(metrics.groupby(['param_set','theta','window'], sort=False)[['RMSE_g_l_h','NRMSE_peak']].median().round(4))
+
+
+def compare_transient_location(reference, params):
+    """Move the transient to q_bio, optionally omitting respiratory CO2 only."""
+    time = reference.t_h.to_numpy()
+    activation = reference.activation.to_numpy()
+    fferm = reference.f_ferm.to_numpy()
+    qbio = reference.qbio.to_numpy()
+    qresp = reference.qresp.to_numpy()
+    multiplier = reference.transient_multiplier.to_numpy()
+    csat = reference.csat_g_l.to_numpy()
+    inputs = {
+        'actual': reference.q_input.to_numpy(),
+        'transitorio_bio': activation * (fferm * (multiplier * qbio) + qresp),
+        'sin_respiracion': activation * fferm * (multiplier * qbio),
+    }
+    assert np.allclose(inputs['actual'] - inputs['transitorio_bio'],
+        activation * (multiplier - 1.) * qresp, rtol=1e-10, atol=2e-15)
+    assert np.allclose(inputs['transitorio_bio'] - inputs['sin_respiracion'],
+        activation * qresp, rtol=1e-10, atol=2e-15)
+    curves, rows = {}, []
+    for name, qprod in inputs.items():
+        curve = reference.drop(columns=['qbase']).copy()
+        curve['qbio'] = qbio if name == 'actual' else multiplier * qbio
+        curve['qresp'] = qresp if name != 'sin_respiracion' else 0.
+        curve['q_input'] = qprod
+        dissolved, qout, mass_error = pool_from_production(time, csat, qprod, params['kCO2_release_h'])
+        curve['dissolved_g_l'] = dissolved
+        curve['predicted'] = params['matrix_gain'] * qout
+        if name == 'actual':
+            assert np.array_equal(curve.predicted.to_numpy(), reference.predicted.to_numpy())
+            assert np.array_equal(dissolved, reference.dissolved_g_l.to_numpy())
+        for field in ('O2_mg_l','f_ferm','activation','transient_multiplier','csat_g_l'):
+            assert np.array_equal(curve[field].to_numpy(),reference[field].to_numpy())
+        curves[name] = curve
+        rows.append(dict(variant=name,
+            max_delta_qprod_g_l_h=float(np.max(np.abs(qprod-inputs['actual']))),
+            max_delta_qpred_g_l_h=float(np.max(np.abs(curve.predicted-reference.predicted))),
+            delta_production_g_l=float(np.sum(np.diff(time)*(qprod[:-1]-inputs['actual'][:-1]))),
+            mass_error=mass_error))
+    return curves, pd.DataFrame(rows)
+
+
+def show_transient_location(manual_result, batches, observed, theta_table, param_sets, onsets, labs):
+    """One figure: three production models per panel, two theta columns."""
+    labels = {'actual': 'Modelo original: transitorio sobre producción total',
+        'transitorio_bio': 'Modificación: transitorio dentro de q_bio',
+        'sin_respiracion': 'Modificación: transitorio en q_bio, sin respiración'}
+    styles = {'actual': dict(color='0.35',lw=3.4,ls='-'),
+        'transitorio_bio': dict(color='#0072B2',lw=2.4,ls=(0,(6,3))),
+        'sin_respiracion': dict(color='#D55E00',lw=1.6,ls=':')}
+    display(Markdown('**Parámetros antiguos compartidos por las tres curvas:**'))
+    display(parameter_table(param_sets,'vigente')[['parameter','uso','antiguos']])
+    display(theta_table)
+    display(pd.DataFrame([{'lab':lab, **batches[lab].initials} for lab in labs]))
+    display(pd.DataFrame([{'lab':lab,'event_h':event,'delta_N_kg_m3':dose}
+        for lab in labs for event,dose in batches[lab].pulses['N']]))
+    display(manual_result['gates'][['lab','theta','gate_start_h','gate_end_h']].assign(
+        onset_manual_h=lambda df:df.lab.map(onsets)))
+    fig = plt.figure(figsize=(15,11.7),layout='constrained')
+    gs = fig.add_gridspec(len(labs)+1,2,height_ratios=[.22,*[1 for _ in labs]])
+    header = fig.add_subplot(gs[0,:]); header.set_axis_off()
+    curves, difference_rows, metric_rows = {}, [], []
+    for row,lab in enumerate(labs):
+        for col,theta_name in enumerate(THETA_LABELS):
+            reference = manual_result['curves'][('onset_manual','vigente','antiguos',theta_name,lab)]
+            candidates, differences = compare_transient_location(reference,param_sets['antiguos'])
+            differences['lab'], differences['theta'] = lab,theta_name
+            difference_rows.append(differences)
+            ax = fig.add_subplot(gs[row+1,col])
+            obs = observed[lab]
+            ax.plot(obs.t_h,obs.co2_rate_g_l_h,color='black',lw=1.5,zorder=5,
+                    label='CO2 observado válido')
+            for name,curve in candidates.items():
+                curves[(lab,theta_name,name)] = curve
+                ax.plot(curve.t_h,curve.predicted,label=labels[name],**styles[name])
+                full = next(item for item in metrics_for_curve(observed[lab],curve,batches[lab].pulses['N'][0][0])
+                    if item['window'] == 'completo')
+                metric_rows.append(dict(lab=lab,theta=theta_name,variant=name,**full))
+            for j,(event,_) in enumerate(batches[lab].pulses['N']):
+                ax.axvline(event,color='#8E44AD',ls='--',lw=1.2,
+                           label='Pulso nutricional' if j == 0 else None)
+            ax.axvline(onsets[lab],color='0.65',ls=':',lw=.8,label='Onset manual')
+            ax.set_title(f'{lab} — {THETA_LABELS[theta_name]}',fontsize=10)
+            ax.set_xlim(0.,reference.t_h.max()); ax.set_ylim(bottom=0.)
+            ax.set_xlabel('t desde inoculación [h]')
+            ax.set_ylabel(r'Flujo CO$_2$ [g L$^{-1}$ h$^{-1}$]')
+            ax.grid(alpha=.25)
+            if row == 0 and col == 0:
+                handles,legend_labels = ax.get_legend_handles_labels()
+                header.legend(handles,legend_labels,loc='center',ncol=2,frameon=False,fontsize=9)
+    fig.suptitle('LAB019–021 · ubicación del transitorio y retiro de CO2 respiratorio\n'
+        'Parámetros antiguos · onset manual · rampa + gain conservados · sin reajuste',fontsize=13)
+    display(fig); plt.close(fig)
+    differences = pd.concat(difference_rows,ignore_index=True)
+    display(Markdown('**Diferencias frente al modelo actual (sin redondear a cero):**'))
+    display(differences[['lab','theta','variant','max_delta_qprod_g_l_h',
+        'max_delta_qpred_g_l_h','delta_production_g_l','mass_error']].style.format({
+            name:'{:.3e}' for name in ('max_delta_qprod_g_l_h','max_delta_qpred_g_l_h',
+                                     'delta_production_g_l','mass_error')}))
+    display(Markdown('**Métricas sobre el mismo CO2 observado válido:**'))
+    metrics = pd.DataFrame(metric_rows)
+    display(metrics[['lab','theta','variant','RMSE_g_l_h','NRMSE_peak','AUC_relative_error']].round(6))
+    display(Markdown('Las curvas pueden superponerse: se usan línea sólida, trazos y puntos para '
+        'identificarlas. La curva negra muestra el CO2 observado válido. Las líneas verticales '
+        'morada y gris indican nutrición y onset manual. '
+        'Las diferencias cuantitativas anteriores permiten evaluar cambios pequeños sin alterar la escala.'))
+    assert len(curves) == len(labs)*2*3
+    return dict(curves=curves,differences=differences,metrics=metrics)
 
 
 def show_chemistry(result, batches, chem, theta_table):
