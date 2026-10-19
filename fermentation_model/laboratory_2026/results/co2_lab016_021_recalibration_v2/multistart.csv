@@ -1,0 +1,19 @@
+theta,training,seed,success,nfev,objective,message
+theta_full,all_six,0,True,10,0.10605088833355161,`ftol` termination condition is satisfied.
+theta_full,all_six,1,True,10,0.10605088848665234,`ftol` termination condition is satisfied.
+theta_full,all_six,2,True,10,0.10605088832728275,`ftol` termination condition is satisfied.
+theta_full,train_016_018,0,True,12,0.03345047051320338,`ftol` termination condition is satisfied.
+theta_full,train_016_018,1,True,11,0.033450470575327615,`ftol` termination condition is satisfied.
+theta_full,train_016_018,2,True,13,0.033450470543446756,`ftol` termination condition is satisfied.
+theta_full,train_019_021,0,True,15,0.05544949196603415,`ftol` termination condition is satisfied.
+theta_full,train_019_021,1,True,11,0.05544949201987469,`ftol` termination condition is satisfied.
+theta_full,train_019_021,2,True,10,0.055451925053169565,`gtol` termination condition is satisfied.
+theta_defaults,all_six,0,True,12,0.11670285775531009,`ftol` termination condition is satisfied.
+theta_defaults,all_six,1,True,13,0.11670285781271517,`ftol` termination condition is satisfied.
+theta_defaults,all_six,2,True,9,0.11670285777696354,`ftol` termination condition is satisfied.
+theta_defaults,train_016_018,0,True,15,0.0426936758677088,`ftol` termination condition is satisfied.
+theta_defaults,train_016_018,1,True,12,0.042693675871031705,`ftol` termination condition is satisfied.
+theta_defaults,train_016_018,2,True,11,0.042693675869202,`ftol` termination condition is satisfied.
+theta_defaults,train_019_021,0,True,11,0.059018596038489135,`ftol` termination condition is satisfied.
+theta_defaults,train_019_021,1,True,12,0.059018596015636055,`ftol` termination condition is satisfied.
+theta_defaults,train_019_021,2,True,11,0.059018596267464286,`ftol` termination condition is satisfied.

@@ -513,3 +513,78 @@ Registro breve de cambios implementados por agentes en el repositorio.
 
 - Archivos: `laboratory_2026/notebooks/diagnostics/nitrogen_consumption_diagnosis.source.ipynb`, `laboratory_2026/notebooks/diagnostics/nitrogen_consumption_diagnosis.executed.ipynb`, `laboratory_2026/results/nitrogen_consumption_diagnosis/co2_hard_sugar_activation/`.
 - Cambio: añadida comparación de encendido completo a 2 frente a 6 g/L inmediatamente debajo de la figura de activación suave, con figura 4×3 de activación y caudal para LAB019–021, ambos theta y biomasas. Conservados parámetros antiguos, química y pulsos hasta 166 h; documentado el encendido en el primer nodo que alcanza cada umbral. Verificadas 24 curvas, 96 prefijos, balances, métricas y cruces de umbral; SOURCE limpio y EXECUTED concordante con 99 celdas. Resultados y figuras previos conservados; figura nueva revisada visualmente. Sin nuevos módulos Python del proyecto, commit ni push.
+
+### 2026-10-15 18:54 -03:00
+
+- Archivos: `laboratory_2026/notebooks/diagnostics/co2_lab016_021_recalibration.source.ipynb`, `laboratory_2026/notebooks/diagnostics/co2_lab016_021_recalibration.executed.ipynb`, `laboratory_2026/results/co2_lab016_021_recalibration/`.
+- Cambio: creada y ejecutada calibración gaseosa exclusiva de LAB016–021, comparando ganancia sola y liberación/solubilidad/ganancia con ambos theta químicos antiguos fijos. Aplicado remanente de N de 30 mg/L, biomasa viable ponderada para LAB019–021 e hipótesis existentes de LAB016–018. Incorporadas nueve figuras, transferencia entre corridas, integración implícita conservativa del reservorio, auditorías de datos, balances y refinación numérica. SOURCE limpio y EXECUTED concordante; datos crudos, parámetros compartidos y calibraciones anteriores conservados como referencia. Sin commit ni push.
+
+### 2026-10-15 22:10 -03:00
+
+- Archivos: `laboratory_2026/notebooks/diagnostics/co2_lab016_021_recalibration.source.ipynb`, `laboratory_2026/notebooks/diagnostics/co2_lab016_021_recalibration.executed.ipynb`, `laboratory_2026/results/co2_lab016_021_recalibration/nitrogen_offset_diagnostic/`, `laboratory_2026/results/co2_lab016_021_recalibration/manifest.json`.
+- Cambio: añadido apartado inicial de remanente de N por LAB019–021 con YAN original, dos figuras 1×3 y selección de muestras posterior al agotamiento predicho postpulso sin offset, para ambas theta y biomasa viable ponderada. Calculadas medianas y sensibilidad a umbrales y esperas; documentada la ausencia de series equivalentes de N para LAB016–018. Verificados datos, selección, resultados y concordancia SOURCE/EXECUTED; conservados los resultados y salidas de la recalibración anterior con B=30 mg/L, sin aplicar los candidatos, recalibrar CO₂, commit ni push.
+
+### 2026-10-15 22:25 -03:00
+
+- Archivos: `data/mem2026/LAB019-021/YAN_muestras_corregidas.csv`.
+- Cambio: creado archivo independiente con las 39 muestras de YAN de LAB019–021, incluidas NUT, restando 30 mg N/L y truncando resultados negativos a cero. Conservados identificadores, horarios y flags temporales; verificados valores y archivos originales intactos. Sin cambios en exports Y15, notebooks, ecuaciones, parámetros o recalibraciones; sin commit ni push.
+
+### 2026-10-15 22:39 -03:00
+
+- Archivos: `laboratory_2026/notebooks/diagnostics/co2_lab016_021_recalibration.source.ipynb`, `laboratory_2026/notebooks/diagnostics/co2_lab016_021_recalibration.executed.ipynb`, `laboratory_2026/results/co2_lab016_021_recalibration/`.
+- Cambio: conectado YAN_muestras_corregidas.csv directamente a observaciones y N0 de LAB019–021, retirando el descuento del notebook y conservando N0 previo de LAB016–018 como hipótesis. Regenerados EXECUTED, figuras y errores con los ocho ceros del archivo; actualizadas explicaciones y trazabilidad, y sustituida la exportación química anterior. Verificadas las 39 muestras, ausencia de doble descuento, estabilidad numérica de predicciones/ajustes y ecuaciones y archivos originales intactos. SOURCE/EXECUTED concordantes; sin commit ni push.
+
+### 2026-10-15 22:52 -03:00
+
+- Archivos: `laboratory_2026/notebooks/diagnostics/co2_lab016_021_recalibration.source.ipynb`, `laboratory_2026/notebooks/diagnostics/co2_lab016_021_recalibration.executed.ipynb`, `laboratory_2026/results/co2_lab016_021_recalibration/transfer_hard_activation_6g/`, `laboratory_2026/results/co2_lab016_021_recalibration/manifest.json`.
+- Cambio: añadidas dos figuras de transferencia 2×3, con ambos theta y Z1/Z2, usando encendido completo de la fuente al consumo predicho de G+F ≥6 g/L. Reintegrado el reservorio desde cero con parámetros previamente ajustados, sin recalibración; incorporados tiempos de activación y errores frente a la transición 2–6. Verificadas 24 curvas, balances, umbrales y métricas; figuras revisadas y SOURCE/EXECUTED concordantes. Conservados resultados, figuras anteriores, muestras corregidas y ecuaciones compartidas; sin commit ni push.
+
+### 2026-10-15 23:04 -03:00
+
+- Archivos: `laboratory_2026/notebooks/diagnostics/co2_lab016_021_recalibration.source.ipynb`, `laboratory_2026/notebooks/diagnostics/co2_lab016_021_recalibration.executed.ipynb`, `laboratory_2026/results/co2_lab016_021_recalibration/06_chemistry_lab016_018.png`, `laboratory_2026/results/co2_lab016_021_recalibration/manifest.json`.
+- Cambio: añadida figura 3×3 de N, G+F y etanol predichos de LAB016–018, comparando ambos theta y mostrando pulsos hasta el final, antes de las figuras de transferencia. Reutilizadas las trayectorias químicas existentes y explicadas las condiciones iniciales heredadas y ausencia de validación química directa. Figura revisada, SOURCE/EXECUTED concordantes y resultados previos intactos; sin recalibración, commit ni push.
+
+### 2026-10-15 23:30 -03:00
+
+- Archivos: `laboratory_2026/notebooks/diagnostics/co2_lab016_021_recalibration.source.ipynb`, `laboratory_2026/notebooks/diagnostics/co2_lab016_021_recalibration.executed.ipynb`, `laboratory_2026/results/co2_lab016_021_recalibration/`.
+- Cambio: superpuestos en las dos figuras químicas los azúcares estimados por densidad con la relación de Lima, para LAB016–021; añadidas cobertura, diferencias frente al Y15 y trazabilidad. Conservados horarios, valores negativos de la aproximación y predicciones existentes; verificados 60 puntos, concordancia SOURCE/EXECUTED e integridad de datos y resultados numéricos, y revisadas ambas figuras. Sin cambios de modelo, recalibración, commit ni push.
+
+### 2026-10-16 01:04 -03:00
+
+- Archivos: `laboratory_2026/notebooks/diagnostics/co2_lab016_021_recalibration.source.ipynb`, `laboratory_2026/notebooks/diagnostics/co2_lab016_021_recalibration.executed.ipynb`, `laboratory_2026/results/co2_lab016_021_recalibration/`.
+- Cambio: retirado el apartado 0 y sus figuras del notebook; reunidas las figuras químicas de LAB019–021 y LAB016–018 con una columna de biomasa viable. Incorporados los nueve recuentos Oculyze de LAB016–018 en sus horarios, documentando una fecha inconsistente y conservando X0=0.45 g/L. Conectados CO2 y temperatura completos de LAB019–021 hasta la última química (166 h), regenerados ajustes, transferencias y auditorías. Verificados cobertura, balances, datos originales intactos, 35 celdas concordantes y 12 figuras; revisadas figuras. Sin commit ni push.
+
+### 2026-10-16 01:21 -03:00
+
+- Archivos: `laboratory_2026/notebooks/diagnostics/co2_lab016_021_recalibration.source.ipynb`, `laboratory_2026/notebooks/diagnostics/co2_lab016_021_recalibration.executed.ipynb`, `laboratory_2026/results/co2_lab016_021_recalibration/`.
+- Cambio: incorporada la densidad inicial común 1069 g/L reportada por el usuario a las 00:00 para LAB016–018, asignando G+F inicial=172.5 g/L y conservando la proporción G:F anterior. Añadidos los puntos iniciales a las figuras y su trazabilidad temporal; regeneradas predicciones, calibraciones gaseosas y transferencias. Verificados ambos theta, reparto inicial, 63 puntos de densidad, balances y SOURCE/EXECUTED; datos originales, parámetros químicos y química de LAB019–021 intactos. Sin commit ni push.
+
+### 2026-10-16 01:39 -03:00
+
+- Archivos: `laboratory_2026/notebooks/diagnostics/co2_lab016_021_recalibration.source.ipynb`, `laboratory_2026/notebooks/diagnostics/co2_lab016_021_recalibration.executed.ipynb`, `laboratory_2026/results/co2_lab016_021_recalibration/`.
+- Cambio: sustituida la biomasa inicial de LAB016–018 por 7×10⁶ células viables/mL, convertidas directamente a X0=0.21 g/L sin otro factor de viabilidad. Conservados G+F inicial=172.5 g/L y las demás entradas; regeneradas predicciones, ajustes gaseosos, transferencias y conclusiones. Verificados ambos theta, balances, originales intactos, química de LAB019–021 conservada y concordancia SOURCE/EXECUTED; revisada la figura química. Sin commit ni push.
+
+### 2026-10-16 01:53 -03:00
+
+- Archivos: `laboratory_2026/notebooks/diagnostics/co2_lab016_021_recalibration.source.ipynb`, `laboratory_2026/notebooks/diagnostics/co2_lab016_021_recalibration.executed.ipynb`, `laboratory_2026/results/co2_lab016_021_recalibration/`.
+- Cambio: corregida la concentración viable inicial común de LAB016–018 a 13×10⁶ células/mL según el usuario, equivalente a X0=0.39 g/L sin otro factor de viabilidad. Conservados G+F inicial=172.5 g/L y el resto de entradas; regeneradas curvas, ajustes y transferencias, y añadido resumen de conclusiones calculado desde las métricas actuales. Verificados ambos theta, balances, originales intactos, química de LAB019–021 conservada y SOURCE/EXECUTED concordantes; revisada la figura química. Sin commit ni push.
+
+### 2026-10-16 02:13 -03:00
+
+- Archivos: `laboratory_2026/notebooks/diagnostics/co2_lab016_021_recalibration.source.ipynb`, `laboratory_2026/notebooks/diagnostics/co2_lab016_021_recalibration.executed.ipynb`, `laboratory_2026/results/co2_lab016_021_recalibration/manifest.json`, `laboratory_2026/results/co2_lab016_021_recalibration/transfer_hard_activation_6g/` (eliminado).
+- Cambio: retirada la sección 8.1, sus dos figuras, cálculos y resultados exclusivos; eliminadas referencias del manifiesto. Conservada la transferencia de la sección 8 con activación progresiva 2–6 g/L. Verificadas 32 celdas SOURCE/EXECUTED concordantes, diez figuras y resultados restantes intactos, sin recalibrar, commit ni push.
+
+### 2026-10-16 02:25 -03:00
+
+- Archivos: `laboratory_2026/notebooks/diagnostics/co2_lab016_021_recalibration_v2.source.ipynb`, `laboratory_2026/notebooks/diagnostics/co2_lab016_021_recalibration_v2.executed.ipynb`, `laboratory_2026/results/co2_lab016_021_recalibration_v2/`.
+- Cambio: creada v2 con salidas independientes, conservando intactos el notebook anterior y todos sus resultados. Añadida a la transición por consumo predicho de G+F 2–6 g/L la condición simultánea de etanol producido E−E0≥10 g/L. Regenerados ajustes, figuras y transferencias; exportados tiempos y trayectorias de activación. Verificados doce casos, causalidad, fuente nula antes del umbral, balances, misma química/observaciones y 32 celdas SOURCE/EXECUTED concordantes; revisadas figuras. Sin commit ni push.
+
+### 2026-10-16 02:35 -03:00
+
+- Archivos: `laboratory_2026/notebooks/diagnostics/co2_lab016_021_recalibration_v2.source.ipynb`, `laboratory_2026/notebooks/diagnostics/co2_lab016_021_recalibration_v2.executed.ipynb`, `laboratory_2026/results/co2_lab016_021_recalibration_v2/`.
+- Cambio: retirada la condición de etanol de v2 y sustituida por activación progresiva por consumo predicho de S=G+F entre 2 y 10 g/L (50 % a 6 g/L). Regenerados ajustes, figuras, transferencias y diagnósticos de activación. Verificados doce casos, causalidad, activación sin umbral de etanol, balances, química/observaciones conservadas y SOURCE/EXECUTED concordantes; figuras revisadas y respaldo v1 intacto. Sin commit ni push.
+
+### 2026-10-16 03:23 -03:00
+
+- Archivos: `laboratory_2026/notebooks/diagnostics/co2_lab016_021_recalibration_v2.source.ipynb`, `laboratory_2026/notebooks/diagnostics/co2_lab016_021_recalibration_v2.executed.ipynb`, `laboratory_2026/results/co2_lab016_021_recalibration_v2/`.
+- Cambio: añadida sección 9.1 con sustituciones individuales y conjuntas de sF/sG por defaults, comparando química, CO2 global y transferencia en LAB016–021 con parámetros gaseosos de theta_full congelados. Añadidas cuatro figuras, métricas y trayectorias independientes; verificadas reproducción de referencia, balances y concordancia SOURCE/EXECUTED. Conservados ajustes previos, entradas y respaldo v1; sin commit ni push.

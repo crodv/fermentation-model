@@ -1,0 +1,4 @@
+lab,sample,sample_timestamp,sample_t_h,t_h,density_g_l,GF_density_g_l,previous_G0_g_l,previous_F0_g_l,G0_g_l,F0_g_l,source,allocation
+LAB016,inicial,2026-09-01,-0.06527777777777778,0.0,1069.0,172.5,74.05,77.73,84.15881539069706,88.34118460930294,User-reported shared initial density at 00:00; assigned as initial condition,preserved previous G:F ratio; components not individually measured
+LAB017,inicial,2026-09-01,-0.06666666666666667,0.0,1069.0,172.5,74.05,77.73,84.15881539069706,88.34118460930294,User-reported shared initial density at 00:00; assigned as initial condition,preserved previous G:F ratio; components not individually measured
+LAB018,inicial,2026-09-01,-0.06861111111111111,0.0,1069.0,172.5,74.05,77.73,84.15881539069706,88.34118460930294,User-reported shared initial density at 00:00; assigned as initial condition,preserved previous G:F ratio; components not individually measured

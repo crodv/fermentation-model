@@ -1,0 +1,267 @@
+{
+  "created_at": "2026-10-16T01:52:30.520956-03:00",
+  "git_head": "104082be86d686104df78d05a46895be16003211",
+  "remote": "https://github.com/crodv/fermentation-model.git",
+  "input_sha256": {
+    "fermentation_model\\data\\mem2026\\LAB016-018\\CO2_FILT_F2_LAB017.csv": "33dc517874fc16b6f44d0ca411b59c1c0370a428ecc8b87313b765c4c0ebf38a",
+    "fermentation_model\\laboratory_2026\\results\\nitrogen_consumption_diagnosis\\inoculum_viable_weighted\\initial_conditions.csv": "0ccfa4607c2d2e7494af14f0ec7d65b16ae63caab31a30770305484e708a4ae0",
+    "fermentation_model\\data\\mem2026\\LAB019-021\\backup_global_co2_completo.csv": "3caf3325257e64fc0d7024a70ff42d69e98bd2c8764a7fd1db1d84f2e78dc18b",
+    "fermentation_model\\data\\mem2026\\LAB016-018\\CO2_FILT_F1_LAB016.csv": "3c3d89ddd0b773e4d2d5e532addb21cedc698cfb105d703a79b5a6d5d3f91fd3",
+    "fermentation_model\\laboratory_2026\\results\\nitrogen_consumption_diagnosis\\inputs.csv": "0c0b69f57a56943e9bb549b5e3cbfe21046f9ed52b8be2d82b670d05333abb3e",
+    "fermentation_model\\laboratory_2026\\notebooks\\EKF\\_post_activity_prediction.py": "c6aa53fb7feebae0ce96f3b1d45ff2fc64850ba0a36637e035b63714d08bbdc6",
+    "fermentation_model\\data\\mem2026\\LAB016-018\\LAB018_OCULYZE\\report.csv": "79be5fec841c6a169428520ea193c817194595e387d072f4d32a3d5f05cae614",
+    "fermentation_model\\data\\mem2026\\LAB016-018\\Temp_F1_LAB016.csv": "8de4ccd81b81118b505868fb3eb8681461db07fb7f09780c42d94042ce2ba1cc",
+    "fermentation_model\\data\\mem2026\\LAB016-018\\CO2_F2_LAB017.csv": "9f5c4fafd605c4752d0ba205dad25db9e649f362bcc03dbca9688b079141f013",
+    "fermentation_model\\data\\mem2026\\LAB016-018\\CO2_F3_LAB018.csv": "2e00a3e12f5c395bf5a9447103030a42bb5696c49a3dc8096b3f4d500bad8dca",
+    "fermentation_model\\data\\mem2026\\LAB016-018\\LAB016_OCULYZE\\report.csv": "edea194f57a9c3dd358c358b1f6847a390cc0546e41f567b8fe0e0db4435feed",
+    "fermentation_model\\shared\\run_secondary_joint_campaign_doe.py": "20b5d9a5fc4e29e08484065b01765cf42e8f7c55accfcfce7b4bed2f5d6dba10",
+    "fermentation_model\\data\\mem2026\\LAB016-018\\CO2_F1_LAB016.csv": "28514476cc3295c8a38ff05b196e0f1376e6a4bc75a0dc7797b5e8d9943fa112",
+    "fermentation_model\\laboratory_2026\\results\\estimability_historical_natural\\theta.csv": "05b0d87fde52c751568c894639a1cd10c6d27ca13bc5d1e0a525591eb3d5a188",
+    "fermentation_model\\laboratory_2026\\results\\estimability_historical_natural\\theta_natural_full.csv": "3876c53d0b4dc6f4126ffb4f8e0999a8455c90f283c345a110be33e86504b46e",
+    "fermentation_model\\shared\\run_new_must_glycerol_estimability_doe.py": "1571a1d5eddb4daba1a27374529daf9b4d56d6a6de0fcd4ead82d9064d481905",
+    "fermentation_model\\data\\mem2026\\LAB019-021\\backup_global_temperatura_completo.csv": "b5a1528f6f0ee44334a460af396d59ea8456fd67d79b5ce2550641f488f6a481",
+    "fermentation_model\\data\\mem2026\\LAB016-018\\CO2_FILT_F3_LAB018.csv": "b7710aec804c706f760c5be1c1302818851914a7d72bb74bdf55b3e74f618319",
+    "fermentation_model\\laboratory_2026\\results\\co2_matrix_cross_validation_2026\\fit_parameters.csv": "fd7bb0a8ec56e1cfacc9db90083fac0c7ff6b44fe4b2633dc35d02c2061dbbb4",
+    "fermentation_model\\laboratory_2026\\results\\nitrogen_consumption_diagnosis\\inoculum_viable_weighted\\trajectories.npz": "dc2225b12bc2614f12709183664e3272f2441c17921b505e81285b35d398db52",
+    "fermentation_model\\data\\mem2026\\LAB016-018\\LAB016-018-offline-measurements.xlsx": "9efa982ff17f6bc19844d993cd66717d4fba45d0e2b2b683bd11856447dad7ea",
+    "fermentation_model\\data\\mem2026\\LAB019-021\\YAN_muestras_corregidas.csv": "827d233fbfaecaa0109cff9c78147a1223167eb37f20a996f7dad45de9a54d79",
+    "fermentation_model\\data\\mem2026\\LAB016-018\\Temp_F3._LAB018.csv": "17ec3c3fb74ae90e293491fbf72da7eb1c4e4e88649f958a92c2dbcfc2477f98",
+    "fermentation_model\\laboratory_2026\\notebooks\\EKF\\post_activity_prediction_results\\mask_audit.csv": "8ba165e314f80900abf0bf7c28eb2556434023236f37314c025fe49dcedeb0c0",
+    "fermentation_model\\data\\mem2026\\LAB016-018\\Temp_F2_LAB017.csv": "d4110f9a31e6a39c8fb2a68ee7f86ec943dd70089dc371df9a42e2ef76046d84",
+    "fermentation_model\\data\\mem2026\\LAB016-018\\LAB017_OCULYZE\\report.csv": "4b6d057f0480aa233632df1c6a7aa725413ba2813159a8d0d97943f881b3d12e",
+    "fermentation_model\\laboratory_2026\\results\\nitrogen_consumption_diagnosis\\inoculum_viable_weighted\\manifest.json": "2be43a43ea29bed61d540f4676e5d52b5e9f81a5ca6e2f7639045ddde746cde4",
+    "fermentation_model\\laboratory_2026\\results\\nitrogen_consumption_diagnosis\\chemistry_samples_with_NUT.csv": "c8fbaf8a4ae2fdab8698f69088f5680c4b783a7a033e6b366c56ce7589699f0e"
+  },
+  "fit_labs": [
+    "LAB016",
+    "LAB017",
+    "LAB018",
+    "LAB019",
+    "LAB020",
+    "LAB021"
+  ],
+  "excluded_CO2_labs": "LAB001–015",
+  "theta_fixed": {
+    "theta_full": {
+      "mu0": 0.0787279167844739,
+      "sN": 8.751445870938538,
+      "qN": 0.0210803824284854,
+      "qXG": 0.0814909864046577,
+      "qXF": 0.0709327065015376,
+      "betaG0": 0.4288780029973869,
+      "sG": 0.0974550987386739,
+      "betaF0": 3.440399174765835,
+      "sF": 0.1782952055176543,
+      "qEG": 1.712806793770099,
+      "qEF": 5.023016750172416,
+      "iG": 0.0560374372695645,
+      "iE": 0.0401679409799797,
+      "Kd0": 0.0001502495478967,
+      "m0": 0.0183385793928771,
+      "gammaG0": 0.1155587913675031,
+      "gammaF0": 0.000100001621599
+    },
+    "theta_defaults": {
+      "mu0": 0.0787279167844739,
+      "sN": 18.0,
+      "qN": 0.0210803824284854,
+      "qXG": 0.11249999999999999,
+      "qXF": 0.11249999999999999,
+      "betaG0": 0.4288780029973869,
+      "sG": 0.030000000000000002,
+      "betaF0": 3.440399174765835,
+      "sF": 0.030000000000000002,
+      "qEG": 1.712806793770099,
+      "qEF": 5.023016750172416,
+      "iG": 0.0560374372695645,
+      "iE": 0.0401679409799797,
+      "Kd0": 0.0001502495478967,
+      "m0": 0.01,
+      "gammaG0": 0.1155587913675031,
+      "gammaF0": 0.000100001621599
+    }
+  },
+  "old_gas_start": {
+    "kCO2_release_h": 0.4245882713532321,
+    "CO2sat_scale": 0.351389541106575,
+    "O2_qmax_mg_gdw_h": 0.15,
+    "O2_initial_scale": 0.1953996656508908,
+    "pulse_t_rise_h": 64.65870374633818,
+    "pulse_activity_gain": 0.25,
+    "chem_activation_start_fraction": 0.735056695858678,
+    "chem_activation_duration_fraction": 1.063909868135744,
+    "matrix_gain": 3.115756944378268,
+    "A": 0.3,
+    "tau_rise_h": 4.0,
+    "tau_decay_h": 12.0,
+    "N_ref_g_l": 0.14,
+    "kernel_normalization": "analytic_peak"
+  },
+  "recent_gas_source": "fermentation_model\\data\\mem2026\\LAB019-021\\backup_global_co2_completo.csv",
+  "recent_temperature_source": "fermentation_model\\data\\mem2026\\LAB019-021\\backup_global_temperatura_completo.csv",
+  "recent_horizon_policy": "last chemical sample per LAB",
+  "recent_coverage": [
+    {
+      "lab": "LAB019",
+      "chemistry_end_h": 166.0,
+      "gas_last_raw_h": 165.99944444444444,
+      "gas_last_bin_end_h": 166.0,
+      "previous_bin_end_h": 166.0,
+      "previous_overlap_max_error": 9.71445146547012e-17,
+      "valid_hourly_bins": 163
+    },
+    {
+      "lab": "LAB020",
+      "chemistry_end_h": 166.0,
+      "gas_last_raw_h": 165.99944444444444,
+      "gas_last_bin_end_h": 166.0,
+      "previous_bin_end_h": 166.0,
+      "previous_overlap_max_error": 9.71445146547012e-17,
+      "valid_hourly_bins": 163
+    },
+    {
+      "lab": "LAB021",
+      "chemistry_end_h": 166.0,
+      "gas_last_raw_h": 165.99944444444444,
+      "gas_last_bin_end_h": 166.0,
+      "previous_bin_end_h": 166.0,
+      "previous_overlap_max_error": 1.1102230246251565e-16,
+      "valid_hourly_bins": 163
+    }
+  ],
+  "biomass_measurements_used_as_initials": false,
+  "initial_viable_lab016_018_million_cells_ml": 13.0,
+  "initial_X_lab016_018_g_l": 0.39,
+  "initial_biomass_source": "user-specified viable concentration; no additional viability fraction",
+  "biomass_conversion_g_l_per_million_cells_ml": 0.03,
+  "corrected_YAN_file": "fermentation_model\\data\\mem2026\\LAB019-021\\YAN_muestras_corregidas.csv",
+  "offset_in_model": false,
+  "initial_conditions": [
+    {
+      "lab": "LAB016",
+      "source": "X0 por 13 millones de células viables/mL del usuario; G+F por densidad 1069; G:F proxy; Xd/E/N0/Gly y dosis N previas conservadas",
+      "X": 0.39,
+      "Xd": 0.0,
+      "N": 0.21433,
+      "G": 84.15881539069706,
+      "F": 88.34118460930294,
+      "E": 0.0,
+      "Gly": 1.14,
+      "N_events": "((56.93555555555555, 0.14),)",
+      "horizon_h": 152.1002777777778
+    },
+    {
+      "lab": "LAB017",
+      "source": "X0 por 13 millones de células viables/mL del usuario; G+F por densidad 1069; G:F proxy; Xd/E/N0/Gly y dosis N previas conservadas",
+      "X": 0.39,
+      "Xd": 0.0,
+      "N": 0.21433,
+      "G": 84.15881539069706,
+      "F": 88.34118460930294,
+      "E": 0.0,
+      "Gly": 1.14,
+      "N_events": "((56.93361111111111, 0.14), (57.13388888888889, 0.14))",
+      "horizon_h": 152.0988888888889
+    },
+    {
+      "lab": "LAB018",
+      "source": "X0 por 13 millones de células viables/mL del usuario; G+F por densidad 1069; G:F proxy; Xd/E/N0/Gly y dosis N previas conservadas",
+      "X": 0.39,
+      "Xd": 0.0,
+      "N": 0.21433,
+      "G": 84.15881539069706,
+      "F": 88.34118460930294,
+      "E": 0.0,
+      "Gly": 1.14,
+      "N_events": "((56.931666666666665, 0.14),)",
+      "horizon_h": 152.09694444444443
+    },
+    {
+      "lab": "LAB019",
+      "source": "N inicial m1 del CSV corregido; biomasa viable ponderada; temperatura completa hasta última química",
+      "X": 0.2831619028436019,
+      "Xd": 0.0326609999999999,
+      "N": 0.230025,
+      "G": 79.19,
+      "F": 78.97,
+      "E": 12.075372000000002,
+      "Gly": 1.22,
+      "N_events": "((64.33333333333333, 0.08),)",
+      "horizon_h": 166.0
+    },
+    {
+      "lab": "LAB020",
+      "source": "N inicial m1 del CSV corregido; biomasa viable ponderada; temperatura completa hasta última química",
+      "X": 0.1533416694312796,
+      "Xd": 0.0326609999999999,
+      "N": 0.225556,
+      "G": 77.94,
+      "F": 79.52000000000001,
+      "E": 11.917524,
+      "Gly": 1.38,
+      "N_events": "((71.66666666666667, 0.08),)",
+      "horizon_h": 166.0
+    },
+    {
+      "lab": "LAB021",
+      "source": "N inicial m1 del CSV corregido; biomasa viable ponderada; temperatura completa hasta última química",
+      "X": 0.1361529277251185,
+      "Xd": 0.0326609999999999,
+      "N": 0.231202,
+      "G": 80.19,
+      "F": 81.03999999999999,
+      "E": 11.759676,
+      "Gly": 1.28,
+      "N_events": "((47.5, 0.08),)",
+      "horizon_h": 166.0
+    }
+  ],
+  "initial_GF_lab016_018_g_l": 172.5,
+  "initial_density_lab016_018_g_l": 1069.0,
+  "initial_GF_allocation": "previous G:F ratio preserved",
+  "yield_CO2_E_fixed": 0.9552854352072933,
+  "conversion_fixed": 0.0404391928807947,
+  "gate": "predicted GF consumption smoothstep 2–6 g/L",
+  "Cd0": 0.0,
+  "kernel": "analytic_peak",
+  "loss": "equal mean square weight per LAB; one-sided censor below 0.05 g/L/h",
+  "fit_stages": {
+    "Z1": [
+      "matrix_gain"
+    ],
+    "Z2": [
+      "kCO2_release_h",
+      "CO2sat_scale",
+      "matrix_gain"
+    ]
+  },
+  "bounds": {
+    "kCO2_release_h": [
+      0.03,
+      25.0
+    ],
+    "CO2sat_scale": [
+      0.35,
+      2.5
+    ],
+    "matrix_gain": [
+      0.1,
+      20.0
+    ]
+  },
+  "gas_integrator": "implicit conservative Euler; exact positive quadratic root",
+  "density_sugar_comparison_path": "density_sugar_comparison/manifest.json",
+  "figures": [
+    "01_chemistry_recent.png",
+    "06_chemistry_lab016_018.png",
+    "02_gas_theta_full.png",
+    "02_gas_theta_defaults.png",
+    "03_shape_theta_full.png",
+    "03_shape_theta_defaults.png",
+    "04_transfer_theta_full.png",
+    "04_transfer_theta_defaults.png",
+    "05_source_theta_full.png",
+    "05_source_theta_defaults.png"
+  ],
+  "source_sha256": "15fa948c0b540ffec2738d5677f97c33748cff198ec86ea76450fa0750110f0e"
+}

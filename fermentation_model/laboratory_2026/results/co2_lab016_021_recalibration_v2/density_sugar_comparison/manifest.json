@@ -1,0 +1,114 @@
+{
+  "created_at": "2026-10-16T02:32:23.805718-03:00",
+  "relation": "rho=0.4*S+1000; S_density=(rho-1000)/0.4",
+  "density_unit": "g/L = kg/m3",
+  "sugar_unit": "g/L",
+  "reference": "Lima et al. 2024, section 2.2, equation (2), PDF page 5",
+  "paper_sha256": "c6d8cbc232105d71f98fb9a15661a41f8d9081fda571b7f9077209ca03c64151",
+  "input_sha256": {
+    "fermentation_model\\data\\mem2026\\LAB016-018\\LAB016-018-offline-measurements.xlsx": "9efa982ff17f6bc19844d993cd66717d4fba45d0e2b2b683bd11856447dad7ea",
+    "fermentation_model\\laboratory_2026\\results\\nitrogen_consumption_diagnosis\\chemistry_samples_with_NUT.csv": "c8fbaf8a4ae2fdab8698f69088f5680c4b783a7a033e6b366c56ce7589699f0e"
+  },
+  "negative_estimates_clipped": false,
+  "initial_conditions_changed": true,
+  "chemical_parameters_refitted": false,
+  "gas_parameters_refitted": true,
+  "initial_density_report": [
+    {
+      "lab": "LAB016",
+      "sample": "inicial",
+      "sample_timestamp": "2026-09-01",
+      "sample_t_h": -0.06527777777777778,
+      "t_h": 0.0,
+      "density_g_l": 1069.0,
+      "GF_density_g_l": 172.5,
+      "previous_G0_g_l": 74.05,
+      "previous_F0_g_l": 77.73,
+      "G0_g_l": 84.15881539069706,
+      "F0_g_l": 88.34118460930294,
+      "source": "User-reported shared initial density at 00:00; assigned as initial condition",
+      "allocation": "preserved previous G:F ratio; components not individually measured"
+    },
+    {
+      "lab": "LAB017",
+      "sample": "inicial",
+      "sample_timestamp": "2026-09-01",
+      "sample_t_h": -0.06666666666666667,
+      "t_h": 0.0,
+      "density_g_l": 1069.0,
+      "GF_density_g_l": 172.5,
+      "previous_G0_g_l": 74.05,
+      "previous_F0_g_l": 77.73,
+      "G0_g_l": 84.15881539069706,
+      "F0_g_l": 88.34118460930294,
+      "source": "User-reported shared initial density at 00:00; assigned as initial condition",
+      "allocation": "preserved previous G:F ratio; components not individually measured"
+    },
+    {
+      "lab": "LAB018",
+      "sample": "inicial",
+      "sample_timestamp": "2026-09-01",
+      "sample_t_h": -0.06861111111111111,
+      "t_h": 0.0,
+      "density_g_l": 1069.0,
+      "GF_density_g_l": 172.5,
+      "previous_G0_g_l": 74.05,
+      "previous_F0_g_l": 77.73,
+      "G0_g_l": 84.15881539069706,
+      "F0_g_l": 88.34118460930294,
+      "source": "User-reported shared initial density at 00:00; assigned as initial condition",
+      "allocation": "preserved previous G:F ratio; components not individually measured"
+    }
+  ],
+  "recent_time_convention": "existing sample t_h; m1 mapped to t=0",
+  "coverage": [
+    {
+      "lab": "LAB016",
+      "n_density": 9,
+      "first_h": 0.0,
+      "last_h": 56.18472222222222,
+      "min_sugar_density_g_l": 81.00000000000023,
+      "negative_estimates": 0
+    },
+    {
+      "lab": "LAB017",
+      "n_density": 9,
+      "first_h": 0.0,
+      "last_h": 56.18333333333333,
+      "min_sugar_density_g_l": 85.24999999999977,
+      "negative_estimates": 0
+    },
+    {
+      "lab": "LAB018",
+      "n_density": 9,
+      "first_h": 0.0,
+      "last_h": 56.18138888888889,
+      "min_sugar_density_g_l": 83.50000000000023,
+      "negative_estimates": 0
+    },
+    {
+      "lab": "LAB019",
+      "n_density": 12,
+      "first_h": 0.0,
+      "last_h": 166.0,
+      "min_sugar_density_g_l": -14.499999999999886,
+      "negative_estimates": 1
+    },
+    {
+      "lab": "LAB020",
+      "n_density": 12,
+      "first_h": 0.0,
+      "last_h": 166.0,
+      "min_sugar_density_g_l": -11.999999999999886,
+      "negative_estimates": 1
+    },
+    {
+      "lab": "LAB021",
+      "n_density": 12,
+      "first_h": 0.0,
+      "last_h": 166.0,
+      "min_sugar_density_g_l": -14.749999999999943,
+      "negative_estimates": 1
+    }
+  ]
+}
