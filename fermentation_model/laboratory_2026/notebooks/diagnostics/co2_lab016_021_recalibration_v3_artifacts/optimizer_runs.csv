@@ -1,0 +1,37 @@
+theta,training,filtering,mode,temperature,start,success,nfev,objective,message
+theta_full,all_six,offline_30min,v2,reference_20_45,0,True,12,0.10660176296048161,`xtol` termination condition is satisfied.
+theta_full,all_six,offline_30min,v2,reference_20_45,1,True,10,0.13082176705014054,`xtol` termination condition is satisfied.
+theta_full,all_six,offline_30min,v2,reference_20_45,2,True,10,0.10970103441653803,`xtol` termination condition is satisfied.
+theta_full,train_019_021,offline_30min,v2,reference_20_45,0,True,19,0.05575867598452605,`xtol` termination condition is satisfied.
+theta_full,train_019_021,offline_30min,v2,reference_20_45,1,True,10,0.05399721435008158,`xtol` termination condition is satisfied.
+theta_full,train_019_021,offline_30min,v2,reference_20_45,2,True,9,0.07248845780708928,`xtol` termination condition is satisfied.
+theta_full,train_016_018,offline_30min,v2,reference_20_45,0,True,11,0.034594344038199956,`ftol` termination condition is satisfied.
+theta_full,train_016_018,offline_30min,v2,reference_20_45,1,True,10,0.03459434409746783,`ftol` termination condition is satisfied.
+theta_full,train_016_018,offline_30min,v2,reference_20_45,2,True,6,0.034594344237024156,`ftol` termination condition is satisfied.
+theta_defaults,all_six,offline_30min,v2,reference_20_45,0,True,19,0.11894025302116232,Both `ftol` and `xtol` termination conditions are satisfied.
+theta_defaults,all_six,offline_30min,v2,reference_20_45,1,True,11,0.13511156759490306,`xtol` termination condition is satisfied.
+theta_defaults,all_six,offline_30min,v2,reference_20_45,2,True,12,0.1183302435359131,`xtol` termination condition is satisfied.
+theta_defaults,train_019_021,offline_30min,v2,reference_20_45,0,True,14,0.057950110607316536,`xtol` termination condition is satisfied.
+theta_defaults,train_019_021,offline_30min,v2,reference_20_45,1,True,11,0.05787449521466083,`ftol` termination condition is satisfied.
+theta_defaults,train_019_021,offline_30min,v2,reference_20_45,2,True,9,0.07514223037394649,`xtol` termination condition is satisfied.
+theta_defaults,train_016_018,offline_30min,v2,reference_20_45,0,True,10,0.04419843975966515,`ftol` termination condition is satisfied.
+theta_defaults,train_016_018,offline_30min,v2,reference_20_45,1,True,12,0.04419843975892482,`ftol` termination condition is satisfied.
+theta_defaults,train_016_018,offline_30min,v2,reference_20_45,2,True,12,0.044198439814698426,`ftol` termination condition is satisfied.
+theta_full,train_019_021,offline_20min,v2,reference_20_45,0,True,9,0.056095608171021494,`xtol` termination condition is satisfied.
+theta_full,train_019_021,offline_20min,v2,reference_20_45,1,True,10,0.05431070446283752,`xtol` termination condition is satisfied.
+theta_defaults,train_019_021,offline_20min,v2,reference_20_45,0,True,10,0.05828232614801822,`xtol` termination condition is satisfied.
+theta_defaults,train_019_021,offline_20min,v2,reference_20_45,1,True,15,0.058192697439773455,`xtol` termination condition is satisfied.
+theta_full,train_019_021,offline_40min,v2,reference_20_45,0,True,10,0.05554709764650565,`xtol` termination condition is satisfied.
+theta_full,train_019_021,offline_40min,v2,reference_20_45,1,True,12,0.05380053455159714,`xtol` termination condition is satisfied.
+theta_defaults,train_019_021,offline_40min,v2,reference_20_45,0,True,13,0.05770248883933898,`xtol` termination condition is satisfied.
+theta_defaults,train_019_021,offline_40min,v2,reference_20_45,1,True,10,0.057676156967648384,`xtol` termination condition is satisfied.
+theta_full,train_019_021,offline_30min,v2,strong_30_60,0,True,11,0.05401743274005506,`xtol` termination condition is satisfied.
+theta_full,train_019_021,offline_30min,v2,strong_30_60,1,True,10,0.05401774419520641,`xtol` termination condition is satisfied.
+theta_defaults,train_019_021,offline_30min,v2,strong_30_60,0,True,12,0.057930510455856676,`xtol` termination condition is satisfied.
+theta_defaults,train_019_021,offline_30min,v2,strong_30_60,1,True,12,0.05789652323231973,`xtol` termination condition is satisfied.
+theta_full,train_019_021,offline_30min,positive_mix,reference_20_45,0,True,18,0.038266483324148406,`xtol` termination condition is satisfied.
+theta_full,train_019_021,offline_30min,positive_mix,reference_20_45,1,True,22,0.038171001663360044,`xtol` termination condition is satisfied.
+theta_full,train_019_021,offline_30min,positive_mix,reference_20_45,2,True,27,0.03836011241872862,`xtol` termination condition is satisfied.
+theta_full_sN18,train_019_021,offline_30min,positive_mix,reference_20_45,0,True,18,0.03857731058561845,`xtol` termination condition is satisfied.
+theta_full_sN18,train_019_021,offline_30min,positive_mix,reference_20_45,1,True,19,0.037895405613416686,`xtol` termination condition is satisfied.
+theta_full_sN18,train_019_021,offline_30min,positive_mix,reference_20_45,2,True,24,0.03806068549991144,`xtol` termination condition is satisfied.

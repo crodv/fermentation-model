@@ -1,0 +1,16 @@
+scenario,CV_RMSE,all_folds_success,case,mode,chem_score,chemical_admissible
+full_sN_default_positive_mix,0.1599707486913664,True,full_sN_default,positive_mix,0.9454968551276018,True
+full_qXG_qXF_default_v2,0.1603118420769461,True,full_qXG_qXF_default,v2,0.9766120061011614,True
+full_v2_gate,0.16063846335509355,True,full,v2_gate,1.0,True
+full_sN_default_v2_gate,0.16071332432874788,True,full_sN_default,v2_gate,0.9454968551276018,True
+full_v2,0.1609035460509498,True,full,v2,1.0,True
+full_positive_mix,0.1609234956347775,True,full,positive_mix,1.0,True
+full_sN_default_v2_free,0.1610513107260437,True,full_sN_default,v2_free,0.9454968551276018,True
+sugar_2_4_v2,0.16113943273368034,True,sugar_2_4,v2,1.0367833852985857,True
+full_sN_default_v2,0.16137775783005628,True,full_sN_default,v2,0.9454968551276018,True
+full_v2_free,0.16179782568464096,True,full,v2_free,1.0,True
+full_sN_default_positive_gate,0.16352856331746585,True,full_sN_default,positive_gate,0.9454968551276018,True
+full_positive_gate,0.16420643754780517,True,full,positive_gate,1.0,True
+defaults_v2,0.1684473423585582,True,defaults,v2,2.6075650275218667,False
+full_sN_default_chemical,0.17585221764633283,True,full_sN_default,chemical,0.9454968551276018,True
+full_chemical,0.17703923639078942,True,full,chemical,1.0,True

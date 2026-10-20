@@ -588,3 +588,23 @@ Registro breve de cambios implementados por agentes en el repositorio.
 
 - Archivos: `laboratory_2026/notebooks/diagnostics/co2_lab016_021_recalibration_v2.source.ipynb`, `laboratory_2026/notebooks/diagnostics/co2_lab016_021_recalibration_v2.executed.ipynb`, `laboratory_2026/results/co2_lab016_021_recalibration_v2/`.
 - Cambio: añadida sección 9.1 con sustituciones individuales y conjuntas de sF/sG por defaults, comparando química, CO2 global y transferencia en LAB016–021 con parámetros gaseosos de theta_full congelados. Añadidas cuatro figuras, métricas y trayectorias independientes; verificadas reproducción de referencia, balances y concordancia SOURCE/EXECUTED. Conservados ajustes previos, entradas y respaldo v1; sin commit ni push.
+
+### 2026-10-20 10:43 -03:00
+
+- Archivos: `laboratory_2026/notebooks/diagnostics/co2_lab016_021_joint_search.source.ipynb`, `laboratory_2026/notebooks/diagnostics/co2_lab016_021_joint_search.executed.ipynb`, `laboratory_2026/notebooks/diagnostics/_co2_joint_search.py`, `laboratory_2026/notebooks/diagnostics/co2_lab016_021_joint_search_artifacts/`.
+- Cambio: creado y ejecutado seguimiento de v2 con 26 vectores químicos y 15 escenarios gaseosos, diagnóstico de cancelación de fuentes, validación interna en LAB019–021 y transferencia a LAB016–018 sin incluirlo en objetivos ni selección. Incorporadas cinco figuras dentro del notebook y tablas trazables; verificadas reproducción de referencia, balances, refinamiento numérico, concordancia SOURCE/EXECUTED e integridad de 62 archivos previos. Sin figuras nuevas en results, cambios de producción, commit ni push.
+
+### 2026-10-20 11:30 -03:00
+
+- Archivos: `laboratory_2026/notebooks/diagnostics/co2_lab016_021_joint_search.source.ipynb`, `laboratory_2026/notebooks/diagnostics/co2_lab016_021_joint_search.executed.ipynb`, `laboratory_2026/notebooks/diagnostics/co2_lab016_021_joint_search_artifacts/`.
+- Cambio: añadida y ejecutada sección 9 fijando únicamente matrix_gain=1.025 en ambas mezclas positivas, sin recalibrar ni cambiar la selección previa. Incorporadas comparación por LAB y ventanas, figura integrada y tablas independientes; verificadas escala exacta, química y reservorio conservados, reproducción de métricas, concordancia SOURCE/EXECUTED e integridad de entradas. Sin figuras en results, commit ni push.
+
+### 2026-10-20 12:44 -03:00
+
+- Archivos: `laboratory_2026/notebooks/diagnostics/co2_lab016_021_recalibration_v3.source.ipynb`, `laboratory_2026/notebooks/diagnostics/co2_lab016_021_recalibration_v3.executed.ipynb`, `laboratory_2026/notebooks/diagnostics/_co2_recalibration_v3.py`, `laboratory_2026/notebooks/diagnostics/co2_lab016_021_recalibration_v3_artifacts/`.
+- Cambio: creada y ejecutada v3 desde CO2 crudo y respaldos completos, con Hampel centrado y Butterworth sin desfase, comparación de intensidades de filtrado y temperatura suavizada utilizada efectivamente por el modelo. Recalibración con medianas de 10 minutos, recortes trazables que cubren la química, transferencias y comparación de mezclas positivas. Verificados 28 ajustes, balances, refinamiento, concordancia SOURCE/EXECUTED e integridad de 121 archivos previos; diez figuras integradas, ninguna nueva en results. Sin commit ni push.
+
+### 2026-10-20 15:22 -03:00
+
+- Archivos: `laboratory_2026/notebooks/diagnostics/co2_lab016_021_recalibration_v3.source.ipynb`, `laboratory_2026/notebooks/diagnostics/co2_lab016_021_recalibration_v3.executed.ipynb`, `laboratory_2026/notebooks/diagnostics/_co2_recalibration_v3.py`, `laboratory_2026/notebooks/diagnostics/co2_lab016_021_recalibration_v3_artifacts/`.
+- Cambio: corregido el tiempo transcurrido mediante America/Santiago y UTC, identificado el salto de septiembre como 14 segundos reales y eliminadas las máscaras por bomba, puentes sobre nutrición y márgenes de exclusión. Reejecutada la recalibración con la respuesta a nutrición conservada; actualizadas diez figuras, tablas, auditorías de reloj y soporte, y conclusiones. Verificados 28 ajustes, balances, refinamiento, concordancia SOURCE/EXECUTED e integridad de 121 archivos previos. Sin figuras en results, commit ni push.

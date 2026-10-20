@@ -1,0 +1,5 @@
+test,peak_shift_seconds,step_midpoint_seconds,amplitude_ratio
+offline_20min,0.0,0.0,0.999682992287993
+offline_30min,0.0,0.0,0.9967449898863509
+offline_40min,0.0,0.0,0.9859429299973831
+GUI Butterworth causal control,2440.0,,0.9998297940448116
