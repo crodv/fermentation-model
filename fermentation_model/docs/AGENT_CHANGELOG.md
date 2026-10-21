@@ -673,3 +673,58 @@ Registro breve de cambios implementados por agentes en el repositorio.
 
 - Archivos: `laboratory_2026/notebooks/calibration/preparing_data.source.ipynb`, `laboratory_2026/notebooks/calibration/preparing_data.executed.ipynb`.
 - Cambio: añadidas líneas magenta del cruce de densidad 1040 a los seis paneles de YAN natural, junto al calendario gris, con leyenda y anotaciones diferenciadas. Incorporada tabla de horarios e intervalos de interpolación; lectura exacta de 1040 en LAB006. EXECUTED regenerado sin errores y figura revisada; verificadas las otras trece figuras idénticas y las fuentes intactas. Sin nuevos CSV, auxiliares Python, figuras en results, commit ni push.
+
+### 2026-10-21 14:52 -03:00
+
+- Archivos: `laboratory_2026/notebooks/calibration/preparing_data.source.ipynb`, `laboratory_2026/notebooks/calibration/preparing_data.executed.ipynb`.
+- Cambio: incorporados horarios de pulso propuestos por el usuario: LAB004/005 67.5 h, LAB006 99 h, LAB007/008 64.5 h y LAB009 cruce de densidad 1040. Añadida tabla de muestras ancla, demora, siguiente YAN y fecha/hora local, con verificaciones de intervalo y subida. Referencia verde aplicada a las siete figuras naturales; YAN mantiene además calendario y cruce 1040 para comparar. Aclarado que son supuestos del análisis y no registros confirmados; datos, dosis y calibraciones intactos. EXECUTED regenerado sin errores y figuras revisadas; siete figuras sintéticas verificadas idénticas. Sin nuevos CSV, auxiliares Python, figuras en results, commit ni push.
+
+### 2026-10-21 15:12 -03:00
+
+- Archivos: `data/Laboratorio 2026/Vendimia_2026/mosto_natural_xthiol.xlsx`, `shared/results/secondary_metabolite_data_review/secondary_metabolite_long.csv`, `shared/results/new_must_data_loading/new_must_normalized_long.csv`, `laboratory_2026/notebooks/calibration/preparing_data.executed.ipynb` (regenerado desde su SOURCE sin cambios en esta tarea).
+- Cambio: corregido LAB007 con SP de Temp_F1_lab007.csv por fecha de muestra: 18 °C hasta 21/04/2026 12:00:01 y 21 °C desde entonces. Sincronizadas LAB007/Datos_homologados y doce temperaturas por CSV; actualizado Perfiles_temperatura y procedencia, retirando la etiqueta B inferida y la fase 16 °C sin respaldo en el log disponible. Verificadas todas las demás celdas y campos intactos, incluidos química y cambios previos de biomasa. Ambos CSV reproducen la fuente corregida; preparing_data ejecutado sin errores y sus catorce figuras verificadas idénticas. Sin commit ni push.
+
+### 2026-10-21 15:16 -03:00
+
+- Archivos: `laboratory_2026/notebooks/calibration/preparing_data.source.ipynb`, `laboratory_2026/notebooks/calibration/preparing_data.executed.ipynb`.
+- Cambio: sumada una hora a los pulsos provisionales de LAB004–008: 68.5/68.5/100/65.5/65.5 h; LAB009 conserva el cruce de densidad 1040. Actualizadas demoras respecto a las muestras ancla, explicaciones, tabla de fechas y verificaciones. EXECUTED regenerado sin errores y figura revisada; siete figuras sintéticas idénticas y fuentes sin cambios. Sin commit ni push.
+
+### 2026-10-21 15:26 -03:00
+
+- Archivos: `fermentation_model/data/Laboratorio 2026/Vendimia_2026/mosto_natural_xthiol.xlsx`
+- Cambio: añadida columna `pulso real` en LAB004–009, con horas históricas propuestas 68.5, 68.5, 100, 65.5, 65.5 y 41.84615384615385, respectivamente. Se conservan todos los datos y pulsos anteriores; son horarios provisionales acordados, no una confirmación documental de ejecución. Verificada conservación de todas las celdas previas y del resto del contenido del libro. No se modificaron las entradas ni el código de calibración.
+
+### 2026-10-21 15:45 -03:00
+
+- Archivos: `fermentation_model/laboratory_2026/notebooks/calibration/preparing_data.source.ipynb`, `fermentation_model/laboratory_2026/notebooks/calibration/preparing_data.executed.ipynb`
+- Cambio: añadidas matrices térmicas de LAB004–009 y MS007–016; LAB010–012 excluidos. Logs naturales completos posteriores a t0, medianas de 30 min y suavizado adicional offline (mediana móvil de 90 min y Butterworth de orden 2, período de corte 4 h), respetando huecos y cambios de consigna. Incluidos setpoints, todos los episodios registrados de bomba y pulsos provisionales. Para sintéticos, mostradas temperaturas medidas/operacionales del Excel y pulsos tabulados, documentando la ausencia de logs continuos y de bomba sin aplicarles filtrado de señal densa. EXECUTED ejecutado sin errores, figuras revisadas y 14 figuras químicas conservadas byte a byte; fuentes intactas, sin auxiliares ni nuevas exportaciones CSV.
+
+### 2026-10-21 16:10 -03:00
+
+- Archivos: `fermentation_model/data/Laboratorio 2026/Vendimia_2026/mosto_natural_xthiol.xlsx`, `fermentation_model/shared/results/new_must_data_loading/new_must_normalized_long.csv`, `fermentation_model/shared/results/secondary_metabolite_data_review/secondary_metabolite_long.csv`
+- Cambio: corregida temperatura operacional de LAB009 según SP de `Temp_F3_lab009.csv`: 21 °C iniciales y 18 °C desde 2026-04-20 12:00:03 (68.0008333333 h). Actualizadas LAB009, Datos_homologados, Perfiles_temperatura y la procedencia térmica; retirada fase inferida de 168 h sin respaldo en el log. Sin cambios en registros originales de eventos operativos. Verificadas todas las celdas restantes del libro y todos los campos ajenos a temperature_c en ambos CSV; se conservan biomasa corregida/depurada y pulsos. Sin recalibración, commit ni push.
+
+### 2026-10-21 16:50 -03:00
+
+- Archivos: `fermentation_model/laboratory_2026/notebooks/calibration/theta_new/theta_new.source.ipynb`, `fermentation_model/laboratory_2026/notebooks/calibration/theta_new/theta_new.executed.ipynb` y JSON de parámetros, etapa conjunta, checkpoint y manifiesto en esa misma carpeta.
+- Cambio: ejecutada recalibración química theta_new con LAB004–009 y MS007–016 depurados, pulsos naturales de pulso real a 80 mg N/L, sintéticos tabulados a 100 mg N/L, temperatura natural filtrada de logs y operacional sintética. Completados diez arranques conjuntos de 17 parámetros con regularización histórica y cuatro reajustes naturales de once con seis valores nuevos fijos. Incorporadas comparación de 17 parámetros frente a theta_full, theta_defaults y multistart_07, errores por variable/experimento, estabilidad entre arranques y trece figuras inline. Documentados compromiso natural/sintético y parámetros en cotas; verificada integración, concordancia SOURCE/EXECUTED, datos intactos y conservación exacta de 231 archivos de resultados históricos. Sin auxiliares Python, figuras en results, commit ni push.
+
+### 2026-10-21 17:47 -03:00
+
+- Archivos: `fermentation_model/laboratory_2026/notebooks/calibration/theta_new/theta_new.source.ipynb`, `fermentation_model/laboratory_2026/notebooks/calibration/theta_new/theta_new.executed.ipynb`, manifiesto actualizado y `holdout_lab019_021.json` en esa carpeta.
+- Cambio: añadido holdout químico de LAB019–021 al final, comparando theta_new, theta_joint_new, theta_full y theta_defaults congelados, sin recalibrar. Usadas m1 propias con biomasa viable, YAN corregido existente sin doble descuento, pulsos documentados de 80 mg N/L y temperatura del backup completo resuelto desde objeto LFS local, con el filtro acordado. Conservadas 36 muestras químicas, 33 de biomasa y NUT provisionales como intervalos sin puntuación temporal; incorporados siete gráficos, errores por variable/LAB y conclusiones que distinguen mejora de entrenamiento de peor transferencia de theta_new. Verificadas estabilidad numérica, identidad de parámetros/checkpoint, trece figuras de calibración y 231 archivos históricos. Sin auxiliares Python, datos modificados, nuevos CSV, figuras en results, commit ni push.
+
+### 2026-10-21 18:00 -03:00
+
+- Archivos: `fermentation_model/laboratory_2026/notebooks/calibration/theta_new/theta_new.source.ipynb`, `fermentation_model/laboratory_2026/notebooks/calibration/theta_new/theta_new.executed.ipynb`, `manifest.json` y `holdout_lab019_021.json` en esa carpeta.
+- Cambio: corregido el holdout LAB019–021 para reutilizar exactamente los siete estados iniciales acordados en v3, en lugar de la biomasa cruda de m1 utilizada por error. Conservadas las observaciones medidas y distinguida X0 corregida en tabla y figuras. Regenerados errores, figuras y conclusiones que sustituyen la evaluación anterior. Verificadas identidad de parámetros/checkpoint, trece figuras de calibración, estados iniciales archivados y resultados históricos; sin reajuste, modificación de datos, commit ni push.
+
+### 2026-10-21 18:15 -03:00
+
+- Archivos: `fermentation_model/laboratory_2026/notebooks/calibration/theta_new/theta_new.source.ipynb`, `fermentation_model/laboratory_2026/notebooks/calibration/theta_new/theta_new.executed.ipynb` y JSON de theta_new, checkpoint, manifiesto y holdout en esa carpeta; eliminado `theta_joint_new.json` descartado.
+- Cambio: reemplazada la calibración theta_new mixta por reajuste de once parámetros desde theta_full histórico, con seis heredados fijos y únicamente LAB004–009 depurados, pulsos corregidos y logs filtrados. Cuatro arranques convergentes; sintéticos conservados solo para evaluación. Regeneradas predicciones, comparación de parámetros, errores y holdout LAB019–021 con condiciones iniciales exactas de v3. Ejecutado nuevamente el notebook completo desde checkpoint y verificada identidad del vector final, veinte figuras, estabilidad numérica, integridad de entradas y conservación de 231 archivos históricos. Sin auxiliares Python, nuevos CSV, commit ni push.
+
+### 2026-10-21 19:24 -03:00
+
+- Archivos: `fermentation_model/laboratory_2026/notebooks/calibration/theta_new/RESUMEN_PRUEBA_RECALIBRACION.md`.
+- Cambio: documentados los cambios de muestras Oculyze, exclusiones de biomasa, fuentes/CSV, pulsos provisionales, temperaturas y los dos intentos de recalibración; incluida corrección de condiciones iniciales del holdout y situación observada de Git. Registrada conclusión del usuario: prueba fallida hasta ahora, sin carácter canónico ni adopción de theta_new como calibración oficial. Verificadas referencias y concordancia con manifiestos e historial; sin modificar datos, parámetros o notebooks, commit ni push.
