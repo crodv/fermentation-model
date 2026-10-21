@@ -1,0 +1,64 @@
+batch,state,unit,initial_value,initial_source_time_h,source_after_model_start,initial_uses_fallback,n_observations,n_negative_source,n_values_changed_by_model_bounds
+LAB004,X,g/L,0.3939,0.0,False,False,12,0,0
+LAB004,Xd,g/L,0.0092999999999999,0.0,False,False,12,0,0
+LAB004,N,mg N/L,230.76,0.0,False,False,13,0,0
+LAB004,G,g/L,75.04,0.0,False,False,13,0,0
+LAB004,F,g/L,70.80999999999999,0.0,False,False,13,0,0
+LAB004,E,g/L,9.707652,0.0,False,False,5,0,0
+LAB004,Gly,g/L,0.99,0.0,False,False,13,0,0
+LAB005,X,g/L,0.4932,0.0,False,False,12,0,0
+LAB005,Xd,g/L,0.0158999999999999,0.0,False,False,12,0,0
+LAB005,N,mg N/L,227.2999999999999,0.0,False,False,13,0,0
+LAB005,G,g/L,77.71,0.0,False,False,13,0,0
+LAB005,F,g/L,87.95,0.0,False,False,13,0,0
+LAB005,E,g/L,9.786576,0.0,False,False,5,0,0
+LAB005,Gly,g/L,1.09,0.0,False,False,13,0,0
+LAB006,X,g/L,0.0989999999999999,0.0,False,False,14,0,0
+LAB006,Xd,g/L,0.0275999999999999,0.0,False,False,14,0,0
+LAB006,N,mg N/L,229.12,0.0,False,False,15,0,0
+LAB006,G,g/L,81.63,0.0,False,False,15,0,0
+LAB006,F,g/L,75.81,0.0,False,False,15,0,0
+LAB006,E,g/L,9.8655,0.0,False,False,5,0,0
+LAB006,Gly,g/L,1.17,0.0,False,False,15,0,0
+LAB007,X,g/L,0.2916,0.0,False,False,13,0,0
+LAB007,Xd,g/L,0.0008999999999999,0.0,False,False,13,0,0
+LAB007,N,mg N/L,239.04,0.0,False,False,13,0,0
+LAB007,G,g/L,77.52,0.0,False,False,13,0,0
+LAB007,F,g/L,74.55,0.0,False,False,13,0,0
+LAB007,E,g/L,11.759676,0.0,False,False,6,0,0
+LAB007,Gly,g/L,0.89,0.0,False,False,13,0,0
+LAB008,X,g/L,0.2534999999999999,0.0,False,False,13,0,0
+LAB008,Xd,g/L,0.0033,0.0,False,False,13,0,0
+LAB008,N,mg N/L,239.22,0.0,False,False,13,0,0
+LAB008,G,g/L,76.21,0.0,False,False,13,0,0
+LAB008,F,g/L,74.89,0.0,False,False,13,0,0
+LAB008,E,g/L,9.234108,0.0,False,False,6,0,0
+LAB008,Gly,g/L,0.85,0.0,False,False,13,0,0
+LAB009,X,g/L,0.3602999999999999,0.0,False,False,12,0,0
+LAB009,Xd,g/L,0.0008999999999999,0.0,False,False,12,0,0
+LAB009,N,mg N/L,237.4,0.0,False,False,12,0,0
+LAB009,G,g/L,75.75,0.0,False,False,12,0,0
+LAB009,F,g/L,76.68,0.0,False,False,12,0,0
+LAB009,E,g/L,9.707652,0.0,False,False,5,0,0
+LAB009,Gly,g/L,0.75,0.0,False,False,12,0,0
+LAB010,X,g/L,0.9609,0.0,False,False,9,0,0
+LAB010,Xd,g/L,0.1127999999999999,0.0,False,False,9,0,0
+LAB010,N,mg N/L,225.6999999999999,0.0,False,False,4,0,0
+LAB010,G,g/L,78.49,0.0,False,False,4,0,0
+LAB010,F,g/L,77.05,0.0,False,False,4,0,0
+LAB010,E,g/L,9.313032,0.0,False,False,4,0,0
+LAB010,Gly,g/L,1.25,0.0,False,False,4,0,0
+LAB011,X,g/L,1.0656,0.0,False,False,7,0,0
+LAB011,Xd,g/L,0.0380999999999998,0.0,False,False,7,0,0
+LAB011,N,mg N/L,220.23999999999998,0.0,False,False,4,0,0
+LAB011,G,g/L,75.61,0.0,False,False,4,0,0
+LAB011,F,g/L,76.67,0.0,False,False,4,0,0
+LAB011,E,g/L,9.313032,0.0,False,False,4,0,0
+LAB011,Gly,g/L,1.25,0.0,False,False,4,0,0
+LAB012,X,g/L,0.8513999999999999,0.0,False,False,8,0,0
+LAB012,Xd,g/L,0.1208999999999999,0.0,False,False,8,0,0
+LAB012,N,mg N/L,222.06,0.0,False,False,4,0,0
+LAB012,G,g/L,75.0,0.0,False,False,4,0,0
+LAB012,F,g/L,79.88,0.0,False,False,4,0,0
+LAB012,E,g/L,9.391956,0.0,False,False,4,0,0
+LAB012,Gly,g/L,1.27,0.0,False,False,4,0,0

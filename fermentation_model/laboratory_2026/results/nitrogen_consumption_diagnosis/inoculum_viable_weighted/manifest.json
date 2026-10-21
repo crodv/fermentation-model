@@ -10,8 +10,8 @@
     "scope": "GF only in this notebook; raw G/F and original files preserved",
     "included_in_metrics_balances_and_grids": true
   },
-  "created_at": "2026-10-15T16:32:45.251478-03:00",
-  "source_code_sha256": "588640839bbf0756ae1e7f3dd4a420c80be4b03b9ad0c71cb8ce6411de4883f1",
+  "created_at": "2026-10-20T16:53:36.371465-03:00",
+  "source_code_sha256": "738fda081b98c08a1c9a854496a6fa7778478effbfeb77c73cb1ef38bc224bc7",
   "arrays": [
     {
       "array": "case_0",
@@ -567,7 +567,7 @@
     "fermentation_model\\laboratory_2026\\nut_sample_audit.py": "1164ce66c3b75086d5ff81bd267c1f6ecaca0394303e653151d1d848395c905f",
     "fermentation_model\\laboratory_2026\\notebooks\\theta_full_vs_incomplete_defaults_natural_review.ipynb": "fea28ed233c9e4b119b093a0dc31e5aa5d3e932e64d1dacdf22a192ca8bad073",
     "fermentation_model\\laboratory_2026\\notebooks\\EKF\\post_activity_prediction_comparison.source.ipynb": "5bba2a1c7ede7e425438d49a9e4a862fa2b3bb0e3bb14b44ebc4612c239c1650",
-    "fermentation_model\\laboratory_2026\\notebooks\\diagnostics\\_nitrogen_diagnosis.py": "c5e6ba9349130362307699522b52c1f6a5dbdd2d67987a027b8369d975f57df3",
+    "fermentation_model\\laboratory_2026\\notebooks\\diagnostics\\nitrogen_consumption_diagnosis.source.ipynb": "738fda081b98c08a1c9a854496a6fa7778478effbfeb77c73cb1ef38bc224bc7",
     "fermentation_model\\data\\mem2026\\LAB019-021\\Mediciones-Offline-LAB019-021.xlsx": "9b05f6c0ffc55929da5124df340296bda0ea3bb22d9dfb9cea2f31c847bda76d",
     "fermentation_model\\data\\mem2026\\LAB019-021\\backup_global_temperatura.csv": "572eec34915897e8f9440c8ee99e7bcb1fb842ecdc8a09efeb870e9f828ac635",
     "fermentation_model\\data\\mem2026\\LAB019-021\\EXPAuto(2026-09-21 12-49).txt": "97395acaf3e85a43d80b6106325825e9be634c9fbb27b49f57737ccc0152be68",

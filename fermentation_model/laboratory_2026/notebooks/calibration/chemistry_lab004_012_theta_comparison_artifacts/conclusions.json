@@ -1,0 +1,31 @@
+{
+  "lines": [
+    "- Se evaluaron **9 experimentos**, **608 observaciones originales** de siete especies y **545** observaciones sin entradas iniciales. G+F se analiza aparte.",
+    "- WRMSE global por observación: **full = 4.628**, **defaults = 5.626**. Menor es mejor según las ponderaciones históricas.",
+    "- Promedio de WRMSE con igual peso por par LAB/especie: **full = 4.926**, **defaults = 5.647**.",
+    "- De **63 pares LAB/especie originales**, full tiene menor RMSE en **36**, defaults en **25**; hay **2** empates numéricos. No es una prueba de significancia.",
+    "- **Biomasa viable:** RMSE full **0.5915** frente a defaults **0.5865 g/L**; menor: **theta_defaults**.",
+    "- **Biomasa muerta:** RMSE full **0.1225** frente a defaults **0.1211 g/L**; menor: **theta_defaults**.",
+    "- **Nitrógeno asimilable (YAN):** RMSE full **64.67** frente a defaults **65.72 mg N/L**; menor: **theta_full**.",
+    "- **Glucosa:** RMSE full **11.83** frente a defaults **12.1 g/L**; menor: **theta_full**.",
+    "- **Fructosa:** RMSE full **12.09** frente a defaults **21.52 g/L**; menor: **theta_full**.",
+    "- **Glucosa + fructosa:** RMSE full **23.25** frente a defaults **30.92 g/L**; menor: **theta_full**.",
+    "- **Etanol:** RMSE full **14.07** frente a defaults **18.49 g/L**; menor: **theta_full**.",
+    "- **Glicerol:** RMSE full **1.142** frente a defaults **1.164 g/L**; menor: **theta_full**.",
+    "- Los mayores errores normalizados aparecen debajo. Una buena curva de N por sí sola no acredita un buen ajuste de azúcares, etanol o biomasa.",
+    "- LAB004–012 participaron en la calibración. Los resultados describen ajuste histórico; la transferencia requiere experimentos independientes.",
+    "- Defaults mantiene once parámetros optimizados con los otros seis fijados a sus valores full: esta comparación no equivale a dos calibraciones igualmente optimizadas.",
+    "- Se conservaron pulsos, temperatura y condiciones iniciales históricos. Hay **0** entradas iniciales posteriores al inicio y **0** observaciones afectadas por cotas heredadas; su auditoría debe acompañar la interpretación.",
+    "- **LAB004–009:** WRMSE full **3.329**, defaults **5.169**. La preferencia entre vectores cambia entre estos grupos; el promedio global no representa por igual todos los experimentos.",
+    "- **LAB010–012:** WRMSE full **8.708**, defaults **7.589**. La preferencia entre vectores cambia entre estos grupos; el promedio global no representa por igual todos los experimentos.",
+    "- **Nitrógeno:** con full hay **32 muestras de 9 LAB** con predicción ≤ 5 mg N/L y observación > 20 mg N/L. El agotamiento predicho no reproduce todo el nitrógeno residual medido.",
+    "- En las curvas de LAB010–012 se observan consumos de azúcares y aumentos de etanol anteriores a las muestras intermedias. Este diagnóstico documenta la discrepancia; no permite atribuirla por sí solo a la temperatura, a parámetros o al registro de entradas."
+  ],
+  "n_original_observations": 608,
+  "n_scored_core_per_theta": 545,
+  "full_better_core_pairs": 36,
+  "defaults_better_core_pairs": 25,
+  "ties_core_pairs": 2,
+  "is_holdout": false,
+  "recalibration_performed": false
+}

@@ -1,0 +1,10 @@
+batch,n_source_rows,horizon_h,T_min_C,T_max_C,T_sensor_start_h,T_sensor_end_h,n_model_times_outside_sensor,N_pulses_h_mg_L,source_files
+LAB004,14,163.0,17.7,21.4,1.5,163.0,1,68 h: 80 mg/L,mosto_natural_xthiol.xlsx
+LAB005,14,163.0,18.0,21.4,1.5,163.0,1,68 h: 80 mg/L,mosto_natural_xthiol.xlsx
+LAB006,16,211.0,16.0,18.4,1.5,210.5,2,99 h: 80 mg/L,mosto_natural_xthiol.xlsx
+LAB007,14,160.0,17.4,21.1,0.0,159.5,1,65 h: 80 mg/L,mosto_natural_xthiol.xlsx
+LAB008,14,160.0,17.4,21.1,0.0,159.5,1,65 h: 80 mg/L,mosto_natural_xthiol.xlsx
+LAB009,13,160.0,17.6,22.1,0.0,159.5,1,41 h: 80 mg/L,mosto_natural_xthiol.xlsx
+LAB010,10,186.9999999999418,14.9,16.5,1.0,186.5,2,79 h: 80 mg/L,mosto_natural_xthiol.xlsx
+LAB011,8,162.9999999999418,14.9,21.4,1.0,162.5,2,72 h: 80 mg/L,mosto_natural_xthiol.xlsx
+LAB012,9,162.9999999999418,15.0,21.2,1.0,162.5,2,72 h: 80 mg/L,mosto_natural_xthiol.xlsx

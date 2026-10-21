@@ -608,3 +608,58 @@ Registro breve de cambios implementados por agentes en el repositorio.
 
 - Archivos: `laboratory_2026/notebooks/diagnostics/co2_lab016_021_recalibration_v3.source.ipynb`, `laboratory_2026/notebooks/diagnostics/co2_lab016_021_recalibration_v3.executed.ipynb`, `laboratory_2026/notebooks/diagnostics/_co2_recalibration_v3.py`, `laboratory_2026/notebooks/diagnostics/co2_lab016_021_recalibration_v3_artifacts/`.
 - Cambio: corregido el tiempo transcurrido mediante America/Santiago y UTC, identificado el salto de septiembre como 14 segundos reales y eliminadas las máscaras por bomba, puentes sobre nutrición y márgenes de exclusión. Reejecutada la recalibración con la respuesta a nutrición conservada; actualizadas diez figuras, tablas, auditorías de reloj y soporte, y conclusiones. Verificados 28 ajustes, balances, refinamiento, concordancia SOURCE/EXECUTED e integridad de 121 archivos previos. Sin figuras en results, commit ni push.
+
+### 2026-10-20 17:04 -03:00
+
+- Archivos: `AGENTS.md`, `laboratory_2026/notebooks/diagnostics/nitrogen_consumption_diagnosis.source.ipynb`, `laboratory_2026/notebooks/diagnostics/nitrogen_consumption_diagnosis.executed.ipynb`, `laboratory_2026/notebooks/diagnostics/co2_lab016_021_joint_search.source.ipynb`, `laboratory_2026/notebooks/diagnostics/co2_lab016_021_joint_search.executed.ipynb`, `laboratory_2026/notebooks/diagnostics/co2_lab016_021_recalibration_v3.source.ipynb`, `laboratory_2026/notebooks/diagnostics/co2_lab016_021_recalibration_v3.executed.ipynb` y manifiestos de sus resultados.
+- Cambio: integradas las funciones específicas en los SOURCE y eliminados los auxiliares `_nitrogen_diagnosis.py`, `_co2_joint_search.py` y `_co2_recalibration_v3.py`; v3 incluye su base sin depender del notebook de búsqueda. Añadida política de notebooks autocontenidos y módulos compartidos sólo con reutilización justificada. Regenerados los tres EXECUTED completos, actualizada la trazabilidad al SOURCE y verificada la conservación de tablas, trayectorias y figuras, sin cambios en datos ni módulos del modelo. Sin commit ni push.
+
+### 2026-10-20 18:36 -03:00
+
+- Archivos: `laboratory_2026/notebooks/calibration/chemistry_lab004_012_theta_comparison.source.ipynb`, `laboratory_2026/notebooks/calibration/chemistry_lab004_012_theta_comparison.executed.ipynb` y `laboratory_2026/notebooks/calibration/chemistry_lab004_012_theta_comparison_artifacts/`.
+- Cambio: creado y ejecutado análisis autocontenido de química de LAB004–012 con theta_full y theta_defaults congelados, muestras reales, temperatura y nutrición históricas. Incorporadas doce figuras integradas, errores por variable y experimento, auditoría de condiciones iniciales y conclusiones que distinguen entrenamiento y diferencias entre LAB004–009 y LAB010–012. Corregida la disposición de títulos y leyendas; validadas métricas, concordancia SOURCE/EXECUTED y reproducción histórica, con entradas intactas. Sin auxiliares .py nuevos, figuras en results, commit ni push.
+
+### 2026-10-20 18:57 -03:00
+
+- Archivos: `laboratory_2026/notebooks/calibration/chemistry_lab004_012_theta_comparison.source.ipynb`, `laboratory_2026/notebooks/calibration/chemistry_lab004_012_theta_comparison.executed.ipynb` y manifiesto de sus artefactos.
+- Cambio: añadido margen visual inferior del 2 % en los nueve paneles de nitrógeno para mostrar completas las curvas al llegar a cero. Regenerado el EXECUTED y revisada la figura; verificadas concordancia con SOURCE e integridad de entradas, tablas numéricas y conclusiones. Sin commit ni push.
+
+### 2026-10-20 19:36 -03:00
+
+- Archivos: `laboratory_2026/notebooks/calibration/chemistry_lab004_012_theta_comparison.source.ipynb`, `laboratory_2026/notebooks/calibration/chemistry_lab004_012_theta_comparison.executed.ipynb` y manifiesto de sus artefactos.
+- Cambio: ampliado el análisis con revisión de protocolos, recuentos iniciales, nutrición y trazabilidad de LAB006/LAB010–012 contra workbook, calendario y auditoría previa. Ejecutados veinte escenarios de X0 con theta_full congelado, errores de G/F/etanol y compromiso con N y biomasa; añadidas cinco figuras y conclusiones sobre el orden muestra/nutrición inicial. Verificadas condiciones constantes, reproducción de referencias e integridad de fuentes, trece CSV y doce figuras originales. Resultados nuevos solo inline, sin auxiliares .py, nuevos CSV, figuras en results, commit ni push.
+
+### 2026-10-21 00:09 -03:00
+
+- Archivos: `laboratory_2026/notebooks/calibration/preparing_data.source.ipynb`, `laboratory_2026/notebooks/calibration/preparing_data.executed.ipynb`.
+- Cambio: creado y ejecutado notebook autocontenido con una sola figura de biomasa viable medida de LAB004–009, uniendo cronológicamente las muestras de cada experimento. Verificados los seis LAB, concordancia SOURCE/EXECUTED e integridad de la fuente; figura revisada visualmente. Sin nuevos CSV, auxiliares .py, imágenes en results, commit ni push.
+
+### 2026-10-21 00:17 -03:00
+
+- Archivos: `laboratory_2026/notebooks/calibration/preparing_data.source.ipynb`, `laboratory_2026/notebooks/calibration/preparing_data.executed.ipynb`.
+- Cambio: reorganizada la biomasa de LAB004–009 en una sola figura con matriz 2 × 3, un panel por LAB, puntos unidos y escalas comunes calculadas con todas las muestras. EXECUTED regenerado y figura revisada sin recortar máximos; datos de entrada intactos. Sin nuevos CSV, commit ni push.
+
+### 2026-10-21 00:29 -03:00
+
+- Archivos: `laboratory_2026/notebooks/calibration/preparing_data.source.ipynb`, `laboratory_2026/notebooks/calibration/preparing_data.executed.ipynb`.
+- Cambio: añadidas líneas verticales del segundo pulso nutricional en los seis paneles de biomasa, usando el calendario operativo sobre el reloj histórico de cada LAB. Incorporada tabla de horarios y aclarada su diferencia frente a los pulsos cinéticos y la falta de confirmación de ejecución. EXECUTED regenerado, figura revisada y fuentes verificadas intactas; sin nuevos CSV, commit ni push.
+
+### 2026-10-21 01:30 -03:00
+
+- Archivos: `data/Laboratorio 2026/Vendimia_2026/mosto_natural_xthiol.xlsx`, `shared/results/secondary_metabolite_data_review/secondary_metabolite_long.csv`, `shared/results/new_must_data_loading/new_must_normalized_long.csv` y `laboratory_2026/notebooks/calibration/preparing_data.executed.ipynb` (regenerado desde su SOURCE sin cambios).
+- Cambio: corregida exclusivamente la muestra natural ING26-LAB006-04 (43 h) según revisión manual de imágenes: concentración total 36.56 y viable 30.65 millones de células/mL, gemación 23.53 %; viabilidad reportada en la captura 83.82 %. Sincronizadas las tres hojas de la fuente y las concentraciones/biomasas derivadas en ambos CSV; biomasa viable corregida a 0.9195 g/L. Verificados los valores, integridad de las demás muestras y del Oculyze DOE, ejecución sin errores y figura actualizada. Sin commit ni push.
+
+### 2026-10-21 01:38 -03:00
+
+- Archivos: `data/Laboratorio 2026/Vendimia_2026/mosto_natural_xthiol.xlsx`, `shared/results/secondary_metabolite_data_review/secondary_metabolite_long.csv`, `shared/results/new_must_data_loading/new_must_normalized_long.csv` y `laboratory_2026/notebooks/calibration/preparing_data.executed.ipynb` (regenerado desde su SOURCE sin cambios).
+- Cambio: corregida la concentración viable de la muestra 4 (43 h) de ING26-LAB004 a 34.8 y de ING26-LAB005 a 51.92 millones de células/mL, conservando total y gemación. Sincronizadas seis celdas de la fuente y ambas filas normalizadas con muertas y biomasas derivadas; biomasa viable de 1.044 y 1.5576 g/L, respectivamente. Verificada conservación de otras muestras, ejecución sin errores y figura actualizada de preparing_data. Sin commit ni push.
+
+### 2026-10-21 02:26 -03:00
+
+- Archivos: `laboratory_2026/notebooks/calibration/preparing_data.source.ipynb`, `laboratory_2026/notebooks/calibration/preparing_data.executed.ipynb`.
+- Cambio: excluidas de la biomasa preparada y su figura las muestras confirmadas LAB004-10, LAB005-10 y LAB006-09 (115 h), LAB007-L-13, LAB008-L-13 y LAB009-L-12 (160 h). Añadida tabla con identificadores, valores originales y motivos; conservadas 70 mediciones, sin alterar química, CSV ni Excel fuente. EXECUTED regenerado sin errores, seis exclusiones y concordancia SOURCE verificadas; figura revisada. Sin commit ni push.
+
+### 2026-10-21 02:50 -03:00
+
+- Archivos: `data/Laboratorio 2026/Vendimia_2026/mosto_natural_xthiol.xlsx`, ambos CSV normalizados de `shared/results/secondary_metabolite_data_review/` y `shared/results/new_must_data_loading/`, `laboratory_2026/notebooks/calibration/preparing_data.source.ipynb`, `laboratory_2026/notebooks/calibration/preparing_data.executed.ipynb`.
+- Cambio: eliminados de la fuente los datos Oculyze de LAB004-10, LAB005-10, LAB006-09, LAB007-L-13, LAB008-L-13 y LAB009-L-12: viable, total y gemación en 54 celdas de ocho hojas. Vaciados siete campos de concentraciones/biomasas derivadas por muestra en ambos CSV; conservadas filas, química, peso seco independiente y correcciones manuales de las muestras 4 de LAB004–006. preparing_data ahora consume directamente la fuente depurada sin máscara ni valores antiguos; EXECUTED regenerado y figura revisada con 70 mediciones. Verificadas otras celdas intactas y reproducción de ambos CSV desde el Excel. Sin commit ni push.

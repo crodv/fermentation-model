@@ -31,6 +31,14 @@ Reglas para agentes de código que trabajen en este repositorio.
 
 - No reconstruir retrospectivamente el historial ni documentar commits o cambios anteriores, salvo solicitud explícita.
 
+## Notebooks de análisis y auxiliares Python
+
+- Los notebooks de análisis y diagnóstico deben ser autocontenidos: las funciones específicas del experimento se definen en celdas del notebook SOURCE y se regenera su EXECUTED después de los cambios.
+- No crear un archivo `.py` auxiliar por cada notebook ni trasladar código a un módulo únicamente para acortar sus celdas. SOURCE y EXECUTED son las dos versiones del mismo análisis, no dos consumidores que justifiquen un módulo adicional.
+- Se pueden importar los módulos científicos compartidos que ya forman parte del modelo. Antes de crear un módulo compartido nuevo, debe existir reutilización concreta y justificada entre análisis independientes; en ausencia de ella, mantener el código dentro del SOURCE.
+- No cargar código específico de otro notebook mediante `exec`, módulos dinámicos, archivos generados o importaciones de notebooks para eludir esta regla.
+- Al integrar un auxiliar existente, actualizar sus referencias y la trazabilidad, ejecutar los notebooks afectados, verificar la conservación de los resultados y eliminar el auxiliar cuando ya no tenga consumidores.
+
 ## Python / Conda environment
 
 - El entorno oficial es `fermentation`.

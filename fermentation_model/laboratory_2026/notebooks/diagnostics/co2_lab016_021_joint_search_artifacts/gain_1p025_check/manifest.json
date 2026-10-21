@@ -1,5 +1,5 @@
 {
-  "created_at": "2026-10-20T11:29:42.084491-03:00",
+  "created_at": "2026-10-20T16:50:41.052346-03:00",
   "python": "D:\\anaconda3\\envs\\fermentation\\python.exe",
   "fixed_gain": 1.025,
   "only_parameter_changed": "matrix_gain",
@@ -31,7 +31,7 @@
     },
     "chemistry": {
       "path": "fermentation_model\\laboratory_2026\\notebooks\\diagnostics\\co2_lab016_021_joint_search_artifacts\\chemistry_trajectories.csv",
-      "sha256": "54ddce3690f55cfa94d25f39e7318437adc19990b728ba8f14a7e383f093ade3"
+      "sha256": "313c237b61b03533904b0ac36158f76345ab62d839126e648b51514f04d0b002"
     }
   },
   "baseline_metrics_max_error": 1.1796119636642288e-16

@@ -1,0 +1,166 @@
+{
+  "created_at": "2026-10-20T19:35:03.088423-03:00",
+  "source_notebook": "fermentation_model\\laboratory_2026\\notebooks\\calibration\\chemistry_lab004_012_theta_comparison.source.ipynb",
+  "experiments": [
+    "LAB004",
+    "LAB005",
+    "LAB006",
+    "LAB007",
+    "LAB008",
+    "LAB009",
+    "LAB010",
+    "LAB011",
+    "LAB012"
+  ],
+  "is_holdout": false,
+  "fit_performed": false,
+  "co2_layer_used": false,
+  "initial_anchors_excluded_from_primary_errors": true,
+  "original_states": [
+    "X",
+    "Xd",
+    "N",
+    "G",
+    "F",
+    "E",
+    "Gly"
+  ],
+  "derived_state_excluded_from_weighted_summary": "GF",
+  "sigma_definition": "historical model weighting; not certified analytical uncertainty",
+  "temperature_policy": "archived 30-min sensor; historical 2h model grid; nominal outside sensor coverage",
+  "pulse_order": "sample_before_action",
+  "dense_plot_step_h": 0.25,
+  "python": "D:\\anaconda3\\envs\\fermentation\\python.exe",
+  "versions": {
+    "numpy": "1.26.4",
+    "pandas": "2.2.2"
+  },
+  "inputs": {
+    "chemistry_normalized": {
+      "path": "fermentation_model\\shared\\results\\secondary_metabolite_data_review\\secondary_metabolite_long.csv",
+      "sha256": "d9a61fc152782c1b0b5d0ea5bac9d32d2a60b8737b7b58c0e0382d3ead8a975e"
+    },
+    "temperature_30min": {
+      "path": "fermentation_model\\laboratory_2026\\results\\estimability_historical_natural\\process_temperature_30min.csv",
+      "sha256": "22b8b0154946445bddc95ee3bd5a2a115dda6d01056f907e8f8592b7403c1b4f"
+    },
+    "theta_full": {
+      "path": "fermentation_model\\laboratory_2026\\results\\estimability_historical_natural\\theta_natural_full.csv",
+      "sha256": "3876c53d0b4dc6f4126ffb4f8e0999a8455c90f283c345a110be33e86504b46e"
+    },
+    "theta_natural_11": {
+      "path": "fermentation_model\\laboratory_2026\\results\\estimability_historical_natural\\theta.csv",
+      "sha256": "05b0d87fde52c751568c894639a1cd10c6d27ca13bc5d1e0a525591eb3d5a188"
+    },
+    "theta_inherited_6": {
+      "path": "fermentation_model\\shared\\results\\new_must_glycerol_overnight_validation\\theta_multistart_07.csv",
+      "sha256": "146185f5d070c58b309a4b8ab492848a3326e243509c2849552ccdee0f54d396"
+    },
+    "calibration_batch_summary": {
+      "path": "fermentation_model\\laboratory_2026\\results\\estimability_historical_natural\\batch_summary.csv",
+      "sha256": "bb7c935fc2e8a3719898b54d903b09d75a3a48e224a2531dcda6d357a1762c28"
+    },
+    "calibration_support": {
+      "path": "fermentation_model\\laboratory_2026\\results\\estimability_historical_natural\\measurement_support.csv",
+      "sha256": "e1b1c0a8b5e1f04a2819bd64e4e7e55239397e9b5eb1211a3e5cd3a3438dee96"
+    },
+    "calibration_summary": {
+      "path": "fermentation_model\\laboratory_2026\\results\\estimability_historical_natural\\summary.json",
+      "sha256": "5ef96ce43cfe820baf8c26ba70046d9e4ea10bdf08e7c851a0c3da5168c66102"
+    },
+    "source_workbook": {
+      "path": "fermentation_model\\data\\Laboratorio 2026\\Vendimia_2026\\mosto_natural_xthiol.xlsx",
+      "sha256": "26a51838137829f29b135ff4de15b8dd6a829f1a858fbedd841a30c94f601a40"
+    },
+    "source_calendar": {
+      "path": "fermentation_model\\data\\Laboratorio 2026\\raw_data\\Fernanda Folch.ics",
+      "sha256": "8450268af946bd60ecd08084c97fac69c5ee0815aa536db59d6a597da3d7ea37"
+    },
+    "prior_temporal_audit": {
+      "path": "fermentation_model\\docs\\natural_must_temporal_audit_LAB001_018.md",
+      "sha256": "4fb3284a556e5b6eaa049b32fb5ee60f0403840674d24eb1ddef97a8261baac0"
+    },
+    "normalization_loader": {
+      "path": "fermentation_model\\shared\\new_must_data_loader.py",
+      "sha256": "d73b4e6b1235333ba1760d8afd375ae50227cc2a42c404f52ff82f92a23e897c"
+    },
+    "kinetic_model": {
+      "path": "fermentation_model\\shared\\run_new_must_glycerol_estimability_doe.py",
+      "sha256": "1571a1d5eddb4daba1a27374529daf9b4d56d6a6de0fcd4ead82d9064d481905"
+    },
+    "historical_loader": {
+      "path": "fermentation_model\\laboratory_2026\\run_estimability_historical_by_medium.py",
+      "sha256": "4246d59b85d313366890c6179eba60d82d0fc0527bea890f74f6ebc5aae12b7f"
+    }
+  },
+  "tables": [
+    "parameter_comparison.csv",
+    "batch_inputs.csv",
+    "initial_conditions_audit.csv",
+    "temperature_alignment.csv",
+    "observations_normalized.csv",
+    "observation_predictions.csv",
+    "chemistry_trajectories.csv",
+    "metrics_by_lab_variable.csv",
+    "metrics_by_lab_variable_with_initials.csv",
+    "metrics_by_variable.csv",
+    "weighted_summary_by_lab.csv",
+    "rmse_comparison.csv",
+    "numerical_grid_check.csv"
+  ],
+  "figures_saved_to_disk": false,
+  "X0_sensitivity": {
+    "labs": [
+      "LAB006",
+      "LAB010",
+      "LAB011",
+      "LAB012"
+    ],
+    "factors": {
+      "LAB006": [
+        1.0,
+        1.1,
+        1.25,
+        1.5,
+        2.0
+      ],
+      "LAB010": [
+        1.0,
+        0.9,
+        0.75,
+        0.5,
+        0.25
+      ],
+      "LAB011": [
+        1.0,
+        0.9,
+        0.75,
+        0.5,
+        0.25
+      ],
+      "LAB012": [
+        1.0,
+        0.9,
+        0.75,
+        0.5,
+        0.25
+      ]
+    },
+    "theta": "theta_full frozen",
+    "changed_input": "viable biomass X0 only",
+    "primary_states": [
+      "G",
+      "F",
+      "E"
+    ],
+    "primary_weighting": "equal weight per variable using historical sigmas",
+    "secondary_states": [
+      "N",
+      "GF",
+      "X"
+    ],
+    "new_results_location": "EXECUTED sections 7–9; no new CSV files",
+    "original_conclusions_json_scope": "baseline comparison, section 6",
+    "protocol_review": "source workbook and calendar read-only; planned events do not certify execution"
+  }
+}
