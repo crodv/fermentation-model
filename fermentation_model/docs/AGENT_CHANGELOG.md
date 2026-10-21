@@ -663,3 +663,13 @@ Registro breve de cambios implementados por agentes en el repositorio.
 
 - Archivos: `data/Laboratorio 2026/Vendimia_2026/mosto_natural_xthiol.xlsx`, ambos CSV normalizados de `shared/results/secondary_metabolite_data_review/` y `shared/results/new_must_data_loading/`, `laboratory_2026/notebooks/calibration/preparing_data.source.ipynb`, `laboratory_2026/notebooks/calibration/preparing_data.executed.ipynb`.
 - Cambio: eliminados de la fuente los datos Oculyze de LAB004-10, LAB005-10, LAB006-09, LAB007-L-13, LAB008-L-13 y LAB009-L-12: viable, total y gemación en 54 celdas de ocho hojas. Vaciados siete campos de concentraciones/biomasas derivadas por muestra en ambos CSV; conservadas filas, química, peso seco independiente y correcciones manuales de las muestras 4 de LAB004–006. preparing_data ahora consume directamente la fuente depurada sin máscara ni valores antiguos; EXECUTED regenerado y figura revisada con 70 mediciones. Verificadas otras celdas intactas y reproducción de ambos CSV desde el Excel. Sin commit ni push.
+
+### 2026-10-21 03:30 -03:00
+
+- Archivos: `laboratory_2026/notebooks/calibration/preparing_data.source.ipynb`, `laboratory_2026/notebooks/calibration/preparing_data.executed.ipynb`.
+- Cambio: ampliada la preparación a LAB004–009 naturales y MS007–016 sintéticos con 14 figuras (112 paneles), alternando ambas matrices para biomasa viable, YAN, glucosa, fructosa, G+F, densidad y etanol. Añadidas cobertura por variable, escalas verticales comunes y referencias de nutrición diferenciadas por fuente; conservadas depuración Oculyze y correcciones manuales. Aclarada la exclusión visual de Xd/glicerol sin modificar el modelo. EXECUTED regenerado sin errores; verificadas mediciones dibujadas, orden de figuras, concordancia SOURCE, integridad de fuentes y disposición visual. Sin auxiliares Python, nuevos CSV, figuras en results, commit ni push.
+
+### 2026-10-21 04:06 -03:00
+
+- Archivos: `laboratory_2026/notebooks/calibration/preparing_data.source.ipynb`, `laboratory_2026/notebooks/calibration/preparing_data.executed.ipynb`.
+- Cambio: añadidas líneas magenta del cruce de densidad 1040 a los seis paneles de YAN natural, junto al calendario gris, con leyenda y anotaciones diferenciadas. Incorporada tabla de horarios e intervalos de interpolación; lectura exacta de 1040 en LAB006. EXECUTED regenerado sin errores y figura revisada; verificadas las otras trece figuras idénticas y las fuentes intactas. Sin nuevos CSV, auxiliares Python, figuras en results, commit ni push.
