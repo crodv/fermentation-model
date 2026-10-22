@@ -1,5 +1,5 @@
 {
-  "created_at": "2026-10-16T02:32:23.805718-03:00",
+  "created_at": "2026-10-21T20:55:28.303662-03:00",
   "relation": "rho=0.4*S+1000; S_density=(rho-1000)/0.4",
   "density_unit": "g/L = kg/m3",
   "sugar_unit": "g/L",
