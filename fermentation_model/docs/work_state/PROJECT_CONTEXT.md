@@ -28,6 +28,11 @@ qobs [g/L/h]  ↔  sensor de flujo SCCM
 
 - **Separación dura**: modelo upstream (θ_natural, congelado) y capa CO2 (parámetros de
   observación/transferencia) son artefactos distintos; calibrar uno NO recalibra el otro.
+- **Alcance acordado del EKF**: excluir biomasa muerta (`Xd`) y glicerol (`Gly`) del vector
+  de estados, sus covarianzas y las figuras de evaluación. Conservar el efecto cinético de
+  muerte sobre X cuando corresponda; no integrar Xd. El modelo upstream histórico mantiene
+  su estructura para reproducibilidad. Las figuras principales deben mostrar curvas completas
+  de las variables de interés y distinguir las mediciones asimiladas de las reservadas.
 - **Theta upstream canónico para simulaciones nuevas**: usar
   `theta_natural_full.csv` o `theta_synthetic_full.csv`, según la matriz. Ambos contienen los 17
   parámetros cinéticos y deben cargarse sin completar faltantes desde `DEFAULT_THETA`.

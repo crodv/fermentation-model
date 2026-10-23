@@ -613,3 +613,23 @@ Registro breve de cambios implementados por agentes en el repositorio.
 
 - Archivos: `laboratory_2026/notebooks/diagnostics/` (SOURCE/EXECUTED de `co2_lab016_021_joint_search`, `co2_lab016_021_recalibration`, `co2_lab016_021_recalibration_v2`, `co2_lab016_021_recalibration_v3` y `nitrogen_consumption_diagnosis`), `laboratory_2026/notebooks/calibration/chemistry_lab004_012_theta_comparison.source.ipynb`, `laboratory_2026/notebooks/calibration/chemistry_lab004_012_theta_comparison.executed.ipynb` y artefactos asociados.
 - Cambio: reconstruidos y ejecutados en main los tres diagnósticos con código y trazabilidad integrados; eliminados tres auxiliares Python y trece manifiestos JSON. Adaptados y reejecutados los dos consumidores antiguos, incluido el acceso local a objetos LFS. Creada comparación química LAB004–012 con sensibilidad de X0 y resultados inline, sin nuevos CSV ni JSON auxiliares. Verificada conservación exacta de figuras y tablas previas; diferencias de CSV derivados limitadas a orden/serialización. Datos originales y parámetros históricos intactos, sin incorporar depuración ni theta_new de recalibration. Sin commit ni push.
+
+### 2026-10-22 12:49 -03:00
+
+- Archivos: `laboratory_2026/notebooks/EKF/lab019_first_ekf_46h5.source.ipynb`, `laboratory_2026/notebooks/EKF/lab019_first_ekf_46h5.executed.ipynb`.
+- Cambio: creado y ejecutado en fermentation el primer EKF de LAB019 hasta 46,5 h, comparando simulación libre, CO2 y CO2 con GF/YAN a 22 y 40 h; incluidos matrices, procesamiento causal, cuatro figuras, validación reservada y sensibilidad Q/R. Verificados integración, balance del reservorio, covarianzas, separación de muestras, concordancia SOURCE/EXECUTED e integridad de entradas; documentadas mejoras en N y CO2 y deterioro de GF. Sin reajuste de parámetros, commit ni push.
+
+### 2026-10-22 13:15 -03:00
+
+- Archivos: `laboratory_2026/notebooks/EKF/lab019_first_ekf_full_batch.source.ipynb`, `laboratory_2026/notebooks/EKF/lab019_first_ekf_full_batch.executed.ipynb`, `docs/work_state/PROJECT_CONTEXT.md`.
+- Cambio: reemplazada la prueba de 46,5 h por curvas completas de LAB019 hasta 166 h, sin Xd ni Gly en el estado o las covarianzas; incorporados pulso único y memoria causal postnutrición. Rehechas cinco figuras con escenarios separados, escalas comunes y muestras asimiladas/reservadas; matrices trasladadas al anexo y exclusiones persistidas en el contexto. Verificados RHS reducido, balances, Jacobianos, positividad, separación de muestras, integridad de entradas y SOURCE/EXECUTED sin errores; documentada la amortiguación frecuente del EKF. Sin commit ni push.
+
+### 2026-10-22 17:27 -03:00
+
+- Archivos: `laboratory_2026/notebooks/co2_reformulation/diagrams/diagramas_modelos.tex`, `diagrams/build_diagrams.ps1` y exportaciones PDF, SVG y PNG.
+- Cambio: creados dos diagramas de bloques en blanco y negro: implementación actual del EKF de LAB019 y adaptación propuesta a Zenteno, con núcleo biológico, estados, capa CO2 e interfaz de medición. Verificadas compilación de dos páginas, exportaciones y revisión visual; modelo científico sin cambios. Trabajo detenido a petición del usuario para continuarlo después; sin commit ni push.
+
+### 2026-10-22 18:53 -03:00
+
+- Archivos: `laboratory_2026/notebooks/co2_reformulation/diagrams/diagramas_modelos.tex` y exportaciones PDF, SVG y PNG.
+- Cambio: corregidos ambos diagramas para representar exclusivamente el modelo biológico y la capa CO2; retirados EKF, matrices, correcciones y procesamiento de mediciones. Incorporadas leyendas de estados, variables y unidades, y salida continua del modelo. Verificadas compilación, ausencia de contenido del estimador y revisión visual de ambas páginas; sin cambios en las ecuaciones ejecutables, commit ni push.
