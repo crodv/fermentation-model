@@ -633,3 +633,53 @@ Registro breve de cambios implementados por agentes en el repositorio.
 
 - Archivos: `laboratory_2026/notebooks/co2_reformulation/diagrams/diagramas_modelos.tex` y exportaciones PDF, SVG y PNG.
 - Cambio: corregidos ambos diagramas para representar exclusivamente el modelo biológico y la capa CO2; retirados EKF, matrices, correcciones y procesamiento de mediciones. Incorporadas leyendas de estados, variables y unidades, y salida continua del modelo. Verificadas compilación, ausencia de contenido del estimador y revisión visual de ambas páginas; sin cambios en las ecuaciones ejecutables, commit ni push.
+
+### 2026-10-22 23:21 -03:00
+
+- Archivos: `laboratory_2026/notebooks/co2_reformulation/zenteno_co2_model.py`, `04_zenteno_co2_calibration.source.ipynb`, `04_zenteno_co2_calibration.executed.ipynb` y `04_zenteno_co2_artifacts/`.
+- Cambio: implementada capa independiente de Zenteno con theta_full fijo y seis estados; calibrados kLa/Csat en LAB019–021 y evaluada transferencia sin reajuste en LAB016–018. Incluidas seis figuras de registros completos, química, almacenamiento y balances acumulados frente a los datos; cero instrumental fijado antes de inoculación. Verificados RHS compartido, soluciones analíticas, conservación, saltos de N, refinamiento, separación del ajuste, integridad de entradas y concordancia SOURCE/EXECUTED sin errores. Documentada solución en cota de Csat y limitación para explicar el lag; modelo previo intacto, sin commit ni push.
+
+### 2026-10-22 23:59 -03:00
+
+- Archivos: `laboratory_2026/notebooks/co2_reformulation/05_zenteno_biomass_6e6.source.ipynb`, `05_zenteno_biomass_6e6.executed.ipynb` y `05_zenteno_biomass_6e6_artifacts/`.
+- Cambio: ejecutada comparación de LAB016–018 con X0=0.18 g/L (6 millones de células viables/mL) frente a 0.39 g/L, conservando theta_full y la calibración Zenteno de LAB019–021. Incorporadas tres figuras con curvas completas de CO2, biología y acumulados, métricas pareadas y controles de conservación, saltos de N, refinamiento e integridad. Verificadas 12 celdas SOURCE/EXECUTED concordantes sin errores; conservados módulo, datos y resultados anteriores, sin commit ni push.
+
+### 2026-10-23 00:54 -03:00
+
+- Archivos: `laboratory_2026/notebooks/co2_reformulation/06_zenteno_fixed_kla.source.ipynb`, `06_zenteno_fixed_kla.executed.ipynb` y `06_zenteno_fixed_kla_artifacts/`.
+- Cambio: fijado kLa=0.07 h-1 y recalibrado solo Csat con LAB019–021; comparación pareada con el ajuste anterior y transferencia LAB016–018 con 6 y 13 millones de células/mL. Incluidas cinco figuras de curvas completas, inicio y CO2 disuelto, perfiles y métricas; verificados ejecución, conservación, refinamiento e integridad de referencias 04/05 y theta_full. Sin cambios en el módulo científico, commit ni push.
+
+### 2026-10-23 01:32 -03:00
+
+- Archivos: `laboratory_2026/notebooks/co2_reformulation/zenteno_co2_model.py`, `07_zenteno_literal.source.ipynb`, `07_zenteno_literal.executed.ipynb` y `07_zenteno_literal_artifacts/`; eliminados notebooks 04–06 (SOURCE/EXECUTED) y sus tres carpetas de resultados.
+- Cambio: sustituida la adaptación por las ecuaciones literales 14–16 de CO2 de Zenteno a volumen constante, sin límites por producción ni recortes de caudales negativos. Conservados theta_full y X0=0.18 g/L en LAB016–018; kLa=0.07 fijo y Csat nominal o recalibrado en LAB019–021. Incluidas curvas completas y diagnóstico de negativos; verificadas solución analítica, balance firmado, refinamiento, integridad de entradas y concordancia SOURCE/EXECUTED. Sin comparaciones con los ensayos eliminados, commit ni push.
+
+### 2026-10-23 13:06 -03:00
+
+- Archivos: `laboratory_2026/notebooks/co2_reformulation/co2_woO2.source.ipynb`, `co2_woO2.executed.ipynb` y `co2_woO2_artifacts/`; eliminados `07_zenteno_literal.source.ipynb`, `07_zenteno_literal.executed.ipynb` y `07_zenteno_literal_artifacts/`.
+- Cambio: retirada la modulación y el estado de O2 de la formulación principal de v3, conservando theta_full, activación, nutrición y preprocesamiento. Recalibrados Z1/Z2 con curvas completas, química reservada y transferencia entre LAB019–021 y LAB016–018. Verificados observaciones iguales a v3, paridad química, balance, refinamiento y nueve celdas ejecutadas concordantes sin errores; siete figuras integradas. Sin commit ni push.
+
+### 2026-10-23 13:22 -03:00
+
+- Archivos: eliminado `laboratory_2026/notebooks/co2_reformulation/zenteno_co2_model.py` y su caché compilada.
+- Cambio: retirado el módulo residual de los ensayos Zenteno eliminados; verificada su ausencia. Sin commit ni push.
+
+### 2026-10-23 13:28 -03:00
+
+- Archivos: `laboratory_2026/notebooks/co2_reformulation/co2_woO2.source.ipynb`, `co2_woO2.executed.ipynb` y `co2_woO2_artifacts/`.
+- Cambio: reorganizadas las figuras de CO2 como en v3, primero joint con los seis LAB y después transfer con ambas direcciones en una figura; igualados orden, títulos, señal densa y ejes. Regenerado EXECUTED y verificadas calibraciones idénticas, seis figuras y ausencia de errores. Sin commit ni push.
+
+### 2026-10-25 19:48 -03:00
+
+- Archivos: `laboratory_2026/notebooks/co2_reformulation/co2_cdZenteno.source.ipynb`, `co2_cdZenteno.executed.ipynb` y `co2_cdZenteno_artifacts/`.
+- Cambio: implementada la capa de CO2 disuelto de Zenteno con limites explicitos por produccion y saturacion, Cd(0)=0 y theta_full fijo; calibrados kLa y Csat, sin ganancia ni activaciones de la capa anterior. Incluidos joint, transfer, curvas completas y muestras quimicas reservadas. Verificadas no negatividad, conservacion, integracion independiente, refinamiento, paridad quimica e integridad de entradas; nueve celdas ejecutadas sin errores y seis figuras. El ajuste LAB019-021 alcanza el limite superior de Csat. Sin commit ni push.
+
+### 2026-10-25 19:59 -03:00
+
+- Archivos: `laboratory_2026/notebooks/co2_reformulation/co2_cdZenteno.source.ipynb`, `co2_cdZenteno.executed.ipynb` y `co2_cdZenteno_artifacts/`.
+- Cambio: excluidas las primeras 3 h de los seis LAB del ajuste y las metricas de CO2, conservando simulacion desde t=0 y figuras joint/transfer. Recalibrados kLa y Csat; exportada auditoria de 108 observaciones excluidas y corregida la escritura de las ecuaciones. Verificados soporte t>=3 h, trayectorias completas, balances, no negatividad, paridad quimica y ejecucion SOURCE/EXECUTED sin errores. Sin commit ni push.
+
+### 2026-10-25 20:15 -03:00
+
+- Archivos: `laboratory_2026/notebooks/co2_reformulation/co2_cdZenteno.source.ipynb`, `co2_cdZenteno.executed.ipynb` y `co2_cdZenteno_artifacts/`.
+- Cambio: fijado Csat=1.5 g/L y recalibrado solo kLa mediante exploracion logaritmica y refinamiento escalar, manteniendo theta_full, Cd(0)=0, exclusion 0-3 h y figuras joint/transfer. Regenerados resultados y leyendas; verificados parametro fijo, cotas del inventario, no negatividad, balances, integridad y concordancia SOURCE/EXECUTED sin errores. Sin commit ni push.

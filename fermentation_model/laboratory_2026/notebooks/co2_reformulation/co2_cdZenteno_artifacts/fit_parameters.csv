@@ -1,0 +1,4 @@
+training,labs,kLa_h,Csat_g_l,free_parameters,fixed_parameters,objective,success,active_bounds
+all_six,"LAB016,LAB017,LAB018,LAB019,LAB020,LAB021",0.0694487195751645,1.5,kLa_h,Csat_g_l,0.3909631678688252,True,
+train_019_021,"LAB019,LAB020,LAB021",0.010175258843030558,1.5,kLa_h,Csat_g_l,0.1903507831869526,True,
+train_016_018,"LAB016,LAB017,LAB018",0.07234878996139969,1.5,kLa_h,Csat_g_l,0.1988723495833425,True,

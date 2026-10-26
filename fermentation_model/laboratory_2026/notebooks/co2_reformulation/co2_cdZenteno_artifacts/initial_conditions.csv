@@ -1,0 +1,7 @@
+lab,source,X,Xd,N,G,F,E,Gly,N_events,horizon_h
+LAB016,X0 por 13 millones de células viables/mL del usuario; G+F por densidad 1069; G:F proxy; Xd/E/N0/Gly y dosis N previas conservadas,0.39,0.0,0.21433,84.15881539069706,88.34118460930294,0.0,1.14,"((56.93555555555583, 0.14),)",151.1002777777778
+LAB017,X0 por 13 millones de células viables/mL del usuario; G+F por densidad 1069; G:F proxy; Xd/E/N0/Gly y dosis N previas conservadas,0.39,0.0,0.21433,84.15881539069706,88.34118460930294,0.0,1.14,"((56.933611111110835, 0.14), (57.13388888888889, 0.14))",151.0988888888889
+LAB018,X0 por 13 millones de células viables/mL del usuario; G+F por densidad 1069; G:F proxy; Xd/E/N0/Gly y dosis N previas conservadas,0.39,0.0,0.21433,84.15881539069706,88.34118460930294,0.0,1.14,"((56.93166666666694, 0.14),)",151.0969444444439
+LAB019,N inicial m1 del CSV corregido; biomasa viable ponderada; temperatura completa hasta última química,0.2831619028436019,0.0326609999999999,0.230025,79.19,78.97,12.075372000000002,1.22,"((64.33333333333277, 0.08),)",166.0
+LAB020,N inicial m1 del CSV corregido; biomasa viable ponderada; temperatura completa hasta última química,0.1533416694312796,0.0326609999999999,0.225556,77.94,79.52000000000001,11.917524,1.38,"((71.66666666666694, 0.08),)",166.0
+LAB021,N inicial m1 del CSV corregido; biomasa viable ponderada; temperatura completa hasta última química,0.1361529277251185,0.0326609999999999,0.231202,80.19,81.03999999999999,11.759676,1.28,"((47.5, 0.08),)",166.0

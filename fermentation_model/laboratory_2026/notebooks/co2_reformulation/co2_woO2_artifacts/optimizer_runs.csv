@@ -1,0 +1,10 @@
+theta,training,filtering,mode,temperature,start,success,nfev,objective,message
+theta_full,all_six,offline_30min,woO2,reference_20_45,0,True,13,0.13002319368281298,`xtol` termination condition is satisfied.
+theta_full,all_six,offline_30min,woO2,reference_20_45,1,True,13,0.11671548653969692,`xtol` termination condition is satisfied.
+theta_full,all_six,offline_30min,woO2,reference_20_45,2,True,12,0.11682143842082496,`xtol` termination condition is satisfied.
+theta_full,train_019_021,offline_30min,woO2,reference_20_45,0,True,14,0.056991199353791856,`ftol` termination condition is satisfied.
+theta_full,train_019_021,offline_30min,woO2,reference_20_45,1,True,11,0.05632830557601576,`xtol` termination condition is satisfied.
+theta_full,train_019_021,offline_30min,woO2,reference_20_45,2,True,19,0.056319233821803774,`xtol` termination condition is satisfied.
+theta_full,train_016_018,offline_30min,woO2,reference_20_45,0,True,8,0.04321037801268866,`ftol` termination condition is satisfied.
+theta_full,train_016_018,offline_30min,woO2,reference_20_45,1,True,12,0.0432103779838574,`ftol` termination condition is satisfied.
+theta_full,train_016_018,offline_30min,woO2,reference_20_45,2,True,11,0.0432103785022174,`ftol` termination condition is satisfied.
